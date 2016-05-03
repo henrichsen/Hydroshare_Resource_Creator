@@ -1,0 +1,2 @@
+tethysapp
+tethysapp.hydroshare_resource_creator
