@@ -29,6 +29,9 @@ class HydroshareResourceCreator(TethysAppBase):
                     UrlMap(name='chart_data',
                            url='chart_data/{res_id}/{src}',
                            controller='hydroshare_resource_creator.controllers.chart_data'),
+                    UrlMap(name='write_file',
+                           url='write_file',
+                           controller='hydroshare_resource_creator.controllers.write_file'),
         )
 
         return url_maps

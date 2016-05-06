@@ -19,15 +19,10 @@ def home(request):
     """
     Controller for the app home page.
     """
-
-    print "hello world"
     context = {}
-
     return render(request, 'hydroshare_resource_creator/home.html', context)
 
 def chart_data(request, res_id, src):
-    print "hello world !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-
     # checks if we already have an unzipped xml file
     file_path = utilities.waterml_file_path(res_id)
     # if we don't have the xml file, downloads and unzips it
@@ -40,22 +35,13 @@ def chart_data(request, res_id, src):
     else:
         # parses the WaterML to a chart data object
         data_for_chart = utilities.Original_Checker(file_path)
-
-
         temp_dir = utilities.get_workspace()
         if not os.path.exists(temp_dir+"/hydroshare"):
             os.makedirs(temp_dir+"/hydroshare")
         file_temp_name = temp_dir + '/hydroshare/HIS_reference_timeseries.txt'
         file_temp = open(file_temp_name, 'a')
-        file_temp.write(str(data_for_chart)+"/n")
+        file_temp.writelines(str(data_for_chart))
         file_temp.close()
-        # hs = getOAuthHS(request)
-        # abstract = 'My abstract'
-        # title = 'My resource'
-        # keywords = ('my keyword 1', 'my keyword 2')
-        # rtype = 'GenericResource'
-        # fpath = '/path/to/a/file'
-        # resource_id = hs.createResource(rtype, title, resource_file=fpath, keywords=keywords, abstract=abstract)
 
         return JsonResponse(data_for_chart)
 def getOAuthHS(request):
@@ -81,3 +67,16 @@ def connect_wsdl_url(wsdl_url):
     except:
         raise Exception("Unexpected error")
     return client
+def write_file(request):
+    sucess = {"File uploaded":"sucess"}
+    temp_dir = utilities.get_workspace()
+    file_temp_name = temp_dir + '/hydroshare/HIS_reference_timeseries.txt'
+    hs = getOAuthHS(request)
+    abstract = 'My abstract'
+    title = 'My resource'
+    keywords = ('my keyword 1', 'my keyword 2')
+    rtype = 'GenericResource'
+    fpath = file_temp_name
+    resource_id = hs.createResource(rtype, title, resource_file=fpath, keywords=keywords, abstract=abstract)
+    os.remove(file_temp_name)
+    return JsonResponse(sucess)

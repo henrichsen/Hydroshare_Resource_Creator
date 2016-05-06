@@ -67,8 +67,6 @@ def parse_1_0_and_1_1(root):
 
     root_tag = root.tag.lower()
 
-
-    print "hi"
     # we only display the first 50000 values
     threshold = 50000000
     try:
@@ -102,7 +100,7 @@ def parse_1_0_and_1_1(root):
                 if '}' in element.tag:
                     bracket_lock = element.tag.index('}')  # The namespace in the tag is enclosed in {}.
                     tag = element.tag[bracket_lock+1:]     # Takes only actual tag, no namespace
-                print tag
+
                 if 'value' == tag:
                     try:
                         my_times.append(element.attrib['dateTimeUTC'])
@@ -403,8 +401,7 @@ def parse_2_0(root):
 
 
 def Original_Checker(xml_file):
-    print "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-    print xml_file
+
     try:
         tree = etree.parse(xml_file)
         root = tree.getroot()
@@ -435,7 +432,7 @@ def unzip_waterml(request, res_id,src):
     # waterml_url = ''
 
     # get the URL of the remote zipped WaterML resource
-    print "adjhfkjdhsdkhsdjhflksdjfjsdhfjhfsdkfhskjdfshfskdljhfskfhdfskdhfdklf"
+
 
     if not os.path.exists(temp_dir+"/id"):
         os.makedirs(temp_dir+"/id")
