@@ -6,7 +6,7 @@
 
 {% block app_icon %}
   {# The path you provided in your app.py is accessible through the tethys_app.icon context variable #}
-  <img src="{% static tethys_app.icon %}">
+  <img src="{% static 'hydroshare_resource_creator/images/cuahsi_logo_small.png' %}">
 {% endblock %}
 
 {# The name you provided in your app.py is accessible through the tethys_app.name context variable #}
@@ -29,6 +29,8 @@
 {% endblock %}
 
 {% block app_actions %}
+{% endblock %}
+{% block exit_button_override %}
 {% endblock %}
 
 {% block content_dependent_styles %}

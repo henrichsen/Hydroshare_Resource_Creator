@@ -1,4 +1,5 @@
 from lxml import etree
+from lxml.builder import E
 import numpy
 import requests
 import time
@@ -15,6 +16,7 @@ import zipfile
 import os
 import dateutil.parser
 from datetime import datetime
+import collections
 
 def get_app_base_uri(request):
     base_url = request.build_absolute_uri()
@@ -63,7 +65,7 @@ def time_to_int(t):
         raise Exception('time_to_int error: ' + t)
 
 
-def parse_1_0_and_1_1(root):
+def parse_1_0_and_1_1(root,wml_version):
 
     root_tag = root.tag.lower()
 
@@ -75,15 +77,33 @@ def parse_1_0_and_1_1(root):
             # lists to store the time-series data
             for_graph = []
             boxplot = []
+            master_values=collections.OrderedDict()
+            master_values1=collections.OrderedDict()
+            master_times = collections.OrderedDict()
+            master_boxplot = collections.OrderedDict()
+            master_stat = collections.OrderedDict()
+            master_data_values = collections.OrderedDict()
+            # master_values = collections.namedtuple('id','time','value')
+            meth_qual = [] # List of all the quality, method, and source combinations
             for_highchart = []
+            for_canvas = []
             my_times = []
             my_values = []
+            meta_dic ={'method':{},'quality':{},'source':{},'organization':{},'quality_code':{}}
+            m_des = []
+            u=0
+            m_code = []
+            m_org =[]
+            quality={}
+            source={}
+            counter = 0
+            x_value = []
+            y_value = []
+            master_counter =True
             nodata = "-9999"  # default NoData value. The actual NoData value is read from the XML noDataValue tag
             timeunit=None
             sourcedescription = None
             timesupport =None
-            variablecode = None
-            sitecode = None
             # metadata items
             units, site_name, variable_name,quality,method, organization = None, None, None, None, None, None
             unit_is_set = False
@@ -91,158 +111,255 @@ def parse_1_0_and_1_1(root):
             valuetype = None
             samplemedium = None
             smallest_value = 0
+            n = None
+            v = None
+            t= 0
+            times =[]
+            x = 'x'
+            y = 'y'
+            RefType= None
+            ServiceType= None
+            URL= None
+            ReturnType= None
+            Lat = None
+            Lon =None
             # iterate through xml document and read all values
 
+            # print "parsing values from water ml"
+            # print datetime.now()
 
             for element in root.iter():
-
                 bracket_lock = -1
                 if '}' in element.tag:
+                    # if 'waterML/1.1' in element.tag:
+                    #     ReturnType = 'WaterML1.1'
+                    # elif 'waterML/1.0' in element.tag
+
+
                     bracket_lock = element.tag.index('}')  # The namespace in the tag is enclosed in {}.
                     tag = element.tag[bracket_lock+1:]     # Takes only actual tag, no namespace
 
-                if 'value' == tag:
-                    try:
-                        my_times.append(element.attrib['dateTimeUTC'])
-                    except:
-                        my_times.append(element.attrib['dateTime'])
-                    try:
-                        quality= element.attrib['qualityControlLevel']
-                    except:
-                        quality1 =''
-                    my_values.append(element.text)
+
+                    if 'value'!= tag:
+                        # in the xml there is a unit for the value, then for time. just take the first
+                        RefType="WOF"
+                        ServiceType="SOAP"
+                        URL="www.hydroserver.com"
+                        ReturnType='waterml1'
+                        if 'unitName' == tag or 'units' ==tag or 'UnitName'==tag or 'unitCode'==tag:
+                            if not unit_is_set:
+                                units = element.text
+                                unit_is_set = True
+                        if 'noDataValue' == tag:
+                            nodata = element.text
+                        if 'siteName' == tag:
+                            site_name = element.text
+                        if 'variableName' == tag:
+                            variable_name = element.text
+                        if 'organization'==tag or 'Organization'==tag or'siteCode'==tag:
+                            try:
+                                organization = element.attrib['agencyCode']
+                            except:
+                                organization = element.text
+                        if 'definition' == tag or 'qualifierDescription'==tag:
+                            quality = element.text
+                        if 'methodDescription' == tag or 'MethodDescription'==tag:
+                            # print element.attrib['methodID']
+                            method = element.text
+                        if 'dataType' == tag :
+                            datatype = element.text
+                        if 'valueType' == tag:
+                            valuetype = element.text
+                        if "sampleMedium" == tag:
+                            samplemedium = element.text
+                        if "timeSupport"== tag or"timeInterval" ==tag:
+                            timesupport =element.text
+                        if"unitName"== tag or "UnitName"==tag:
+                            timeunit =element.text
+                        if"sourceDescription"== tag or "SourceDescription"==tag:
+                            sourcedescription =element.text
+                        if "latitude" ==tag:
+                            Lat = element.text
+                        if "longitude"==tag:
+                            Lon = element.text
+
+                        if "method" ==tag:
+                            for subele in element:
+                                bracket_lock = subele.tag.index('}')  # The namespace in the tag is enclosed in {}.
+                                tag1 = element.tag[bracket_lock+1:]
+                                # Takes only actual tag, no namespace
+                                if 'methodCode' in subele.tag:
+                                    m_code = subele.text
+                                if 'methodDescription' in subele.tag:
+                                    m_des = subele.text
+                            meta_dic['method'].update({m_code:m_des})
+                        if "source" ==tag:
+                            for subele in element:
+                                bracket_lock = subele.tag.index('}')  # The namespace in the tag is enclosed in {}.
+                                tag1 = element.tag[bracket_lock+1:]
+                                # Takes only actual tag, no namespace
+                                if 'sourceCode' in subele.tag:
+                                    m_code = subele.text
+                                if 'sourceDescription' in subele.tag:
+                                    m_des = subele.text
+                                if 'organization' in subele.tag:
+                                    m_org = subele.text
+                            meta_dic['source'].update({m_code:m_des})
+                            meta_dic['organization'].update({m_code:m_org})
+                        if "qualityControlLevel" ==tag:
+                            for subele in element:
+                                bracket_lock = subele.tag.index('}')  # The namespace in the tag is enclosed in {}.
+                                tag1 = element.tag[bracket_lock+1:]
+                                # Takes only actual tag, no namespace
+                                if 'qualityControlLevelCode' in subele.tag:
+                                    m_code = subele.text
+                                if 'definition' in subele.tag:
+                                    m_des = subele.text
+                            meta_dic['quality'].update({m_code:m_des})
+
+                    elif 'value' == tag:
+                        # print element.attrib
+                        try:
+                            # my_times.append(element.attrib['dateTimeUTC'])
+                            n = element.attrib['dateTimeUTC']
+                        except:
+                            # my_times.append(element.attrib['dateTime'])
+                            n =element.attrib['dateTime']
+                        try:
+                            quality= element.attrib['qualityControlLevelCode']
+                        except:
+                            quality1 =''
+                        try:
+                            method = element.attrib['methodCode']
+                        except:
+                            method=''
+                        try:
+                            source = element.attrib['sourceCode']
+                        except:
+                            source=''
+
+
+                        dic = quality +'aa'+method+'aa'+source
+
+                        if dic not in meth_qual:
+                            meth_qual.append(dic)
+                            # meth_qual.append(dic1)
+                            master_values.update({dic:[]})
+                            master_times.update({dic:[]})
+                            master_boxplot.update({dic:[]})
+                            master_stat.update({dic:[]})
+                            master_data_values.update({dic:[]})
+
+                        v = element.text
+                        # tii = pd.Timestamp(n).value/1000000#pandas convert string to time object
+                        # tii = ti.value/1000000 #gets timestamp and convert time to milliseconds
+                        # t =t*1000# This adds three extra zeros for correct formatting
+
+                        if v == nodata:
+                            value = None
+                            # for_canvas.append({x:n,y:value})
+                            # for_graph.append(value)
+                            x_value.append(n)
+                            y_value.append(value)
+                            v =None
+
+                        else:
+                            # for_canvas.append({x:n,y:v})
+
+                            v = float(element.text)
+                            for_graph.append(v)
+                            x_value.append(n)
+                            y_value.append(v)
+                            master_data_values[dic].append(v) #records only none null values for running statistics
+                            # print "hello"
+                    #master_values[dic].update({n:v})
+                        master_values[dic].append(v)
+                        master_times[dic].append(n)
+                        # master_values(dic,n,v)
+
+            for item in master_data_values:
+                if len(master_data_values[item]) ==0:
+                    mean = None
+                    median =None
+                    quar1 = None
+                    quar3 = None
+                    min1 = None
+                    max1=None
                 else:
-                    # in the xml there is a unit for the value, then for time. just take the first
-                    if 'unitName' == tag or 'units' ==tag:
-                        if not unit_is_set:
-                            units = element.text
-                            unit_is_set = True
-                    if 'noDataValue' == tag:
-                        nodata = element.text
-                    if 'siteName' == tag:
-                        site_name = element.text
-                    if 'variableName' == tag:
-                        variable_name = element.text
-                    if 'organization'==tag or 'Organization'==tag:
-                        organization = element.text
-                    if 'definition' == tag:
-                        quality = element.text
-                    if 'methodDescription' == tag or 'MethodDescription'==tag:
-                        method = element.text
-                    if 'dataType' == tag:
-                        datatype = element.text
-                    if 'valueType' == tag:
-                        valuetype = element.text
-                    if "sampleMedium" == tag:
-                        samplemedium = element.text
-                    if "timeSupport"== tag or"timeInterval" ==tag:
-                        timesupport =element.text
-                    if"unitName"== tag or "UnitName"==tag:
-                        timeunit =element.text
-                    if"sourceDescription"== tag or "SourceDescription"==tag:
-                        sourcedescription =element.text
-                    if "queryURL"== tag or "QueryURL" ==tag:
-                        queryUrl = element.text
-                    if "siteCode" == tag or "SiteCode" == tag:
-                        sitecode = element.text
-                    if "variableCode" == tag or "VariableCode" == tag:
-                        code = element.text
-                        variablecode = element.attrib['network']+":"+code[:5]
-
-            # variablecode = "hi"
-            # sitecode = "hello"
-            # Measuring the WaterML processing time ...
-            data_for_hydroshare = queryUrl+', '+sitecode +', '+ variablecode
-
-
-            for  v in range(0, len(my_values)):
-                if v >= smallest_value:
-                    smallest_value = v
-            for i in range(0, len(my_times)):
-                # if we get past the threshold, break
-                if i >= threshold:
-                    break
-                # parse date and time
-
-                # t = dateutil.parser.parse(my_times[i], ignoretz=True)
-                # formatting time for HighCharts (milliseconds since Jan1 1970)
-                # t = int((t - datetime(1970, 1, 1)).total_seconds() * 1000)
-                # check to see  there are null values in the time series
-                #new time converter
-
-                # time5 = my_times[i] used to fix an issue with WOFpy
-                # time1 = time5[:-6]
-
-                try:
-                    t= time.mktime(datetime.strptime(my_times[i],"%Y-%m-%dT%H:%M:%S").timetuple())
-                except:
-                    t= time.mktime(datetime.strptime(my_times[i],"%Y-%m-%dT%H:%M:%SZ-").timetuple())
-                t =t*1000# This adds three extra zeros for correct formatting
-
-                if my_values[i] == nodata:
-                    for_highchart.append([t, None])
-                else:
-                    for_highchart.append([t, float(my_values[i])])
-                    for_graph.append(float(my_values[i]))
-            smallest_time = for_highchart[0][0]
-            value_count = len(for_highchart)
-            largest_time = for_highchart[value_count - 1][0]
-            # End of measuring the WaterML processing time...
-            mean = numpy.mean(for_graph)
-            mean = float(format(mean, '.2f'))
-            median = float(format(numpy.median(for_graph), '.2f'))
-            quar1 = float(format(numpy.percentile(for_graph,25), '.2f'))
-            quar3 = float(format(numpy.percentile(for_graph,75), '.2f'))
-            min1 = float(format(min(for_graph), '.2f'))
-            max1 = float(format(max(for_graph), '.2f'))
-            boxplot.append(1)
-            boxplot.append(min1)#adding data for the boxplot
-            boxplot.append(quar1)
-            boxplot.append(median)
-            boxplot.append(quar3)
-            boxplot.append(max1)
-            #boxplot ="hi"
+                    mean = numpy.mean(master_data_values[item])
+                    mean = float(format(mean, '.2f'))
+                    median = float(format(numpy.median(master_data_values[item]), '.2f'))
+                    quar1 = float(format(numpy.percentile(master_data_values[item],25), '.2f'))
+                    quar3 = float(format(numpy.percentile(master_data_values[item],75), '.2f'))
+                    min1 = float(format(min(master_data_values[item]), '.2f'))
+                    max1 = float(format(max(master_data_values[item]), '.2f'))
+                master_stat[item].append(mean)
+                master_stat[item].append(median)
+                master_stat[item].append(max1)
+                master_stat[item].append(min1)
+                master_boxplot[item].append(1)
+                master_boxplot[item].append(min1)#adding data for the boxplot
+                master_boxplot[item].append(quar1)
+                master_boxplot[item].append(median)
+                master_boxplot[item].append(quar3)
+                master_boxplot[item].append(max1)
+            value_count = len(x_value)
             sd = numpy.std(for_graph)
 
+            return {
+                'site_name': site_name,
+                # 'start_date': str(smallest_time),
+                # 'end_date': str(largest_time),
+                'variable_name': variable_name,
+                'units': units,
+                'wml_version': '1',
+                'meta_dic':meta_dic,
+                # 'for_highchart': for_highchart,
+                'for_canvas':for_canvas,
+                'mean': mean,
+                'median': median,
+                'max':max1,
+                'min':min1,
+                'stdev': sd,
+                'count': value_count,
+                'organization': organization,
+                'quality': quality,
+                'method': method,
+                'status': 'success',
+                'datatype' :datatype,
+                'valuetype' :valuetype,
+                'samplemedium':samplemedium,
+                'smallest_value':smallest_value,
+                'timeunit':timeunit,
+                'sourcedescription' :sourcedescription,
+                'timesupport' : timesupport,
+                'master_counter':master_counter,
+                'boxplot':boxplot,
+                # 'xvalue':x_value,
+                # 'yvalue':y_value,
+                # 'master_values':master_values,
+                # 'master_times':master_times,
+                # 'master_boxplot':master_boxplot,
+                # 'master_stat':master_stat,
+                'Lat':Lat,
+                'Lon':Lon,
+                'RefType':RefType,
+                'ServiceType':ServiceType,
+                'URL':URL,
+                'ReturnType':ReturnType,
 
-            return {'queryUrl': queryUrl,"sitecode":sitecode, "variablecode":variablecode}
-            # return {
-            #     'site_name': site_name,
-            #     'start_date': str(smallest_time),
-            #     'end_date': str(largest_time),
-            #     'variable_name': variable_name,
-            #     'units': units,
-            #     'wml_version': '1',
-            #     'for_highchart': for_highchart,
-            #     'mean': mean,
-            #     'median': median,
-            #     'max':max1,
-            #     'min':min1,
-            #     'stdev': sd,
-            #     'count': value_count,
-            #     'organization': organization,
-            #     'quality': quality,
-            #     'method': method,
-            #     'status': 'success',
-            #     'datatype' :datatype,
-            #     'valuetype' :valuetype,
-            #     'samplemedium':samplemedium,
-            #     'smallest_value':smallest_value,
-            #     'timeunit':timeunit,
-            #     'sourcedescription' :sourcedescription,
-            #     'timesupport' : timesupport,
-            #     'boxplot':boxplot,
-            #      'queryUrl': queryUrl,
-            #
-            # }
+
+            }
         else:
             parse_error = "Parsing error: The WaterML document doesn't appear to be a WaterML 1.0/1.1 time series"
+            error_report("Parsing error: The WaterML document doesn't appear to be a WaterML 1.0/1.1 time series")
             print parse_error
             return {
                 'status': parse_error
             }
     except Exception, e:
         data_error = "Parsing error: The Data in the Url, or in the request, was not correctly formatted for water ml 1."
+        error_report("Parsing error: The Data in the Url, or in the request, was not correctly formatted.")
         print data_error
         print e
         return {
@@ -264,7 +381,7 @@ def findZippedUrl(page_request, res_id):
         return zipped_url
 
 
-def parse_2_0(root):
+def parse_2_0(root,wml_version):
     print "running parse_2"
     try:
         if 'Collection' in root.tag:
@@ -407,9 +524,9 @@ def Original_Checker(xml_file):
         root = tree.getroot()
         wml_version = get_version(root)
         if wml_version == '1':
-            return parse_1_0_and_1_1(root)
+            return parse_1_0_and_1_1(root,wml_version)
         elif wml_version == '2.0':
-            return parse_2_0(root)
+            return parse_2_0(root,wml_version)
     except ValueError, e:
         return read_error_file(xml_file)
     except:
@@ -436,7 +553,6 @@ def unzip_waterml(request, res_id,src):
 
     if not os.path.exists(temp_dir+"/id"):
         os.makedirs(temp_dir+"/id")
-
     if 'cuahsi'in src :
         # url_zip = 'http://bcc-hiswebclient.azurewebsites.net/CUAHSI/HydroClient/WaterOneFlowArchive/'+res_id+'/zip'
         url_zip = 'http://qa-webclient-solr.azurewebsites.net/CUAHSI/HydroClient/WaterOneFlowArchive/'+res_id+'/zip'
@@ -445,8 +561,6 @@ def unzip_waterml(request, res_id,src):
     else:
         url_zip = 'http://' + request.META['HTTP_HOST'] + '/apps/data-cart/showfile/'+res_id
     r = requests.get(url_zip, verify=False)
-
-
     try:
         z = zipfile.ZipFile(StringIO.StringIO(r.content))
         file_list = z.namelist()
@@ -534,3 +648,47 @@ def error_report(file):
     file_temp.write(time2+"\n"+file+"\n")
     file_temp.close()
     file_temp.close()
+def create_ts_layer_resource(title):
+    root = etree.Element('TimeSeriesLayerResource')
+    doc = etree.ElementTree(root)
+    temp_dir = get_workspace()
+    file_temp_name = temp_dir + '/hydroshare/' + title + '.xml'
+    outFile = open(file_temp_name, 'w')
+    doc.write(outFile)
+def append_ts_layer_resource(title,metadata):
+    print metadata
+    lon = metadata['Lon']
+    lat = metadata['Lat']
+    # RefType =metadata['RefType']
+    # ServiceType = metadata['ServiceType']
+    # URL = metadata['URL']
+    # ReturnType = metadata['ReturnType']
+
+    # print "adding to file"
+    temp_dir = get_workspace()
+    file_temp_name = temp_dir + '/hydroshare/' + title + '.xml'
+    print file_temp_name
+    tree = etree.parse(file_temp_name)
+
+    root = tree.getroot()
+
+    print root
+    REFTS = etree.SubElement(root,'REFTS')
+
+    RefType = etree.SubElement(REFTS,"RefTye")
+    RefType.text='WOF'
+
+    ServiceType= etree.SubElement(REFTS,"ServiceType")
+    ServiceType.text='Rest'
+
+    URL= etree.SubElement(REFTS,"URL")
+    URL.text='www.hydroserver.com'
+
+    ReturnType= etree.SubElement(REFTS,"ReturnType")
+    ReturnType.text='waterml'
+
+    Location= etree.SubElement(REFTS,"Location")
+    Location.text= lon+', '+ lat
+    doc = etree.ElementTree(root)
+    doc.write(file_temp_name)
+

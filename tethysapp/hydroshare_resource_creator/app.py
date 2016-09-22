@@ -32,6 +32,12 @@ class HydroshareResourceCreator(TethysAppBase):
                     UrlMap(name='write_file',
                            url='write_file',
                            controller='hydroshare_resource_creator.controllers.write_file'),
+                    UrlMap(name='response',
+                           url='response',
+                           controller='hydroshare_resource_creator.controllers.response'),
+                    UrlMap(name='create_layer',
+                           url='create_layer/{title}',
+                           controller='hydroshare_resource_creator.controllers.create_layer'),
         )
 
         return url_maps

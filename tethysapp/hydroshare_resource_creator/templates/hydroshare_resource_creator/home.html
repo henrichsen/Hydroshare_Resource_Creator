@@ -1,11 +1,77 @@
 {% extends "hydroshare_resource_creator/base.html" %}
 
 {% block app_content %}
-  <h1>Welcome!</h1>
-  <p>Congratulations on creating a new Tethys app!</p>
+
+
+<!-- Save New Project Modal -->
+<div id="create_resource" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">HydroShare Time Series Layer Resource</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="res-title" class="control-label">*Resource Title:</label>
+          <input type="text" class="form-control" id="res-title">
+        </div>
+        <div class="form-group">
+          <label for="res-abstract" class="control-label">Resource Abstract:</label>
+          <textarea rows="6" cols="50" id="res-abstract" class="form-control"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="res-keywords" class="control-label">Resource Keywords:</label>
+          <input type="text" class="form-control" id="res-keywords" value="Time Series">
+        </div>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-default footer" data-dismiss="modal">Close</button>
+          <button id = 'btn_create_ts_layer' type="button" class="btn btn-primary footer">Create</button>
+      </div>
+    </div>
+    <!--End modal content-->
+  </div>
+</div>
+<div id = "stat_div" >
+    <table id="data_table" class="display" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th></th>
+
+                    <th>Reference Type</th>
+                    <th>Service Type</th>
+                    <th>URL</th>
+                    <th>Return Type</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                    <!--<th>Download Data</th>-->
+                </tr>
+            </thead>
+        </table>
+</div>
+<div id = loading>
+    <!--http://cssload.net/-->
+    <!--<img src="/static/timeseries_viewer/images/main-loading-anim.gif" />-->
+    <div class="cssload-loader">
+        <div class="cssload-dot"></div>
+        <div class="cssload-dot"></div>
+        <div class="cssload-dot"></div>
+        <div class="cssload-dot"></div>
+        <div class="cssload-dot"></div>
+    </div>
+</div>
+<button id ='btn_show_modal_create' type="button" class="btn btn-success">Create Time Series Layer Resource</button>
+<!-- End modal -->
 {% endblock %}
 
+{% block scripts %}
+
+<link href = 'https://cdn.datatables.net/1.10.10/css/jquery.dataTables.min.css' rel ='stylesheet'>
+<script src="https://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
+{{ block.super }}
+{% endblock %}
 {% block app_actions %}
-  <a href="" class="btn btn-default">Next</a>
-  <a href="" class="btn btn-default">Back</a>
+
 {% endblock %}
