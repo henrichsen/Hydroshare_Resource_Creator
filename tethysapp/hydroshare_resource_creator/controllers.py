@@ -32,6 +32,8 @@ def chart_data(request, res_id, src):
     if not os.path.exists(file_path):
         print "does not exist"
         utilities.unzip_waterml(request, res_id,src)
+    if src =='cuahsi':
+        source = "WOF"
 
     # returns an error message if the unzip_waterml failed
     # parses the WaterML to a chart data object
@@ -43,7 +45,7 @@ def chart_data(request, res_id, src):
     file_temp = open(file_temp_name, 'w')
     file_temp.writelines(str(data_for_chart))
     file_temp.close()
-
+    data_for_chart['RefType']=source
     return JsonResponse(data_for_chart)
 
 def getOAuthHS(request):
@@ -101,42 +103,67 @@ def write_file(request):
     # resource_id = hs.createResource(rtype, title, resource_file=fpath, keywords=keywords, abstract=abstract)
     # os.remove(file_temp_name)
     return JsonResponse(sucess)
-def response(request):
-    # service_url = 'http://hydroportal.cuahsi.org/nwisdv/cuahsi_1_1.asmx?WSDL'
-    service_url = 'http://143.234.88.22/TarlandHydrologyDataWS/cuahsi_1_1.asmx?WSDL'
-    # site_code = '10147100'
-    site_code = 'ODM:010210JHI'
-    variable_code = 'ODM:Discharge'
-    # variable_code = 'NWISDV:00060'
-    client = connect_wsdl_url(service_url)
-    print client
-    start_date =''
-    end_date = ''
-    auth_token = ''
-    # response1 = client.service.GetValues(site_code, variable_code, start_date, end_date, auth_token)
-    response1 = client.service.GetSiteInfo(site_code, auth_token)
+def response(request,title):
+    # # service_url = 'http://hydroportal.cuahsi.org/nwisdv/cuahsi_1_1.asmx?WSDL'
+    # service_url = 'http://143.234.88.22/TarlandHydrologyDataWS/cuahsi_1_1.asmx?WSDL'
+    # # site_code = '10147100'
+    # site_code = 'ODM:010210JHI'
+    # variable_code = 'ODM:Discharge'
+    # # variable_code = 'NWISDV:00060'
+    # client = connect_wsdl_url(service_url)
+    # print client
+    # start_date =''
+    # end_date = ''
+    # auth_token = ''
+    # # response1 = client.service.GetValues(site_code, variable_code, start_date, end_date, auth_token)
+    # response1 = client.service.GetSiteInfo(site_code, auth_token)
     # response1 = {"File uploaded":"sucess"}
-    return JsonResponse({"File":response1})
+    base_path = utilities.get_workspace()+"/hydroshare"
+    file_path = base_path + "/" +title
+    response = HttpResponse(FileWrapper(open(file_path)), content_type='application/xml')
+    return response
+    # return JsonResponse({"File":response1})
 @ensure_csrf_cookie
-def create_layer(request,title):
+def create_layer(request,src):
     res_id = request.POST.get('checked_ids')
+    title = request.POST.get('resTitle')
+    abstract = request.POST.get('resAbstract')
+    keywords = request.POST.get('resKeywords')
+    # title = "test"
     res_id=res_id.strip('[')
     res_id=res_id.strip(']')
     res_id=res_id.strip('"')
     res_id = res_id.replace('"','')
 
     res_id = res_id.split(',' )
-    print res_id
+
     utilities.create_ts_layer_resource(title)
 
-    print type(res_id)
+
     for id in res_id:
-        print id
-        print "runnnnnnnnnnnnnnnning"
+
         file_path = utilities.waterml_file_path(id)
-        print file_path
+
         meta_data = utilities.Original_Checker(file_path)
         utilities.append_ts_layer_resource(title,meta_data)
 
+    # metadata = []
+    # hs = getOAuthHS(request)
+    # waterml_url = "http://hydrodata.info/chmi-h/cuahsi_1_1.asmx/GetValuesObject?location=CHMI-H:140&variable=CHMI-H:TEPLOTA&startDate=2015-07-01&endDate=2015-07-10&authToken="
+    # ref_type = "rest"
+    # metadata.append({"referenceurl":
+    #         {"value": waterml_url,
+    #         "type": ref_type}})
+    # r_type = 'RefTimeSeriesResource'
+    # r_title = "test"
+    # r_keywords = ["test"]
+    # r_abstract = "This is a test of the resource creator"
+    # res_id = hs.createResource(r_type,
+    #                     r_title,
+    #                     resource_file=None,
+    #                     keywords=r_keywords,
+    #                     abstract=r_abstract,
+    #                     metadata=json.dumps(metadata))
+    #
     #upload to hydroshare stuff
-    return JsonResponse({'Request':"sucess"})
+    return JsonResponse({'Request':"success"})

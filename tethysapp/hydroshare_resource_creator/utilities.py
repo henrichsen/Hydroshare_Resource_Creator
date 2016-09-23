@@ -36,12 +36,16 @@ def get_version(root):
     for element in root.iter():
         if '{http://www.opengis.net/waterml/2.0}Collection' in element.tag:
             wml_version = '2.0'
+            wml_title = "WaterML 2.0"
             break
-        if '{http://www.cuahsi.org/waterML/1.1/}timeSeriesResponse' \
-        or '{http://www.cuahsi.org/waterML/1.0/}timeSeriesResponse' in element.tag:
+        if '{http://www.cuahsi.org/waterML/1.1/}timeSeriesResponse' in element.tag:
             wml_version = '1'
+            wml_title = "WaterML 1.1"
+        if '{http://www.cuahsi.org/waterML/1.0/}timeSeriesResponse' in element.tag:
+            wml_version = '1'
+            wml_title = "WaterML 1.0"
             break
-    return wml_version
+    return {'version':wml_version,'title':wml_title}
 
 #drew 20150401 convert date string into datetime obj
 def time_str_to_datetime(t):
@@ -65,10 +69,16 @@ def time_to_int(t):
         raise Exception('time_to_int error: ' + t)
 
 
-def parse_1_0_and_1_1(root,wml_version):
+def parse_1_0_and_1_1(root):
 
     root_tag = root.tag.lower()
+    ReturnType= get_version(root)['title']
+    ServiceType = None
 
+    if "soap" in str(root):
+        ServiceType="SOAP"
+    else:
+        ServiceType ="REST"
     # we only display the first 50000 values
     threshold = 50000000
     try:
@@ -118,9 +128,9 @@ def parse_1_0_and_1_1(root,wml_version):
             x = 'x'
             y = 'y'
             RefType= None
-            ServiceType= None
+
             URL= None
-            ReturnType= None
+
             Lat = None
             Lon =None
             # iterate through xml document and read all values
@@ -142,10 +152,10 @@ def parse_1_0_and_1_1(root,wml_version):
 
                     if 'value'!= tag:
                         # in the xml there is a unit for the value, then for time. just take the first
-                        RefType="WOF"
-                        ServiceType="SOAP"
+
+
                         URL="www.hydroserver.com"
-                        ReturnType='waterml1'
+
                         if 'unitName' == tag or 'units' ==tag or 'UnitName'==tag or 'unitCode'==tag:
                             if not unit_is_set:
                                 units = element.text
@@ -522,11 +532,11 @@ def Original_Checker(xml_file):
     try:
         tree = etree.parse(xml_file)
         root = tree.getroot()
-        wml_version = get_version(root)
+        wml_version = get_version(root)['version']
         if wml_version == '1':
-            return parse_1_0_and_1_1(root,wml_version)
+            return parse_1_0_and_1_1(root)
         elif wml_version == '2.0':
-            return parse_2_0(root,wml_version)
+            return parse_2_0(root)
     except ValueError, e:
         return read_error_file(xml_file)
     except:
@@ -659,10 +669,11 @@ def append_ts_layer_resource(title,metadata):
     print metadata
     lon = metadata['Lon']
     lat = metadata['Lat']
+
     # RefType =metadata['RefType']
-    # ServiceType = metadata['ServiceType']
+    servicetype = metadata['ServiceType']
     # URL = metadata['URL']
-    # ReturnType = metadata['ReturnType']
+    returntype = metadata['ReturnType']
 
     # print "adding to file"
     temp_dir = get_workspace()
@@ -679,13 +690,13 @@ def append_ts_layer_resource(title,metadata):
     RefType.text='WOF'
 
     ServiceType= etree.SubElement(REFTS,"ServiceType")
-    ServiceType.text='Rest'
+    ServiceType.text= servicetype
 
     URL= etree.SubElement(REFTS,"URL")
     URL.text='www.hydroserver.com'
 
     ReturnType= etree.SubElement(REFTS,"ReturnType")
-    ReturnType.text='waterml'
+    ReturnType.text= returntype
 
     Location= etree.SubElement(REFTS,"Location")
     Location.text= lon+', '+ lat

@@ -33,10 +33,10 @@ class HydroshareResourceCreator(TethysAppBase):
                            url='write_file',
                            controller='hydroshare_resource_creator.controllers.write_file'),
                     UrlMap(name='response',
-                           url='response',
+                           url='response/{title}',
                            controller='hydroshare_resource_creator.controllers.response'),
                     UrlMap(name='create_layer',
-                           url='create_layer/{title}',
+                           url='create_layer/{src}',
                            controller='hydroshare_resource_creator.controllers.create_layer'),
         )
 

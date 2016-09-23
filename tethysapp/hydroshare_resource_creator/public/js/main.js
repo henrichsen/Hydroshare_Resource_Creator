@@ -101,7 +101,7 @@ function finished_resource(callback){
 }
 var data = [];
 $(document).ready(function () {
-   $('#stat_div').hide();
+    $('#stat_div').hide();
     console.log("ready")
     //initializes table
     var table = $('#data_table').DataTable({
@@ -163,32 +163,37 @@ function finishloading(callback) {
     $('#loading').hide();
     $('#multiple_units').show();
 }
- $('#btn_show_modal_create').click(function() {
-   var popupDiv = $('#create_resource');
-   popupDiv.modal('show')
+$('#btn_show_modal_create').click(function() {
+    var popupDiv = $('#create_resource');
+    popupDiv.modal('show')
 });
 $('#btn_create_ts_layer').click(function() {
     var popupDiv = $('#create_resource');
     popupDiv.modal('hide')
     $('#stat_div').hide();
     $('#loading').show();
-    $('input[type=checkbox]').each(function () {
-    //var sThisVal = (this.checked ? $(this).val() : "");
-    });
-    //console.log(sThisVal)
-     var checked_ids = $('input[data1-resid]:checkbox:checked').map(function() {
-            return this.getAttribute("data1-resid");
-        }).get();
+
+    var checked_ids = $('input[data1-resid]:checkbox:checked').map(function() {
+        return this.getAttribute("data1-resid");
+    }).get();
     console.log(checked_ids)
     var csrf_token = getCookie('csrftoken');
-    data_url = base_url + 'hydroshare-resource-creator/create_layer/testtt'+ '/'
+    data_url = base_url + 'hydroshare-resource-creator/create_layer/cuahsi/'
     $.ajax({
         type:"POST",
         headers:{'X-CSRFToken':csrf_token},
         dataType: 'json',
-        data:{'checked_ids':JSON.stringify(checked_ids)},
+        data:{'checked_ids':JSON.stringify(checked_ids),
+            'resTitle': $('#res-title').val(),
+            'resAbstract': $('#res-abstract').val(),
+            'resKeywords': $('#res-keywords').val()
+        },
         url: data_url,
-        success: function (json) {}})
+        success: function (json) {
+            alert(json.Request)
+            finishloading()
+        }
+    })
 
     //unit1 = document.querySelector('input[name = "units"]:not(:checked)').value;
 
