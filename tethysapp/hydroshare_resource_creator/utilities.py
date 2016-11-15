@@ -17,7 +17,10 @@ import os
 import dateutil.parser
 from datetime import datetime
 import collections
-
+import controllers
+import shutil
+import json
+import simplejson
 def get_app_base_uri(request):
     base_url = request.build_absolute_uri()
     if "?" in base_url:
@@ -68,12 +71,37 @@ def time_to_int(t):
         print ("time_to_int error: "+ t)
         raise Exception('time_to_int error: ' + t)
 
+def parse_service_info(xml_file):
+    tree = etree.parse(xml_file)
+    root = tree.getroot()
+    network = []
+    url = []
+    dic ={}
+    for element in root.iter():
+                bracket_lock = -1
+                if '}' in element.tag:
+                    # if 'waterML/1.1' in element.tag:
+                    #     ReturnType = 'WaterML1.1'
+                    # elif 'waterML/1.0' in element.tag
+                    bracket_lock = element.tag.index('}')  # The namespace in the tag is enclosed in {}.
+                    tag = element.tag[bracket_lock+1:]     # Takes only actual tag, no namespace
 
+                    if tag == "servURL":
+                        url.append(element.text)
+                    if tag =='NetworkName':
+                        network.append(element.text)
+    i = 0
+    for id in network:
+        dic1 = {id:url[i]}
+        dic.update(dic1)
+        i = i+1
+    return dic
 def parse_1_0_and_1_1(root):
 
     root_tag = root.tag.lower()
     ReturnType= get_version(root)['title']
     ServiceType = None
+
 
     if "soap" in str(root):
         ServiceType="SOAP"
@@ -154,7 +182,7 @@ def parse_1_0_and_1_1(root):
                         # in the xml there is a unit for the value, then for time. just take the first
 
 
-                        URL="www.hydroserver.com"
+
 
                         if 'unitName' == tag or 'units' ==tag or 'UnitName'==tag or 'unitCode'==tag:
                             if not unit_is_set:
@@ -192,61 +220,127 @@ def parse_1_0_and_1_1(root):
                             Lat = element.text
                         if "longitude"==tag:
                             Lon = element.text
+                        if 'siteCode'==tag:
+                            network = element.attrib['network']
 
-                        if "method" ==tag:
+                        if "method" ==tag.lower():
+                            try:
+                                mid = element.attrib['methodID']
+                            except:
+                                mid =None
+                                m_code =''
                             for subele in element:
                                 bracket_lock = subele.tag.index('}')  # The namespace in the tag is enclosed in {}.
                                 tag1 = element.tag[bracket_lock+1:]
                                 # Takes only actual tag, no namespace
-                                if 'methodCode' in subele.tag:
+                                if 'methodcode' in subele.tag.lower() and m_code=='':
                                     m_code = subele.text
-                                if 'methodDescription' in subele.tag:
+                                    m_code = m_code.replace(" ","")
+
+                                if mid != None:
+                                    m_code = element.attrib['methodID']
+                                    m_code = m_code.replace(" ","")
+                                if 'methoddescription' in subele.tag.lower():
                                     m_des = subele.text
+
                             meta_dic['method'].update({m_code:m_des})
-                        if "source" ==tag:
+                        if "source" ==tag.lower():
+
+                            try:
+                                sid = element.attrib['sourceID']
+                            except:
+                                sid = None
+                                m_code =''
+
                             for subele in element:
                                 bracket_lock = subele.tag.index('}')  # The namespace in the tag is enclosed in {}.
                                 tag1 = element.tag[bracket_lock+1:]
+
                                 # Takes only actual tag, no namespace
-                                if 'sourceCode' in subele.tag:
+                                if 'sourcecode' in subele.tag.lower() and m_code =='':
                                     m_code = subele.text
-                                if 'sourceDescription' in subele.tag:
+                                    m_code = m_code.replace(" ","")
+
+
+                                if sid!= None:
+                                    m_code = element.attrib['sourceID']
+                                    m_code = m_code.replace(" ","")
+                                if 'sourcedescription' in subele.tag.lower():
                                     m_des = subele.text
-                                if 'organization' in subele.tag:
+                                if 'organization' in subele.tag.lower():
                                     m_org = subele.text
+
                             meta_dic['source'].update({m_code:m_des})
                             meta_dic['organization'].update({m_code:m_org})
-                        if "qualityControlLevel" ==tag:
+
+
+                        if "qualitycontrollevel" ==tag.lower():
+                            try:
+                                qlc= element.attrib['qualityControlLevelID']
+                            except:
+                                qlc =None
+                                m_code =''
+
                             for subele in element:
                                 bracket_lock = subele.tag.index('}')  # The namespace in the tag is enclosed in {}.
                                 tag1 = element.tag[bracket_lock+1:]
                                 # Takes only actual tag, no namespace
-                                if 'qualityControlLevelCode' in subele.tag:
+
+                                if  qlc !=None:
+                                    m_code =element.attrib['qualityControlLevelID']
+                                    m_code = m_code.replace(" ","")
+                                if 'qualitycontrollevelcode' in subele.tag.lower():
+                                    m_code1 = subele.text
+                                    m_code1 = m_code1.replace(" ","")
+                                if 'qualitycontrollevelcode' in subele.tag.lower() and m_code =='':
                                     m_code = subele.text
-                                if 'definition' in subele.tag:
+                                    m_code = m_code1.replace(" ","")
+                                if 'definition' in subele.tag.lower():
                                     m_des = subele.text
                             meta_dic['quality'].update({m_code:m_des})
+                            meta_dic['quality_code'].update({m_code1:m_code})
 
                     elif 'value' == tag:
                         # print element.attrib
                         try:
-                            # my_times.append(element.attrib['dateTimeUTC'])
                             n = element.attrib['dateTimeUTC']
                         except:
-                            # my_times.append(element.attrib['dateTime'])
                             n =element.attrib['dateTime']
+
                         try:
                             quality= element.attrib['qualityControlLevelCode']
                         except:
+                            quality =''
+                        try:
+                            quality1 = element.attrib['qualityControlLevel']
+                        except:
                             quality1 =''
+                        if quality =='' and quality1 != '':
+                            quality = quality1
+
                         try:
                             method = element.attrib['methodCode']
                         except:
                             method=''
                         try:
+                            method1 = element.attrib['methodID']
+                        except:
+                            method1=''
+                        if method =='' and method1 != '':
+                                method = method1
+
+                        try:
                             source = element.attrib['sourceCode']
                         except:
                             source=''
+                        try:
+                            source1 = element.attrib['sourceID']
+                        except:
+                            source1=''
+                        if source =='' and source1 != '':
+                            source = source1
+                        dic = quality +'aa'+method+'aa'+source
+                        dic = dic.replace(" ","")
 
 
                         dic = quality +'aa'+method+'aa'+source
@@ -282,7 +376,7 @@ def parse_1_0_and_1_1(root):
                             y_value.append(v)
                             master_data_values[dic].append(v) #records only none null values for running statistics
                             # print "hello"
-                    #master_values[dic].update({n:v})
+                            #master_values[dic].update({n:v})
                         master_values[dic].append(v)
                         master_times[dic].append(n)
                         # master_values(dic,n,v)
@@ -355,8 +449,9 @@ def parse_1_0_and_1_1(root):
                 'Lon':Lon,
                 'RefType':RefType,
                 'ServiceType':ServiceType,
-                'URL':URL,
+
                 'ReturnType':ReturnType,
+                'network':network
 
 
             }
@@ -415,11 +510,11 @@ def parse_2_0(root,wml_version):
             smallest_value = 0
             for element in root.iter():
                 if 'MeasurementTVP' in element.tag:
-                        for e in element:
-                            if 'time' in e.tag:
-                                keys.append(e.text)
-                            if 'value' in e.tag:
-                                vals.append(e.text)
+                    for e in element:
+                        if 'time' in e.tag:
+                            keys.append(e.text)
+                        if 'value' in e.tag:
+                            vals.append(e.text)
                 if 'uom' in element.tag:
                     units = element.text
                 if 'MonitoringPoint' in element.tag:
@@ -619,9 +714,9 @@ def unzip_waterml(request, res_id,src):
 
     # check if the zip file is valid
     except zipfile.BadZipfile as e:
-            error_message = "Bad Zip File"
-            print "Bad Zip file"
-            return False
+        error_message = "Bad Zip File"
+        print "Bad Zip file"
+        return False
 
     # finally we return the waterml_url
 
@@ -703,3 +798,70 @@ def append_ts_layer_resource(title,metadata):
     doc = etree.ElementTree(root)
     doc.write(file_temp_name)
 
+def get_hydroshare_resource(request,res_id,data_for_chart):
+    error = False
+    is_owner = False
+    file_path = get_workspace() + '/id'
+    root_dir = file_path + '/' + res_id
+      #
+    # elif 'hydroshare_generic' in src:
+    #     target_url =  'https://www.hydroshare.org/django_irods/download/'+res_id+'/data/contents/HIS_reference_timeseries.txt'
+    #     d
+
+    try:
+        shutil.rmtree(root_dir)
+    except:
+        nothing =None
+    try:
+        hs = controllers.getOAuthHS(request)
+        hs.getResource(res_id, destination=file_path, unzip=True)
+        data_dir = root_dir + '/' + res_id + '/data/contents/'
+        for subdir, dirs, files in os.walk(data_dir):
+            for file in files:
+                if 'xml' in file:
+                    data_file = data_dir + file
+                    with open(data_file, 'r') as f:
+                        # print f.read()
+                        data = f.read()
+                        # print data
+                        f.close()
+                        print data
+                        try:
+                            data= data.decode('latin-1')
+                        except:
+                            data = data
+                        data_for_chart.update({str(file): data})
+
+        # data_for_chart = {'bjo':'hello'}
+        user =  hs.getUserInfo()
+        user1 = user['username']
+        # resource = hs.getResourceList(user ='editor')
+        resource = hs.getResourceList(owner = user1)
+        for  res in resource:
+            # print res
+            id = res["resource_id"]
+            # print id
+            if(res_id ==res["resource_id"]):
+                is_owner = True
+    except Exception as inst:
+        data_for_chart = 'You are not authorized to access this resource'
+        owner = False
+        error = True
+        print 'start'
+        print(type(inst))
+        print(inst.args)
+        try:
+            data_for_chart = str(inst)
+        except:
+            data_for_chart = "There was an error loading data for resource"+res_id
+        print "end"
+    data_dic = {"data":data_for_chart,"owner":is_owner,"error":error}
+    return data_dic
+def parse_JSON(file):
+    temp_dir = get_workspace()
+    file=  temp_dir+'/id/timeseriesLayerResource.json'
+    with open(file,'r') as outfile:
+      x = outfile.read()
+      print x
+      y = json.loads(x)
+      print y

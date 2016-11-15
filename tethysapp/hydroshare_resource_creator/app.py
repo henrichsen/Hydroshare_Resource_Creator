@@ -27,7 +27,7 @@ class HydroshareResourceCreator(TethysAppBase):
                            url='hydroshare-resource-creator',
                            controller='hydroshare_resource_creator.controllers.home'),
                     UrlMap(name='chart_data',
-                           url='chart_data/{res_id}/{src}',
+                           url='chart_data/{res_id}/{src}/',
                            controller='hydroshare_resource_creator.controllers.chart_data'),
                     UrlMap(name='write_file',
                            url='write_file',
@@ -38,6 +38,13 @@ class HydroshareResourceCreator(TethysAppBase):
                     UrlMap(name='create_layer',
                            url='create_layer/{src}',
                            controller='hydroshare_resource_creator.controllers.create_layer'),
+                      UrlMap(name='temp_waterml',
+                           url='temp_waterml/{id}',
+                           controller='hydroshare_resource_creator.controllers.temp_waterml'),
+                     UrlMap(name='test',
+                           url='test',
+                           controller='hydroshare_resource_creator.controllers.test')
+
         )
 
         return url_maps

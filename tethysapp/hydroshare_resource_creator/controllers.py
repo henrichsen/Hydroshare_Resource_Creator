@@ -15,37 +15,113 @@ from suds.client import Client
 from xml.sax._exceptions import SAXParseException
 import json
 from django.views.decorators.csrf import ensure_csrf_cookie
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.cache import never_cache
+import urllib2
+import json
+@login_required()
+def temp_waterml(request, id):
+    base_path = utilities.get_workspace() + "/id"
+    file_path = base_path + "/" + id
+    response = HttpResponse(FileWrapper(open(file_path)), content_type='application/xml')
+    return response
 @login_required()
 def home(request):
+    ids=[]
+    meta =[]
+    source=[]
+    quality=[]
+    method=[]
+    sourceid=[]
+    serviceurl=[]
+    data = request.META['QUERY_STRING']
+    data = data.encode(encoding ='UTF-8')
+    utilities.parse_JSON('test')
+    with open('data.JSON', 'w') as outfile:
+        json.dump(request.body, outfile)
+
+    print data
+    data  =data.split('&')
+    for e in data:
+        s= e.split('=')
+        meta.append(s)
+    print data
+    print meta
+    for e in meta:
+        print e[0]
+        if e[0] == 'Source':
+            source.append(e[1])
+        if e[0] == 'WofUri':
+            ids.append(e[1])
+        if e[0] == 'QCLID':
+            quality.append(e[1])
+        if e[0] == 'MethodId':
+            method.append(e[1])
+        if e[0] == 'SourceId':
+            sourceid.append(e[1])
+        if e[0] == 'ServiceURL':
+            serviceurl.append(e[1])
     """
     Controller for the app home page.
     """
     # utilities.append_ts_layer_resource("testtt",'test')
-    context = {}
+    context = {'source':source,
+               'cuahsi_ids':ids,
+               'quality':quality,
+               'method':method,
+               'sourceid':sourceid,
+                'serviceurl':serviceurl
+               }
     return render(request, 'hydroshare_resource_creator/home.html', context)
-
+@login_required()
+@csrf_exempt
 def chart_data(request, res_id, src):
-    # checks if we already have an unzipped xml file
-    file_path = utilities.waterml_file_path(res_id)
-    print file_path
-    # if we don't have the xml file, downloads and unzips it
-    if not os.path.exists(file_path):
-        print "does not exist"
-        utilities.unzip_waterml(request, res_id,src)
-    if src =='cuahsi':
-        source = "WOF"
+    data_for_chart={}
+    # serviceurl = request.POST.get('serviceurl')
+    # # checks if we already have an unzipped xml file
+    # file_path = utilities.waterml_file_path(res_id)
+    # print file_path
+    # print serviceurl
+    # # if we don't have the xml file, downloads and unzips it
+    # if not os.path.exists(file_path):
+    #     print "does not exist"
+    #     utilities.unzip_waterml(request, res_id,src)
+    # if src =='cuahsi':
+    #     source = "WOF"
+    #     data_for_chart = utilities.Original_Checker(file_path)
+    #     try:
+    #
+    #         services = response(request)
+    #         network = data_for_chart['network']
+    #         service = services[network]
+    #
+    #     except:
+    #         service = 'N/A'
+    #     data_for_chart.update({'URL':service})
+    #     data_for_chart.update({'network':services})
+    #     print service
+    #     return JsonResponse(data_for_chart)
+    #
+    # elif src=='hydroshare':
+    #     # returns an error message if the unzip_waterml failed
+    #     # parses the WaterML to a chart data object
+    #     # data_for_chart = utilities.Original_Checker(file_path)
+    #         temp_dir = utilities.get_workspace()
+    #         if not os.path.exists(temp_dir+"/hydroshare"):
+    #             os.makedirs(temp_dir+"/hydroshare")
+    #         file_temp_name = temp_dir + '/hydroshare/HIS_reference_timeseries.txt'
+    #         file_temp = open(file_temp_name, 'w')
+    #         data_for_js = utilities.get_hydroshare_resource(request,res_id,data_for_chart)
+    #     # file_temp.writelines(str(data_for_chart))
+    #     # file_temp.close()
+    #     # data_for_chart['RefType']=source
 
-    # returns an error message if the unzip_waterml failed
-    # parses the WaterML to a chart data object
-    data_for_chart = utilities.Original_Checker(file_path)
-    temp_dir = utilities.get_workspace()
-    if not os.path.exists(temp_dir+"/hydroshare"):
-        os.makedirs(temp_dir+"/hydroshare")
-    file_temp_name = temp_dir + '/hydroshare/HIS_reference_timeseries.txt'
-    file_temp = open(file_temp_name, 'w')
-    file_temp.writelines(str(data_for_chart))
-    file_temp.close()
-    data_for_chart['RefType']=source
+
+
+
+    #parse xml data from 'data' from data_for_js and prepare for the table
+
+
     return JsonResponse(data_for_chart)
 
 def getOAuthHS(request):
@@ -84,12 +160,12 @@ def write_file(request):
     r_title = "test"
     r_keywords = ["test"]
     r_abstract = "This is a test of the resource creator"
-    res_id = hs.createResource(r_type,
-                        r_title,
-                        resource_file=None,
-                        keywords=r_keywords,
-                        abstract=r_abstract,
-                        metadata=json.dumps(metadata))
+    # res_id = hs.createResource(r_type,
+    #                     r_title,
+    #                     resource_file=None,
+    #                     keywords=r_keywords,
+    #                     abstract=r_abstract,
+    #                     metadata=json.dumps(metadata))
 
 
     # temp_dir = utilities.get_workspace()
@@ -103,67 +179,176 @@ def write_file(request):
     # resource_id = hs.createResource(rtype, title, resource_file=fpath, keywords=keywords, abstract=abstract)
     # os.remove(file_temp_name)
     return JsonResponse(sucess)
-def response(request,title):
+def response(request):
     # # service_url = 'http://hydroportal.cuahsi.org/nwisdv/cuahsi_1_1.asmx?WSDL'
-    # service_url = 'http://143.234.88.22/TarlandHydrologyDataWS/cuahsi_1_1.asmx?WSDL'
+    service_url = 'http://hiscentral.cuahsi.org/webservices/hiscentral.asmx?WSDL'
     # # site_code = '10147100'
     # site_code = 'ODM:010210JHI'
     # variable_code = 'ODM:Discharge'
     # # variable_code = 'NWISDV:00060'
-    # client = connect_wsdl_url(service_url)
+    client = connect_wsdl_url(service_url)
     # print client
     # start_date =''
     # end_date = ''
     # auth_token = ''
-    # # response1 = client.service.GetValues(site_code, variable_code, start_date, end_date, auth_token)
-    # response1 = client.service.GetSiteInfo(site_code, auth_token)
+    # response1 = client.service.GetValues(site_code, variable_code, start_date, end_date, auth_token)
+    response1 = client.service.GetWaterOneFlowServiceInfo()
+
+    response= urllib2.urlopen('http://hiscentral.cuahsi.org/webservices/hiscentral.asmx/GetWaterOneFlowServiceInfo')
+    html = response.read()
+
+    temp_dir = utilities.get_workspace()
+    file_temp_name = temp_dir + '/id/' + 'WaterOneFlowServiceInfo' + '.xml'
+    file_temp = open(file_temp_name, 'wb')
+    file_temp.write(html)
+    file_temp.close()
+    service_url = utilities.parse_service_info(file_temp_name)
+    # service_url = 'http://hiscentral.cuahsi.org/webservices/hiscentral.asmx?WSDL'
+    # client = connect_wsdl_url(service_url)
+    # print client
+    # print response1
     # response1 = {"File uploaded":"sucess"}
-    base_path = utilities.get_workspace()+"/hydroshare"
-    file_path = base_path + "/" +title
-    response = HttpResponse(FileWrapper(open(file_path)), content_type='application/xml')
-    return response
-    # return JsonResponse({"File":response1})
+    # base_path = utilities.get_workspace()+"/hydroshare"
+    # file_path = base_path + "/" +title
+    # response = HttpResponse(FileWrapper(open(file_path)), content_type='application/xml')
+    # return response1
+    return service_url
 @ensure_csrf_cookie
 def create_layer(request,src):
-    res_id = request.POST.get('checked_ids')
-    title = request.POST.get('resTitle')
-    abstract = request.POST.get('resAbstract')
-    keywords = request.POST.get('resKeywords')
-    # title = "test"
-    res_id=res_id.strip('[')
-    res_id=res_id.strip(']')
-    res_id=res_id.strip('"')
-    res_id = res_id.replace('"','')
+    # res_id = request.POST.get('checked_ids')
+    # # res_id = res_id.encode(encoding ='UTF-8')
+    # print res_id
+    # resource_type = request.POST.get('resource_type')
+    # # resource_type = resource_type.encode(encoding ='UTF-8')
+    # title = request.POST.get('resTitle')
+    # abstract = request.POST.get('resAbstract')
+    # keywords = request.POST.get('resKeywords')
+    # # title = "test"
+    # res_id = trim(res_id)
+    # resource_type = trim(resource_type)
+    service_type = 'test'
+    url = 'test'
 
-    res_id = res_id.split(',' )
-
-    utilities.create_ts_layer_resource(title)
-
-
-    for id in res_id:
-
-        file_path = utilities.waterml_file_path(id)
-
-        meta_data = utilities.Original_Checker(file_path)
-        utilities.append_ts_layer_resource(title,meta_data)
-
-    # metadata = []
-    # hs = getOAuthHS(request)
-    # waterml_url = "http://hydrodata.info/chmi-h/cuahsi_1_1.asmx/GetValuesObject?location=CHMI-H:140&variable=CHMI-H:TEPLOTA&startDate=2015-07-01&endDate=2015-07-10&authToken="
-    # ref_type = "rest"
-    # metadata.append({"referenceurl":
-    #         {"value": waterml_url,
-    #         "type": ref_type}})
-    # r_type = 'RefTimeSeriesResource'
-    # r_title = "test"
-    # r_keywords = ["test"]
-    # r_abstract = "This is a test of the resource creator"
-    # res_id = hs.createResource(r_type,
-    #                     r_title,
-    #                     resource_file=None,
-    #                     keywords=r_keywords,
-    #                     abstract=r_abstract,
-    #                     metadata=json.dumps(metadata))
+    # print resource_type
+    # utilities.create_ts_layer_resource(title)
     #
+    #
+    # for id in res_id:
+    #
+    #     file_path = utilities.waterml_file_path(id)
+    #
+    #     meta_data = utilities.Original_Checker(file_path)
+    #     utilities.append_ts_layer_resource(title,meta_data)
+    resource_type = ['ts']
+    metadata = []
+    res_id = 'cuahsi-wdc-2016-10-21-64527889'
+    hs = getOAuthHS(request)
+    if(resource_type[0]== 'ts'):
+        #create a time series resource
+        #file needs to be a csv
+        r_type = 'TimeSeriesResource'
+        r_title = "Testing the normal time series file"
+        r_keywords = ("test")
+        r_abstract = "This is a test of the resource creator"
+        temp_dir = utilities.get_workspace()
+        fpath = temp_dir + '/id/' + res_id + '.xml'
+
+        resource_id = hs.createResource(r_type, r_title, resource_file=fpath, keywords=r_keywords, abstract=r_abstract, metadata=metadata)
+
+    if(resource_type[0]=='ref_ts'or resource_type[1]=='ref_ts'):
+
+        #rest call
+        # waterml_url = "http://hydrodata.info/chmi-h/cuahsi_1_1.asmx/GetValuesObject?location=CHMI-H:140&variable=CHMI-H:TEPLOTA&startDate=2015-07-01&endDate=2015-07-10&authToken="
+        if(service_type=='REST'):
+            waterml_url = url+'/GetValueObject'
+            ref_type = "rest"
+            metadata.append({"referenceurl":
+                    {"value": waterml_url,
+                    "type": ref_type}})
+            r_type = 'RefTimeSeriesResource'
+            r_title = "test of rest reftime series"
+            r_keywords = ["test"]
+            r_abstract = "This is a test of the resource creator"
+            res_id = hs.createResource(r_type,
+                                r_title,
+                                resource_file=None,
+                                keywords=r_keywords,
+                                abstract=r_abstract,
+                                metadata=json.dumps(metadata))
+
+        elif (service_type =='SOAP'):
+            #Soap Call
+            soap_url = 'http://hydrodata.info/chmi-d/cuahsi_1_1.asmx?wsdl'
+            site_code = ':248'
+            var_code = ':SRAZKY'
+            ref_type = 'soap'
+            metadata.append({"referenceurl":
+                     {"value": soap_url,
+                    "type": ref_type,}})
+            metadata.append({"variable":{'code':var_code}})
+            metadata.append({"site":{'code':site_code}})
+            r_type = 'RefTimeSeriesResource'
+            r_title = "test of rest reftime series soap request"
+            r_keywords = ["test"]
+            r_abstract = "This is a test of the resource creator"
+            res_id = hs.createResource(r_type,
+                                r_title,
+                                resource_file=None,
+                                keywords=r_keywords,
+                                abstract=r_abstract,
+                                metadata=json.dumps(metadata))
+
+
     #upload to hydroshare stuff
     return JsonResponse({'Request':"success"})
+def trim(string_dic):
+    string_dic=string_dic.strip('[')
+    string_dic=string_dic.strip(']')
+    string_dic=string_dic.strip('"')
+    string_dic = string_dic.replace('"','')
+    string_dic = string_dic.split(',' )
+    return string_dic
+@csrf_exempt
+@never_cache
+def test(request):
+    import json
+    request_url = request.META['QUERY_STRING']
+
+
+    # not ajax
+    # curl -X POST -d 'name1=value1&name2=value2&name1=value11' "http://127.0.0.1:8000/apps/timeseries-viewer/test/"
+
+    # curl -X POST -H "Content-Type: application/json" -d '{"mylist": ["item1", "item2", "item3"], "list_type": "array"}' "http://127.0.0.1:8000/apps/timeseries-viewer/test/"
+
+    # curl -X POST -F 'name1=value1' -F 'name2=value2' -F 'name1=value11' "http://127.0.0.1:8000/apps/timeseries-viewer/test/"
+
+    # ajax
+    # curl -X POST -H "X-Requested-With: XMLHttpRequest" -d 'name1=value1&name2=value2&name1=value11' "http://127.0.0.1:8000/apps/timeseries-viewer/test/"
+
+    # curl -X POST -H "X-Requested-With: XMLHttpRequest" -H "Content-Type: application/json" -d '{"mylist": ["item1", "item2", "item3"], "list_type": "array"}' "http://127.0.0.1:8000/apps/timeseries-viewer/test/"
+
+
+    result = {}
+    result['query_string'] =request_url
+    result["is_ajax"] = request.is_ajax()
+
+    result["request.GET"] = request.GET
+    result["request.POST"] = request.POST
+    with open('data.JSON', 'w') as outfile:
+        json.dump(request.body, outfile)
+
+    try:
+        result["request.body"] = request.body
+    except:
+        pass
+
+    try:
+        result["request.body -> json"] = json.loads(request.body)
+    except:
+        pass
+
+    print result
+
+    context ={"result": json.dumps(result)
+               }
+    return render(request, 'timeseries_viewer/test.html', context)
