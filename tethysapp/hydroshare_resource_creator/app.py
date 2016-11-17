@@ -27,7 +27,7 @@ class HydroshareResourceCreator(TethysAppBase):
                            url='hydroshare-resource-creator',
                            controller='hydroshare_resource_creator.controllers.home'),
                     UrlMap(name='chart_data',
-                           url='chart_data/{res_id}/{src}/',
+                           url='chart_data',
                            controller='hydroshare_resource_creator.controllers.chart_data'),
                     UrlMap(name='write_file',
                            url='write_file',

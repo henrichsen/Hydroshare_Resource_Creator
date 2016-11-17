@@ -859,9 +859,9 @@ def get_hydroshare_resource(request,res_id,data_for_chart):
     return data_dic
 def parse_JSON(file):
     temp_dir = get_workspace()
-    file=  temp_dir+'/id/timeseriesLayerResource.json'
+    # file=  temp_dir+'/id/timeSeriesResource.json'
+    file=  temp_dir+'/id/timeseriesLayerResource.json.refts'
     with open(file,'r') as outfile:
       x = outfile.read()
-      print x
       y = json.loads(x)
-      print y
+      return y

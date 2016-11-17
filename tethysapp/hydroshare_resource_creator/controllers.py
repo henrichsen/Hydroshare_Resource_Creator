@@ -36,31 +36,32 @@ def home(request):
     serviceurl=[]
     data = request.META['QUERY_STRING']
     data = data.encode(encoding ='UTF-8')
-    utilities.parse_JSON('test')
-    with open('data.JSON', 'w') as outfile:
-        json.dump(request.body, outfile)
+    base_path = utilities.get_workspace() + "/id/timeseriesLayerResource.json.refts"
 
-    print data
-    data  =data.split('&')
-    for e in data:
-        s= e.split('=')
-        meta.append(s)
-    print data
-    print meta
-    for e in meta:
-        print e[0]
-        if e[0] == 'Source':
-            source.append(e[1])
-        if e[0] == 'WofUri':
-            ids.append(e[1])
-        if e[0] == 'QCLID':
-            quality.append(e[1])
-        if e[0] == 'MethodId':
-            method.append(e[1])
-        if e[0] == 'SourceId':
-            sourceid.append(e[1])
-        if e[0] == 'ServiceURL':
-            serviceurl.append(e[1])
+    with open(base_path, 'w') as outfile:
+        json.dump(request.body, outfile)
+    utilities.parse_JSON('test')
+    # print data
+    # data  =data.split('&')
+    # for e in data:
+    #     s= e.split('=')
+    #     meta.append(s)
+    # print data
+    # print meta
+    # for e in meta:
+    #     print e[0]
+    #     if e[0] == 'Source':
+    #         source.append(e[1])
+    #     if e[0] == 'WofUri':
+    #         ids.append(e[1])
+    #     if e[0] == 'QCLID':
+    #         quality.append(e[1])
+    #     if e[0] == 'MethodId':
+    #         method.append(e[1])
+    #     if e[0] == 'SourceId':
+    #         sourceid.append(e[1])
+    #     if e[0] == 'ServiceURL':
+    #         serviceurl.append(e[1])
     """
     Controller for the app home page.
     """
@@ -75,7 +76,9 @@ def home(request):
     return render(request, 'hydroshare_resource_creator/home.html', context)
 @login_required()
 @csrf_exempt
-def chart_data(request, res_id, src):
+
+
+def chart_data(request):
     data_for_chart={}
     # serviceurl = request.POST.get('serviceurl')
     # # checks if we already have an unzipped xml file
@@ -120,8 +123,12 @@ def chart_data(request, res_id, src):
 
 
     #parse xml data from 'data' from data_for_js and prepare for the table
-
-
+    data = utilities.parse_JSON('test')
+    if data =='':
+        error = "No data in file"
+    else:
+        error=''
+    data_for_chart = {"data": data,'error':error}
     return JsonResponse(data_for_chart)
 
 def getOAuthHS(request):
@@ -147,7 +154,7 @@ def connect_wsdl_url(wsdl_url):
     except:
         raise Exception("Unexpected error")
     return client
-def write_file(request):
+def write_file(request,res_id):
     sucess = {"File uploaded":"sucess"}
     metadata = []
     hs = getOAuthHS(request)
@@ -220,9 +227,10 @@ def create_layer(request,src):
     # print res_id
     # resource_type = request.POST.get('resource_type')
     # # resource_type = resource_type.encode(encoding ='UTF-8')
-    # title = request.POST.get('resTitle')
-    # abstract = request.POST.get('resAbstract')
-    # keywords = request.POST.get('resKeywords')
+    title = str(request.POST.get('resTitle'))# causing errors because not strints?
+    abstract = str(request.POST.get('resAbstract'))
+    keywords = str(request.POST.get('resKeywords'))
+    keywords = keywords.split(' ')
     # # title = "test"
     # res_id = trim(res_id)
     # resource_type = trim(resource_type)
@@ -243,60 +251,61 @@ def create_layer(request,src):
     metadata = []
     res_id = 'cuahsi-wdc-2016-10-21-64527889'
     hs = getOAuthHS(request)
-    if(resource_type[0]== 'ts'):
-        #create a time series resource
-        #file needs to be a csv
-        r_type = 'TimeSeriesResource'
-        r_title = "Testing the normal time series file"
-        r_keywords = ("test")
-        r_abstract = "This is a test of the resource creator"
-        temp_dir = utilities.get_workspace()
-        fpath = temp_dir + '/id/' + res_id + '.xml'
+    print keywords
+    #create a time series resource
+    #file needs to be a csv
+    r_type = 'GenericResource'
+    r_title = title
+    r_keywords = (keywords)
+    r_abstract = abstract
+    print r_title, r_keywords,r_abstract
+    temp_dir = utilities.get_workspace()
+    fpath = temp_dir + '/id/timeseriesLayerResource.json.refts'
 
-        resource_id = hs.createResource(r_type, r_title, resource_file=fpath, keywords=r_keywords, abstract=r_abstract, metadata=metadata)
+    resource_id = hs.createResource(r_type, r_title, resource_file=fpath, keywords=r_keywords, abstract=r_abstract, metadata=metadata)
 
-    if(resource_type[0]=='ref_ts'or resource_type[1]=='ref_ts'):
-
-        #rest call
-        # waterml_url = "http://hydrodata.info/chmi-h/cuahsi_1_1.asmx/GetValuesObject?location=CHMI-H:140&variable=CHMI-H:TEPLOTA&startDate=2015-07-01&endDate=2015-07-10&authToken="
-        if(service_type=='REST'):
-            waterml_url = url+'/GetValueObject'
-            ref_type = "rest"
-            metadata.append({"referenceurl":
-                    {"value": waterml_url,
-                    "type": ref_type}})
-            r_type = 'RefTimeSeriesResource'
-            r_title = "test of rest reftime series"
-            r_keywords = ["test"]
-            r_abstract = "This is a test of the resource creator"
-            res_id = hs.createResource(r_type,
-                                r_title,
-                                resource_file=None,
-                                keywords=r_keywords,
-                                abstract=r_abstract,
-                                metadata=json.dumps(metadata))
-
-        elif (service_type =='SOAP'):
-            #Soap Call
-            soap_url = 'http://hydrodata.info/chmi-d/cuahsi_1_1.asmx?wsdl'
-            site_code = ':248'
-            var_code = ':SRAZKY'
-            ref_type = 'soap'
-            metadata.append({"referenceurl":
-                     {"value": soap_url,
-                    "type": ref_type,}})
-            metadata.append({"variable":{'code':var_code}})
-            metadata.append({"site":{'code':site_code}})
-            r_type = 'RefTimeSeriesResource'
-            r_title = "test of rest reftime series soap request"
-            r_keywords = ["test"]
-            r_abstract = "This is a test of the resource creator"
-            res_id = hs.createResource(r_type,
-                                r_title,
-                                resource_file=None,
-                                keywords=r_keywords,
-                                abstract=r_abstract,
-                                metadata=json.dumps(metadata))
+    # if(resource_type[0]=='ref_ts'or resource_type[1]=='ref_ts'):
+    #
+    #     #rest call
+    #     # waterml_url = "http://hydrodata.info/chmi-h/cuahsi_1_1.asmx/GetValuesObject?location=CHMI-H:140&variable=CHMI-H:TEPLOTA&startDate=2015-07-01&endDate=2015-07-10&authToken="
+    #     if(service_type=='REST'):
+    #         waterml_url = url+'/GetValueObject'
+    #         ref_type = "rest"
+    #         metadata.append({"referenceurl":
+    #                 {"value": waterml_url,
+    #                 "type": ref_type}})
+    #         r_type = 'RefTimeSeriesResource'
+    #         r_title = "test of rest reftime series"
+    #         r_keywords = ["test"]
+    #         r_abstract = "This is a test of the resource creator"
+    #         res_id = hs.createResource(r_type,
+    #                             r_title,
+    #                             resource_file=None,
+    #                             keywords=r_keywords,
+    #                             abstract=r_abstract,
+    #                             metadata=json.dumps(metadata))
+    #
+    #     elif (service_type =='SOAP'):
+    #         #Soap Call
+    #         soap_url = 'http://hydrodata.info/chmi-d/cuahsi_1_1.asmx?wsdl'
+    #         site_code = ':248'
+    #         var_code = ':SRAZKY'
+    #         ref_type = 'soap'
+    #         metadata.append({"referenceurl":
+    #                  {"value": soap_url,
+    #                 "type": ref_type,}})
+    #         metadata.append({"variable":{'code':var_code}})
+    #         metadata.append({"site":{'code':site_code}})
+    #         r_type = 'RefTimeSeriesResource'
+    #         r_title = "test of rest reftime series soap request"
+    #         r_keywords = ["test"]
+    #         r_abstract = "This is a test of the resource creator"
+    #         res_id = hs.createResource(r_type,
+    #                             r_title,
+    #                             resource_file=None,
+    #                             keywords=r_keywords,
+    #                             abstract=r_abstract,
+    #                             metadata=json.dumps(metadata))
 
 
     #upload to hydroshare stuff

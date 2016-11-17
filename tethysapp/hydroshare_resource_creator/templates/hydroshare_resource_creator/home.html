@@ -41,13 +41,16 @@
         <thead>
         <tr>
             <th></th>
-
+            <th>Site</th>
             <th>Reference Type</th>
             <th>Service Type</th>
             <th>URL</th>
             <th>Return Type</th>
             <th>Latitude</th>
             <th>Longitude</th>
+            <th>Begin Date</th>
+            <th>End Date</th>
+            <th>Variable</th>
             <!--<th>Download Data</th>-->
         </tr>
         </thead>
@@ -55,23 +58,23 @@
 
     <div class="form-group">
         <label for="res-title" class="control-label">*Resource Title:</label>
-        <input type="text" class="form-control" id="res-title1">
+        <input type="text" class="form-control" id="res-title" value="Type the name of your resource here">
     </div>
     <div class="form-group">
         <label for="res-abstract" class="control-label">Resource Abstract:</label>
-        <textarea rows="6" cols="50" id="res-abstract1" class="form-control"></textarea>
+        <textarea rows="6" cols="50" id="res-abstract" class="form-control">Type your abstract here</textarea>
     </div>
     <div class="form-group">
         <label for="res-keywords" class="control-label">Resource Keywords:</label>
-        <input type="text" class="form-control" id="res-keywords1" value="Time Series">
+        <input type="text" class="form-control" id="res-keywords" value="TimeSeries">
     </div>
 
-    <div class="checkbox">
-        <label><input name ='ts'type="checkbox" value="checked" checked = 'checked'>Create Time Series</label>
-    </div>
-    <div class="checkbox">
-        <label><input name = 'ref_ts' type="checkbox" value="">Create Reference Time Series</label>
-    </div>
+    <!--<div class="checkbox">-->
+        <!--<label><input name ='ts'type="checkbox" value="checked" checked = 'checked'>Create Time Series</label>-->
+    <!--</div>-->
+    <!--<div class="checkbox">-->
+        <!--<label><input name = 'ref_ts' type="checkbox" value="">Create Reference Time Series</label>-->
+    <!--</div>-->
     <!--End modal content-->
     <p></p>
     <button id ='btn_create_ts_layer' type="button" class="btn btn-success">Create Time Series Layer Resource</button>

@@ -11,8 +11,8 @@ series_counter = 0
 //   async: false
 //});
 var number = 0
-function create_resource(res_id,series_total,src,serviceurl){
-    console.log(res_id)
+function create_resource(){
+
     current_url = location.href;
     index = current_url.indexOf("hydroshare-resource-creator");
     base_url = current_url.substring(0, index);
@@ -22,86 +22,109 @@ function create_resource(res_id,series_total,src,serviceurl){
     console.log( serviceurl)
     var uri = "my test.asp?name=ståle&car=saab";
     var res = encodeURI(uri);
-    console.log(res)
 
 
-    data_url = base_url + 'hydroshare-resource-creator/chart_data/' + res_id + '/'+src +'/';
+
+    data_url = base_url + 'hydroshare-resource-creator/chart_data/'
     $.ajax({
         type:"POST",
         dataType: 'json',
         data:{'serviceurl':serviceurl},
         url: data_url,
         success: function (json) {
-
-            console.log("ajax")
-            console.log(series_counter)
-            console.log(json)
-
-            series_counter = series_counter +1
-            var site_name = json.site_name
-            var variable_name = json.variable_name
-            var RefType = json.ReturnType
-            var ServiceType = json.ServiceType
-            var URL = json.URL
-            var ReturnType = json.ReturnType
-            var Lat = json.Lat
-            var Lon = json.Lon
-
-            //var boxplot_count = number
-
-            if (site_name == null) {
-                site_name = "N/A"
-            }
-            if (variable_name == null) {
-                variable_name = "N/A"
-            }
-            if (RefType == null) {
-                RefType = "N/A"
-            }
-            if (ServiceType == null) {
-                ServiceType = "N/A"
-            }
-            if (URL == null) {
-                URL = "N/A"
-            }
-            if (ReturnType == null) {
-                ReturnType = "N/A"
-            }
-            if (Lat == null) {
-                Lat = "N/A"
-            }
-            if (Lon == null) {
-                Lon = "N/A"
-            }
-
-
-
-            var legend = "<div style='text-align:center' '><input class = 'checkbox' id =" + number + " data1-resid =" + res_id
-                + " type='checkbox' onClick ='myFunc(this.id,this.name);'checked = 'checked'>" + "</div>"
-
-            var dataset = {
-                legend: legend,
-                RefType:RefType,
-                ServiceType:ServiceType,
-                URL:URL,
-                ReturnType:ReturnType,
-                Lat:Lat,
-                Lon:Lon
-            }
-            console.log(dataset)
-            var table = $('#data_table').DataTable();
-            table.row.add(dataset).draw();
-
-
-            number = number +1
-            if(number == series_total)
-            {
-                //finished_resource()
+            if (json.error !=''){
+                error_report(json.error)
                 finishloading()
+            }
+            else {
+
+                console.log(json)
+                console.log(json.data.timeSeriesLayerResource.REFTS)
+                series_details = json.data.timeSeriesLayerResource.REFTS
+                total_number = series_details.length
+                for (val in series_details) {
+                    entry = series_details[val]
+                    console.log(series_details[val])
+
+                    console.log(entry.beginDate)
+                    console.log(entry.location)
+                    console.log(entry['location'])
+
+
+                    series_counter = series_counter + 1
+                    var site_name = entry.site
+                    var variable_name = entry.variable
+                    var RefType = entry.refType
+                    var ServiceType = entry.serviceType
+                    var URL = entry.url
+                    var ReturnType = entry.returnType
+                    var Lat = entry.location.latitude
+                    var Lon = entry.location.longitude
+                    var begindate = entry.beginDate
+                    var enddate = entry.endDate
+                    var variable = entry.variable
+
+                    //var boxplot_count = number
+
+                    if (site_name == null) {
+                        site_name = "N/A"
+                    }
+                    if (variable_name == null) {
+                        variable_name = "N/A"
+                    }
+                    if (RefType == null) {
+                        RefType = "N/A"
+                    }
+                    if (ServiceType == null) {
+                        ServiceType = "N/A"
+                    }
+                    if (URL == null) {
+                        URL = "N/A"
+                    }
+                    if (ReturnType == null) {
+                        ReturnType = "N/A"
+                    }
+                    if (Lat == null) {
+                        Lat = "N/A"
+                    }
+                    if (Lon == null) {
+                        Lon = "N/A"
+                    }
+
+
+                    var legend = "<div style='text-align:center' '><input class = 'checkbox' id =" + number + " data1-resid =" + number
+                        + " type='checkbox' onClick ='myFunc(this.id,this.name);'checked = 'checked'>" + "</div>"
+
+                    var dataset = {
+                        legend: legend,
+                        RefType: RefType,
+                        ServiceType: ServiceType,
+                        URL: URL,
+                        ReturnType: ReturnType,
+                        Lat: Lat,
+                        Lon: Lon,
+                        site: site_name,
+                        beginDate: begindate,
+                        endDate: enddate,
+                        variable: variable
+
+                    }
+                    console.log(dataset)
+                    var table = $('#data_table').DataTable();
+                    table.row.add(dataset).draw();
+                    number = number + 1
+                }
+
+                //finished_resource()
+                if (number == total_number) {
+                    finishloading()
+                }
+
             }
 
         },
         error: function(){
+            error_report("Error loading data from data client")
             console.log("error")
         }
     })
@@ -154,13 +177,16 @@ $(document).ready(function () {
                 "className": "legend",
                 "data": "legend"
             },
-
+            {"data": "site"},
             {"data": "RefType"},
             {"data": "ServiceType"},
             {"data": "URL"},
             {"data": "ReturnType"},
             {"data": "Lat"},
             {"data": "Lon"},
+            {"data": "beginDate"},
+            {"data": "endDate"},
+            {"data": "variable"},
             //{"data":"download"}
         ],
         "order": [[1, 'asc']]
@@ -178,18 +204,18 @@ $(document).ready(function () {
     //    res_ids = res_ids.split(",");
     //}
 
-    var source = $('#source').text()
-    if (source == "['cuahsi']"){
-        source='cuahsi'
-    }
-    for ( var r in res_ids)
-    {
-        series_total  = series_total  +1
-    }
-    for  (var res_id in res_ids)
-    {
-        create_resource(res_ids[res_id],series_total,source,serviceurl[res_id])
-    }
+    //var source = $('#source').text()
+    //if (source == "['cuahsi']"){
+    //    source='cuahsi'
+    //}
+    //for ( var r in res_ids)
+    //{
+    //    series_total  = series_total  +1
+    //}
+    //for  (var res_id in res_ids)
+    //{
+        create_resource()
+    //}
 
 
 })
@@ -207,8 +233,7 @@ function finishloading(callback) {
 $('#btn_create_ts_layer').click(function() {
     //var popupDiv = $('#create_resource');
     //popupDiv.modal('hide')
-    $('#stat_div').hide();
-    $('#loading').show();
+
     //gets the id of each series that has been checked
     var checked_ids = $('input[data1-resid]:checkbox:checked').map(function() {
         return this.getAttribute("data1-resid");
@@ -218,31 +243,37 @@ $('#btn_create_ts_layer').click(function() {
     var series_type = $('input[name]:checkbox:checked').map(function() {
         return this.getAttribute("name");
     }).get();
+    console.log($('#res-title').val())
+    if($('#res-title').val()==''){
+        alert("Resource Title field cannot be blank")
 
+    }
+    else {
 
-    console.log(series_type)
-    var csrf_token = getCookie('csrftoken');
-    data_url = base_url + 'hydroshare-resource-creator/create_layer/cuahsi/'
-    $.ajax({
-        type:"POST",
-        headers:{'X-CSRFToken':csrf_token},
-        dataType: 'json',
-        data:{'checked_ids':JSON.stringify(checked_ids),
-            'resource_type':JSON.stringify(series_type),
-            'resTitle': $('#res-title').val(),
-            'resAbstract': $('#res-abstract').val(),
-            'resKeywords': $('#res-keywords').val()
-        },
-        url: data_url,
-        success: function (json) {
-            alert(json.Request)
-            finishloading()
-        }
-    })
-
+        $('#stat_div').hide();
+        $('#loading').show();
+        console.log(series_type)
+        var csrf_token = getCookie('csrftoken');
+        data_url = base_url + 'hydroshare-resource-creator/create_layer/cuahsi/'
+        $.ajax({
+            type: "POST",
+            headers: {'X-CSRFToken': csrf_token},
+            dataType: 'json',
+            data: {
+                'checked_ids': JSON.stringify(checked_ids),
+                'resource_type': JSON.stringify(series_type),
+                'resTitle': $('#res-title').val(),
+                'resAbstract': $('#res-abstract').val(),
+                'resKeywords': $('#res-keywords').val()
+            },
+            url: data_url,
+            success: function (json) {
+                alert(json.Request)
+                finishloading()
+            }
+        })
+    }
     //unit1 = document.querySelector('input[name = "units"]:not(:checked)').value;
-
-
 });
 
 function getCookie(name) {
@@ -269,4 +300,7 @@ function trim_input(string){
     //string = string.replace('[','')
     string =string.split(',')
     return string
+}
+function error_report(error){
+    console.log(error)
 }
