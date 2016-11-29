@@ -19,7 +19,7 @@ function create_resource(){
     //var src = find_query_parameter("src");
     serviceurl = 'http://hydroportal.cuahsi.org/nwisdv/cuahsi_1_1.asmx?WSDL'
     serviceurl = encodeURI(serviceurl)
-    console.log( serviceurl)
+    //console.log( serviceurl)
     var uri = "my test.asp?name=ståle&car=saab";
     var res = encodeURI(uri);
 

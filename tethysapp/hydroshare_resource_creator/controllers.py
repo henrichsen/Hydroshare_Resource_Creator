@@ -13,12 +13,12 @@ from hs_restclient import HydroShare, HydroShareAuthOAuth2, HydroShareNotAuthori
 from suds.transport import TransportError
 from suds.client import Client
 from xml.sax._exceptions import SAXParseException
-import json
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.cache import never_cache
 import urllib2
 import json
+
 @login_required()
 def temp_waterml(request, id):
     base_path = utilities.get_workspace() + "/id"
@@ -37,7 +37,9 @@ def home(request):
     data = request.META['QUERY_STRING']
     data = data.encode(encoding ='UTF-8')
     base_path = utilities.get_workspace() + "/id/timeseriesLayerResource.json.refts"
-
+    print request.body
+    body = request.body
+    decode_body = json.loads(request.body.decode("utf-8"))
     with open(base_path, 'w') as outfile:
         json.dump(request.body, outfile)
     utilities.parse_JSON('test')
@@ -66,8 +68,8 @@ def home(request):
     Controller for the app home page.
     """
     # utilities.append_ts_layer_resource("testtt",'test')
-    context = {'source':source,
-               'cuahsi_ids':ids,
+    context = {'source':body,
+               'cuahsi_ids':decode_body,
                'quality':quality,
                'method':method,
                'sourceid':sourceid,
@@ -360,4 +362,4 @@ def test(request):
 
     context ={"result": json.dumps(result)
                }
-    return render(request, 'timeseries_viewer/test.html', context)
+    return render(request, 'hydroshare_resource_creator/test.html', context)

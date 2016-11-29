@@ -21,6 +21,8 @@ import controllers
 import shutil
 import json
 import simplejson
+
+
 def get_app_base_uri(request):
     base_url = request.build_absolute_uri()
     if "?" in base_url:
