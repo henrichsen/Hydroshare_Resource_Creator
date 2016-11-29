@@ -44,7 +44,7 @@ def home(request):
     except:
         decode_body = "no data"
     try:
-        form_body = request.POST['timeSeriesLayerResource']
+        form_body = request.POST
     except:
         form_body = "no data"
     with open(base_path, 'w') as outfile:
