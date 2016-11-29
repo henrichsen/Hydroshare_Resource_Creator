@@ -39,9 +39,16 @@ def home(request):
     base_path = utilities.get_workspace() + "/id/timeseriesLayerResource.json.refts"
     print request.body
     body = request.body
-    decode_body = json.loads(request.body.decode("utf-8"))
+    try:
+        decode_body = json.loads(request.body.decode("utf-8"))
+    except:
+        decode_body = "no data"
+    try:
+        form_body = request.POST['timeSeriesLayerResource']
+    except:
+        form_body = "no data"
     with open(base_path, 'w') as outfile:
-        json.dump(request.body, outfile)
+        json.dump(form_body, outfile)
     utilities.parse_JSON('test')
     # print data
     # data  =data.split('&')
@@ -70,7 +77,7 @@ def home(request):
     # utilities.append_ts_layer_resource("testtt",'test')
     context = {'source':body,
                'cuahsi_ids':decode_body,
-               'quality':quality,
+               'quality':form_body,
                'method':method,
                'sourceid':sourceid,
                 'serviceurl':serviceurl
