@@ -78,7 +78,7 @@ def home(request):
     context = {'source':body,
                'cuahsi_ids':decode_body,
                'quality':form_body,
-               'method':method,
+               'method':request,
                'sourceid':sourceid,
                 'serviceurl':serviceurl
                }
