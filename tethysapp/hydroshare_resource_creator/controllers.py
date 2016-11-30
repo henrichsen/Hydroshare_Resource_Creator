@@ -26,6 +26,7 @@ def temp_waterml(request, id):
     response = HttpResponse(FileWrapper(open(file_path)), content_type='application/xml')
     return response
 @login_required()
+@csrf_exempt
 def home(request):
     ids=[]
     meta =[]
@@ -38,6 +39,7 @@ def home(request):
     data = data.encode(encoding ='UTF-8')
     base_path = utilities.get_workspace() + "/id/timeseriesLayerResource.json.refts"
     print request.body
+    print "aaaaaaaaaaaaa"
     body = request.body
     try:
         decode_body = json.loads(request.body.decode("utf-8"))

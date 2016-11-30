@@ -155,6 +155,7 @@ function finished_resource(callback){
 var data = [];
 $(document).ready(function () {
     $('#stat_div').hide();
+    finishloading()
     console.log("ready")
     //initializes table
     var table = $('#data_table').DataTable({
@@ -303,4 +304,48 @@ function trim_input(string){
 }
 function error_report(error){
     console.log(error)
+}
+
+function dataToUrl() {
+
+    verb = 'post'
+    var url= '/apps/hydroshare-resource-creator/';
+     var data = { "timeSeriesLayerResource": {} };
+    target = '_blank'
+
+    data.timeSeriesLayerResource = {"fileVersion": 1.0,
+                                               "title": "HydroClient-" ,
+                                               "abstract": "Retrieved timeseries...",
+                                               "symbol": "http://data.cuahsi.org/content/images/cuahsi_logo_small.png",
+                                               "keyWords": ["Time Series", "CUAHSI"],
+                                               "REFTS": []};
+    //Create form for data submission...
+    var form = document.createElement("form");
+    form.action = url;
+    form.method = verb;
+    form.target = target || "_self";
+    if ('undefined' !== data && null !== data) {
+        for (var key in data) {
+            var input = document.createElement("textarea");
+            input.name = key;
+            input.value = typeof data[key] === "object" ? JSON.stringify(data[key]) : data[key];
+            form.appendChild(input);
+        }
+    }
+
+    form.style.display = 'none';
+    document.body.appendChild(form);
+
+    //Submit form via jQuery to capture submit event...
+    //form.submit();
+    var jqForm = $(form);
+    jqForm.submit(function(event) {
+        jqForm.remove();
+    });
+
+    jqForm.submit();
+
+    //Remove form once submitted...
+    //Source: http://stackoverflow.com/questions/12853123/remove-form-element-from-document-in-javascript
+    //form.parentNode.removeChild(form);
 }
