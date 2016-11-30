@@ -310,7 +310,7 @@ function dataToUrl() {
 
     verb = 'post'
     var url= '/apps/hydroshare-resource-creator/';
-     var data = { "timeSeriesLayerResource": {} };
+    var data = { "timeSeriesLayerResource": {} };
     target = '_blank'
 
     data.timeSeriesLayerResource = {"fileVersion": 1.0,
