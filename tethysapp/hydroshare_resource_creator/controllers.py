@@ -17,6 +17,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.cache import never_cache
 import urllib2
+import urllib
 import json
 
 @login_required()
@@ -39,8 +40,12 @@ def home(request):
     data = data.encode(encoding ='UTF-8')
     base_path = utilities.get_workspace() + "/id/timeseriesLayerResource.json.refts"
     print request.body
-    print "aaaaaaaaaaaaa"
+
     body = request.body
+    try:
+        decode11 = request.GET['data']
+    except:
+        decode11 = 'nothing'
     try:
         decode_body = json.loads(request.body.decode("utf-8"))
     except:
@@ -52,6 +57,9 @@ def home(request):
     with open(base_path, 'w') as outfile:
         json.dump(form_body, outfile)
     utilities.parse_JSON('test')
+    print decode11
+    print urllib.unquote(decode11).decode(encoding ="UTF-8")
+
     # print data
     # data  =data.split('&')
     # for e in data:
@@ -135,11 +143,17 @@ def chart_data(request):
 
     #parse xml data from 'data' from data_for_js and prepare for the table
     data = utilities.parse_JSON('test')
+    print "ddddddddddddddddddddddddddddddddd"
+    print data
+    data1 = data['timeSeriesLayerResource']
+    print data1
+    data_n = urllib.unquote(data1).decode(encoding ="UTF-8")
+    print data_n
     if data =='':
         error = "No data in file"
     else:
         error=''
-    data_for_chart = {"data": data,'error':error}
+    data_for_chart = {"data": data1,'error':error}
     return JsonResponse(data_for_chart)
 
 def getOAuthHS(request):

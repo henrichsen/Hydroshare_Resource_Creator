@@ -1,1 +1,1 @@
-{"timeSeriesLayerResource": "{\"fileVersion\":1,\"title\":\"HydroClient-\",\"abstract\":\"Retrieved timeseries...\",\"symbol\":\"http://data.cuahsi.org/content/images/cuahsi_logo_small.png\",\"keyWords\":[\"Time Series\",\"CUAHSI\"],\"REFTS\":[]}"}
+{"timeSeriesLayerResource": "{\"fileVersion\":1,\"title\":\"HydroClient-\",\"abstract\":\"Retrieved timeseries...\",\"symbol\":\"http://data.cuahsi.org/content/images/cuahsi_logo_small.png\",\"keyWords\":[\"Time Series\",\"CUAHSI\"],\"REFTS\":[\"site:test\",\"url:www\"]}"}

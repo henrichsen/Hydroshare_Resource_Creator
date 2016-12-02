@@ -22,6 +22,14 @@ function create_resource(){
     //console.log( serviceurl)
     var uri = "my test.asp?name=ståle&car=saab";
     var res = encodeURI(uri);
+    //data = find_query_parameter('data')
+    //if(data !=null){
+    //    console.log(decodeURIComponent(data))
+    //    decode = decodeURI(decodeURIComponent(data))
+    //    json_data = JSON.parse(decode)
+    //    console.log(json)
+    //}
+
 
 
 
@@ -32,16 +40,33 @@ function create_resource(){
         data:{'serviceurl':serviceurl},
         url: data_url,
         success: function (json) {
+            json1 = null
             if (json.error !=''){
                 error_report(json.error)
                 finishloading()
             }
             else {
-
+                //json1 = json
+                //json_data = find_query_parameter('data')
+                //if(json_data != null)
+                //{
+                //
+                //    decode = decodeURI(decodeURIComponent(json_data))
+                //    console.log('aaa')
+                //    json_data = JSON.parse(decode)
+                //    console.log('aaa')
+                //    json1 = json_data
+                //}
                 console.log(json)
-                console.log(json.data.timeSeriesLayerResource.REFTS)
-                series_details = json.data.timeSeriesLayerResource.REFTS
+                console.log(json.data)
+                //console.log(json.data.timeSeriesLayerResource["REFTS"])
+                decode = decodeURI(decodeURIComponent(json.data))
+                console.log(decode)
+                console.log(JSON.parse(json.data))
+                series_details = JSON.parse(json.data)
+                series_details = series_details.REFTS
                 total_number = series_details.length
+
                 for (val in series_details) {
                     entry = series_details[val]
                     console.log(series_details[val])
@@ -309,7 +334,7 @@ function error_report(error){
 function dataToUrl() {
 
     verb = 'post'
-    var url= '/apps/hydroshare-resource-creator/';
+    var url= 'http://127.0.0.1:8000/apps/hydroshare-resource-creator/';
     var data = { "timeSeriesLayerResource": {} };
     target = '_blank'
 
@@ -318,7 +343,7 @@ function dataToUrl() {
                                                "abstract": "Retrieved timeseries...",
                                                "symbol": "http://data.cuahsi.org/content/images/cuahsi_logo_small.png",
                                                "keyWords": ["Time Series", "CUAHSI"],
-                                               "REFTS": []};
+                                               "REFTS": ["site:test","url:www"]};
     //Create form for data submission...
     var form = document.createElement("form");
     form.action = url;

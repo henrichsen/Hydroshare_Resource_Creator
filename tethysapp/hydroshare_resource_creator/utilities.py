@@ -20,7 +20,7 @@ import collections
 import controllers
 import shutil
 import json
-import simplejson
+
 
 
 def get_app_base_uri(request):
