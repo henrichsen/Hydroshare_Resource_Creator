@@ -26,7 +26,7 @@ def temp_waterml(request, id):
     file_path = base_path + "/" + id
     response = HttpResponse(FileWrapper(open(file_path)), content_type='application/xml')
     return response
-# @login_required()
+@login_required()
 @csrf_exempt
 def home(request):
     ids=[]
@@ -93,10 +93,8 @@ def home(request):
                 'serviceurl':serviceurl
                }
     return render(request, 'hydroshare_resource_creator/home.html', context)
-@login_required()
+# @login_required()
 @csrf_exempt
-
-
 def chart_data(request):
     data_for_chart={}
     # serviceurl = request.POST.get('serviceurl')
@@ -246,6 +244,7 @@ def response(request):
     # return response1
     return service_url
 @ensure_csrf_cookie
+@login_required()
 def create_layer(request,src):
     # res_id = request.POST.get('checked_ids')
     # # res_id = res_id.encode(encoding ='UTF-8')
