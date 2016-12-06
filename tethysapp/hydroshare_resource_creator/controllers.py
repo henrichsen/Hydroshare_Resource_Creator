@@ -56,7 +56,7 @@ def home(request):
         form_body = "no data"
     with open(base_path, 'w') as outfile:
         json.dump(form_body, outfile)
-    utilities.parse_JSON('test')
+    # utilities.parse_JSON()
     print decode11
     print urllib.unquote(decode11).decode(encoding ="UTF-8")
 
@@ -142,7 +142,7 @@ def chart_data(request):
 
 
     #parse xml data from 'data' from data_for_js and prepare for the table
-    data = utilities.parse_JSON('test')
+    data = utilities.parse_JSON()
     print "ddddddddddddddddddddddddddddddddd"
     print data
     data1 = data['timeSeriesLayerResource']
@@ -212,19 +212,19 @@ def write_file(request,res_id):
     # os.remove(file_temp_name)
     return JsonResponse(sucess)
 def response(request):
-    # # service_url = 'http://hydroportal.cuahsi.org/nwisdv/cuahsi_1_1.asmx?WSDL'
-    service_url = 'http://hiscentral.cuahsi.org/webservices/hiscentral.asmx?WSDL'
+    service_url = 'http://hydroportal.cuahsi.org/nwisdv/cuahsi_1_1.asmx?WSDL'
+    # service_url = 'http://hiscentral.cuahsi.org/webservices/hiscentral.asmx?WSDL'
     # # site_code = '10147100'
-    # site_code = 'ODM:010210JHI'
+    site_code = 'ODM:010210JHI'
     # variable_code = 'ODM:Discharge'
-    # # variable_code = 'NWISDV:00060'
+    variable_code = 'NWISDV:00060'
     client = connect_wsdl_url(service_url)
     # print client
-    # start_date =''
-    # end_date = ''
-    # auth_token = ''
-    # response1 = client.service.GetValues(site_code, variable_code, start_date, end_date, auth_token)
-    response1 = client.service.GetWaterOneFlowServiceInfo()
+    start_date =''
+    end_date = ''
+    auth_token = ''
+    response1 = client.service.GetValues(site_code, variable_code, start_date, end_date, auth_token)
+    print response1
 
     response= urllib2.urlopen('http://hiscentral.cuahsi.org/webservices/hiscentral.asmx/GetWaterOneFlowServiceInfo')
     html = response.read()

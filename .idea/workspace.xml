@@ -33,8 +33,8 @@
           <file leaf-file-name="utilities.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/utilities.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="258.875">
-                  <caret line="145" column="18" selection-start-line="145" selection-start-column="16" selection-end-line="145" selection-end-column="18" />
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="862" column="30" selection-start-line="862" selection-start-column="30" selection-end-line="862" selection-end-column="30" />
                   <folding>
                     <element signature="e#0#22#0" expanded="true" />
                   </folding>
@@ -45,22 +45,22 @@
           <file leaf-file-name="controllers.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/controllers.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-1.5714285">
-                  <caret line="136" column="33" selection-start-line="136" selection-start-column="33" selection-end-line="136" selection-end-column="33" />
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="153" column="9" selection-start-line="153" selection-start-column="9" selection-end-line="153" selection-end-column="9" />
                   <folding>
                     <element signature="e#0#35#0" expanded="true" />
-                    <element signature="e#12981#14464#0" expanded="false" />
-                    <marker date="1480710357834" expanded="true" signature="10518:12611" placeholder="..." />
+                    <element signature="e#12915#14398#0" expanded="false" />
+                    <marker date="1481039768485" expanded="true" signature="10452:12545" placeholder="..." />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="home.html" pinned="false" current-in-tab="false">
+          <file leaf-file-name="home.html" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/templates/hydroshare_resource_creator/home.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-8.20339">
-                  <caret line="114" column="85" selection-start-line="114" selection-start-column="85" selection-end-line="114" selection-end-column="85" />
+                <state vertical-scroll-proportion="0.295302">
+                  <caret line="103" column="36" selection-start-line="103" selection-start-column="36" selection-end-line="103" selection-end-column="36" />
                   <folding>
                     <element signature="n#style#0;n#div#2;n#!!top" expanded="true" />
                   </folding>
@@ -68,13 +68,13 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="main.js" pinned="false" current-in-tab="true">
+          <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/public/js/main.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.4">
-                  <caret line="59" column="33" selection-start-line="59" selection-start-column="33" selection-end-line="59" selection-end-column="33" />
+                <state vertical-scroll-proportion="1.7142857">
+                  <caret line="179" column="21" selection-start-line="179" selection-start-column="21" selection-end-line="179" selection-end-column="21" />
                   <folding>
-                    <marker date="1480710498798" expanded="true" signature="4213:4230" placeholder="..." />
+                    <marker date="1481040252841" expanded="true" signature="4118:4135" placeholder="..." />
                   </folding>
                 </state>
               </provider>
@@ -84,7 +84,7 @@
             <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/app.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state vertical-scroll-proportion="0.0">
-                  <caret line="45" column="66" selection-start-line="45" selection-start-column="39" selection-end-line="45" selection-end-column="66" />
+                  <caret line="35" column="40" selection-start-line="35" selection-start-column="40" selection-end-line="35" selection-end-column="40" />
                   <folding />
                 </state>
               </provider>
@@ -97,10 +97,10 @@
           <file leaf-file-name="main.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/public/js/main.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.30427352">
-                  <caret line="338" column="10" selection-start-line="338" selection-start-column="4" selection-end-line="338" selection-end-column="10" />
+                <state vertical-scroll-proportion="0.23548387">
+                  <caret line="334" column="10" selection-start-line="334" selection-start-column="4" selection-end-line="334" selection-end-column="10" />
                   <folding>
-                    <marker date="1480710498798" expanded="true" signature="4213:4230" placeholder="..." />
+                    <marker date="1481040252841" expanded="true" signature="4118:4135" placeholder="..." />
                   </folding>
                 </state>
               </provider>
@@ -115,11 +115,11 @@
       <list>
         <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/public/css/main.css" />
         <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/templates/hydroshare_resource_creator/base.html" />
-        <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/app.py" />
         <option value="$PROJECT_DIR$/setup.py" />
-        <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/templates/hydroshare_resource_creator/home.html" />
+        <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/app.py" />
         <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/utilities.py" />
         <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/controllers.py" />
+        <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/templates/hydroshare_resource_creator/home.html" />
         <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/public/js/main.js" />
       </list>
     </option>
@@ -134,7 +134,7 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="132" />
     <option name="y" value="24" />
-    <option name="width" value="1363" />
+    <option name="width" value="1353" />
     <option name="height" value="772" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
@@ -162,7 +162,7 @@
     <panes />
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../tethys_hydro_server" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../timeseries_viewer" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="FullScreen" value="false" />
   </component>
@@ -370,7 +370,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="132" y="24" width="1363" height="772" extended-state="4" />
+    <frame x="132" y="24" width="1353" height="772" extended-state="4" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.006616257" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -380,18 +380,18 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.8476821" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.0" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32973805" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -426,8 +426,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
-            <element signature="e#12981#14464#0" expanded="false" />
-            <marker date="1480710357834" expanded="true" signature="10518:12611" placeholder="..." />
+            <element signature="e#12915#14398#0" expanded="false" />
+            <marker date="1481039768485" expanded="true" signature="10452:12545" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -437,7 +437,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="65" column="0" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
           <folding>
-            <marker date="1480710498798" expanded="true" signature="4213:4230" placeholder="..." />
+            <marker date="1481040252841" expanded="true" signature="4118:4135" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -476,8 +476,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
-            <element signature="e#12981#14464#0" expanded="false" />
-            <marker date="1480710357834" expanded="true" signature="10518:12611" placeholder="..." />
+            <element signature="e#12915#14398#0" expanded="false" />
+            <marker date="1481039768485" expanded="true" signature="10452:12545" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -487,7 +487,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="65" column="0" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
           <folding>
-            <marker date="1480710498798" expanded="true" signature="4213:4230" placeholder="..." />
+            <marker date="1481040252841" expanded="true" signature="4118:4135" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -526,8 +526,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
-            <element signature="e#12981#14464#0" expanded="false" />
-            <marker date="1480710357834" expanded="true" signature="10518:12611" placeholder="..." />
+            <element signature="e#12915#14398#0" expanded="false" />
+            <marker date="1481039768485" expanded="true" signature="10452:12545" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -537,7 +537,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="65" column="0" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
           <folding>
-            <marker date="1480710498798" expanded="true" signature="4213:4230" placeholder="..." />
+            <marker date="1481040252841" expanded="true" signature="4118:4135" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -576,8 +576,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
-            <element signature="e#12981#14464#0" expanded="false" />
-            <marker date="1480710357834" expanded="true" signature="10518:12611" placeholder="..." />
+            <element signature="e#12915#14398#0" expanded="false" />
+            <marker date="1481039768485" expanded="true" signature="10452:12545" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -587,7 +587,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="65" column="0" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
           <folding>
-            <marker date="1480710498798" expanded="true" signature="4213:4230" placeholder="..." />
+            <marker date="1481040252841" expanded="true" signature="4118:4135" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -626,8 +626,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
-            <element signature="e#12981#14464#0" expanded="false" />
-            <marker date="1480710357834" expanded="true" signature="10518:12611" placeholder="..." />
+            <element signature="e#12915#14398#0" expanded="false" />
+            <marker date="1481039768485" expanded="true" signature="10452:12545" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -637,7 +637,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="15" column="19" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="19" />
           <folding>
-            <marker date="1480710498798" expanded="true" signature="4213:4230" placeholder="..." />
+            <marker date="1481040252841" expanded="true" signature="4118:4135" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -676,8 +676,8 @@
           <caret line="44" column="31" selection-start-line="44" selection-start-column="31" selection-end-line="44" selection-end-column="31" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
-            <element signature="e#12981#14464#0" expanded="false" />
-            <marker date="1480710357834" expanded="true" signature="10518:12611" placeholder="..." />
+            <element signature="e#12915#14398#0" expanded="false" />
+            <marker date="1481039768485" expanded="true" signature="10452:12545" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -687,7 +687,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding>
-            <marker date="1480710498798" expanded="true" signature="4213:4230" placeholder="..." />
+            <marker date="1481040252841" expanded="true" signature="4118:4135" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -726,8 +726,8 @@
           <caret line="16" column="37" selection-start-line="16" selection-start-column="37" selection-end-line="16" selection-end-column="37" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
-            <element signature="e#12981#14464#0" expanded="false" />
-            <marker date="1480710357834" expanded="true" signature="10518:12611" placeholder="..." />
+            <element signature="e#12915#14398#0" expanded="false" />
+            <marker date="1481039768485" expanded="true" signature="10452:12545" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -737,7 +737,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1480710498798" expanded="true" signature="4213:4230" placeholder="..." />
+            <marker date="1481040252841" expanded="true" signature="4118:4135" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -776,8 +776,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
-            <element signature="e#12981#14464#0" expanded="false" />
-            <marker date="1480710357834" expanded="true" signature="10518:12611" placeholder="..." />
+            <element signature="e#12915#14398#0" expanded="false" />
+            <marker date="1481039768485" expanded="true" signature="10452:12545" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -787,7 +787,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="5" column="87" selection-start-line="0" selection-start-column="0" selection-end-line="5" selection-end-column="87" />
           <folding>
-            <marker date="1480710498798" expanded="true" signature="4213:4230" placeholder="..." />
+            <marker date="1481040252841" expanded="true" signature="4118:4135" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -846,7 +846,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="12" column="28" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
           <folding>
-            <element signature="e#0#9#0" expanded="true" />
+            <element signature="e#0#9#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -855,32 +855,21 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="7.8333335">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/templates/hydroshare_resource_creator/home.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.20339">
-          <caret line="114" column="85" selection-start-line="114" selection-start-column="85" selection-end-line="114" selection-end-column="85" />
-          <folding>
-            <element signature="n#style#0;n#div#2;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/app.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="45" column="66" selection-start-line="45" selection-start-column="39" selection-end-line="45" selection-end-column="66" />
+          <caret line="35" column="40" selection-start-line="35" selection-start-column="40" selection-end-line="35" selection-end-column="40" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/utilities.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="258.875">
-          <caret line="145" column="18" selection-start-line="145" selection-start-column="16" selection-end-line="145" selection-end-column="18" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="862" column="30" selection-start-line="862" selection-start-column="30" selection-end-line="862" selection-end-column="30" />
           <folding>
             <element signature="e#0#22#0" expanded="true" />
           </folding>
@@ -889,22 +878,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/controllers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.5714285">
-          <caret line="136" column="33" selection-start-line="136" selection-start-column="33" selection-end-line="136" selection-end-column="33" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="153" column="9" selection-start-line="153" selection-start-column="9" selection-end-line="153" selection-end-column="9" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
-            <element signature="e#12981#14464#0" expanded="false" />
-            <marker date="1480710357834" expanded="true" signature="10518:12611" placeholder="..." />
+            <element signature="e#12915#14398#0" expanded="false" />
+            <marker date="1481039768485" expanded="true" signature="10452:12545" placeholder="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/public/js/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4">
-          <caret line="59" column="33" selection-start-line="59" selection-start-column="33" selection-end-line="59" selection-end-column="33" />
+        <state vertical-scroll-proportion="1.7142857">
+          <caret line="179" column="21" selection-start-line="179" selection-start-column="21" selection-end-line="179" selection-end-column="21" />
           <folding>
-            <marker date="1480710498798" expanded="true" signature="4213:4230" placeholder="..." />
+            <marker date="1481040252841" expanded="true" signature="4118:4135" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/templates/hydroshare_resource_creator/home.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.295302">
+          <caret line="103" column="36" selection-start-line="103" selection-start-column="36" selection-end-line="103" selection-end-column="36" />
+          <folding>
+            <element signature="n#style#0;n#div#2;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>

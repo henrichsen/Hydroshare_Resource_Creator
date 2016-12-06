@@ -17,8 +17,6 @@ function create_resource(){
     index = current_url.indexOf("hydroshare-resource-creator");
     base_url = current_url.substring(0, index);
     //var src = find_query_parameter("src");
-    serviceurl = 'http://hydroportal.cuahsi.org/nwisdv/cuahsi_1_1.asmx?WSDL'
-    serviceurl = encodeURI(serviceurl)
     //console.log( serviceurl)
     var uri = "my test.asp?name=ståle&car=saab";
     var res = encodeURI(uri);
@@ -29,10 +27,7 @@ function create_resource(){
     //    json_data = JSON.parse(decode)
     //    console.log(json)
     //}
-
-
-
-
+    serviceurl = 'test'
     data_url = base_url + 'hydroshare-resource-creator/chart_data/'
     $.ajax({
         type:"POST",
@@ -41,6 +36,7 @@ function create_resource(){
         url: data_url,
         success: function (json) {
             json1 = null
+
             if (json.error !=''){
                 error_report(json.error)
                 finishloading()
@@ -180,7 +176,7 @@ function finished_resource(callback){
 var data = [];
 $(document).ready(function () {
     $('#stat_div').hide();
-    finishloading()
+    //finishloading()
     console.log("ready")
     //initializes table
     var table = $('#data_table').DataTable({
@@ -240,7 +236,7 @@ $(document).ready(function () {
     //}
     //for  (var res_id in res_ids)
     //{
-        create_resource()
+    create_resource()
     //}
 
 
@@ -294,7 +290,7 @@ $('#btn_create_ts_layer').click(function() {
             },
             url: data_url,
             success: function (json) {
-                alert(json.Request)
+
                 finishloading()
             }
         })

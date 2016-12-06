@@ -859,7 +859,7 @@ def get_hydroshare_resource(request,res_id,data_for_chart):
         print "end"
     data_dic = {"data":data_for_chart,"owner":is_owner,"error":error}
     return data_dic
-def parse_JSON(file):
+def parse_JSON():
     temp_dir = get_workspace()
     # file=  temp_dir+'/id/timeSeriesResource.json'
     file=  temp_dir+'/id/timeseriesLayerResource.json.refts'
