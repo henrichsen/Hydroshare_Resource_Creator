@@ -10,6 +10,7 @@ import os
 from datetime import datetime
 import utilities
 from hs_restclient import HydroShare, HydroShareAuthOAuth2, HydroShareNotAuthorized, HydroShareNotFound
+from oauthlib.oauth2 import TokenExpiredError
 from suds.transport import TransportError
 from suds.client import Client
 from xml.sax._exceptions import SAXParseException
@@ -26,7 +27,7 @@ def temp_waterml(request, id):
     file_path = base_path + "/" + id
     response = HttpResponse(FileWrapper(open(file_path)), content_type='application/xml')
     return response
-# @login_required()
+@login_required()
 @csrf_exempt
 def home(request):
     ids=[]
@@ -244,13 +245,28 @@ def response(request):
     # return response1
     return service_url
 @ensure_csrf_cookie
-@login_required()
+# @login_required()
 def create_layer(request,src):
     # res_id = request.POST.get('checked_ids')
     # # res_id = res_id.encode(encoding ='UTF-8')
     # print res_id
     # resource_type = request.POST.get('resource_type')
     # # resource_type = resource_type.encode(encoding ='UTF-8')
+    client_id = 'MYCLIENTID'
+    client_secret = 'MYCLIENTSECRET'
+
+    auth = HydroShareAuthOAuth2(client_id, client_secret,
+                                username='myusername', password='mypassword')
+    hs = HydroShare(auth=auth)
+
+    try:
+      for resource in hs.getResourceList():
+        print(resource)
+    except TokenExpiredError as e:
+       hs = HydroShare(auth=auth)
+       for resource in hs.getResourceList():
+             print(resource)
+
     title = str(request.POST.get('resTitle'))# causing errors because not strints?
     abstract = str(request.POST.get('resAbstract'))
     keywords = str(request.POST.get('resKeywords'))
