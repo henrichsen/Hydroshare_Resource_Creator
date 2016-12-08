@@ -12,4 +12,5 @@ tethysapp_hydroshare_resource_creator.egg-info/SOURCES.txt
 tethysapp_hydroshare_resource_creator.egg-info/dependency_links.txt
 tethysapp_hydroshare_resource_creator.egg-info/namespace_packages.txt
 tethysapp_hydroshare_resource_creator.egg-info/not-zip-safe
+tethysapp_hydroshare_resource_creator.egg-info/requires.txt
 tethysapp_hydroshare_resource_creator.egg-info/top_level.txt
