@@ -194,6 +194,7 @@ $(document).ready(function () {
     console.log("ready")
     //initializes table
     var table = $('#data_table').DataTable({
+        "scrollX": true,
         "createdRow": function (row, data2, dataIndex) {
 
             //console.log({"data": "quality"})
@@ -330,8 +331,10 @@ $('#btn_create_ts_layer').click(function() {
                             else
                             {
                                 alert("Resource created sucessfully")
-                                //$('#btn_view_resource').attr('name') =json.Request
-                                $('#div_view_resource').show()
+
+
+                                $('#btn_view_resource').html("")
+                                $('#div_view_resource').append('<button id ="btn_view_resource" type="button" class="btn btn-success" name ="'+json.Request+'"onclick="view_resource(this.name)">View Resource</button>')
                             }
                         },
                         error:function(json){

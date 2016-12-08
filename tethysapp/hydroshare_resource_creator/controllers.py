@@ -59,8 +59,8 @@ def home(request):
         form_body = request.POST
     except:
         form_body = "no data"
-    with open(base_path, 'w') as outfile:
-        json.dump(form_body, outfile)
+    # with open(base_path, 'w') as outfile:
+    #     json.dump(form_body, outfile)
 
     print decode11
     print urllib.unquote(decode11).decode(encoding ="UTF-8")

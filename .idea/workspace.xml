@@ -27,7 +27,7 @@
     <favorites_list name="tethysapp-hydroshare_resource_creator" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.4267212">
+    <splitter split-orientation="horizontal" split-proportion="0.38410154">
       <split-first>
         <leaf>
           <file leaf-file-name="utilities.py" pinned="false" current-in-tab="false">
@@ -42,29 +42,28 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="controllers.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="controllers.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/controllers.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-3.266129">
-                  <caret line="64" column="18" selection-start-line="64" selection-start-column="18" selection-end-line="64" selection-end-column="18" />
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="56" column="31" selection-start-line="56" selection-start-column="31" selection-end-line="56" selection-end-column="31" />
                   <folding>
                     <element signature="e#0#35#0" expanded="true" />
                     <element signature="e#882#1074#0" expanded="false" />
-                    <element signature="e#13681#15164#0" expanded="false" />
-                    <marker date="1481168782311" expanded="false" signature="3125:4763" placeholder="..." />
-                    <marker date="1481168782311" expanded="true" signature="11216:13309" placeholder="..." />
+                    <element signature="e#13685#15168#0" expanded="false" />
+                    <marker date="1481215335183" expanded="false" signature="3129:4767" placeholder="..." />
+                    <marker date="1481215335183" expanded="true" signature="11220:13313" placeholder="..." />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="home.html" pinned="false" current-in-tab="false">
+          <file leaf-file-name="home.html" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/templates/hydroshare_resource_creator/home.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-19.25">
-                  <caret line="111" column="0" selection-start-line="111" selection-start-column="0" selection-end-line="111" selection-end-column="0" />
+                <state vertical-scroll-proportion="0.5771812">
+                  <caret line="51" column="21" selection-start-line="51" selection-start-column="21" selection-end-line="51" selection-end-column="21" />
                   <folding>
-                    <element signature="n#style#0;n#div#3;n#div#0;n#!!top" expanded="true" />
                     <element signature="n#style#0;n#div#2;n#!!top" expanded="true" />
                   </folding>
                 </state>
@@ -95,15 +94,10 @@
             <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/public/js/main.js">
               <provider selected="true" editor-type-id="text-editor">
                 <state vertical-scroll-proportion="0.0">
-                  <caret line="349" column="16" selection-start-line="349" selection-start-column="16" selection-end-line="349" selection-end-column="16" />
+                  <caret line="336" column="18" selection-start-line="336" selection-start-column="18" selection-end-line="336" selection-end-column="18" />
                   <folding>
                     <element signature="n#!!block;n#dataToUrl#0" expanded="false" />
-                    <marker date="1481168318643" expanded="true" signature="4431:4448" placeholder="..." />
-                    <marker date="1481168318643" expanded="true" signature="8726:11952" placeholder="{...}" />
-                    <marker date="1481168318643" expanded="true" signature="8939:11865" placeholder="{&quot;async&quot;: false...}" />
-                    <marker date="1481168318643" expanded="true" signature="9019:11792" placeholder="{...}" />
-                    <marker date="1481168318643" expanded="true" signature="11818:11864" placeholder="{...}" />
-                    <marker date="1481168318643" expanded="true" signature="11993:12069" placeholder="{...}" />
+                    <marker date="1481215612119" expanded="true" signature="4431:4448" placeholder="..." />
                   </folding>
                 </state>
               </provider>
@@ -126,11 +120,11 @@
           <file leaf-file-name="main.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/public/js/main.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.574359">
-                  <caret line="333" column="32" selection-start-line="333" selection-start-column="32" selection-end-line="333" selection-end-column="32" />
+                <state vertical-scroll-proportion="0.41880342">
+                  <caret line="205" column="30" selection-start-line="205" selection-start-column="30" selection-end-line="205" selection-end-column="30" />
                   <folding>
                     <element signature="n#!!block;n#dataToUrl#0" expanded="false" />
-                    <marker date="1481168318643" expanded="true" signature="4431:4448" placeholder="..." />
+                    <marker date="1481215612119" expanded="true" signature="4431:4448" placeholder="..." />
                   </folding>
                 </state>
               </provider>
@@ -156,9 +150,9 @@
         <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/utilities.py" />
         <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/templates/hydroshare_resource_creator/login_callback.html" />
         <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/app.py" />
+        <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/controllers.py" />
         <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/templates/hydroshare_resource_creator/home.html" />
         <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/public/js/main.js" />
-        <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/controllers.py" />
       </list>
     </option>
   </component>
@@ -170,9 +164,9 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="83" />
+    <option name="x" value="53" />
     <option name="y" value="52" />
-    <option name="width" value="1517" />
+    <option name="width" value="1547" />
     <option name="height" value="744" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
@@ -409,7 +403,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="83" y="52" width="1517" height="744" extended-state="4" />
+    <frame x="53" y="52" width="1547" height="744" extended-state="4" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.006616257" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -419,7 +413,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.8476821" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.0027192386" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.0026648901" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -458,9 +452,9 @@
           <folding>
             <element signature="e#0#35#0" expanded="true" />
             <element signature="e#882#1074#0" expanded="false" />
-            <element signature="e#13681#15164#0" expanded="false" />
-            <marker date="1481168782311" expanded="false" signature="3125:4763" placeholder="..." />
-            <marker date="1481168782311" expanded="true" signature="11216:13309" placeholder="..." />
+            <element signature="e#13685#15168#0" expanded="false" />
+            <marker date="1481215335183" expanded="false" signature="3129:4767" placeholder="..." />
+            <marker date="1481215335183" expanded="true" signature="11220:13313" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -471,12 +465,7 @@
           <caret line="65" column="0" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
           <folding>
             <element signature="n#!!block;n#dataToUrl#0" expanded="false" />
-            <marker date="1481168318643" expanded="true" signature="4431:4448" placeholder="..." />
-            <marker date="1481168318643" expanded="true" signature="8726:11952" placeholder="{...}" />
-            <marker date="1481168318643" expanded="true" signature="8939:11865" placeholder="{&quot;async&quot;: false...}" />
-            <marker date="1481168318643" expanded="true" signature="9019:11792" placeholder="{...}" />
-            <marker date="1481168318643" expanded="true" signature="11818:11864" placeholder="{...}" />
-            <marker date="1481168318643" expanded="true" signature="11993:12069" placeholder="{...}" />
+            <marker date="1481215612119" expanded="true" signature="4431:4448" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -486,7 +475,6 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="10" column="14" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
           <folding>
-            <element signature="n#style#0;n#div#3;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#2;n#!!top" expanded="true" />
           </folding>
         </state>
@@ -517,9 +505,9 @@
           <folding>
             <element signature="e#0#35#0" expanded="true" />
             <element signature="e#882#1074#0" expanded="false" />
-            <element signature="e#13681#15164#0" expanded="false" />
-            <marker date="1481168782311" expanded="false" signature="3125:4763" placeholder="..." />
-            <marker date="1481168782311" expanded="true" signature="11216:13309" placeholder="..." />
+            <element signature="e#13685#15168#0" expanded="false" />
+            <marker date="1481215335183" expanded="false" signature="3129:4767" placeholder="..." />
+            <marker date="1481215335183" expanded="true" signature="11220:13313" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -530,12 +518,7 @@
           <caret line="65" column="0" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
           <folding>
             <element signature="n#!!block;n#dataToUrl#0" expanded="false" />
-            <marker date="1481168318643" expanded="true" signature="4431:4448" placeholder="..." />
-            <marker date="1481168318643" expanded="true" signature="8726:11952" placeholder="{...}" />
-            <marker date="1481168318643" expanded="true" signature="8939:11865" placeholder="{&quot;async&quot;: false...}" />
-            <marker date="1481168318643" expanded="true" signature="9019:11792" placeholder="{...}" />
-            <marker date="1481168318643" expanded="true" signature="11818:11864" placeholder="{...}" />
-            <marker date="1481168318643" expanded="true" signature="11993:12069" placeholder="{...}" />
+            <marker date="1481215612119" expanded="true" signature="4431:4448" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -545,7 +528,6 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="10" column="14" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
           <folding>
-            <element signature="n#style#0;n#div#3;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#2;n#!!top" expanded="true" />
           </folding>
         </state>
@@ -576,9 +558,9 @@
           <folding>
             <element signature="e#0#35#0" expanded="true" />
             <element signature="e#882#1074#0" expanded="false" />
-            <element signature="e#13681#15164#0" expanded="false" />
-            <marker date="1481168782311" expanded="false" signature="3125:4763" placeholder="..." />
-            <marker date="1481168782311" expanded="true" signature="11216:13309" placeholder="..." />
+            <element signature="e#13685#15168#0" expanded="false" />
+            <marker date="1481215335183" expanded="false" signature="3129:4767" placeholder="..." />
+            <marker date="1481215335183" expanded="true" signature="11220:13313" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -589,12 +571,7 @@
           <caret line="65" column="0" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
           <folding>
             <element signature="n#!!block;n#dataToUrl#0" expanded="false" />
-            <marker date="1481168318643" expanded="true" signature="4431:4448" placeholder="..." />
-            <marker date="1481168318643" expanded="true" signature="8726:11952" placeholder="{...}" />
-            <marker date="1481168318643" expanded="true" signature="8939:11865" placeholder="{&quot;async&quot;: false...}" />
-            <marker date="1481168318643" expanded="true" signature="9019:11792" placeholder="{...}" />
-            <marker date="1481168318643" expanded="true" signature="11818:11864" placeholder="{...}" />
-            <marker date="1481168318643" expanded="true" signature="11993:12069" placeholder="{...}" />
+            <marker date="1481215612119" expanded="true" signature="4431:4448" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -604,7 +581,6 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="10" column="14" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
           <folding>
-            <element signature="n#style#0;n#div#3;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#2;n#!!top" expanded="true" />
           </folding>
         </state>
@@ -635,9 +611,9 @@
           <folding>
             <element signature="e#0#35#0" expanded="true" />
             <element signature="e#882#1074#0" expanded="false" />
-            <element signature="e#13681#15164#0" expanded="false" />
-            <marker date="1481168782311" expanded="false" signature="3125:4763" placeholder="..." />
-            <marker date="1481168782311" expanded="true" signature="11216:13309" placeholder="..." />
+            <element signature="e#13685#15168#0" expanded="false" />
+            <marker date="1481215335183" expanded="false" signature="3129:4767" placeholder="..." />
+            <marker date="1481215335183" expanded="true" signature="11220:13313" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -648,12 +624,7 @@
           <caret line="65" column="0" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
           <folding>
             <element signature="n#!!block;n#dataToUrl#0" expanded="false" />
-            <marker date="1481168318643" expanded="true" signature="4431:4448" placeholder="..." />
-            <marker date="1481168318643" expanded="true" signature="8726:11952" placeholder="{...}" />
-            <marker date="1481168318643" expanded="true" signature="8939:11865" placeholder="{&quot;async&quot;: false...}" />
-            <marker date="1481168318643" expanded="true" signature="9019:11792" placeholder="{...}" />
-            <marker date="1481168318643" expanded="true" signature="11818:11864" placeholder="{...}" />
-            <marker date="1481168318643" expanded="true" signature="11993:12069" placeholder="{...}" />
+            <marker date="1481215612119" expanded="true" signature="4431:4448" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -663,7 +634,6 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="10" column="14" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
           <folding>
-            <element signature="n#style#0;n#div#3;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#2;n#!!top" expanded="true" />
           </folding>
         </state>
@@ -694,9 +664,9 @@
           <folding>
             <element signature="e#0#35#0" expanded="true" />
             <element signature="e#882#1074#0" expanded="false" />
-            <element signature="e#13681#15164#0" expanded="false" />
-            <marker date="1481168782311" expanded="false" signature="3125:4763" placeholder="..." />
-            <marker date="1481168782311" expanded="true" signature="11216:13309" placeholder="..." />
+            <element signature="e#13685#15168#0" expanded="false" />
+            <marker date="1481215335183" expanded="false" signature="3129:4767" placeholder="..." />
+            <marker date="1481215335183" expanded="true" signature="11220:13313" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -707,12 +677,7 @@
           <caret line="15" column="19" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="19" />
           <folding>
             <element signature="n#!!block;n#dataToUrl#0" expanded="false" />
-            <marker date="1481168318643" expanded="true" signature="4431:4448" placeholder="..." />
-            <marker date="1481168318643" expanded="true" signature="8726:11952" placeholder="{...}" />
-            <marker date="1481168318643" expanded="true" signature="8939:11865" placeholder="{&quot;async&quot;: false...}" />
-            <marker date="1481168318643" expanded="true" signature="9019:11792" placeholder="{...}" />
-            <marker date="1481168318643" expanded="true" signature="11818:11864" placeholder="{...}" />
-            <marker date="1481168318643" expanded="true" signature="11993:12069" placeholder="{...}" />
+            <marker date="1481215612119" expanded="true" signature="4431:4448" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -722,7 +687,6 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="10" column="14" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
           <folding>
-            <element signature="n#style#0;n#div#3;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#2;n#!!top" expanded="true" />
           </folding>
         </state>
@@ -753,9 +717,9 @@
           <folding>
             <element signature="e#0#35#0" expanded="true" />
             <element signature="e#882#1074#0" expanded="false" />
-            <element signature="e#13681#15164#0" expanded="false" />
-            <marker date="1481168782311" expanded="false" signature="3125:4763" placeholder="..." />
-            <marker date="1481168782311" expanded="true" signature="11216:13309" placeholder="..." />
+            <element signature="e#13685#15168#0" expanded="false" />
+            <marker date="1481215335183" expanded="false" signature="3129:4767" placeholder="..." />
+            <marker date="1481215335183" expanded="true" signature="11220:13313" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -766,12 +730,7 @@
           <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding>
             <element signature="n#!!block;n#dataToUrl#0" expanded="false" />
-            <marker date="1481168318643" expanded="true" signature="4431:4448" placeholder="..." />
-            <marker date="1481168318643" expanded="true" signature="8726:11952" placeholder="{...}" />
-            <marker date="1481168318643" expanded="true" signature="8939:11865" placeholder="{&quot;async&quot;: false...}" />
-            <marker date="1481168318643" expanded="true" signature="9019:11792" placeholder="{...}" />
-            <marker date="1481168318643" expanded="true" signature="11818:11864" placeholder="{...}" />
-            <marker date="1481168318643" expanded="true" signature="11993:12069" placeholder="{...}" />
+            <marker date="1481215612119" expanded="true" signature="4431:4448" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -781,7 +740,6 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="10" column="14" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
           <folding>
-            <element signature="n#style#0;n#div#3;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#2;n#!!top" expanded="true" />
           </folding>
         </state>
@@ -812,9 +770,9 @@
           <folding>
             <element signature="e#0#35#0" expanded="true" />
             <element signature="e#882#1074#0" expanded="false" />
-            <element signature="e#13681#15164#0" expanded="false" />
-            <marker date="1481168782311" expanded="false" signature="3125:4763" placeholder="..." />
-            <marker date="1481168782311" expanded="true" signature="11216:13309" placeholder="..." />
+            <element signature="e#13685#15168#0" expanded="false" />
+            <marker date="1481215335183" expanded="false" signature="3129:4767" placeholder="..." />
+            <marker date="1481215335183" expanded="true" signature="11220:13313" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -825,12 +783,7 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="n#!!block;n#dataToUrl#0" expanded="false" />
-            <marker date="1481168318643" expanded="true" signature="4431:4448" placeholder="..." />
-            <marker date="1481168318643" expanded="true" signature="8726:11952" placeholder="{...}" />
-            <marker date="1481168318643" expanded="true" signature="8939:11865" placeholder="{&quot;async&quot;: false...}" />
-            <marker date="1481168318643" expanded="true" signature="9019:11792" placeholder="{...}" />
-            <marker date="1481168318643" expanded="true" signature="11818:11864" placeholder="{...}" />
-            <marker date="1481168318643" expanded="true" signature="11993:12069" placeholder="{...}" />
+            <marker date="1481215612119" expanded="true" signature="4431:4448" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -840,7 +793,6 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="10" column="14" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
           <folding>
-            <element signature="n#style#0;n#div#3;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#2;n#!!top" expanded="true" />
           </folding>
         </state>
@@ -871,9 +823,9 @@
           <folding>
             <element signature="e#0#35#0" expanded="true" />
             <element signature="e#882#1074#0" expanded="false" />
-            <element signature="e#13681#15164#0" expanded="false" />
-            <marker date="1481168782311" expanded="false" signature="3125:4763" placeholder="..." />
-            <marker date="1481168782311" expanded="true" signature="11216:13309" placeholder="..." />
+            <element signature="e#13685#15168#0" expanded="false" />
+            <marker date="1481215335183" expanded="false" signature="3129:4767" placeholder="..." />
+            <marker date="1481215335183" expanded="true" signature="11220:13313" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -884,12 +836,7 @@
           <caret line="5" column="87" selection-start-line="0" selection-start-column="0" selection-end-line="5" selection-end-column="87" />
           <folding>
             <element signature="n#!!block;n#dataToUrl#0" expanded="false" />
-            <marker date="1481168318643" expanded="true" signature="4431:4448" placeholder="..." />
-            <marker date="1481168318643" expanded="true" signature="8726:11952" placeholder="{...}" />
-            <marker date="1481168318643" expanded="true" signature="8939:11865" placeholder="{&quot;async&quot;: false...}" />
-            <marker date="1481168318643" expanded="true" signature="9019:11792" placeholder="{...}" />
-            <marker date="1481168318643" expanded="true" signature="11818:11864" placeholder="{...}" />
-            <marker date="1481168318643" expanded="true" signature="11993:12069" placeholder="{...}" />
+            <marker date="1481215612119" expanded="true" signature="4431:4448" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -899,7 +846,6 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="10" column="14" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
           <folding>
-            <element signature="n#style#0;n#div#3;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#2;n#!!top" expanded="true" />
           </folding>
         </state>
@@ -988,43 +934,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/public/js/main.js">
+    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/controllers.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="349" column="16" selection-start-line="349" selection-start-column="16" selection-end-line="349" selection-end-column="16" />
+          <caret line="56" column="31" selection-start-line="56" selection-start-column="31" selection-end-line="56" selection-end-column="31" />
           <folding>
-            <element signature="n#!!block;n#dataToUrl#0" expanded="false" />
-            <marker date="1481168318643" expanded="true" signature="4431:4448" placeholder="..." />
-            <marker date="1481168318643" expanded="true" signature="8726:11952" placeholder="{...}" />
-            <marker date="1481168318643" expanded="true" signature="8939:11865" placeholder="{&quot;async&quot;: false...}" />
-            <marker date="1481168318643" expanded="true" signature="9019:11792" placeholder="{...}" />
-            <marker date="1481168318643" expanded="true" signature="11818:11864" placeholder="{...}" />
-            <marker date="1481168318643" expanded="true" signature="11993:12069" placeholder="{...}" />
+            <element signature="e#0#35#0" expanded="true" />
+            <element signature="e#882#1074#0" expanded="false" />
+            <element signature="e#13685#15168#0" expanded="false" />
+            <marker date="1481215335183" expanded="false" signature="3129:4767" placeholder="..." />
+            <marker date="1481215335183" expanded="true" signature="11220:13313" placeholder="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/templates/hydroshare_resource_creator/home.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-19.25">
-          <caret line="111" column="0" selection-start-line="111" selection-start-column="0" selection-end-line="111" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.5771812">
+          <caret line="51" column="21" selection-start-line="51" selection-start-column="21" selection-end-line="51" selection-end-column="21" />
           <folding>
-            <element signature="n#style#0;n#div#3;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#2;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/controllers.py">
+    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/public/js/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.266129">
-          <caret line="64" column="18" selection-start-line="64" selection-start-column="18" selection-end-line="64" selection-end-column="18" />
+        <state vertical-scroll-proportion="0.41880342">
+          <caret line="205" column="30" selection-start-line="205" selection-start-column="30" selection-end-line="205" selection-end-column="30" />
           <folding>
-            <element signature="e#0#35#0" expanded="true" />
-            <element signature="e#882#1074#0" expanded="false" />
-            <element signature="e#13681#15164#0" expanded="false" />
-            <marker date="1481168782311" expanded="false" signature="3125:4763" placeholder="..." />
-            <marker date="1481168782311" expanded="true" signature="11216:13309" placeholder="..." />
+            <element signature="n#!!block;n#dataToUrl#0" expanded="false" />
+            <marker date="1481215612119" expanded="true" signature="4431:4448" placeholder="..." />
           </folding>
         </state>
       </provider>
