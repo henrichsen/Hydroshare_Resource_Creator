@@ -60,6 +60,9 @@ function create_resource(){
                 console.log(decode)
                 console.log(JSON.parse(json.data))
                 series_details = JSON.parse(json.data)
+                var title=series_details.title
+                var abstract= series_details.abstract
+                var keywords= series_details.keyWords
                 series_details = series_details.REFTS
                 total_number = series_details.length
 
@@ -84,6 +87,10 @@ function create_resource(){
                     var begindate = entry.beginDate
                     var enddate = entry.endDate
                     var variable = entry.variable
+                    var var_code = entry.variableCode
+                    var site_code = entry.siteCode
+                    var network = entry.networkName
+
 
                     //var boxplot_count = number
 
@@ -115,7 +122,11 @@ function create_resource(){
 
                     var legend = "<div style='text-align:center' '><input class = 'checkbox' id =" + number + " data1-resid =" + number
                         + " type='checkbox' onClick ='myFunc(this.id,this.name);'checked = 'checked'>" + "</div>"
-
+                    console.log(title)
+                    console.log(keywords)
+                    $('#res-title').val(title)
+                    $('#res-abstract').text(abstract)
+                    $('#res-keywords').val(keywords)
                     var dataset = {
                         legend: legend,
                         RefType: RefType,
@@ -127,7 +138,10 @@ function create_resource(){
                         site: site_name,
                         beginDate: begindate,
                         endDate: enddate,
-                        variable: variable
+                        variable: variable,
+                        var_code: var_code,
+                        site_code: site_code,
+                        network: network
 
                     }
                     console.log(dataset)
@@ -209,6 +223,9 @@ $(document).ready(function () {
             {"data": "beginDate"},
             {"data": "endDate"},
             {"data": "variable"},
+            {"data": "var_code"},
+            {"data": "site_code"},
+            {"data": "network"},
             //{"data":"download"}
         ],
         "order": [[1, 'asc']]
@@ -252,52 +269,86 @@ function finishloading(callback) {
 //    var popupDiv = $('#create_resource');
 //    popupDiv.modal('show')
 //});
+
 $('#btn_create_ts_layer').click(function() {
     //var popupDiv = $('#create_resource');
     //popupDiv.modal('hide')
+    //login = $('#login1').text()
+    //console.log(login)
+    data_url = base_url + 'hydroshare-resource-creator/login-test';
+    $.ajax({
+        url: data_url,
+        async: false,
+        success: function (json) {
+            login = json.Login
 
-    //gets the id of each series that has been checked
-    var checked_ids = $('input[data1-resid]:checkbox:checked').map(function() {
-        return this.getAttribute("data1-resid");
-    }).get();
-    console.log(checked_ids)
-    //gets the type of time series reference the user wants to create
-    var series_type = $('input[name]:checkbox:checked').map(function() {
-        return this.getAttribute("name");
-    }).get();
-    console.log($('#res-title').val())
-    if($('#res-title').val()==''){
-        alert("Resource Title field cannot be blank")
-
-    }
-    else {
-
-        $('#stat_div').hide();
-        $('#loading').show();
-        console.log(series_type)
-        var csrf_token = getCookie('csrftoken');
-        data_url = base_url + 'hydroshare-resource-creator/create_layer/cuahsi/'
-        $.ajax({
-            type: "POST",
-            headers: {'X-CSRFToken': csrf_token},
-            dataType: 'json',
-            data: {
-                'checked_ids': JSON.stringify(checked_ids),
-                'resource_type': JSON.stringify(series_type),
-                'resTitle': $('#res-title').val(),
-                'resAbstract': $('#res-abstract').val(),
-                'resKeywords': $('#res-keywords').val()
-            },
-            url: data_url,
-            success: function (json) {
-
-                finishloading()
+            console.log(login)
+            if (login == 'False'){
+                console.log("not logged in")
+                window.open("/oauth2/login/hydroshare/?next=/apps/hydroshare-resource-creator/login-callback/", 'windowName', 'width=1000, height=700, left=24, top=24, scrollbars, resizable');
+                //$('#login1').text('True')
             }
-        })
-    }
+            else{
+                //gets the id of each series that has been checked
+                var checked_ids = $('input[data1-resid]:checkbox:checked').map(function() {
+                    return this.getAttribute("data1-resid");
+                }).get();
+                console.log(checked_ids)
+                //gets the type of time series reference the user wants to create
+                var series_type = $('input[name]:checkbox:checked').map(function() {
+                    return this.getAttribute("name");
+                }).get();
+                console.log($('#res-title').val())
+                if($('#res-title').val()==''){
+                    alert("Resource Title field cannot be blank")
+
+                }
+                else {
+                    $('#stat_div').hide();
+                    $('#loading').show();
+                    console.log(series_type)
+                    var csrf_token = getCookie('csrftoken');
+                    data_url = base_url + 'hydroshare-resource-creator/create_layer/cuahsi/'
+                    $.ajax({
+                        type: "POST",
+                        headers: {'X-CSRFToken': csrf_token},
+                        dataType: 'json',
+                        data: {
+                            'checked_ids': JSON.stringify(checked_ids),
+                            'resource_type': JSON.stringify(series_type),
+                            'resTitle': $('#res-title').val(),
+                            'resAbstract': $('#res-abstract').val(),
+                            'resKeywords': $('#res-keywords').val()
+                        },
+                        url: data_url,
+                        success: function (json) {
+                            console.log(json.Request)
+                            finishloading()
+                            if(json.Request =='error'){alert("There was an issue creating your resource")}
+
+
+                            else
+                            {
+                                alert("Resource created sucessfully")
+                                //$('#btn_view_resource').attr('name') =json.Request
+                                $('#div_view_resource').show()
+                            }
+                        },
+                        error:function(json){
+
+                        }
+                    })
+                }}
+        },
+        error:function(){
+            console.log("error 2")
+        }})
+
     //unit1 = document.querySelector('input[name = "units"]:not(:checked)').value;
 });
-
+function view_resource(hydroshare_id){
+    window.open('https://www.hydroshare.org/resource/'+hydroshare_id+'/')
+}
 function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie != '') {
@@ -335,11 +386,11 @@ function dataToUrl() {
     target = '_blank'
 
     data.timeSeriesLayerResource = {"fileVersion": 1.0,
-                                               "title": "HydroClient-" ,
-                                               "abstract": "Retrieved timeseries...",
-                                               "symbol": "http://data.cuahsi.org/content/images/cuahsi_logo_small.png",
-                                               "keyWords": ["Time Series", "CUAHSI"],
-                                               "REFTS": ["site:test","url:www"]};
+        "title": "HydroClient-" ,
+        "abstract": "Retrieved timeseries...",
+        "symbol": "http://data.cuahsi.org/content/images/cuahsi_logo_small.png",
+        "keyWords": ["Time Series", "CUAHSI"],
+        "REFTS": ["site:test","url:www"]};
     //Create form for data submission...
     var form = document.createElement("form");
     form.action = url;

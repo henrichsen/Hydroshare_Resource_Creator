@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="jquery-3.1.1.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+
+        var login="{{login}}";
+
+//        if (login=="yes") {
+//            window.close();
+//        }
+
+    })
+    </script>
+</head>
+
+<body>
+<h4>{% if login == "yes" %} You have successfully logged in! {%endif%}</h4>
+<button type="button" onclick="javascript:window.close()">Close</button>
+</body>
+</html>

@@ -40,6 +40,10 @@ def home(request):
     data = request.META['QUERY_STRING']
     data = data.encode(encoding ='UTF-8')
     base_path = utilities.get_workspace() + "/id/timeseriesLayerResource.json.refts"
+    if request.user.is_authenticated():
+        login1 = 'True'
+    else:
+        login1 ='False'
     print request.body
 
     body = request.body
@@ -57,7 +61,7 @@ def home(request):
         form_body = "no data"
     with open(base_path, 'w') as outfile:
         json.dump(form_body, outfile)
-    # utilities.parse_JSON()
+
     print decode11
     print urllib.unquote(decode11).decode(encoding ="UTF-8")
 
@@ -91,10 +95,11 @@ def home(request):
                'quality':form_body,
                'method':request,
                'sourceid':sourceid,
-                'serviceurl':serviceurl
+                'serviceurl':serviceurl,
+               'login1':login1
                }
     return render(request, 'hydroshare_resource_creator/home.html', context)
-@login_required()
+# @login_required()
 @csrf_exempt
 def chart_data(request):
     data_for_chart={}
@@ -144,11 +149,14 @@ def chart_data(request):
     data = utilities.parse_JSON()
     print "ddddddddddddddddddddddddddddddddd"
     print data
-    data1 = data['timeSeriesLayerResource']
+    try:
+        data1 = data['timeSeriesLayerResource']
+    except:
+        data1 = ''
     print data1
     data_n = urllib.unquote(data1).decode(encoding ="UTF-8")
     print data_n
-    if data =='':
+    if data1 =='':
         error = "No data in file"
     else:
         error=''
@@ -178,10 +186,11 @@ def connect_wsdl_url(wsdl_url):
     except:
         raise Exception("Unexpected error")
     return client
-def write_file(request,res_id):
+@login_required()
+def write_file(request):
     sucess = {"File uploaded":"sucess"}
     metadata = []
-    hs = getOAuthHS(request)
+    # hs = getOAuthHS(request)
     waterml_url = "http://hydrodata.info/chmi-h/cuahsi_1_1.asmx/GetValuesObject?location=CHMI-H:140&variable=CHMI-H:TEPLOTA&startDate=2015-07-01&endDate=2015-07-10&authToken="
     ref_type = "rest"
     metadata.append({"referenceurl":
@@ -252,25 +261,25 @@ def create_layer(request,src):
     # print res_id
     # resource_type = request.POST.get('resource_type')
     # # resource_type = resource_type.encode(encoding ='UTF-8')
-    client_id = 'MYCLIENTID'
-    client_secret = 'MYCLIENTSECRET'
+    # client_id = 'MYCLIENTID'
+    # client_secret = 'MYCLIENTSECRET'
+    #
+    # auth = HydroShareAuthOAuth2(client_id, client_secret,
+    #                             username='myusername', password='mypassword')
+    # hs = HydroShare(auth=auth)
 
-    auth = HydroShareAuthOAuth2(client_id, client_secret,
-                                username='myusername', password='mypassword')
-    hs = HydroShare(auth=auth)
-
-    try:
-      for resource in hs.getResourceList():
-        print(resource)
-    except TokenExpiredError as e:
-       hs = HydroShare(auth=auth)
-       for resource in hs.getResourceList():
-             print(resource)
+    # try:
+    #   for resource in hs.getResourceList():
+    #     print(resource)
+    # except TokenExpiredError as e:
+    #    hs = HydroShare(auth=auth)
+    #    for resource in hs.getResourceList():
+    #          print(resource)
 
     title = str(request.POST.get('resTitle'))# causing errors because not strints?
     abstract = str(request.POST.get('resAbstract'))
     keywords = str(request.POST.get('resKeywords'))
-    keywords = keywords.split(' ')
+    keywords = keywords.split(',')
     # # title = "test"
     # res_id = trim(res_id)
     # resource_type = trim(resource_type)
@@ -301,8 +310,10 @@ def create_layer(request,src):
     print r_title, r_keywords,r_abstract
     temp_dir = utilities.get_workspace()
     fpath = temp_dir + '/id/timeseriesLayerResource.json.refts'
-
-    resource_id = hs.createResource(r_type, r_title, resource_file=fpath, keywords=r_keywords, abstract=r_abstract, metadata=metadata)
+    try:
+        resource_id = hs.createResource(r_type, r_title, resource_file=fpath, keywords=r_keywords, abstract=r_abstract, metadata=metadata)
+    except:
+        resource_id ="error"
 
     # if(resource_type[0]=='ref_ts'or resource_type[1]=='ref_ts'):
     #
@@ -349,7 +360,7 @@ def create_layer(request,src):
 
 
     #upload to hydroshare stuff
-    return JsonResponse({'Request':"success"})
+    return JsonResponse({'Request':resource_id})
 def trim(string_dic):
     string_dic=string_dic.strip('[')
     string_dic=string_dic.strip(']')
@@ -401,3 +412,18 @@ def test(request):
     context ={"result": json.dumps(result)
                }
     return render(request, 'hydroshare_resource_creator/test.html', context)
+def login_callback(request):
+
+    context = {}
+    if request.user.is_authenticated():
+        context["login"] = "yes"
+    else:
+        context["login"] = "no"
+
+    return render(request, 'hydroshare_resource_creator/login_callback.html', context)
+def login_test(request):
+    if request.user.is_authenticated():
+        login_status ="True"
+    else:
+        login_status ="False"
+    return JsonResponse({'Login':login_status})

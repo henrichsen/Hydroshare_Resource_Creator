@@ -2,6 +2,14 @@
 
 {% block app_content %}
 
+<!--<button id ='btn_hydroshare_auth' type="button" class="btn btn-success">Login in to HydroShare</button>-->
+<!--{% if login1  %}-->
+<!--<a href="/accounts/login/?next=/apps/hydroshare-resource-creator/login-callback/" onclick="window.open(this.href, 'windowName', 'width=1000, height=700, left=24, top=24, scrollbars, resizable'); return false;">Link</a>-->
+<!--{% endif %}-->
+
+
+<!--<h4>{% if login1 == "True" %}<a href="/accounts/login/?next=/apps/hydroshare-resource-creator/login-callback/" onclick="window.open(this.href, 'windowName', 'width=1000, height=700, left=24, top=24, scrollbars, resizable'); return false;">Link</a> {%endif%}</h4>-->
+
 
 <!-- Save New Project Modal -->
 
@@ -51,6 +59,9 @@
             <th>Begin Date</th>
             <th>End Date</th>
             <th>Variable</th>
+            <th>Variable Code</th>
+            <th>Site Code</th>
+            <th>Network Name</th>
             <!--<th>Download Data</th>-->
         </tr>
         </thead>
@@ -78,6 +89,7 @@
     <!--End modal content-->
     <p></p>
     <button id ='btn_create_ts_layer' type="button" class="btn btn-success">Create Time Series Layer Resource</button>
+    <div id ='div_view_resource' style="display:none"><button id ='btn_view_resource' type="button" class="btn btn-success" onclick="view_resource(this.name)">View Resource</button></div>
 
 
 
@@ -110,6 +122,7 @@
     <div id="method">{{method}}</div>
     <div id="sourceid">{{sourceid}}</div>
     <div id="serviceurl">{{serviceurl}}</div>
+    <div id="login1">{{login1}}</div>
 
 </div>
   <!--<button type="button" class="btn btn-default" id="btn_test_post"onClick ="dataToUrl()" >submit</button>-->

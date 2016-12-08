@@ -43,7 +43,13 @@ class HydroshareResourceCreator(TethysAppBase):
                            controller='hydroshare_resource_creator.controllers.temp_waterml'),
                      UrlMap(name='test',
                            url='test',
-                           controller='hydroshare_resource_creator.controllers.test')
+                           controller='hydroshare_resource_creator.controllers.test'),
+                    UrlMap(name='login_callback',
+                           url='login-callback',
+                           controller='hydroshare_resource_creator.controllers.login_callback'),
+                    UrlMap(name='login_test',
+                           url='login-test',
+                           controller='hydroshare_resource_creator.controllers.login_test'),
 
         )
 
