@@ -815,7 +815,10 @@ def get_hydroshare_resource(request,res_id,data_for_chart):
     except:
         nothing =None
     try:
-        hs = controllers.getOAuthHS(request)
+        if controllers.use_hs_client_helper:
+            hs = controllers.get_oauth_hs(request)
+        else:
+            hs = controllers.getOAuthHS(request)
         hs.getResource(res_id, destination=file_path, unzip=True)
         data_dir = root_dir + '/' + res_id + '/data/contents/'
         for subdir, dirs, files in os.walk(data_dir):

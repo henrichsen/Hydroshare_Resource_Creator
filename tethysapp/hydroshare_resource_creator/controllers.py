@@ -20,6 +20,19 @@ from django.views.decorators.cache import never_cache
 import urllib2
 import urllib
 import json
+import logging
+
+logger = logging.getLogger(__name__)
+
+use_hs_client_helper = True
+try:
+    from tethys_services.backends.hs_restclient_helper import get_oauth_hs
+except Exception as ex:
+    use_hs_client_helper = False
+    logger.error("tethys_services.backends.hs_restclient_helper import get_oauth_hs: " + ex.message)
+
+
+
 
 @login_required()
 def temp_waterml(request, id):
@@ -299,7 +312,10 @@ def create_layer(request,src):
     resource_type = ['ts']
     metadata = []
     res_id = 'cuahsi-wdc-2016-10-21-64527889'
-    hs = getOAuthHS(request)
+    if use_hs_client_helper:
+	    hs = get_oauth_hs(request)
+    else:
+        hs = getOAuthHS(request)
     print keywords
     #create a time series resource
     #file needs to be a csv
