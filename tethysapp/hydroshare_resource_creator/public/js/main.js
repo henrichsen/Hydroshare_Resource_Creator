@@ -72,6 +72,7 @@ function create_resource(){
                 var keywords= series_details.keyWords
                 series_details = series_details.REFTS
                 total_number = series_details.length
+                console.log(total_number)
 
                 for (val in series_details) {
                     entry = series_details[val]

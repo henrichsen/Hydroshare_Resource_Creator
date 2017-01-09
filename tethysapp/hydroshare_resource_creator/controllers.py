@@ -73,7 +73,8 @@ def home(request):
         form_body = request.POST
     except:
         form_body = "no data"
-    #
+
+    # form_body = '{"fileVersion":1,"title":"HydroClient-2017-01-09T17:46:47.810Z","abstract":"Retrieved timeseries...","symbol":"http://data.cuahsi.org/content/images/cuahsi_logo_small.png","keyWords":["Time Series","CUAHSI"],"REFTS":[{"refType":"WOF","serviceType":"SOAP","url":"http://hydro1.sci.gsfc.nasa.gov/daac-bin/his/1.0/GLDAS_NOAH_001.cgi?WSDL","site":"X282-Y404 of Global Land Data Assimilation System (GLDAS) NASA","siteCode":"GLDAS_NOAH:X282-Y404","variable":"Surface runoff","variableCode":"GLDAS:GLDAS_NOAH025_3H.001:Qs","networkName":"GLDAS_NOAH","beginDate":"2016-01-09T00:00:00","endDate":"2016-09-30T21:00:00+00:00","returnType":"WaterML 1.0","location":{"latitude":41.125,"longitude":-109.375}}]}'
     with open(base_path, 'w') as outfile:
         json.dump(form_body, outfile)
 
@@ -99,13 +100,23 @@ def chart_data(request,res_id):
     #parse xml data from 'data' from data_for_js and prepare for the table
     if res_id =='None':
         data = utilities.parse_JSON()
+        print type(data)
         print "ddddddddddddddddddddddddddddddddd"
         print data
+
         try:
+
             data1 = data['timeSeriesLayerResource']
+            data1 = json.loads(data1)
         except:
-            data1 = ''
+            data1=''
         print data1
+        if data1=='':
+                try:
+                    data1 = data['timeSeriesLayerResource']
+                except:
+                    data1=''
+
         # data_n = urllib.unquote(data1).decode(encoding ="UTF-8")
         # print data_n
         if data1 =='':
@@ -152,6 +163,7 @@ def chart_data(request,res_id):
                             data1 = json.loads(data)
                             data1 = data1['timeSeriesLayerResource']
 
+    # data_for_chart = {"data": '{"fileVersion":1,"title":"HydroClient-2017-01-09T17:46:47.810Z","abstract":"Retrieved timeseries...","symbol":"http://data.cuahsi.org/content/images/cuahsi_logo_small.png","keyWords":["Time Series","CUAHSI"],"REFTS":[{"refType":"WOF","serviceType":"SOAP","url":"http://hydro1.sci.gsfc.nasa.gov/daac-bin/his/1.0/GLDAS_NOAH_001.cgi?WSDL","site":"X282-Y404 of Global Land Data Assimilation System (GLDAS) NASA","siteCode":"GLDAS_NOAH:X282-Y404","variable":"Surface runoff","variableCode":"GLDAS:GLDAS_NOAH025_3H.001:Qs","networkName":"GLDAS_NOAH","beginDate":"2016-01-09T00:00:00","endDate":"2016-09-30T21:00:00+00:00","returnType":"WaterML 1.0","location":{"latitude":41.125,"longitude":-109.375}}]}','error':error}
     data_for_chart = {"data": data1,'error':error}
     return JsonResponse(data_for_chart)
 
