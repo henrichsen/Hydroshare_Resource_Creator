@@ -70,6 +70,7 @@ function create_resource(){
                 var title=series_details.title
                 var abstract= series_details.abstract
                 var keywords= series_details.keyWords
+
                 series_details = series_details.REFTS
                 total_number = series_details.length
                 console.log(total_number)
@@ -87,12 +88,15 @@ function create_resource(){
                     var Lon = entry.location.longitude
                     var begindate = entry.beginDate
                     var enddate = entry.endDate
+                    console.log(typeof(enddate))
                     var variable = entry.variable
                     var var_code = entry.variableCode
                     var site_code = entry.siteCode
                     var network = entry.networkName
-
-
+                //if (total_number >1)
+                //{title = "Data from various sites coll"
+                //abstract = "Data created from the CUAHSI HIS"
+                //}
                     if (site_name == null) {
                         site_name = "N/A"
                     }
