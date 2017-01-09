@@ -14,38 +14,38 @@
 <!-- Save New Project Modal -->
 
 <!--<div id="create_resource" class="modal fade" role="dialog">-->
-    <!--<div class="modal-dialog">-->
-        <!--&lt;!&ndash; Modal content&ndash;&gt;-->
-        <!--<div class="modal-content">-->
-            <!--<div class="modal-header">-->
-                <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
-                <!--<h4 class="modal-title">HydroShare Time Series Layer Resource</h4>-->
-            <!--</div>-->
-            <!--<div class="modal-body">-->
-                <!--<div class="form-group">-->
-                    <!--<label for="res-title" class="control-label">*Resource Title:</label>-->
-                    <!--<input type="text" class="form-control" id="res-title">-->
-                <!--</div>-->
-                <!--<div class="form-group">-->
-                    <!--<label for="res-abstract" class="control-label">Resource Abstract:</label>-->
-                    <!--<textarea rows="6" cols="50" id="res-abstract" class="form-control"></textarea>-->
-                <!--</div>-->
-                <!--<div class="form-group">-->
-                    <!--<label for="res-keywords" class="control-label">Resource Keywords:</label>-->
-                    <!--<input type="text" class="form-control" id="res-keywords" value="Time Series">-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="modal-footer">-->
-                <!--<button type="button" class="btn btn-default footer" data-dismiss="modal">Close</button>-->
-                <!--<button id = 'btn_create_ts_layer' type="button" class="btn btn-primary footer">Create</button>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--&lt;!&ndash;End modal content&ndash;&gt;-->
-    <!--</div>-->
+<!--<div class="modal-dialog">-->
+<!--&lt;!&ndash; Modal content&ndash;&gt;-->
+<!--<div class="modal-content">-->
+<!--<div class="modal-header">-->
+<!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
+<!--<h4 class="modal-title">HydroShare Time Series Layer Resource</h4>-->
+<!--</div>-->
+<!--<div class="modal-body">-->
+<!--<div class="form-group">-->
+<!--<label for="res-title" class="control-label">*Resource Title:</label>-->
+<!--<input type="text" class="form-control" id="res-title">-->
+<!--</div>-->
+<!--<div class="form-group">-->
+<!--<label for="res-abstract" class="control-label">Resource Abstract:</label>-->
+<!--<textarea rows="6" cols="50" id="res-abstract" class="form-control"></textarea>-->
+<!--</div>-->
+<!--<div class="form-group">-->
+<!--<label for="res-keywords" class="control-label">Resource Keywords:</label>-->
+<!--<input type="text" class="form-control" id="res-keywords" value="Time Series">-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="modal-footer">-->
+<!--<button type="button" class="btn btn-default footer" data-dismiss="modal">Close</button>-->
+<!--<button id = 'btn_create_ts_layer' type="button" class="btn btn-primary footer">Create</button>-->
+<!--</div>-->
+<!--</div>-->
+<!--&lt;!&ndash;End modal content&ndash;&gt;-->
+<!--</div>-->
 <!--</div>-->
 <div id = "stat_div" >
     <h4>Create Hydroshare Resource</h4>
-    <div id ="div_view_resource"></div>
+
     <table id="data_table" class="display" cellspacing="0" width="100%">
         <thead>
         <tr>
@@ -82,15 +82,18 @@
     </div>
 
     <!--<div class="checkbox">-->
-        <!--<label><input name ='ts'type="checkbox" value="checked" checked = 'checked'>Create Time Series</label>-->
+    <!--<label><input name ='ts'type="checkbox" value="checked" checked = 'checked'>Create Time Series</label>-->
     <!--</div>-->
     <!--<div class="checkbox">-->
-        <!--<label><input name = 'ref_ts' type="checkbox" value="">Create Reference Time Series</label>-->
+    <!--<label><input name = 'ref_ts' type="checkbox" value="">Create Reference Time Series</label>-->
     <!--</div>-->
     <!--End modal content-->
     <p></p>
-    <button id ='btn_create_ts_layer' type="button" class="btn btn-success">Create Time Series Layer Resource</button>
-
+    <button id ='btn_create_ts_layer'name ='create' type="button" class="btn btn-success"onclick="create_update(this.name)">Create New Time Series Layer Resource</button>
+    <button id ='update_ts_layer' name ='update'type="button" class="btn btn-success"onclick="create_update(this.name)">Update Time Series Layer Resource</button>
+    <p></p>
+    <div id ="div_view_resource"></div>
+    <!--<input class = 'checkbox' id ='chk_public' type='checkbox' ><div>Make Resource Public</div>-->
 
 
 
@@ -126,7 +129,7 @@
     <div id="login1">{{login1}}</div>
 
 </div>
-  <!--<button type="button" class="btn btn-default" id="btn_test_post"onClick ="dataToUrl()" >submit</button>-->
+<!--<button type="button" class="btn btn-default" id="btn_test_post"onClick ="dataToUrl()" >submit</button>-->
 {% endblock %}
 
 {% block scripts %}

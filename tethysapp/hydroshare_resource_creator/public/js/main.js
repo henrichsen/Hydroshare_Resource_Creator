@@ -20,6 +20,13 @@ function create_resource(){
     //console.log( serviceurl)
     var uri = "my test.asp?name=ståle&car=saab";
     var res = encodeURI(uri);
+    var src = find_query_parameter("src");
+    if (src=='hydroshare'){
+        res_id = find_query_parameter("res_id");
+    }
+    else{
+        res_id ='None'
+    }
     //data = find_query_parameter('data')
     //if(data !=null){
     //    console.log(decodeURIComponent(data))
@@ -28,7 +35,7 @@ function create_resource(){
     //    console.log(json)
     //}
     serviceurl = 'test'
-    data_url = base_url + 'hydroshare-resource-creator/chart_data/'
+    data_url = base_url + 'hydroshare-resource-creator/chart_data/'+res_id+'/'
     $.ajax({
         type:"POST",
         dataType: 'json',
@@ -36,7 +43,7 @@ function create_resource(){
         url: data_url,
         success: function (json) {
             json1 = null
-
+            console.log(json)
             if (json.error !=''){
                 error_report(json.error)
                 finishloading()
@@ -53,13 +60,13 @@ function create_resource(){
                 //    console.log('aaa')
                 //    json1 = json_data
                 //}
-                console.log(json)
-                console.log(json.data)
+
                 //console.log(json.data.timeSeriesLayerResource["REFTS"])
                 decode = decodeURI(decodeURIComponent(json.data))
-                console.log(decode)
-                console.log(JSON.parse(json.data))
-                series_details = JSON.parse(json.data)
+
+                //series_details = JSON.parse(json.data)
+                series_details = json.data
+                //console.log(series_details)
                 var title=series_details.title
                 var abstract= series_details.abstract
                 var keywords= series_details.keyWords
@@ -68,13 +75,6 @@ function create_resource(){
 
                 for (val in series_details) {
                     entry = series_details[val]
-                    console.log(series_details[val])
-
-                    console.log(entry.beginDate)
-                    console.log(entry.location)
-                    console.log(entry['location'])
-
-
                     series_counter = series_counter + 1
                     var site_name = entry.site
                     var variable_name = entry.variable
@@ -91,8 +91,6 @@ function create_resource(){
                     var site_code = entry.siteCode
                     var network = entry.networkName
 
-
-                    //var boxplot_count = number
 
                     if (site_name == null) {
                         site_name = "N/A"
@@ -121,9 +119,8 @@ function create_resource(){
 
 
                     var legend = "<div style='text-align:center' '><input class = 'checkbox' id =" + number + " data1-resid =" + number
-                        + " type='checkbox' onClick ='myFunc(this.id,this.name);'checked = 'checked'>" + "</div>"
-                    console.log(title)
-                    console.log(keywords)
+                        + " type='checkbox' checked = 'checked'>" + "</div>"
+
                     $('#res-title').val(title)
                     $('#res-abstract').text(abstract)
                     $('#res-keywords').val(keywords)
@@ -144,13 +141,13 @@ function create_resource(){
                         network: network
 
                     }
-                    console.log(dataset)
+
                     var table = $('#data_table').DataTable();
                     table.row.add(dataset).draw();
                     number = number + 1
                 }
 
-                //finished_resource()
+
                 if (number == total_number) {
                     finishloading()
                 }
@@ -163,40 +160,18 @@ function create_resource(){
             console.log("error")
         }
     })
-
-    console.log(series_counter)
-
-
-
 }
-function finished_resource(callback){
 
-    console.log("done")
-
-    current_url = location.href;
-    index = current_url.indexOf("hydroshare-resource-creator");
-    base_url = current_url.substring(0, index);
-    var src = find_query_parameter("src");
-    data_url = base_url + 'hydroshare-resource-creator/write_file';
-    $.ajax({
-        url: data_url,
-        success: function (json) {
-        },
-        error:function(){
-            console.log("error 2")
-        }
-    })
-}
 var data = [];
 $(document).ready(function () {
     $('#stat_div').hide();
+    $('#update_ts_layer').hide();
     //finishloading()
     console.log("ready")
     //initializes table
     var table = $('#data_table').DataTable({
         "scrollX": true,
         "createdRow": function (row, data2, dataIndex) {
-
             //console.log({"data": "quality"})
             var table = $('#data_table').DataTable()
             table.$('td').tooltip({
@@ -238,26 +213,7 @@ $(document).ready(function () {
     res_ids =trim_input(res_ids)
     var serviceurl=$('#serviceurl').text()
     serviceurl = trim_input(serviceurl)
-
-    //if (res_ids != null)
-    //{
-    //    res_ids = res_ids.split(",");
-    //}
-
-    //var source = $('#source').text()
-    //if (source == "['cuahsi']"){
-    //    source='cuahsi'
-    //}
-    //for ( var r in res_ids)
-    //{
-    //    series_total  = series_total  +1
-    //}
-    //for  (var res_id in res_ids)
-    //{
     create_resource()
-    //}
-
-
 })
 function finishloading(callback) {
     $(window).resize()
@@ -265,17 +221,19 @@ function finishloading(callback) {
     $(window).resize();
     $('#loading').hide();
     $('#multiple_units').show();
+    var src = find_query_parameter("src");
+    if(src = 'hydroshare'){$('#update_ts_layer').show();}
 }
 //$('#btn_show_modal_create').click(function() {
 //    var popupDiv = $('#create_resource');
 //    popupDiv.modal('show')
 //});
-
-$('#btn_create_ts_layer').click(function() {
+function create_update(fun_type){
+    console.log(fun_type)
+    res_id = find_query_parameter('res_id')
     //var popupDiv = $('#create_resource');
     //popupDiv.modal('hide')
     //login = $('#login1').text()
-    //console.log(login)
     data_url = base_url + 'hydroshare-resource-creator/login-test';
     $.ajax({
         url: data_url,
@@ -283,9 +241,9 @@ $('#btn_create_ts_layer').click(function() {
         success: function (json) {
             login = json.Login
 
-            console.log(login)
+
             if (login == 'False'){
-                console.log("not logged in")
+
                 window.open("/oauth2/login/hydroshare/?next=/apps/hydroshare-resource-creator/login-callback/", 'windowName', 'width=1000, height=700, left=24, top=24, scrollbars, resizable');
                 //$('#login1').text('True')
             }
@@ -294,22 +252,30 @@ $('#btn_create_ts_layer').click(function() {
                 var checked_ids = $('input[data1-resid]:checkbox:checked').map(function() {
                     return this.getAttribute("data1-resid");
                 }).get();
-                console.log(checked_ids)
+
                 //gets the type of time series reference the user wants to create
                 var series_type = $('input[name]:checkbox:checked').map(function() {
                     return this.getAttribute("name");
                 }).get();
-                console.log($('#res-title').val())
+                if($("#chk_public").is(':checked'))
+                    res_access = 'public'  // checked
+                else
+                    res_access = 'private'  // unchecked
+                console.log(res_access)
+                console.log(checked_ids)
+
+
                 if($('#res-title').val()==''){
                     alert("Resource Title field cannot be blank")
 
                 }
+
                 else {
                     $('#stat_div').hide();
                     $('#loading').show();
-                    console.log(series_type)
+
                     var csrf_token = getCookie('csrftoken');
-                    data_url = base_url + 'hydroshare-resource-creator/create_layer/cuahsi/'
+                    data_url = base_url + 'hydroshare-resource-creator/create_layer/'+fun_type+'/'+res_id+'/'
                     $.ajax({
                         type: "POST",
                         headers: {'X-CSRFToken': csrf_token},
@@ -319,11 +285,12 @@ $('#btn_create_ts_layer').click(function() {
                             'resource_type': JSON.stringify(series_type),
                             'resTitle': $('#res-title').val(),
                             'resAbstract': $('#res-abstract').val(),
-                            'resKeywords': $('#res-keywords').val()
+                            'resKeywords': $('#res-keywords').val(),
+                            'resAccess': res_access
                         },
                         url: data_url,
                         success: function (json) {
-                            console.log(json.Request)
+
                             finishloading()
                             if(json.Request =='error'){alert("There was an issue creating your resource")}
 
@@ -331,8 +298,7 @@ $('#btn_create_ts_layer').click(function() {
                             else
                             {
                                 alert("Resource created sucessfully")
-
-
+                                $('#btn_create_ts_layer').hide()
                                 $('#btn_view_resource').html("")
                                 $('#div_view_resource').append('<button id ="btn_view_resource" type="button" class="btn btn-success" name ="'+json.Request+'"onclick="view_resource(this.name)">View Resource</button>')
                             }
@@ -344,11 +310,12 @@ $('#btn_create_ts_layer').click(function() {
                 }}
         },
         error:function(){
-            console.log("error 2")
+
         }})
 
     //unit1 = document.querySelector('input[name = "units"]:not(:checked)').value;
-});
+};
+
 function view_resource(hydroshare_id){
     window.open('https://www.hydroshare.org/resource/'+hydroshare_id+'/')
 }

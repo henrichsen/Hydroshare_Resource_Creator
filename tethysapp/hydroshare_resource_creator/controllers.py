@@ -21,6 +21,7 @@ import urllib2
 import urllib
 import json
 import logging
+import shutil
 
 logger = logging.getLogger(__name__)
 
@@ -72,33 +73,10 @@ def home(request):
         form_body = request.POST
     except:
         form_body = "no data"
+    #
     with open(base_path, 'w') as outfile:
         json.dump(form_body, outfile)
 
-    print decode11
-    print urllib.unquote(decode11).decode(encoding ="UTF-8")
-
-    # print data
-    # data  =data.split('&')
-    # for e in data:
-    #     s= e.split('=')
-    #     meta.append(s)
-    # print data
-    # print meta
-    # for e in meta:
-    #     print e[0]
-    #     if e[0] == 'Source':
-    #         source.append(e[1])
-    #     if e[0] == 'WofUri':
-    #         ids.append(e[1])
-    #     if e[0] == 'QCLID':
-    #         quality.append(e[1])
-    #     if e[0] == 'MethodId':
-    #         method.append(e[1])
-    #     if e[0] == 'SourceId':
-    #         sourceid.append(e[1])
-    #     if e[0] == 'ServiceURL':
-    #         serviceurl.append(e[1])
     """
     Controller for the app home page.
     """
@@ -114,65 +92,66 @@ def home(request):
     return render(request, 'hydroshare_resource_creator/home.html', context)
 # @login_required()
 @csrf_exempt
-def chart_data(request):
+def chart_data(request,res_id):
     data_for_chart={}
-    # serviceurl = request.POST.get('serviceurl')
-    # # checks if we already have an unzipped xml file
-    # file_path = utilities.waterml_file_path(res_id)
-    # print file_path
-    # print serviceurl
-    # # if we don't have the xml file, downloads and unzips it
-    # if not os.path.exists(file_path):
-    #     print "does not exist"
-    #     utilities.unzip_waterml(request, res_id,src)
-    # if src =='cuahsi':
-    #     source = "WOF"
-    #     data_for_chart = utilities.Original_Checker(file_path)
-    #     try:
-    #
-    #         services = response(request)
-    #         network = data_for_chart['network']
-    #         service = services[network]
-    #
-    #     except:
-    #         service = 'N/A'
-    #     data_for_chart.update({'URL':service})
-    #     data_for_chart.update({'network':services})
-    #     print service
-    #     return JsonResponse(data_for_chart)
-    #
-    # elif src=='hydroshare':
-    #     # returns an error message if the unzip_waterml failed
-    #     # parses the WaterML to a chart data object
-    #     # data_for_chart = utilities.Original_Checker(file_path)
-    #         temp_dir = utilities.get_workspace()
-    #         if not os.path.exists(temp_dir+"/hydroshare"):
-    #             os.makedirs(temp_dir+"/hydroshare")
-    #         file_temp_name = temp_dir + '/hydroshare/HIS_reference_timeseries.txt'
-    #         file_temp = open(file_temp_name, 'w')
-    #         data_for_js = utilities.get_hydroshare_resource(request,res_id,data_for_chart)
-    #     # file_temp.writelines(str(data_for_chart))
-    #     # file_temp.close()
-    #     # data_for_chart['RefType']=source
-
-
-
-
+    error=''
+    data1=None
     #parse xml data from 'data' from data_for_js and prepare for the table
-    data = utilities.parse_JSON()
-    print "ddddddddddddddddddddddddddddddddd"
-    print data
-    try:
-        data1 = data['timeSeriesLayerResource']
-    except:
-        data1 = ''
-    print data1
-    data_n = urllib.unquote(data1).decode(encoding ="UTF-8")
-    print data_n
-    if data1 =='':
-        error = "No data in file"
+    if res_id =='None':
+        data = utilities.parse_JSON()
+        print "ddddddddddddddddddddddddddddddddd"
+        print data
+        try:
+            data1 = data['timeSeriesLayerResource']
+        except:
+            data1 = ''
+        print data1
+        # data_n = urllib.unquote(data1).decode(encoding ="UTF-8")
+        # print data_n
+        if data1 =='':
+            error = "No data in file"
+        else:
+            error=''
     else:
-        error=''
+        temp_dir = utilities.get_workspace()
+        root_dir = temp_dir + '/id/' + res_id
+        try:
+            shutil.rmtree(root_dir)
+        except:
+            nothing =None
+        if not os.path.exists(temp_dir+"/id"):
+            os.makedirs(temp_dir+"/id")
+        else:
+            if use_hs_client_helper:
+                hs = get_oauth_hs(request)
+            else:
+                hs = getOAuthHS(request)
+            file_path = temp_dir + '/id'
+            hs.getResource(res_id, destination=file_path, unzip=True)
+            root_dir = file_path + '/' + res_id
+            data_dir = root_dir + '/' + res_id + '/data/contents/'
+            for subdir, dirs, files in os.walk(data_dir):
+                for file in files:
+                    if  'wml_1_' in file:
+                        data_file = data_dir + file
+                        with open(data_file, 'r') as f:
+                            # print f.read()
+                            file_data = f.read()
+                            f.close()
+                            file_temp_name = temp_dir + '/id/' + res_id + '.xml'
+                            file_temp = open(file_temp_name, 'wb')
+                            file_temp.write(file_data)
+                            file_temp.close()
+                    if '.json.refts' in file:
+                        data_file = data_dir +file
+                        with open(data_file, 'r') as f:
+                            file_data = f.read()
+                            print file_data
+                            data = file_data.encode(encoding ='UTF-8')
+                            print data
+                            data1 = json.loads(data)
+                            data1 = data1['timeSeriesLayerResource']
+
     data_for_chart = {"data": data1,'error':error}
     return JsonResponse(data_for_chart)
 
@@ -268,111 +247,78 @@ def response(request):
     return service_url
 @ensure_csrf_cookie
 # @login_required()
-def create_layer(request,src):
-    # res_id = request.POST.get('checked_ids')
-    # # res_id = res_id.encode(encoding ='UTF-8')
-    # print res_id
-    # resource_type = request.POST.get('resource_type')
-    # # resource_type = resource_type.encode(encoding ='UTF-8')
-    # client_id = 'MYCLIENTID'
-    # client_secret = 'MYCLIENTSECRET'
-    #
-    # auth = HydroShareAuthOAuth2(client_id, client_secret,
-    #                             username='myusername', password='mypassword')
-    # hs = HydroShare(auth=auth)
-
-    # try:
-    #   for resource in hs.getResourceList():
-    #     print(resource)
-    # except TokenExpiredError as e:
-    #    hs = HydroShare(auth=auth)
-    #    for resource in hs.getResourceList():
-    #          print(resource)
-
+def create_layer(request,fun_type,res_id):
+    resource_id=None
+    data_stor=[]
+    int_resource=[]
+    counter=0
     title = str(request.POST.get('resTitle'))# causing errors because not strints?
     abstract = str(request.POST.get('resAbstract'))
     keywords = str(request.POST.get('resKeywords'))
+    res_access = str(request.POST.get('resAccess'))
     keywords = keywords.split(',')
-    # # title = "test"
-    # res_id = trim(res_id)
-    # resource_type = trim(resource_type)
-    service_type = 'test'
-    url = 'test'
+    str_resource = request.POST.get('checked_ids')
+    print "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa"
+    print str_resource
+    str_resource = trim(str_resource)
 
-    # print resource_type
-    # utilities.create_ts_layer_resource(title)
-    #
-    #
-    # for id in res_id:
-    #
-    #     file_path = utilities.waterml_file_path(id)
-    #
-    #     meta_data = utilities.Original_Checker(file_path)
-    #     utilities.append_ts_layer_resource(title,meta_data)
-    resource_type = ['ts']
+    for res in str_resource:
+        int_resource.append(int(res))
+    print int_resource
     metadata = []
-    res_id = 'cuahsi-wdc-2016-10-21-64527889'
     if use_hs_client_helper:
 	    hs = get_oauth_hs(request)
     else:
         hs = getOAuthHS(request)
-    print keywords
-    #create a time series resource
-    #file needs to be a csv
+    temp_dir = utilities.get_workspace()
+    file_name = title.replace(" ", "")
+    file_path = temp_dir + '/id/timeseriesLayerResource.json.refts'
+    fpath = temp_dir + '/id/'+file_name+'.json.refts'
+    print fpath
+    with open(file_path, 'r') as outfile:
+        file_data = outfile.read()
+        data = file_data.encode(encoding ='UTF-8')
+        data = json.loads(data)
+        print data
+        data = data['timeSeriesLayerResource']
+        data_symbol = data['symbol']
+        data_file =data['fileVersion']
+        for i in data['REFTS']:
+            if counter in int_resource:
+                data_stor.append(i)
+            counter = counter+1
+        data_dic = {"REFTS":data_stor,"fileVersion": data_file, "title": title,
+                    "symbol":data_symbol,"abstract": abstract,'keyWords':keywords}
+        data.update(data_dic)
+        final_dic = {"timeSeriesLayerResource":data}
+        with open(fpath, 'w') as outfile:
+            json.dump(final_dic, outfile)
     r_type = 'GenericResource'
     r_title = title
     r_keywords = (keywords)
     r_abstract = abstract
-    print r_title, r_keywords,r_abstract
-    temp_dir = utilities.get_workspace()
-    fpath = temp_dir + '/id/timeseriesLayerResource.json.refts'
-    try:
-        resource_id = hs.createResource(r_type, r_title, resource_file=fpath, keywords=r_keywords, abstract=r_abstract, metadata=metadata)
-    except:
-        resource_id ="error"
 
-    # if(resource_type[0]=='ref_ts'or resource_type[1]=='ref_ts'):
-    #
-    #     #rest call
-    #     # waterml_url = "http://hydrodata.info/chmi-h/cuahsi_1_1.asmx/GetValuesObject?location=CHMI-H:140&variable=CHMI-H:TEPLOTA&startDate=2015-07-01&endDate=2015-07-10&authToken="
-    #     if(service_type=='REST'):
-    #         waterml_url = url+'/GetValueObject'
-    #         ref_type = "rest"
-    #         metadata.append({"referenceurl":
-    #                 {"value": waterml_url,
-    #                 "type": ref_type}})
-    #         r_type = 'RefTimeSeriesResource'
-    #         r_title = "test of rest reftime series"
-    #         r_keywords = ["test"]
-    #         r_abstract = "This is a test of the resource creator"
-    #         res_id = hs.createResource(r_type,
-    #                             r_title,
-    #                             resource_file=None,
-    #                             keywords=r_keywords,
-    #                             abstract=r_abstract,
-    #                             metadata=json.dumps(metadata))
-    #
-    #     elif (service_type =='SOAP'):
-    #         #Soap Call
-    #         soap_url = 'http://hydrodata.info/chmi-d/cuahsi_1_1.asmx?wsdl'
-    #         site_code = ':248'
-    #         var_code = ':SRAZKY'
-    #         ref_type = 'soap'
-    #         metadata.append({"referenceurl":
-    #                  {"value": soap_url,
-    #                 "type": ref_type,}})
-    #         metadata.append({"variable":{'code':var_code}})
-    #         metadata.append({"site":{'code':site_code}})
-    #         r_type = 'RefTimeSeriesResource'
-    #         r_title = "test of rest reftime series soap request"
-    #         r_keywords = ["test"]
-    #         r_abstract = "This is a test of the resource creator"
-    #         res_id = hs.createResource(r_type,
-    #                             r_title,
-    #                             resource_file=None,
-    #                             keywords=r_keywords,
-    #                             abstract=r_abstract,
-    #                             metadata=json.dumps(metadata))
+    print res_id
+    if fun_type =='create':
+        try:
+            print "creating resource"
+            resource_id = hs.createResource(r_type, r_title, resource_file=fpath, keywords=r_keywords, abstract=r_abstract, metadata=metadata)
+        except:
+            resource_id ="error"
+    elif fun_type =='update':
+        try:
+            print "Updating resource"
+            try:
+                resource_id = hs.deleteResourceFile(res_id, fpath+'.json.refts')
+            except:
+                print 'file doesnt exist'
+            resource_id = hs.addResourceFile(res_id, fpath)
+        except:
+            resource_id ="error"
+    # if res_access == 'public':
+    #     hs.setAccessRules(resource_id, public=True)
+    # else:
+    #     hs.setAccessRules(resource_id, public=False)
 
 
     #upload to hydroshare stuff
