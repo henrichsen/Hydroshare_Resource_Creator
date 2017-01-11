@@ -75,8 +75,8 @@ def home(request):
         form_body = "no data"
 
     # form_body = '{"fileVersion":1,"title":"HydroClient-2017-01-09T17:46:47.810Z","abstract":"Retrieved timeseries...","symbol":"http://data.cuahsi.org/content/images/cuahsi_logo_small.png","keyWords":["Time Series","CUAHSI"],"REFTS":[{"refType":"WOF","serviceType":"SOAP","url":"http://hydro1.sci.gsfc.nasa.gov/daac-bin/his/1.0/GLDAS_NOAH_001.cgi?WSDL","site":"X282-Y404 of Global Land Data Assimilation System (GLDAS) NASA","siteCode":"GLDAS_NOAH:X282-Y404","variable":"Surface runoff","variableCode":"GLDAS:GLDAS_NOAH025_3H.001:Qs","networkName":"GLDAS_NOAH","beginDate":"2016-01-09T00:00:00","endDate":"2016-09-30T21:00:00+00:00","returnType":"WaterML 1.0","location":{"latitude":41.125,"longitude":-109.375}}]}'
-    # with open(base_path, 'w') as outfile:
-    #     json.dump(form_body, outfile)
+    with open(base_path, 'w') as outfile:
+        json.dump(form_body, outfile)
 
     """
     Controller for the app home page.
