@@ -22,6 +22,8 @@ import urllib
 import json
 import logging
 import shutil
+import time
+
 
 logger = logging.getLogger(__name__)
 
@@ -61,14 +63,14 @@ def home(request):
     print request.body
 
     body = request.body
-    try:
-        decode11 = request.GET['data']
-    except:
-        decode11 = 'nothing'
-    try:
-        decode_body = json.loads(request.body.decode("utf-8"))
-    except:
-        decode_body = "no data"
+    # try:
+    #     decode11 = request.GET['data']
+    # except:
+    #     decode11 = 'nothing'
+    # try:
+    #     decode_body = json.loads(request.body.decode("utf-8"))
+    # except:
+    #     decode_body = "no data"
     try:
         form_body = request.POST
     except:
@@ -83,11 +85,11 @@ def home(request):
     """
     # utilities.append_ts_layer_resource("testtt",'test')
     context = {'source':body,
-               'cuahsi_ids':decode_body,
+               # 'cuahsi_ids':decode_body,
                'quality':form_body,
                'method':request,
                'sourceid':sourceid,
-                'serviceurl':serviceurl,
+               'serviceurl':serviceurl,
                'login1':login1
                }
     return render(request, 'hydroshare_resource_creator/home.html', context)
@@ -95,38 +97,30 @@ def home(request):
 @csrf_exempt
 def chart_data(request,res_id):
     data_for_chart={}
-    error=''
-    data1=None
+    error='error'
+    res_info=None
     #parse xml data from 'data' from data_for_js and prepare for the table
     if res_id =='None':
         data = utilities.parse_JSON()
-        print type(data)
-        print "ddddddddddddddddddddddddddddddddd"
-        print data
-
         try:
-
-            data1 = data['timeSeriesLayerResource']
-            data1 = json.loads(data1)
+            file_data = data['timeSeriesLayerResource']
+            file_data = json.loads(file_data)
         except:
-            data1=''
-        print data1
-        if data1=='':
-                try:
-                    data1 = data['timeSeriesLayerResource']
-                except:
-                    data1=''
-
-        # data_n = urllib.unquote(data1).decode(encoding ="UTF-8")
-        # print data_n
-        if data1 =='':
+            file_data=''
+        print file_data
+        if file_data=='':
+            try:
+                file_data = data['timeSeriesLayerResource']
+            except:
+                file_data=''
+        if file_data =='':
             error = "No data in file"
         else:
             error=''
     else:
         temp_dir = utilities.get_workspace()
         root_dir = temp_dir + '/id/' + res_id
-        try:
+        try: #Insures that resource is downloaded each time
             shutil.rmtree(root_dir)
         except:
             nothing =None
@@ -138,33 +132,28 @@ def chart_data(request,res_id):
             else:
                 hs = getOAuthHS(request)
             file_path = temp_dir + '/id'
-            hs.getResource(res_id, destination=file_path, unzip=True)
-            root_dir = file_path + '/' + res_id
-            data_dir = root_dir + '/' + res_id + '/data/contents/'
-            for subdir, dirs, files in os.walk(data_dir):
-                for file in files:
-                    if  'wml_1_' in file:
-                        data_file = data_dir + file
-                        with open(data_file, 'r') as f:
-                            # print f.read()
-                            file_data = f.read()
-                            f.close()
-                            file_temp_name = temp_dir + '/id/' + res_id + '.xml'
-                            file_temp = open(file_temp_name, 'wb')
-                            file_temp.write(file_data)
-                            file_temp.close()
-                    if '.json.refts' in file:
-                        data_file = data_dir +file
-                        with open(data_file, 'r') as f:
-                            file_data = f.read()
-                            print file_data
-                            data = file_data.encode(encoding ='UTF-8')
-                            print data
-                            data1 = json.loads(data)
-                            data1 = data1['timeSeriesLayerResource']
-
+            print "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDd"
+            res_info = hs.getSystemMetadata(res_id)
+            res_info = res_info['public']
+            while(error=='error'):
+                try:
+                    hs.getResource(res_id, destination=file_path, unzip=True)
+                    root_dir = file_path + '/' + res_id
+                    data_dir = root_dir + '/' + res_id + '/data/contents/'
+                    for subdir, dirs, files in os.walk(data_dir):
+                        for file in files:
+                            if '.json.refts' in file:
+                                data_file = data_dir +file
+                                with open(data_file, 'r') as f:
+                                    file_data = f.read()
+                                    file_data= file_data.encode(encoding ='UTF-8')
+                                    file_data = json.loads(file_data)
+                                    file_data = file_data['timeSeriesLayerResource']
+                                    error=''
+                except:
+                    error='error'
     # data_for_chart = {"data": '{"fileVersion":1,"title":"HydroClient-2017-01-09T17:46:47.810Z","abstract":"Retrieved timeseries...","symbol":"http://data.cuahsi.org/content/images/cuahsi_logo_small.png","keyWords":["Time Series","CUAHSI"],"REFTS":[{"refType":"WOF","serviceType":"SOAP","url":"http://hydro1.sci.gsfc.nasa.gov/daac-bin/his/1.0/GLDAS_NOAH_001.cgi?WSDL","site":"X282-Y404 of Global Land Data Assimilation System (GLDAS) NASA","siteCode":"GLDAS_NOAH:X282-Y404","variable":"Surface runoff","variableCode":"GLDAS:GLDAS_NOAH025_3H.001:Qs","networkName":"GLDAS_NOAH","beginDate":"2016-01-09T00:00:00","endDate":"2016-09-30T21:00:00+00:00","returnType":"WaterML 1.0","location":{"latitude":41.125,"longitude":-109.375}}]}','error':error}
-    data_for_chart = {"data": data1,'error':error}
+    data_for_chart = {"data": file_data,'error':error,"public":res_info}
     return JsonResponse(data_for_chart)
 
 def getOAuthHS(request):
@@ -198,8 +187,8 @@ def write_file(request):
     waterml_url = "http://hydrodata.info/chmi-h/cuahsi_1_1.asmx/GetValuesObject?location=CHMI-H:140&variable=CHMI-H:TEPLOTA&startDate=2015-07-01&endDate=2015-07-10&authToken="
     ref_type = "rest"
     metadata.append({"referenceurl":
-            {"value": waterml_url,
-            "type": ref_type}})
+                         {"value": waterml_url,
+                          "type": ref_type}})
     r_type = 'RefTimeSeriesResource'
     r_title = "test"
     r_keywords = ["test"]
@@ -264,83 +253,120 @@ def create_layer(request,fun_type,res_id):
     data_stor=[]
     int_resource=[]
     counter=0
+    error=''
     title = str(request.POST.get('resTitle'))# causing errors because not strints?
     abstract = str(request.POST.get('resAbstract'))
     keywords = str(request.POST.get('resKeywords'))
     res_access = str(request.POST.get('resAccess'))
     keywords = keywords.split(',')
     str_resource = request.POST.get('checked_ids')
-    print "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa"
-    print str_resource
     str_resource = trim(str_resource)
+    try:
+        for res in str_resource:
+            int_resource.append(int(res))
+        print int_resource
+        metadata = []
+        if use_hs_client_helper:
+            hs = get_oauth_hs(request)
+        else:
+            hs = getOAuthHS(request)
+        temp_dir = utilities.get_workspace()
+        file_name = title.replace(" ", "")
+        print res_id
+        if res_id =='null':
+            file_path = temp_dir + '/id/timeseriesLayerResource.json.refts'
+            fpath = temp_dir + '/id/'+file_name+'.json.refts'
+        else:
+            # file_path = temp_dir + '/id/timeseriesLayerResource.json.refts'
+            fpath = temp_dir + '/id/'+file_name+'.json.refts'
 
-    for res in str_resource:
-        int_resource.append(int(res))
-    print int_resource
-    metadata = []
-    if use_hs_client_helper:
-	    hs = get_oauth_hs(request)
-    else:
-        hs = getOAuthHS(request)
-    temp_dir = utilities.get_workspace()
-    file_name = title.replace(" ", "")
-    file_path = temp_dir + '/id/timeseriesLayerResource.json.refts'
-    fpath = temp_dir + '/id/'+file_name+'.json.refts'
-    print fpath
-    with open(file_path, 'r') as outfile:
-        file_data = outfile.read()
-        data = file_data.encode(encoding ='UTF-8')
-        data = json.loads(data)
-        print data
-        data = data['timeSeriesLayerResource']
-        try:
-            data_symbol = data['symbol']
-            data_file =data['fileVersion']
-        except:
+            data_dir = temp_dir+'/id/' + res_id
+            print data_dir
+            for subdir, dirs, files in os.walk(data_dir):
+                for file in files:
+                    print file
+                    if '.json.refts' in file:
+                        print subdir
+                        fname=file
+                        file_path = subdir+'/'+file
+        print fpath
+        print file_path
+        with open(file_path, 'r') as outfile:
+            file_data = outfile.read()
+            data = file_data.encode(encoding ='UTF-8')
             data = json.loads(data)
-            data_symbol = data['symbol']
-            data_file =data['fileVersion']
-
-        for i in data['REFTS']:
-            if counter in int_resource:
-                data_stor.append(i)
-            counter = counter+1
-        data_dic = {"REFTS":data_stor,"fileVersion": data_file, "title": title,
-                    "symbol":data_symbol,"abstract": abstract,'keyWords':keywords}
-        data.update(data_dic)
-        final_dic = {"timeSeriesLayerResource":data}
-        with open(fpath, 'w') as outfile:
-            json.dump(final_dic, outfile)
-    r_type = 'GenericResource'
-    r_title = title
-    r_keywords = (keywords)
-    r_abstract = abstract
-
-    print res_id
-    if fun_type =='create':
-        try:
-            print "creating resource"
-            resource_id = hs.createResource(r_type, r_title, resource_file=fpath, keywords=r_keywords, abstract=r_abstract, metadata=metadata)
-        except:
-            resource_id ="error"
-    elif fun_type =='update':
-        try:
-            print "Updating resource"
+            # print data
+            data = data['timeSeriesLayerResource']
             try:
-                resource_id = hs.deleteResourceFile(res_id, fpath+'.json.refts')
+                data_symbol = data['symbol']
+                data_file =data['fileVersion']
             except:
-                print 'file doesnt exist'
-            resource_id = hs.addResourceFile(res_id, fpath)
-        except:
-            resource_id ="error"
-    # if res_access == 'public':
-    #     hs.setAccessRules(resource_id, public=True)
-    # else:
-    #     hs.setAccessRules(resource_id, public=False)
+                data = json.loads(data)
+                data_symbol = data['symbol']
+                data_file =data['fileVersion']
 
+            for i in data['REFTS']:
+                if counter in int_resource:
+                    data_stor.append(i)
+                counter = counter+1
+            data_dic = {"REFTS":data_stor,"fileVersion": data_file, "title": title,
+                        "symbol":data_symbol,"abstract": abstract,'keyWords':keywords}
+            data.update(data_dic)
+            final_dic = {"timeSeriesLayerResource":data}
+            with open(fpath, 'w') as outfile:
+                json.dump(final_dic, outfile)
+        r_type = 'GenericResource'
+        r_title = title
+        r_keywords = (keywords)
+        r_abstract = abstract
 
-    #upload to hydroshare stuff
-    return JsonResponse({'Request':resource_id})
+        print res_id
+        if fun_type =='create':
+            try:
+                print "creating resource"
+                resource_id = hs.createResource(r_type, r_title, resource_file=fpath, keywords=r_keywords, abstract=r_abstract, metadata=metadata)
+            except:
+                resource_id ="error"
+        elif fun_type =='update':
+            try:
+                print "Updating resource"
+
+                try:
+                    resource_id = hs.deleteResourceFile(res_id, fname)
+                except:
+                    error = 'File does not exist'
+                resource_id = hs.addResourceFile(res_id, fpath)
+                temp_dir = utilities.get_workspace()
+                root_dir = temp_dir + '/id/' + res_id
+            except:
+                error ="error"
+            try:
+                shutil.rmtree(root_dir)
+                print "removing directory"
+            except:
+                nothing =None
+        public ='false'
+        print res_access
+        if res_access == 'public':
+            delay = 0
+
+            while (public =='false'):
+                if (delay>10):
+                    error ='Request timed out'
+                else:
+                    try:
+                        print "making public"
+                        print resource_id
+                        hs.setAccessRules(resource_id, public=True)
+                        public ='true'
+                    except:
+                        public='false'
+                        time.sleep(2)
+                    delay=delay+1
+
+    except:
+        error = 'At least one resource needs to be selected'
+    return JsonResponse({'Request':resource_id,'error':error})
 def trim(string_dic):
     string_dic=string_dic.strip('[')
     string_dic=string_dic.strip(']')
@@ -390,7 +416,7 @@ def test(request):
     print result
 
     context ={"result": json.dumps(result)
-               }
+              }
     return render(request, 'hydroshare_resource_creator/test.html', context)
 def login_callback(request):
 

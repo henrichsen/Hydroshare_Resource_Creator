@@ -8,11 +8,11 @@ class HydroshareResourceCreator(TethysAppBase):
 
     name = 'HydroShare Resource Creator'
     index = 'hydroshare_resource_creator:home'
-    icon = 'hydroshare_resource_creator/images/icon.gif'
+    icon = 'hydroshare_resource_creator/images/tool.svg'
     package = 'hydroshare_resource_creator'
     root_url = 'hydroshare-resource-creator'
     color = '#2ecc71'
-    description = 'Place a brief description of your app here.'
+    description = 'Create HydroShare resources using the CUAHSI HydroClient'
     enable_feedback = False
     feedback_emails = []
 

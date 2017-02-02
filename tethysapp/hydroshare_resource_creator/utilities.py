@@ -647,84 +647,6 @@ def read_error_file(xml_file):
     except:
         return {'status': 'invalid WaterML file'}
 
-
-def unzip_waterml(request, res_id,src):
-    # print "unzip!!!!!!!"
-
-    # this is where we'll unzip the waterML file to
-    temp_dir = get_workspace()
-    # waterml_url = ''
-
-    # get the URL of the remote zipped WaterML resource
-
-
-    if not os.path.exists(temp_dir+"/id"):
-        os.makedirs(temp_dir+"/id")
-    if 'cuahsi'in src :
-        # url_zip = 'http://bcc-hiswebclient.azurewebsites.net/CUAHSI/HydroClient/WaterOneFlowArchive/'+res_id+'/zip'
-        url_zip = 'http://qa-webclient-solr.azurewebsites.net/CUAHSI/HydroClient/WaterOneFlowArchive/'+res_id+'/zip'
-    elif 'hydroshare' in src:
-        url_zip = 'https://www.hydroshare.org/hsapi/_internal/'+res_id+'/download-refts-bag/'
-    else:
-        url_zip = 'http://' + request.META['HTTP_HOST'] + '/apps/data-cart/showfile/'+res_id
-    r = requests.get(url_zip, verify=False)
-    try:
-        z = zipfile.ZipFile(StringIO.StringIO(r.content))
-        file_list = z.namelist()
-        print file_list
-        try:
-            for file in file_list:
-                if 'hydroshare' in src:
-                    if 'wml_1_' in file:
-                        file_data = z.read(file)
-                        file_temp_name = temp_dir + '/id/' + res_id + '.xml'
-                        file_temp = open(file_temp_name, 'wb')
-                        file_temp.write(file_data)
-                        file_temp.close()
-                        base_url = request.build_absolute_uri()
-                        if "?" in base_url:
-                            base_url = base_url.split("?")[0]
-                        waterml_url = base_url + "temp_waterml/cuahsi/id/" + res_id + '.xml'
-                else:
-                    file_data = z.read(file)
-                    file_temp_name = temp_dir + '/id/' + res_id + '.xml'
-                    file_temp = open(file_temp_name, 'wb')
-                    file_temp.write(file_data)
-                    file_temp.close()
-                    # getting the URL of the zip file
-                    base_url = request.build_absolute_uri()
-                    if "?" in base_url:
-                        base_url = base_url.split("?")[0]
-                    waterml_url = base_url + "temp_waterml/cuahsi/id/" + res_id + '.xml'
-
-        # error handling
-
-        # checks to see if data is an xml
-        except etree.XMLSyntaxError as e:
-            print "Error:Not XML"
-            return False
-
-        # checks to see if Url is valid
-        except ValueError, e:
-            print "Error:invalid Url"
-            return False
-
-        # checks to see if xml is formatted correctly
-        except TypeError, e:
-            print "Error:string indices must be integers not str"
-            return False
-
-    # check if the zip file is valid
-    except zipfile.BadZipfile as e:
-        error_message = "Bad Zip File"
-        print "Bad Zip file"
-        return False
-
-    # finally we return the waterml_url
-
-    return waterml_url
-
-
 # finds the waterML file path in the workspace folder
 def waterml_file_path(res_id):
     base_path = get_workspace()
@@ -819,35 +741,42 @@ def get_hydroshare_resource(request,res_id,data_for_chart):
             hs = controllers.get_oauth_hs(request)
         else:
             hs = controllers.getOAuthHS(request)
-        hs.getResource(res_id, destination=file_path, unzip=True)
-        data_dir = root_dir + '/' + res_id + '/data/contents/'
-        for subdir, dirs, files in os.walk(data_dir):
-            for file in files:
-                if 'xml' in file:
-                    data_file = data_dir + file
-                    with open(data_file, 'r') as f:
-                        # print f.read()
-                        data = f.read()
-                        # print data
-                        f.close()
-                        print data
-                        try:
-                            data= data.decode('latin-1')
-                        except:
-                            data = data
-                        data_for_chart.update({str(file): data})
+        try:
+            hs.getResource(res_id, destination=file_path, unzip=True)
+            data_dir = root_dir + '/' + res_id + '/data/contents/'
+            for subdir, dirs, files in os.walk(data_dir):
+                for file in files:
+                    if 'xml' in file:
+                        data_file = data_dir + file
+                        with open(data_file, 'r') as f:
+                            # print f.read()
+                            data = f.read()
+                            # print data
+                            f.close()
+                            print data
+                            try:
+                                data= data.decode('latin-1')
+                            except:
+                                data = data
+                            data_for_chart.update({str(file): data})
 
-        # data_for_chart = {'bjo':'hello'}
-        user =  hs.getUserInfo()
-        user1 = user['username']
-        # resource = hs.getResourceList(user ='editor')
-        resource = hs.getResourceList(owner = user1)
-        for  res in resource:
-            # print res
-            id = res["resource_id"]
-            # print id
-            if(res_id ==res["resource_id"]):
-                is_owner = True
+            # data_for_chart = {'bjo':'hello'}
+            user =  hs.getUserInfo()
+            user1 = user['username']
+            # resource = hs.getResourceList(user ='editor')
+            resource = hs.getResourceList(owner = user1)
+            for  res in resource:
+                # print res
+                id = res["resource_id"]
+                # print id
+                if(res_id ==res["resource_id"]):
+                    is_owner = True
+            data_dic = {"data":data_for_chart,"owner":is_owner,"error":error}
+
+            return data_dic
+        except:
+            error = "Unable to load resource"+res_id
+            return error
     except Exception as inst:
         data_for_chart = 'You are not authorized to access this resource'
         owner = False
@@ -860,8 +789,7 @@ def get_hydroshare_resource(request,res_id,data_for_chart):
         except:
             data_for_chart = "There was an error loading data for resource"+res_id
         print "end"
-    data_dic = {"data":data_for_chart,"owner":is_owner,"error":error}
-    return data_dic
+
 def parse_JSON():
     temp_dir = get_workspace()
     # file=  temp_dir+'/id/timeSeriesResource.json'

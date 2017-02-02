@@ -1,3 +1,0 @@
-aa530f4a741e5408fd00c3e8b6ab764a    data/resourcemap.xml
-2e7a0e65445170a3a6e833d081bf51d0    data/resourcemetadata.xml
-e50a024d16cc0a807ae7af0d7a906173    data/contents/timeseriesLayerResource.json.refts

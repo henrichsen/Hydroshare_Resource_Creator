@@ -2,9 +2,14 @@
 <!DOCTYPE rdf:RDF PUBLIC "-//DUBLIN CORE//DCMES DTD 2002/07/31//EN"
 "http://dublincore.org/documents/2002/07/31/dcmes-xml/dcmes-xml-dtd.dtd">
 <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:hsterms="http://hydroshare.org/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs1="http://www.w3.org/2001/01/rdf-schema#">
-  <rdf:Description rdf:about="http://www.hydroshare.org/resource/e77aca3865304482b1ae70059f612187">
-    <dc:title>HydroClient-2016-12-09T17:51:28.999Z</dc:title>
+  <rdf:Description rdf:about="http://www.hydroshare.org/resource/17bb8bb5a9d64310bce21dc8a0323916">
+    <dc:title>Test of updating exisiting resource</dc:title>
     <dc:type rdf:resource="http://www.hydroshare.org/terms/GenericResource"/>
+    <dc:description>
+      <rdf:Description>
+        <dcterms:abstract>Retrieved timeseries...</dcterms:abstract>
+      </rdf:Description>
+    </dc:description>
     <dc:creator>
       <rdf:Description rdf:about="http://www.hydroshare.org/user/113/">
         <hsterms:name>Matthew Bayles</hsterms:name>
@@ -14,18 +19,18 @@
     </dc:creator>
     <dc:date>
       <dcterms:created>
-        <rdf:value>2016-12-09T17:51:42.175383+00:00</rdf:value>
+        <rdf:value>2017-01-18T16:16:11.831401+00:00</rdf:value>
       </dcterms:created>
     </dc:date>
     <dc:date>
       <dcterms:modified>
-        <rdf:value>2016-12-09T17:51:42.182892+00:00</rdf:value>
+        <rdf:value>2017-01-18T21:18:16.331611+00:00</rdf:value>
       </dcterms:modified>
     </dc:date>
     <dc:format>application/refts</dc:format>
     <dc:identifier>
       <rdf:Description>
-        <hsterms:hydroShareIdentifier>http://www.hydroshare.org/resource/e77aca3865304482b1ae70059f612187</hsterms:hydroShareIdentifier>
+        <hsterms:hydroShareIdentifier>http://www.hydroshare.org/resource/17bb8bb5a9d64310bce21dc8a0323916</hsterms:hydroShareIdentifier>
       </rdf:Description>
     </dc:identifier>
     <dc:language>eng</dc:language>
