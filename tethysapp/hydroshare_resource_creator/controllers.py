@@ -34,9 +34,6 @@ except Exception as ex:
     use_hs_client_helper = False
     logger.error("tethys_services.backends.hs_restclient_helper import get_oauth_hs: " + ex.message)
 
-
-
-
 @login_required()
 def temp_waterml(request, id):
     base_path = utilities.get_workspace() + "/id"
