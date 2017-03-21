@@ -359,6 +359,8 @@ function create_update(fun_type,res_type){
                                 $('#div_view_resource').append('<button id ="btn_view_resource" type="button" class="btn btn-success" name ="'+json.Request+'"onclick="view_resource(this.name)">View Resource</button>')
                                 //$('#div_view_resource2').append('<button id ="btn_view_resource" type="button" class="btn btn-success" name ="'+json.Request+'"onclick="view_resource(this.name)">View Resource</button>')
                                 $('#resource_dialog').modal('show');
+                                $('body').removeClass('modal-backdrop fade in');
+                                //$('.modal-backdrop').remove();
                             }
                             finishloading()
                         },

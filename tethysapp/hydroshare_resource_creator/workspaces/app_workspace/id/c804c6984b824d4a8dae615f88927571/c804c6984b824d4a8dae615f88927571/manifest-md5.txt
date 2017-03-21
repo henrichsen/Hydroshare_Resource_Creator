@@ -1,4 +1,4 @@
-f0639ad8719209e1336871e5a2e05f2d    data/resourcemap.xml
-845db6b1e3e213cd8d6079475e7df3fc    data/resourcemetadata.xml
+c6122f3082e4b17dec4db7f2491d5f8c    data/resourcemap.xml
 8ee65bd2fba5ce57c3d316c7bfe94b64    data/resourcemetadata.xml
-92b0cd608aae764df399d74c725456c7    data/contents/localhost.json.refts
+d22ed4ceff71c11d5a8510480a5dd0a7    data/resourcemetadata.xml
+6e3948aa25c5403da6d2a0f6155f0ce6    data/contents/localhost.json.refts
