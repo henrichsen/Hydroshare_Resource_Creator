@@ -47,8 +47,9 @@ function create_resource(){
             json1 = null
             console.log(json)
             if (json.error !=''){
+
                 error_report(json.error)
-                finishloading()
+
                 console.log('error')
             }
             else {
@@ -71,6 +72,7 @@ function create_resource(){
                 var date_large=new Date('1600-01-01')
                 var date_now = new Date()
                 var site_list =[]
+                var var_list=[]
                 series_details = series_details.REFTS
                 total_number = series_details.length
                 console.log(total_number)
@@ -107,6 +109,9 @@ function create_resource(){
                     }
 
                     var variable = entry.variable
+                    if(var_list.indexOf(variable)==-1){
+                        var_list.push(variable)
+                    }
                     var var_code = entry.variableCode
                     var site_code = entry.siteCode
                     var network = entry.networkName
@@ -154,7 +159,7 @@ function create_resource(){
                         Lon: Lon,
                         site: site_name,
                         beginDate: begindate,
-                        endDate: enddate,
+                        //endDate: enddate,
                         variable: variable,
                         var_code: var_code,
                         site_code: site_code,
@@ -167,17 +172,19 @@ function create_resource(){
                 }
                 if (number == total_number) {
                     if(src =='hydroshare')    {}
-                    else{
-
-                        last = site_list[site_list.length -1]
+                    else {
+                        console.log("formatting abstract")
+                        if (site_list.length > 1) {
+                        last = site_list[site_list.length - 1]
                         site_list.pop()
-                        site_list.push(' and '+last)
+                        site_list.push('and ' + last)
                         site_list = site_list.join(', ')
+                        }
 
                         title ="Time series layer resource created on "+date_now
-                        abstract = "Date collected from "+date_small.toISOString().substring(0, 10) +" to "+ date_large.toISOString().substring(0, 10)+
-                                ' created on '+ date_now+' from the following sites ' + site_list+'. Data created from CUAHSI HydroClient.' +
-                                '   '
+                        abstract = var_list +" data collected from "+date_small.toISOString().substring(0, 10) +" to "+ date_large.toISOString().substring(0, 10)+
+                                " created on "+ date_now+" from the following site(s): " + site_list+". Data created by CUAHSI HydroClient: " +
+                                "http://data.cuahsi.org/#."
                     }
                     $('#res-title').val(title)
                     $('#res-abstract').text(abstract)
@@ -197,6 +204,7 @@ var data = [];
 $(document).ready(function () {
     $('#stat_div').hide();
     $('#btn_update_ts_layer').hide();
+
     //finishloading()
     console.log("ready")
     //initializes table
@@ -230,7 +238,7 @@ $(document).ready(function () {
             {"data": "Lat"},
             {"data": "Lon"},
             {"data": "beginDate"},
-            {"data": "endDate"},
+            //{"data": "endDate"},
             {"data": "variable"},
             {"data": "var_code"},
             {"data": "site_code"},
@@ -252,6 +260,7 @@ function finishloading(callback) {
     $(window).resize()
     $('#stat_div').show();
     $(window).resize();
+    console.log('hide')
     $('#loading').hide();
     $('#multiple_units').show();
     var src = find_query_parameter("src");
@@ -264,10 +273,13 @@ function finishloading(callback) {
 //    var popupDiv = $('#create_resource');
 //    popupDiv.modal('show')
 //});
-function create_update(fun_type){
+function create_update(fun_type,res_type){
+    $('#loading').show();
     console.log(fun_type)
+    console.log(res_type)
     res_id = find_query_parameter('res_id')
     console.log(res_id)
+    console.log(res_type.value)
 
     //var popupDiv = $('#create_resource');
     //popupDiv.modal('hide')
@@ -303,10 +315,11 @@ function create_update(fun_type){
                     alert("Resource Title field cannot be blank")
                 }
                 else {
+
                     $('#stat_div').hide();
                     $('#loading').show();
                     var csrf_token = getCookie('csrftoken');
-                    data_url = base_url + 'hydroshare-resource-creator/create_layer/'+fun_type+'/'+res_id+'/'
+                    data_url = base_url + 'hydroshare-resource-creator/create_layer/'+fun_type+'/'+res_id+'/'+res_type+'/'
                     $.ajax({
                         type: "POST",
                         headers: {'X-CSRFToken': csrf_token},
@@ -321,8 +334,8 @@ function create_update(fun_type){
                         },
                         url: data_url,
                         success: function (json) {
-                            //console.log(json)
-                            finishloading()
+                            console.log(json)
+
                             if(json.error !=''){alert(json.error)}
                             else
                             {
@@ -336,11 +349,18 @@ function create_update(fun_type){
                                     //window.open(base_url +"hydroshare-resource-creator/?src=hydroshare&res_id="+res_id, 'windowName', 'width=1000, height=700, left=24, top=24, scrollbars, resizable');
                                     window.location = base_url +'hydroshare-resource-creator/?src=hydroshare&res_id='+res_id
                                 }
-                                else{alert("Resource created sucessfully")}
+                                else{$('#modal_title').append("Resource Created Successfully") }
+                                resource = json.Request
+                                $('#welcome-info').append('<a href="https://www.hydroshare.org/resource/'+resource+'"target="_blank">Click here to view.</a>')
+
                                 $('#btn_create_ts_layer').hide()
-                                $('#btn_view_resource').html("")
+                                $('#public_hydro').hide()
+                                //$('#btn_view_resource').html("")
                                 $('#div_view_resource').append('<button id ="btn_view_resource" type="button" class="btn btn-success" name ="'+json.Request+'"onclick="view_resource(this.name)">View Resource</button>')
+                                //$('#div_view_resource2').append('<button id ="btn_view_resource" type="button" class="btn btn-success" name ="'+json.Request+'"onclick="view_resource(this.name)">View Resource</button>')
+                                $('#resource_dialog').modal('show');
                             }
+                            finishloading()
                         },
                         error:function(json){
                         }
@@ -383,6 +403,9 @@ function trim_input(string){
 }
 function error_report(error){
     console.log(error)
+    $(window).resize()
+    $('#loading').hide()
+    $('#error-message').append(error)
 }
 function dataToUrl() {
 

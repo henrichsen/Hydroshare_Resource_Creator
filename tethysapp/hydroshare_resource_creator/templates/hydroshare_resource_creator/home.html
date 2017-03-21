@@ -1,6 +1,28 @@
 {% extends "hydroshare_resource_creator/base.html" %}
 
 {% block app_content %}
+    <!--<button id ='btn__ts' name ='ts' value ='ts' type="button" class="btn btn-success"onclick="create_update(this.name,this.value)">Create New Time Series Resource</button>-->
+
+<div class="modal fade" id="resource_dialog" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><div id="modal_title"></div></h4>
+            </div>
+            <div class="modal-body">
+                <div id="welcome-info">
+                    File saved to HydroShare.
+                </div>
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-default" id="close-popup" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div><div id="error-message"></div>
+
 
 <div id = "stat_div" >
     <h4>Create Hydroshare Resource</h4>
@@ -17,7 +39,7 @@
             <th>Latitude</th>
             <th>Longitude</th>
             <th>Begin Date</th>
-            <th>End Date</th>
+            <!--<th>End Date</th>-->
             <th>Variable</th>
             <th>Variable Code</th>
             <th>Site Code</th>
@@ -48,13 +70,15 @@
     <!--</div>-->
     <!--End modal content-->
     <p></p>
-    <button id ='btn_create_ts_layer'name ='create' type="button" class="btn btn-success"onclick="create_update(this.name)">Create New Time Series Layer Resource</button>
-    <button id ='btn_update_ts_layer' name ='update'type="button" class="btn btn-success"onclick="create_update(this.name)">Update Time Series Layer Resource</button>
+    <button id ='btn_create_ts_layer'name ='create' value ='refts' type="button" class="btn btn-success"onclick="create_update(this.name,this.value)">Create New Reference Time Series</button>
+    <button id ='btn_update_ts_layer' name ='update'value ='refts' type="button" class="btn btn-success"onclick="create_update(this.name,this.value)">Update Current Resource</button>
     <!--<button id ='btn_delete_ts_layer'name ='create' type="button" class="btn btn-danger"onclick="delete_resource(this.name)">Delete Current Resource</button>-->
 
     <p></p>
     <div id ="div_view_resource"></div>
-    <label><input id ='chk_public' type='checkbox' >  Public Resource</label>
+    <div id ='public_hydro'>
+        <label><input id ='chk_public' type='checkbox' >  Make Resource Public</label>
+    </div>
 
 
 

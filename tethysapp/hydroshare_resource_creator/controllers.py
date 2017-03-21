@@ -24,9 +24,7 @@ import logging
 import shutil
 import time
 
-
 logger = logging.getLogger(__name__)
-
 use_hs_client_helper = True
 try:
     from tethys_services.backends.hs_restclient_helper import get_oauth_hs
@@ -96,6 +94,8 @@ def chart_data(request,res_id):
     data_for_chart={}
     error='error'
     res_info=None
+    file_data=None
+    status = 'running'
     #parse xml data from 'data' from data_for_js and prepare for the table
     if res_id =='None':
         data = utilities.parse_JSON()
@@ -130,25 +130,57 @@ def chart_data(request,res_id):
                 hs = getOAuthHS(request)
             file_path = temp_dir + '/id'
             print "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDd"
-            res_info = hs.getSystemMetadata(res_id)
-            res_info = res_info['public']
-            while(error=='error'):
-                try:
-                    hs.getResource(res_id, destination=file_path, unzip=True)
-                    root_dir = file_path + '/' + res_id
-                    data_dir = root_dir + '/' + res_id + '/data/contents/'
-                    for subdir, dirs, files in os.walk(data_dir):
-                        for file in files:
-                            if '.json.refts' in file:
-                                data_file = data_dir +file
-                                with open(data_file, 'r') as f:
-                                    file_data = f.read()
-                                    file_data= file_data.encode(encoding ='UTF-8')
-                                    file_data = json.loads(file_data)
-                                    file_data = file_data['timeSeriesLayerResource']
-                                    error=''
-                except:
-                    error='error'
+            delay=0
+            print res_id
+            resource = None
+
+            while(status =='running' or delay<10):
+                print "looping"
+
+                if (delay>10):
+                    error ='Request timed out'
+                    break
+                elif( status =='done'):
+                    error =''
+                    break
+                else:
+                    try:
+                        print "downloading"
+                        res_info = hs.getSystemMetadata(res_id)
+                        res_info = res_info['public']
+
+                        hs.getResource(res_id, destination=file_path, unzip=True)
+
+                        print status
+                        print resource
+                        root_dir = file_path + '/' + res_id
+                        data_dir = root_dir + '/' + res_id + '/data/contents/'
+                        for subdir, dirs, files in os.walk(data_dir):
+                            for file in files:
+                                if '.json.refts' in file:
+                                    data_file = data_dir +file
+                                    with open(data_file, 'r') as f:
+                                        file_data = f.read()
+                                        # print file_data
+                                        file_data= file_data.encode(encoding ='UTF-8')
+                                        file_data = json.loads(file_data)
+                                        file_data = file_data['timeSeriesLayerResource']
+
+
+                        if file_data ==None:
+                            status = 'running'
+                            time.sleep(2)
+                        else:
+                            status = 'done'
+                    except:
+                        error='error'
+                        status = 'running'
+                        time.sleep(2)
+
+                delay=delay+1
+                print delay
+                print error
+                print status
     # data_for_chart = {"data": '{"fileVersion":1,"title":"HydroClient-2017-01-09T17:46:47.810Z","abstract":"Retrieved timeseries...","symbol":"http://data.cuahsi.org/content/images/cuahsi_logo_small.png","keyWords":["Time Series","CUAHSI"],"REFTS":[{"refType":"WOF","serviceType":"SOAP","url":"http://hydro1.sci.gsfc.nasa.gov/daac-bin/his/1.0/GLDAS_NOAH_001.cgi?WSDL","site":"X282-Y404 of Global Land Data Assimilation System (GLDAS) NASA","siteCode":"GLDAS_NOAH:X282-Y404","variable":"Surface runoff","variableCode":"GLDAS:GLDAS_NOAH025_3H.001:Qs","networkName":"GLDAS_NOAH","beginDate":"2016-01-09T00:00:00","endDate":"2016-09-30T21:00:00+00:00","returnType":"WaterML 1.0","location":{"latitude":41.125,"longitude":-109.375}}]}','error':error}
     data_for_chart = {"data": file_data,'error':error,"public":res_info}
     return JsonResponse(data_for_chart)
@@ -245,40 +277,42 @@ def response(request):
     return service_url
 @ensure_csrf_cookie
 # @login_required()
-def create_layer(request,fun_type,res_id):
+def create_layer(request,fun_type,res_id,res_type):
     resource_id=None
     data_stor=[]
     int_resource=[]
     counter=0
     error=''
-    title = str(request.POST.get('resTitle'))# causing errors because not strints?
+    public ='false'
+    title = str(request.POST.get('resTitle'))
     abstract = str(request.POST.get('resAbstract'))
     keywords = str(request.POST.get('resKeywords'))
     res_access = str(request.POST.get('resAccess'))
-    keywords = keywords.split(',')
     str_resource = request.POST.get('checked_ids')
+
+    keywords = keywords.split(',')
     str_resource = trim(str_resource)
+    file_name = title.replace(" ", "")
+    file_name = file_name[:10]
+
+
     try:
         for res in str_resource:
             int_resource.append(int(res))
-        print int_resource
         metadata = []
         if use_hs_client_helper:
             hs = get_oauth_hs(request)
         else:
             hs = getOAuthHS(request)
         temp_dir = utilities.get_workspace()
-        file_name = title.replace(" ", "")
-        print res_id
-        if res_id =='null':
+        # print title.lstrip(10)
+        fpath = temp_dir + '/id/'+file_name+'.json.refts' #path where file will be stored before upload to hydroshare
+        if res_id =='null': #if resource is coming for data client
             file_path = temp_dir + '/id/timeseriesLayerResource.json.refts'
-            fpath = temp_dir + '/id/'+file_name+'.json.refts'
-        else:
-            # file_path = temp_dir + '/id/timeseriesLayerResource.json.refts'
-            fpath = temp_dir + '/id/'+file_name+'.json.refts'
 
+        else: #if resource is already a HydroShare resource
+            # file_path = temp_dir + '/id/timeseriesLayerResource.json.refts'
             data_dir = temp_dir+'/id/' + res_id
-            print data_dir
             for subdir, dirs, files in os.walk(data_dir):
                 for file in files:
                     print file
@@ -286,8 +320,6 @@ def create_layer(request,fun_type,res_id):
                         print subdir
                         fname=file
                         file_path = subdir+'/'+file
-        print fpath
-        print file_path
         with open(file_path, 'r') as outfile:
             file_data = outfile.read()
             data = file_data.encode(encoding ='UTF-8')
@@ -303,6 +335,7 @@ def create_layer(request,fun_type,res_id):
                 data_file =data['fileVersion']
 
             for i in data['REFTS']:
+                print i
                 if counter in int_resource:
                     data_stor.append(i)
                 counter = counter+1
@@ -312,50 +345,64 @@ def create_layer(request,fun_type,res_id):
             final_dic = {"timeSeriesLayerResource":data}
             with open(fpath, 'w') as outfile:
                 json.dump(final_dic, outfile)
-        r_type = 'GenericResource'
         r_title = title
         r_keywords = (keywords)
         r_abstract = abstract
-
         print res_id
-        if fun_type =='create':
-            try:
-                print "creating resource"
-                resource_id = hs.createResource(r_type, r_title, resource_file=fpath, keywords=r_keywords, abstract=r_abstract, metadata=metadata)
-            except:
-                resource_id ="error"
-        elif fun_type =='update':
-            try:
-                print "Updating resource"
+        if res_type == 'refts':
+            r_type = 'GenericResource'
 
+
+            if fun_type =='create':
                 try:
-                    resource_id = hs.deleteResourceFile(res_id, fname)
+                    print "creating resource"
+                    resource_id = hs.createResource(r_type, r_title, resource_file=fpath, keywords=r_keywords, abstract=r_abstract, metadata=metadata)
                 except:
-                    error = 'File does not exist'
-                resource_id = hs.addResourceFile(res_id, fpath)
-                temp_dir = utilities.get_workspace()
-                root_dir = temp_dir + '/id/' + res_id
-            except:
-                error ="error"
-            try:
-                shutil.rmtree(root_dir)
-                print "removing directory"
-            except:
-                nothing =None
-        public ='false'
+                    resource_id ="error"
+            elif fun_type =='update':
+                try:
+                    print "Updating resource"
+
+                    try:
+                        resource_id = hs.deleteResourceFile(res_id, fname)
+                    except:
+                        error = 'File does not exist'
+                    resource_id = hs.addResourceFile(res_id, fpath)
+                    temp_dir = utilities.get_workspace()
+                    root_dir = temp_dir + '/id/' + res_id
+                except:
+                    error ="error"
+                try:
+                    shutil.rmtree(root_dir)
+                    print "removing directory"
+                except:
+                    nothing =None
+        elif res_type =='ts':
+            print "odm2 stuff"
+            # utilities.create_odm2(fpath,file_name)
+            # r_type = 'TimeSeries'
+            # r_title = "time series upload"
+            # fpath = temp_dir + '/ODM2/ODM2_single_variable_multi_site.sqlite'
+            print fpath
+            # resource_id = hs.createResource(r_type, r_title, resource_file=fpath, keywords=r_keywords, abstract=r_abstract, metadata=metadata)
+            print resource_id
+            print "AAAAAAAAAAA"
+
         print res_access
         if res_access == 'public':
             delay = 0
-
-            while (public =='false'):
+            while (public =='false' or delay<10):
                 if (delay>10):
                     error ='Request timed out'
+                    break
                 else:
                     try:
                         print "making public"
                         print resource_id
                         hs.setAccessRules(resource_id, public=True)
                         public ='true'
+                        print "break now"
+                        break
                     except:
                         public='false'
                         time.sleep(2)
@@ -363,6 +410,31 @@ def create_layer(request,fun_type,res_id):
 
     except:
         error = 'At least one resource needs to be selected'
+    utilities.create_odm2(fpath,file_name)
+    fpath = temp_dir+'/ODM2/'+file_name+'.sqlite'
+
+    # utilities.create_csv(file_name)
+    # fpath = temp_dir+'/ODM2/'+file_name+'.csv'
+
+    print "database updated"
+    r_type = 'TimeSeriesResource'
+    r_title = "ODM test"
+    # fpath = temp_dir + '/ODM2/ODM2_single_variable_multi_site.sqlite'
+
+
+
+    # resource_id = hs.createResource(r_type, r_title, fpath, keywords=r_keywords, abstract=r_abstract, metadata=metadata)
+    # print resource_id
+    print fpath
+
+
+    #Create empty resource and then add file so metadate is parsed (Bug with hydroshare)
+    # resource_id = hs.createResource(r_type, r_title, keywords=r_keywords, abstract=r_abstract, metadata=metadata)
+    # resource_id1 = hs.addResourceFile(resource_id, fpath)
+
+
+
+    "uploaded to HydroShare"
     return JsonResponse({'Request':resource_id,'error':error})
 def trim(string_dic):
     string_dic=string_dic.strip('[')
@@ -373,48 +445,6 @@ def trim(string_dic):
     return string_dic
 @csrf_exempt
 @never_cache
-def test(request):
-    import json
-    request_url = request.META['QUERY_STRING']
-
-
-    # not ajax
-    # curl -X POST -d 'name1=value1&name2=value2&name1=value11' "http://127.0.0.1:8000/apps/timeseries-viewer/test/"
-
-    # curl -X POST -H "Content-Type: application/json" -d '{"mylist": ["item1", "item2", "item3"], "list_type": "array"}' "http://127.0.0.1:8000/apps/timeseries-viewer/test/"
-
-    # curl -X POST -F 'name1=value1' -F 'name2=value2' -F 'name1=value11' "http://127.0.0.1:8000/apps/timeseries-viewer/test/"
-
-    # ajax
-    # curl -X POST -H "X-Requested-With: XMLHttpRequest" -d 'name1=value1&name2=value2&name1=value11' "http://127.0.0.1:8000/apps/timeseries-viewer/test/"
-
-    # curl -X POST -H "X-Requested-With: XMLHttpRequest" -H "Content-Type: application/json" -d '{"mylist": ["item1", "item2", "item3"], "list_type": "array"}' "http://127.0.0.1:8000/apps/timeseries-viewer/test/"
-
-
-    result = {}
-    result['query_string'] =request_url
-    result["is_ajax"] = request.is_ajax()
-
-    result["request.GET"] = request.GET
-    result["request.POST"] = request.POST
-    with open('data.JSON', 'w') as outfile:
-        json.dump(request.body, outfile)
-
-    try:
-        result["request.body"] = request.body
-    except:
-        pass
-
-    try:
-        result["request.body -> json"] = json.loads(request.body)
-    except:
-        pass
-
-    print result
-
-    context ={"result": json.dumps(result)
-              }
-    return render(request, 'hydroshare_resource_creator/test.html', context)
 def login_callback(request):
 
     context = {}
