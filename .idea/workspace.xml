@@ -27,21 +27,21 @@
     <favorites_list name="tethysapp-hydroshare_resource_creator" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.3627586">
+    <splitter split-orientation="horizontal" split-proportion="0.49310344">
       <split-first>
         <leaf>
           <file leaf-file-name="controllers.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/controllers.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="392" column="21" selection-start-line="392" selection-start-column="21" selection-end-line="392" selection-end-column="21" />
+                <state vertical-scroll-proportion="0.43548387">
+                  <caret line="413" column="44" selection-start-line="413" selection-start-column="44" selection-end-line="413" selection-end-column="44" />
                   <folding>
                     <element signature="e#0#35#0" expanded="true" />
                     <element signature="e#7661#8255#0" expanded="false" />
                     <element signature="e#8740#10060#0" expanded="false" />
                     <element signature="e#10088#11490#0" expanded="false" />
-                    <element signature="e#17549#17761#0" expanded="false" />
-                    <element signature="e#17822#18037#0" expanded="false" />
+                    <element signature="e#17551#17763#0" expanded="false" />
+                    <element signature="e#17824#18039#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
@@ -57,7 +57,6 @@
                     <element signature="n#!!block;n#trim_input#0" expanded="false" />
                     <element signature="n#!!block;n#dataToUrl#0" expanded="false" />
                     <element signature="n#!!block;n#wait#0" expanded="false" />
-                    <marker date="1490132105524" expanded="true" signature="5170:5187" placeholder="..." />
                   </folding>
                 </state>
               </provider>
@@ -76,18 +75,10 @@
           <file leaf-file-name="utilities.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/utilities.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-11.3714285">
+                <state vertical-scroll-proportion="0.0">
                   <caret line="791" column="4" selection-start-line="791" selection-start-column="4" selection-end-line="791" selection-end-column="4" />
                   <folding>
                     <element signature="e#0#22#0" expanded="true" />
-                    <marker date="1490124113173" expanded="true" signature="35404:35490" placeholder="Insert Into ..." />
-                    <marker date="1490124113173" expanded="true" signature="35518:35562" placeholder="Insert Into ..." />
-                    <marker date="1490124113173" expanded="true" signature="35589:35630" placeholder="Insert Into ..." />
-                    <marker date="1490124113173" expanded="true" signature="35664:35711" placeholder="Insert Into ..." />
-                    <marker date="1490124113173" expanded="true" signature="35737:35771" placeholder="Insert Into ..." />
-                    <marker date="1490124113173" expanded="true" signature="37090:37124" placeholder="Insert Into ..." />
-                    <marker date="1490124113173" expanded="true" signature="37300:37317" placeholder="BEGIN TRANSA..." />
-                    <marker date="1490124113173" expanded="true" signature="37530:37547" placeholder="BEGIN TRANSA..." />
                   </folding>
                 </state>
               </provider>
@@ -100,14 +91,14 @@
           <file leaf-file-name="main.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/public/js/main.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.7948718">
-                  <caret line="363" column="29" selection-start-line="363" selection-start-column="29" selection-end-line="363" selection-end-column="29" />
+                <state vertical-scroll-proportion="0.61290324">
+                  <caret line="361" column="109" selection-start-line="361" selection-start-column="109" selection-end-line="361" selection-end-column="109" />
                   <folding>
                     <element signature="n#!!block;n#getCookie#0" expanded="false" />
                     <element signature="n#!!block;n#trim_input#0" expanded="false" />
                     <element signature="n#!!block;n#dataToUrl#0" expanded="false" />
                     <element signature="n#!!block;n#wait#0" expanded="false" />
-                    <marker date="1490132105524" expanded="true" signature="5170:5187" placeholder="..." />
+                    <marker date="1490203388920" expanded="true" signature="5170:5187" placeholder="..." />
                   </folding>
                 </state>
               </provider>
@@ -123,8 +114,8 @@
                     <element signature="e#7661#8255#0" expanded="false" />
                     <element signature="e#8740#10060#0" expanded="false" />
                     <element signature="e#10088#11490#0" expanded="false" />
-                    <element signature="e#17549#17761#0" expanded="false" />
-                    <element signature="e#17822#18037#0" expanded="false" />
+                    <element signature="e#17551#17763#0" expanded="false" />
+                    <element signature="e#17824#18039#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
@@ -133,8 +124,8 @@
           <file leaf-file-name="home.html" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/templates/hydroshare_resource_creator/home.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-53.75">
-                  <caret line="86" column="6" selection-start-line="86" selection-start-column="6" selection-end-line="86" selection-end-column="6" />
+                <state vertical-scroll-proportion="-6.875">
+                  <caret line="44" column="29" selection-start-line="44" selection-start-column="29" selection-end-line="44" selection-end-column="29" />
                   <folding>
                     <element signature="n#style#0;n#div#4;n#!!top" expanded="true" />
                   </folding>
@@ -145,19 +136,10 @@
           <file leaf-file-name="utilities.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/utilities.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-7.285714">
+                <state vertical-scroll-proportion="0.0">
                   <caret line="937" column="0" selection-start-line="937" selection-start-column="0" selection-end-line="937" selection-end-column="0" />
                   <folding>
                     <element signature="e#0#22#0" expanded="true" />
-                    <element signature="e#37694#38744#0" expanded="false" />
-                    <marker date="1490124113173" expanded="true" signature="35404:35490" placeholder="Insert Into ..." />
-                    <marker date="1490124113173" expanded="true" signature="35518:35562" placeholder="Insert Into ..." />
-                    <marker date="1490124113173" expanded="true" signature="35589:35630" placeholder="Insert Into ..." />
-                    <marker date="1490124113173" expanded="true" signature="35664:35711" placeholder="Insert Into ..." />
-                    <marker date="1490124113173" expanded="true" signature="35737:35771" placeholder="Insert Into ..." />
-                    <marker date="1490124113173" expanded="true" signature="37090:37124" placeholder="Insert Into ..." />
-                    <marker date="1490124113173" expanded="true" signature="37300:37317" placeholder="BEGIN TRANSA..." />
-                    <marker date="1490124113173" expanded="true" signature="37530:37547" placeholder="BEGIN TRANSA..." />
                   </folding>
                 </state>
               </provider>
@@ -182,8 +164,8 @@
         <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/templates/hydroshare_resource_creator/login_callback.html" />
         <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/templates/hydroshare_resource_creator/base.html" />
         <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/app.py" />
-        <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/controllers.py" />
         <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/utilities.py" />
+        <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/controllers.py" />
         <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/templates/hydroshare_resource_creator/home.html" />
         <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/public/js/main.js" />
       </list>
@@ -436,7 +418,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="63" y="24" width="1496" height="772" extended-state="4" />
+    <frame x="63" y="24" width="1496" height="772" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.006616257" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -508,8 +490,8 @@
             <element signature="e#7661#8255#0" expanded="false" />
             <element signature="e#8740#10060#0" expanded="false" />
             <element signature="e#10088#11490#0" expanded="false" />
-            <element signature="e#17549#17761#0" expanded="false" />
-            <element signature="e#17822#18037#0" expanded="false" />
+            <element signature="e#17551#17763#0" expanded="false" />
+            <element signature="e#17824#18039#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -523,7 +505,7 @@
             <element signature="n#!!block;n#trim_input#0" expanded="false" />
             <element signature="n#!!block;n#dataToUrl#0" expanded="false" />
             <element signature="n#!!block;n#wait#0" expanded="false" />
-            <marker date="1490132105524" expanded="true" signature="5170:5187" placeholder="..." />
+            <marker date="1490203388920" expanded="true" signature="5170:5187" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -544,15 +526,6 @@
           <caret line="498" column="39" selection-start-line="498" selection-start-column="39" selection-end-line="498" selection-end-column="39" />
           <folding>
             <element signature="e#0#22#0" expanded="true" />
-            <element signature="e#37694#38744#0" expanded="false" />
-            <marker date="1490124113173" expanded="true" signature="35404:35490" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="35518:35562" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="35589:35630" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="35664:35711" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="35737:35771" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="37090:37124" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="37300:37317" placeholder="BEGIN TRANSA..." />
-            <marker date="1490124113173" expanded="true" signature="37530:37547" placeholder="BEGIN TRANSA..." />
           </folding>
         </state>
       </provider>
@@ -574,8 +547,8 @@
             <element signature="e#7661#8255#0" expanded="false" />
             <element signature="e#8740#10060#0" expanded="false" />
             <element signature="e#10088#11490#0" expanded="false" />
-            <element signature="e#17549#17761#0" expanded="false" />
-            <element signature="e#17822#18037#0" expanded="false" />
+            <element signature="e#17551#17763#0" expanded="false" />
+            <element signature="e#17824#18039#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -589,7 +562,7 @@
             <element signature="n#!!block;n#trim_input#0" expanded="false" />
             <element signature="n#!!block;n#dataToUrl#0" expanded="false" />
             <element signature="n#!!block;n#wait#0" expanded="false" />
-            <marker date="1490132105524" expanded="true" signature="5170:5187" placeholder="..." />
+            <marker date="1490203388920" expanded="true" signature="5170:5187" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -610,15 +583,6 @@
           <caret line="498" column="39" selection-start-line="498" selection-start-column="39" selection-end-line="498" selection-end-column="39" />
           <folding>
             <element signature="e#0#22#0" expanded="true" />
-            <element signature="e#37694#38744#0" expanded="false" />
-            <marker date="1490124113173" expanded="true" signature="35404:35490" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="35518:35562" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="35589:35630" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="35664:35711" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="35737:35771" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="37090:37124" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="37300:37317" placeholder="BEGIN TRANSA..." />
-            <marker date="1490124113173" expanded="true" signature="37530:37547" placeholder="BEGIN TRANSA..." />
           </folding>
         </state>
       </provider>
@@ -640,8 +604,8 @@
             <element signature="e#7661#8255#0" expanded="false" />
             <element signature="e#8740#10060#0" expanded="false" />
             <element signature="e#10088#11490#0" expanded="false" />
-            <element signature="e#17549#17761#0" expanded="false" />
-            <element signature="e#17822#18037#0" expanded="false" />
+            <element signature="e#17551#17763#0" expanded="false" />
+            <element signature="e#17824#18039#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -655,7 +619,7 @@
             <element signature="n#!!block;n#trim_input#0" expanded="false" />
             <element signature="n#!!block;n#dataToUrl#0" expanded="false" />
             <element signature="n#!!block;n#wait#0" expanded="false" />
-            <marker date="1490132105524" expanded="true" signature="5170:5187" placeholder="..." />
+            <marker date="1490203388920" expanded="true" signature="5170:5187" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -676,15 +640,6 @@
           <caret line="498" column="39" selection-start-line="498" selection-start-column="39" selection-end-line="498" selection-end-column="39" />
           <folding>
             <element signature="e#0#22#0" expanded="true" />
-            <element signature="e#37694#38744#0" expanded="false" />
-            <marker date="1490124113173" expanded="true" signature="35404:35490" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="35518:35562" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="35589:35630" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="35664:35711" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="35737:35771" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="37090:37124" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="37300:37317" placeholder="BEGIN TRANSA..." />
-            <marker date="1490124113173" expanded="true" signature="37530:37547" placeholder="BEGIN TRANSA..." />
           </folding>
         </state>
       </provider>
@@ -706,8 +661,8 @@
             <element signature="e#7661#8255#0" expanded="false" />
             <element signature="e#8740#10060#0" expanded="false" />
             <element signature="e#10088#11490#0" expanded="false" />
-            <element signature="e#17549#17761#0" expanded="false" />
-            <element signature="e#17822#18037#0" expanded="false" />
+            <element signature="e#17551#17763#0" expanded="false" />
+            <element signature="e#17824#18039#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -721,7 +676,7 @@
             <element signature="n#!!block;n#trim_input#0" expanded="false" />
             <element signature="n#!!block;n#dataToUrl#0" expanded="false" />
             <element signature="n#!!block;n#wait#0" expanded="false" />
-            <marker date="1490132105524" expanded="true" signature="5170:5187" placeholder="..." />
+            <marker date="1490203388920" expanded="true" signature="5170:5187" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -742,15 +697,6 @@
           <caret line="465" column="92" selection-start-line="465" selection-start-column="92" selection-end-line="465" selection-end-column="92" />
           <folding>
             <element signature="e#0#22#0" expanded="true" />
-            <element signature="e#37694#38744#0" expanded="false" />
-            <marker date="1490124113173" expanded="true" signature="35404:35490" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="35518:35562" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="35589:35630" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="35664:35711" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="35737:35771" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="37090:37124" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="37300:37317" placeholder="BEGIN TRANSA..." />
-            <marker date="1490124113173" expanded="true" signature="37530:37547" placeholder="BEGIN TRANSA..." />
           </folding>
         </state>
       </provider>
@@ -772,8 +718,8 @@
             <element signature="e#7661#8255#0" expanded="false" />
             <element signature="e#8740#10060#0" expanded="false" />
             <element signature="e#10088#11490#0" expanded="false" />
-            <element signature="e#17549#17761#0" expanded="false" />
-            <element signature="e#17822#18037#0" expanded="false" />
+            <element signature="e#17551#17763#0" expanded="false" />
+            <element signature="e#17824#18039#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -787,7 +733,7 @@
             <element signature="n#!!block;n#trim_input#0" expanded="false" />
             <element signature="n#!!block;n#dataToUrl#0" expanded="false" />
             <element signature="n#!!block;n#wait#0" expanded="false" />
-            <marker date="1490132105524" expanded="true" signature="5170:5187" placeholder="..." />
+            <marker date="1490203388920" expanded="true" signature="5170:5187" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -808,15 +754,6 @@
           <caret line="209" column="89" selection-start-line="209" selection-start-column="20" selection-end-line="209" selection-end-column="89" />
           <folding>
             <element signature="e#0#22#0" expanded="true" />
-            <element signature="e#37694#38744#0" expanded="false" />
-            <marker date="1490124113173" expanded="true" signature="35404:35490" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="35518:35562" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="35589:35630" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="35664:35711" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="35737:35771" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="37090:37124" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="37300:37317" placeholder="BEGIN TRANSA..." />
-            <marker date="1490124113173" expanded="true" signature="37530:37547" placeholder="BEGIN TRANSA..." />
           </folding>
         </state>
       </provider>
@@ -838,8 +775,8 @@
             <element signature="e#7661#8255#0" expanded="false" />
             <element signature="e#8740#10060#0" expanded="false" />
             <element signature="e#10088#11490#0" expanded="false" />
-            <element signature="e#17549#17761#0" expanded="false" />
-            <element signature="e#17822#18037#0" expanded="false" />
+            <element signature="e#17551#17763#0" expanded="false" />
+            <element signature="e#17824#18039#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -853,7 +790,7 @@
             <element signature="n#!!block;n#trim_input#0" expanded="false" />
             <element signature="n#!!block;n#dataToUrl#0" expanded="false" />
             <element signature="n#!!block;n#wait#0" expanded="false" />
-            <marker date="1490132105524" expanded="true" signature="5170:5187" placeholder="..." />
+            <marker date="1490203388920" expanded="true" signature="5170:5187" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -874,15 +811,6 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#22#0" expanded="true" />
-            <element signature="e#37694#38744#0" expanded="false" />
-            <marker date="1490124113173" expanded="true" signature="35404:35490" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="35518:35562" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="35589:35630" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="35664:35711" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="35737:35771" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="37090:37124" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="37300:37317" placeholder="BEGIN TRANSA..." />
-            <marker date="1490124113173" expanded="true" signature="37530:37547" placeholder="BEGIN TRANSA..." />
           </folding>
         </state>
       </provider>
@@ -904,8 +832,8 @@
             <element signature="e#7661#8255#0" expanded="false" />
             <element signature="e#8740#10060#0" expanded="false" />
             <element signature="e#10088#11490#0" expanded="false" />
-            <element signature="e#17549#17761#0" expanded="false" />
-            <element signature="e#17822#18037#0" expanded="false" />
+            <element signature="e#17551#17763#0" expanded="false" />
+            <element signature="e#17824#18039#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -919,7 +847,7 @@
             <element signature="n#!!block;n#trim_input#0" expanded="false" />
             <element signature="n#!!block;n#dataToUrl#0" expanded="false" />
             <element signature="n#!!block;n#wait#0" expanded="false" />
-            <marker date="1490132105524" expanded="true" signature="5170:5187" placeholder="..." />
+            <marker date="1490203388920" expanded="true" signature="5170:5187" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -940,15 +868,6 @@
           <caret line="394" column="0" selection-start-line="394" selection-start-column="0" selection-end-line="394" selection-end-column="0" />
           <folding>
             <element signature="e#0#22#0" expanded="true" />
-            <element signature="e#37694#38744#0" expanded="false" />
-            <marker date="1490124113173" expanded="true" signature="35404:35490" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="35518:35562" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="35589:35630" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="35664:35711" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="35737:35771" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="37090:37124" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="37300:37317" placeholder="BEGIN TRANSA..." />
-            <marker date="1490124113173" expanded="true" signature="37530:37547" placeholder="BEGIN TRANSA..." />
           </folding>
         </state>
       </provider>
@@ -970,8 +889,8 @@
             <element signature="e#7661#8255#0" expanded="false" />
             <element signature="e#8740#10060#0" expanded="false" />
             <element signature="e#10088#11490#0" expanded="false" />
-            <element signature="e#17549#17761#0" expanded="false" />
-            <element signature="e#17822#18037#0" expanded="false" />
+            <element signature="e#17551#17763#0" expanded="false" />
+            <element signature="e#17824#18039#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -985,7 +904,7 @@
             <element signature="n#!!block;n#trim_input#0" expanded="false" />
             <element signature="n#!!block;n#dataToUrl#0" expanded="false" />
             <element signature="n#!!block;n#wait#0" expanded="false" />
-            <marker date="1490132105524" expanded="true" signature="5170:5187" placeholder="..." />
+            <marker date="1490203388920" expanded="true" signature="5170:5187" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -1006,15 +925,6 @@
           <caret line="394" column="0" selection-start-line="394" selection-start-column="0" selection-end-line="394" selection-end-column="0" />
           <folding>
             <element signature="e#0#22#0" expanded="true" />
-            <element signature="e#37694#38744#0" expanded="false" />
-            <marker date="1490124113173" expanded="true" signature="35404:35490" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="35518:35562" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="35589:35630" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="35664:35711" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="35737:35771" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="37090:37124" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="37300:37317" placeholder="BEGIN TRANSA..." />
-            <marker date="1490124113173" expanded="true" signature="37530:37547" placeholder="BEGIN TRANSA..." />
           </folding>
         </state>
       </provider>
@@ -1079,19 +989,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/utilities.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.285714">
+        <state vertical-scroll-proportion="0.0">
           <caret line="937" column="0" selection-start-line="937" selection-start-column="0" selection-end-line="937" selection-end-column="0" />
           <folding>
             <element signature="e#0#22#0" expanded="true" />
-            <element signature="e#37694#38744#0" expanded="false" />
-            <marker date="1490124113173" expanded="true" signature="35404:35490" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="35518:35562" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="35589:35630" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="35664:35711" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="35737:35771" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="37090:37124" placeholder="Insert Into ..." />
-            <marker date="1490124113173" expanded="true" signature="37300:37317" placeholder="BEGIN TRANSA..." />
-            <marker date="1490124113173" expanded="true" signature="37530:37547" placeholder="BEGIN TRANSA..." />
           </folding>
         </state>
       </provider>
@@ -1105,16 +1006,16 @@
             <element signature="e#7661#8255#0" expanded="false" />
             <element signature="e#8740#10060#0" expanded="false" />
             <element signature="e#10088#11490#0" expanded="false" />
-            <element signature="e#17549#17761#0" expanded="false" />
-            <element signature="e#17822#18037#0" expanded="false" />
+            <element signature="e#17551#17763#0" expanded="false" />
+            <element signature="e#17824#18039#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/templates/hydroshare_resource_creator/home.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-53.75">
-          <caret line="86" column="6" selection-start-line="86" selection-start-column="6" selection-end-line="86" selection-end-column="6" />
+        <state vertical-scroll-proportion="-6.875">
+          <caret line="44" column="29" selection-start-line="44" selection-start-column="29" selection-end-line="44" selection-end-column="29" />
           <folding>
             <element signature="n#style#0;n#div#4;n#!!top" expanded="true" />
           </folding>
@@ -1123,14 +1024,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/public/js/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7948718">
-          <caret line="363" column="29" selection-start-line="363" selection-start-column="29" selection-end-line="363" selection-end-column="29" />
+        <state vertical-scroll-proportion="0.61290324">
+          <caret line="361" column="109" selection-start-line="361" selection-start-column="109" selection-end-line="361" selection-end-column="109" />
           <folding>
             <element signature="n#!!block;n#getCookie#0" expanded="false" />
             <element signature="n#!!block;n#trim_input#0" expanded="false" />
             <element signature="n#!!block;n#dataToUrl#0" expanded="false" />
             <element signature="n#!!block;n#wait#0" expanded="false" />
-            <marker date="1490132105524" expanded="true" signature="5170:5187" placeholder="..." />
+            <marker date="1490203388920" expanded="true" signature="5170:5187" placeholder="..." />
           </folding>
         </state>
       </provider>
