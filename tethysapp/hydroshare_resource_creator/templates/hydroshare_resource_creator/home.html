@@ -2,7 +2,8 @@
 
 {% block app_content %}
     <!--<button id ='btn__ts' name ='ts' value ='ts' type="button" class="btn btn-success"onclick="create_update(this.name,this.value)">Create New Time Series Resource</button>-->
-
+{% block app_content_wrapper_override %}
+{{ block.super }}
 <div class="modal fade" id="resource_dialog" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -22,6 +23,7 @@
         </div>
     </div>
 </div>
+{% endblock %}
 
 <div id="error-message"></div>
 

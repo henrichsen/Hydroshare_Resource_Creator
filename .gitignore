@@ -1,5 +1,6 @@
 *.pyc
 *.py~
+*.xml
 *.js~
 *.html~
 *.txt
