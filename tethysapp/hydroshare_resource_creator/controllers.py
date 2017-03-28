@@ -410,7 +410,7 @@ def create_layer(request,fun_type,res_id,res_type):
 
     except:
         error = 'At least one resource needs to be selected'
-    # utilities.create_odm2(fpath,file_name)
+    utilities.create_odm2(fpath,file_name)
     fpath = temp_dir+'/ODM2/'+file_name+'.sqlite'
 
     # utilities.create_csv(file_name)
