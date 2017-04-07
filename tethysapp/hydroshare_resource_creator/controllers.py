@@ -380,14 +380,15 @@ def create_layer(request,fun_type,res_id,res_type):
         elif res_type =='ts':
             print "odm2 stuffafgsadgewafawgfdgdfgdfgdfsgfdgdf"
             # utilities.create_odm2(fpath,file_name)
-            r_type = 'TimeSeries'
-            r_title = file_name
+            r_type = 'TimeSeriesResource'
+            r_title = title
             # fpath = temp_dir + '/ODM2/ODM2_single_variable_multi_site.sqlite'
             print fpath
-            # utilities.create_odm2(fpath,file_name)
-            # fpath = temp_dir+'/ODM2/'+file_name+'.sqlite'
-            # resource_id = hs.createResource(r_type, r_title, keywords=r_keywords, abstract=r_abstract, metadata=metadata)
-            # resource_id1 = hs.addResourceFile(resource_id, fpath)
+            utilities.parse_ts_layer(fpath,file_name,abstract)
+            fpath = temp_dir+'/ODM2/'+file_name+'.sqlite'
+            resource_id = hs.createResource(r_type, r_title, keywords=r_keywords, abstract=r_abstract, metadata=metadata)
+            resource_id1 = hs.addResourceFile(resource_id, fpath)
+
 
 
             # resource_id = hs.createResource(r_type, r_title, resource_file=fpath, keywords=r_keywords, abstract=r_abstract, metadata=metadata)
@@ -417,7 +418,8 @@ def create_layer(request,fun_type,res_id,res_type):
     except:
         error = 'At least one resource needs to be selected'
 
-
+    # odm_copy = temp_dir+'/ODM2/oenseries.sqlite'
+    # utilities._extract_metadata(odm_copy,odm_copy)
 
     # utilities.create_odm2(fpath,file_name)
     # fpath = temp_dir+'/ODM2/'+file_name+'.sqlite'
@@ -425,10 +427,12 @@ def create_layer(request,fun_type,res_id,res_type):
     # utilities.create_csv(file_name)
     # fpath = temp_dir+'/ODM2/'+file_name+'.csv'
 
+    # utilities.create_odm2(fpath,file_name)
+
     print "database updated"
     # r_type = 'TimeSeriesResource'
-    r_type = 'GenericResource'
-    r_title = "ODM test"
+    # r_type = 'GenericResource'
+    # r_title = "ODM test"
     # fpath = temp_dir + '/ODM2/ODM2_single_variable_multi_site.sqlite'
 
 

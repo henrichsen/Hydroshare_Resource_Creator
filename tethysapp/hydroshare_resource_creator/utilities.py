@@ -34,6 +34,8 @@ import sqlite3
 import uuid
 import datetime
 import time
+from xml.etree import cElementTree
+import xmltodict
 
 
 def get_app_base_uri(request):
@@ -246,7 +248,7 @@ def connect_wsdl_url(wsdl_url):
     except:
         raise Exception("Unexpected error")
     return client
-def parse_ts_layer(file_path,title):
+def parse_ts_layer(file_path,title,abstract):
     # file_path_id = get_workspace() + '/id'
     # root_dir = file_path_id + '/' + res_id
     # data_dir = root_dir + '/' + res_id + '/data/contents/'
@@ -254,7 +256,7 @@ def parse_ts_layer(file_path,title):
     #     for file in files:
     #         path = data_dir + file
     #         if '.json.refts' in file:
-
+    print file_path
     with open(file_path, 'r') as f:
         data = f.read()
         # file_number = parse_ts_layer(file_data,title)
@@ -262,6 +264,7 @@ def parse_ts_layer(file_path,title):
     print ('HIIIIIIIIIIIIIIIIIIIII')
     error=''
     response=None
+    # print data
     data = data.encode(encoding ='UTF-8')
     data = data.replace("'",'"')
     json_data = json.loads(data)
@@ -279,6 +282,23 @@ def parse_ts_layer(file_path,title):
         # end_date = strftime("%Y-%m-%d %H:%M:%S", gmtime())
         auth_token = ''
 
+        temp_dir = get_workspace()
+        print "loading into database1111111111111111111111111111"
+        odm_master = temp_dir+'/ODM2_master/ODM2_master.sqlite'
+        # odm_master = temp_dir+'/ODM2/ODM2_7series_test_addingValues.sqlite'
+        odm_copy = temp_dir+'/ODM2/'+title+'.sqlite'
+        shutil.copy(odm_master,odm_copy)
+
+        conn = sqlite3.connect(odm_copy, isolation_level=None)
+        c = conn.cursor()
+        dataSetInfo = (str(uuid.uuid1()),
+                   'Multi-time series',
+                    variable_code,title, abstract
+                    )
+        conn.commit()
+
+        c.execute('INSERT INTO Datasets(DataSetID, DataSetUUID, DataSetTypeCV, DataSetCode, DataSetTitle, DataSetAbstract) '
+              'VALUES (NULL, ?, ?, ?, ?, ?)', dataSetInfo)
         if ref_type =='WOF':
             if service_type =='SOAP':
                 # print url
@@ -286,7 +306,7 @@ def parse_ts_layer(file_path,title):
                 # print variable_code
                 # print start_date
                 # print end_date
-                load_into_odm2(url,site_code,variable_code,start_date,end_date,title)
+                load_into_odm2(url,site_code,variable_code,start_date,end_date,odm_copy)
                 # print client
                 # site_code = 'NWISUV:10164500'
                 # variable_code = 'NWISUV:00060'
@@ -961,7 +981,7 @@ def create_csv(file_name):
                                 quotechar='|', quoting=csv.QUOTE_MINIMAL)
         for i in range(0,1000000):
             spamwriter.writerow(['2007-01-01 12:30:00',str(i)])
-def load_into_odm2(url,siteCode,variableCode,beginDate,endDate,title):
+def load_into_odm2(url,siteCode,variableCode,beginDate,endDate,odm_copy):
     print "load into odm2111"
     # -------------------------------------------------------------------------------
     # Summary: Load data from multiple WaterML 1.1 files into an ODM2 SQLite database
@@ -989,12 +1009,12 @@ def load_into_odm2(url,siteCode,variableCode,beginDate,endDate,title):
 
     # Create the connection to the SQLite database and get a cursor
     # -------------------------------------------------------------
-    temp_dir = get_workspace()
-    print "loading into database1111111111111111111111111111"
-    odm_master = temp_dir+'/ODM2/ODM2_master.sqlite'
-    # odm_master = temp_dir+'/ODM2/ODM2_7series_test_addingValues.sqlite'
-    odm_copy = temp_dir+'/ODM2/'+title+'.sqlite'
-    shutil.copy(odm_master,odm_copy)
+
+
+
+    # _extract_metadata(odm_copy,odm_copy)
+
+
     #insert into TimeSeriesResultValues
 
     conn = sqlite3.connect(odm_copy, isolation_level=None)
@@ -1013,23 +1033,13 @@ def load_into_odm2(url,siteCode,variableCode,beginDate,endDate,title):
     # conn = sqlite3.connect('ODM2.sqlite')
     print "dateset"
     c = conn.cursor()
-    dataSetInfo = (str(uuid.uuid1()),
-                   'Multi-time series',
-                    variableCode,
-                   'Water temperature data from the Little Bear River, UT',
-                   'This dataset contains time series of observations of water temperature in '
-                   'the Little Bear River, UT. Data were recorded every '
-                   '30 minutes. The values were recorded using a HydroLab MS5 multi-parameter water quality '
-                   'sonde connected to a Campbell Scientific datalogger. ')
 
-    c.execute('INSERT INTO Datasets(DataSetID, DataSetUUID, DataSetTypeCV, DataSetCode, DataSetTitle, DataSetAbstract) '
-              'VALUES (NULL, ?, ?, ?, ?, ?)', dataSetInfo)
 
     # Get the ID of the DataSet record I just inserted
-    dataSetID = c.lastrowid
+    dataSetID = 1
 
     # Save (commit) the changes
-    conn.commit()
+
 
     # Loop through the sites, get the time series for each site, and load into the ODM2 database
     # ------------------------------------------------------------------------------------------
@@ -1037,8 +1047,14 @@ def load_into_odm2(url,siteCode,variableCode,beginDate,endDate,title):
     # Construct the variableCode string to pass to the web service
     variableCodeString = variableCode + ':qualityControlLevelCode=1'
     # Call the web service to return the data values for the current time series
-    client = connect_wsdl_url(url)
+
     autho_token =''
+    # url = 'http://data.iutahepscor.org/LittleBearRiverWOF/cuahsi_1_1.asmx?WSDL'
+    # networkCode = 'LBR'
+    # siteCode = 'LBR:USU-LBR-Mendon'
+    # variableCode = 'LBR:USU36:methodCode=28:qualityControlLevelCode=1'
+    # beginDate = '2005-01-01'
+    # endDate = '2016-01-01'
     print url
     print "connect to database"
     print url
@@ -1047,7 +1063,33 @@ def load_into_odm2(url,siteCode,variableCode,beginDate,endDate,title):
     print beginDate
     print endDate
     print autho_token
-    valuesResult = client.service.GetValuesObject(siteCode, variableCode,
+    if 'nasa' in url:
+        # TODO need to parse returned data using time series parser and return dictionary matching format of below
+        headers = {'content-type': 'text/xml'}
+        body = """<?xml version="1.0" encoding="utf-8"?>
+            <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+              <soap:Body>
+                <GetValuesObject xmlns="http://www.cuahsi.org/his/1.0/ws/">
+                  <location>"""+siteCode+"""</location>
+                  <variable>"""+variableCode+"""</variable>
+                  <startDate>"""+beginDate+"""</startDate>
+                  <endDate>"""+endDate+"""</endDate>
+                  <authToken>
+                  </authToken>
+                </GetValuesObject>
+              </soap:Body>
+            </soap:Envelope>"""
+
+        response = requests.post(url,data=body,headers=headers)
+        valuesResult = response.content
+        valuesResult = xmltodict.parse(valuesResult)
+        # valuesResult = etree.XML(valuesResult)
+        # # valuesResult = xmltodict(valuesResult)
+        # valuesResult= XmlDictConfig(valuesResult)
+        print valuesResult
+    else:
+        client = connect_wsdl_url(url)
+        valuesResult = client.service.GetValuesObject(siteCode, variableCode,
                                                   beginDate, endDate,autho_token)
     # print valuesResult
     # Check to make sure there are data values. Otherwise, skip this series
@@ -1128,7 +1170,7 @@ def load_into_odm2(url,siteCode,variableCode,beginDate,endDate,title):
             try:
                 sitetypecv =  valuesResult.timeSeries[0].sourceInfo.siteProperty[4].value
             except:
-                sitetypecv =  'testing'
+                sitetypecv =  'unknown'
             siteInfo = (samplingFeatureID,
                         sitetypecv,
                         valuesResult.timeSeries[0].sourceInfo.geoLocation.geogLocation.latitude,
@@ -1171,7 +1213,7 @@ def load_into_odm2(url,siteCode,variableCode,beginDate,endDate,title):
             # MethodDescription = WaterML MethodDescription
             # MethodLink = WaterML methodLink - but not all time series have a MethodLink, so need to fix this
             # OrganizationID = NULL (doesn't exist in WaterML)
-            methodInfo = ('Instrument deployment',
+            methodInfo = ('Observation',
                           methodCode,
                           methodDescription,
                           methodDescription,
@@ -1210,11 +1252,14 @@ def load_into_odm2(url,siteCode,variableCode,beginDate,endDate,title):
             except:
                 speciation = None
 
+            variableCode = valuesResult.timeSeries[0].variable.variableCode[0].value
+            variableCode = variableCode[:20]
             variableInfo = (generalCategory,
-                            valuesResult.timeSeries[0].variable.variableCode[0].value,
+                            variableCode,
                             valuesResult.timeSeries[0].variable.variableName,
                             speciation,
                             valuesResult.timeSeries[0].variable.noDataValue)
+
 
             c.execute('INSERT INTO Variables(VariableID, VariableTypeCV, VariableCode, VariableNameCV, VariableDefinition, SpeciationCV, NoDataValue) '
                       'VALUES (NULL, ?, ?, ?, NULL, ?, ?)', variableInfo)
@@ -1280,10 +1325,18 @@ def load_into_odm2(url,siteCode,variableCode,beginDate,endDate,title):
             # ProcessingLevelCode = WaterML qualityControlLevelCode
             # Definition = WaterML definition
             # Explanation = WaterML explanation
-            processingLevelInfo = (valuesResult.timeSeries[0].values[0].qualityControlLevel[0]._qualityControlLevelID,
-                                   valuesResult.timeSeries[0].values[0].qualityControlLevel[0].qualityControlLevelCode,
+            qa_id = valuesResult.timeSeries[0].values[0].qualityControlLevel[0]._qualityControlLevelID
+            qa_code = valuesResult.timeSeries[0].values[0].qualityControlLevel[0].qualityControlLevelCode
+            #HydroShare expects qa code to be a integer
+            try:
+                qa_code = int(qa_code)
+            except:
+                qa_code = qa_id
+            processingLevelInfo = (qa_id,
+                                   qa_code,
                                    valuesResult.timeSeries[0].values[0].qualityControlLevel[0].definition,
                                    valuesResult.timeSeries[0].values[0].qualityControlLevel[0].explanation)
+
 
             c.execute('INSERT INTO ProcessingLevels(ProcessingLevelID, ProcessingLevelCode, Definition, Explanation) '
                       'VALUES (?, ?, ?, ?)', processingLevelInfo)
@@ -1300,7 +1353,7 @@ def load_into_odm2(url,siteCode,variableCode,beginDate,endDate,title):
             contactName = valuesResult.timeSeries[0].values[0].source[0].contactInformation[0].contactName
         except:
             contactName = 'unknown unknown'
-        splitName = contactName
+        splitName = contactName.split(' ')
         personInfo = (splitName[0], splitName[-1])
         c.execute('SELECT * FROM People WHERE PersonFirstName = ? AND PersonLastName=?', personInfo)
         row = c.fetchone()
@@ -1490,7 +1543,6 @@ def load_into_odm2(url,siteCode,variableCode,beginDate,endDate,title):
 
             c.execute('INSERT INTO Units(UnitsID, UnitsTypeCV, UnitsAbbreviation, UnitsName) '
                       'VALUES ( ?, ?, ?)', unitsInfo)
-
             # Get the ID of the Units I just inserted
             timeUnitsID = c.lastrowid
         except:
@@ -1573,423 +1625,3 @@ def load_into_odm2(url,siteCode,variableCode,beginDate,endDate,title):
     conn.close()
 
     print 'Done loading data!'
-
-
-def _extract_metadata(resource, sqlite_file_name):
-    err_message = "Not a valid ODM2 SQLite file"
-    # log = logging.getLogger()
-
-    con = sqlite3.connect(sqlite_file_name)
-    with con:
-        # get the records in python dictionary format
-        con.row_factory = sqlite3.Row
-        cur = con.cursor()
-
-        # populate the lookup CV tables that are needed later for metadata editing
-        # _create_cv_lookup_models(cur, resource.metadata, 'CV_VariableType', CVVariableType)
-        # _create_cv_lookup_models(cur, resource.metadata, 'CV_VariableName', CVVariableName)
-        # _create_cv_lookup_models(cur, resource.metadata, 'CV_Speciation', CVSpeciation)
-        # _create_cv_lookup_models(cur, resource.metadata, 'CV_SiteType', CVSiteType)
-        # _create_cv_lookup_models(cur, resource.metadata, 'CV_ElevationDatum', CVElevationDatum)
-        # _create_cv_lookup_models(cur, resource.metadata, 'CV_MethodType', CVMethodType)
-        # _create_cv_lookup_models(cur, resource.metadata, 'CV_UnitsType', CVUnitsType)
-        # _create_cv_lookup_models(cur, resource.metadata, 'CV_Status', CVStatus)
-        # _create_cv_lookup_models(cur, resource.metadata, 'CV_Medium', CVMedium)
-        # _create_cv_lookup_models(cur, resource.metadata, 'CV_AggregationStatistic',
-        #                          CVAggregationStatistic)
-
-        # read data from necessary tables and create metadata elements
-        # extract core metadata
-
-        # extract abstract and title
-        cur.execute("SELECT DataSetTitle, DataSetAbstract FROM DataSets")
-        dataset = cur.fetchone()
-        # update title element
-        if dataset["DataSetTitle"]:
-            resource.metadata.update_element('title', element_id=resource.metadata.title.id,
-                                             value=dataset["DataSetTitle"])
-
-        # create abstract/description element
-        if dataset["DataSetAbstract"]:
-            resource.metadata.create_element('description', abstract=dataset["DataSetAbstract"])
-
-        # extract keywords/subjects
-        # these are the comma separated values in the VariableNameCV column of the Variables
-        # table
-        cur.execute("SELECT VariableID, VariableNameCV FROM Variables")
-        variables = cur.fetchall()
-        keyword_list = []
-        for variable in variables:
-            keywords = variable["VariableNameCV"].split(",")
-            keyword_list = keyword_list + keywords
-
-        # use set() to remove any duplicate keywords
-        for kw in set(keyword_list):
-            resource.metadata.create_element("subject", value=kw)
-
-        # find the contributors for metadata
-        _extract_creators_contributors(resource, cur)
-
-        # extract coverage data
-        _extract_coverage_metadata(resource, cur)
-
-        # extract extended metadata
-        cur.execute("SELECT * FROM Sites")
-        sites = cur.fetchall()
-        is_create_multiple_site_elements = len(sites) > 1
-
-        cur.execute("SELECT * FROM Variables")
-        variables = cur.fetchall()
-        is_create_multiple_variable_elements = len(variables) > 1
-
-        cur.execute("SELECT * FROM Methods")
-        methods = cur.fetchall()
-        is_create_multiple_method_elements = len(methods) > 1
-
-        cur.execute("SELECT * FROM ProcessingLevels")
-        processing_levels = cur.fetchall()
-        is_create_multiple_processinglevel_elements = len(processing_levels) > 1
-
-        cur.execute("SELECT * FROM TimeSeriesResults")
-        timeseries_results = cur.fetchall()
-        is_create_multiple_timeseriesresult_elements = len(timeseries_results) > 1
-
-        cur.execute("SELECT * FROM Results")
-        results = cur.fetchall()
-        for result in results:
-            # extract site element data
-            # Start with Results table to -> FeatureActions table -> SamplingFeatures table
-            # check if we need to create multiple site elements
-            cur.execute("SELECT * FROM FeatureActions WHERE FeatureActionID=?",
-                        (result["FeatureActionID"],))
-            feature_action = cur.fetchone()
-            if is_create_multiple_site_elements or len(resource.metadata.sites) == 0:
-                cur.execute("SELECT * FROM SamplingFeatures WHERE SamplingFeatureID=?",
-                            (feature_action["SamplingFeatureID"],))
-                sampling_feature = cur.fetchone()
-
-                cur.execute("SELECT * FROM Sites WHERE SamplingFeatureID=?",
-                            (feature_action["SamplingFeatureID"],))
-                site = cur.fetchone()
-                if not any(sampling_feature["SamplingFeatureCode"] == s.site_code for s
-                           in resource.metadata.sites):
-
-                    data_dict = {}
-                    data_dict['series_ids'] = [result["ResultUUID"]]
-                    data_dict['site_code'] = sampling_feature["SamplingFeatureCode"]
-                    data_dict['site_name'] = sampling_feature["SamplingFeatureName"]
-                    if sampling_feature["Elevation_m"]:
-                        data_dict["elevation_m"] = sampling_feature["Elevation_m"]
-
-                    if sampling_feature["ElevationDatumCV"]:
-                        data_dict["elevation_datum"] = sampling_feature["ElevationDatumCV"]
-
-                    if site["SiteTypeCV"]:
-                        data_dict["site_type"] = site["SiteTypeCV"]
-
-                    data_dict["latitude"] = site["Latitude"]
-                    data_dict["longitude"] = site["Longitude"]
-
-                    # create site element
-                    resource.metadata.create_element('site', **data_dict)
-                else:
-                    _update_element_series_ids(resource.metadata.sites[0], result["ResultUUID"])
-            else:
-                _update_element_series_ids(resource.metadata.sites[0], result["ResultUUID"])
-
-            # extract variable element data
-            # Start with Results table to -> Variables table
-            if is_create_multiple_variable_elements or len(resource.metadata.variables) == 0:
-                cur.execute("SELECT * FROM Variables WHERE VariableID=?",
-                            (result["VariableID"],))
-                variable = cur.fetchone()
-                if not any(variable["VariableCode"] == v.variable_code for v
-                           in resource.metadata.variables):
-
-                    data_dict = {}
-                    data_dict['series_ids'] = [result["ResultUUID"]]
-                    data_dict['variable_code'] = variable["VariableCode"]
-                    data_dict["variable_name"] = variable["VariableNameCV"]
-                    data_dict['variable_type'] = variable["VariableTypeCV"]
-                    data_dict["no_data_value"] = variable["NoDataValue"]
-                    if variable["VariableDefinition"]:
-                        data_dict["variable_definition"] = variable["VariableDefinition"]
-
-                    if variable["SpeciationCV"]:
-                        data_dict["speciation"] = variable["SpeciationCV"]
-
-                    # create variable element
-                    resource.metadata.create_element('variable', **data_dict)
-                else:
-                    _update_element_series_ids(resource.metadata.variables[0],
-                                               result["ResultUUID"])
-            else:
-                _update_element_series_ids(resource.metadata.variables[0], result["ResultUUID"])
-
-            # extract method element data
-            # Start with Results table -> FeatureActions table to -> Actions table to ->
-            # Method table
-            if is_create_multiple_method_elements or len(resource.metadata.methods) == 0:
-                cur.execute("SELECT MethodID from Actions WHERE ActionID=?",
-                            (feature_action["ActionID"],))
-                action = cur.fetchone()
-                cur.execute("SELECT * FROM Methods WHERE MethodID=?", (action["MethodID"],))
-                method = cur.fetchone()
-                if not any(method["MethodCode"] == m.method_code for m
-                           in resource.metadata.methods):
-
-                    data_dict = {}
-                    data_dict['series_ids'] = [result["ResultUUID"]]
-                    data_dict['method_code'] = method["MethodCode"]
-                    data_dict["method_name"] = method["MethodName"]
-                    data_dict['method_type'] = method["MethodTypeCV"]
-
-                    if method["MethodDescription"]:
-                        data_dict["method_description"] = method["MethodDescription"]
-
-                    if method["MethodLink"]:
-                        data_dict["method_link"] = method["MethodLink"]
-
-                    # create method element
-                    resource.metadata.create_element('method', **data_dict)
-                else:
-                    _update_element_series_ids(resource.metadata.methods[0],
-                                               result["ResultUUID"])
-            else:
-                _update_element_series_ids(resource.metadata.methods[0], result["ResultUUID"])
-
-            # extract processinglevel element data
-            # Start with Results table to -> ProcessingLevels table
-            if is_create_multiple_processinglevel_elements \
-                    or len(resource.metadata.processing_levels) == 0:
-                cur.execute("SELECT * FROM ProcessingLevels WHERE ProcessingLevelID=?",
-                            (result["ProcessingLevelID"],))
-                pro_level = cur.fetchone()
-                if not any(pro_level["ProcessingLevelCode"] == p.processing_level_code for p
-                           in resource.metadata.processing_levels):
-
-                    data_dict = {}
-                    data_dict['series_ids'] = [result["ResultUUID"]]
-                    data_dict['processing_level_code'] = pro_level["ProcessingLevelCode"]
-                    if pro_level["Definition"]:
-                        data_dict["definition"] = pro_level["Definition"]
-
-                    if pro_level["Explanation"]:
-                        data_dict["explanation"] = pro_level["Explanation"]
-
-                    # create processinglevel element
-                    resource.metadata.create_element('processinglevel', **data_dict)
-                else:
-                    _update_element_series_ids(resource.metadata.processing_levels[0],
-                                               result["ResultUUID"])
-            else:
-                _update_element_series_ids(resource.metadata.processing_levels[0],
-                                           result["ResultUUID"])
-
-            # extract data for TimeSeriesResult element
-            # Start with Results table
-            if is_create_multiple_timeseriesresult_elements \
-                    or len(resource.metadata.time_series_results) == 0:
-                data_dict = {}
-                data_dict['series_ids'] = [result["ResultUUID"]]
-                data_dict["status"] = result["StatusCV"]
-                data_dict["sample_medium"] = result["SampledMediumCV"]
-                data_dict["value_count"] = result["ValueCount"]
-
-                cur.execute("SELECT * FROM Units WHERE UnitsID=?", (result["UnitsID"],))
-                unit = cur.fetchone()
-                data_dict['units_type'] = unit["UnitsTypeCV"]
-                data_dict['units_name'] = unit["UnitsName"]
-                data_dict['units_abbreviation'] = unit["UnitsAbbreviation"]
-
-                cur.execute("SELECT AggregationStatisticCV FROM TimeSeriesResults WHERE "
-                            "ResultID=?", (result["ResultID"],))
-                ts_result = cur.fetchone()
-                data_dict["aggregation_statistics"] = ts_result["AggregationStatisticCV"]
-
-                # create the TimeSeriesResult element
-                resource.metadata.create_element('timeseriesresult', **data_dict)
-            else:
-                _update_element_series_ids(resource.metadata.time_series_results[0],
-                                           result["ResultUUID"])
-
-        return None
-
-
-def _update_element_series_ids(element, series_id):
-    element.series_ids = element.series_ids + [series_id]
-    element.save()
-
-def _extract_creators_contributors(resource, cur):
-    # check if the AuthorList table exists
-    authorlists_table_exists = False
-    cur.execute("SELECT COUNT(*) FROM sqlite_master WHERE type=? AND name=?",
-                ("table", "AuthorLists"))
-    qry_result = cur.fetchone()
-    if qry_result[0] > 0:
-        authorlists_table_exists = True
-
-    # contributors are People associated with the Actions that created the Result
-    cur.execute("SELECT * FROM People")
-    people = cur.fetchall()
-    is_create_multiple_author_elements = len(people) > 1
-
-    cur.execute("SELECT FeatureActionID FROM Results")
-    results = cur.fetchall()
-    authors_data_dict = {}
-    author_ids_already_used = []
-    for result in results:
-        if is_create_multiple_author_elements or (len(resource.metadata.creators.all()) == 1 and
-                                                  len(resource.metadata.contributors.all()) == 0):
-            cur.execute("SELECT ActionID FROM FeatureActions WHERE FeatureActionID=?",
-                        (result["FeatureActionID"],))
-            feature_actions = cur.fetchall()
-            for feature_action in feature_actions:
-                cur.execute("SELECT ActionID FROM Actions WHERE ActionID=?",
-                            (feature_action["ActionID"],))
-
-                actions = cur.fetchall()
-                for action in actions:
-                    # get the AffiliationID from the ActionsBy table for the matching ActionID
-                    cur.execute("SELECT AffiliationID FROM ActionBy WHERE ActionID=?",
-                                (action["ActionID"],))
-                    actionby_rows = cur.fetchall()
-
-                    for actionby in actionby_rows:
-                        # get the matching Affiliations records
-                        cur.execute("SELECT * FROM Affiliations WHERE AffiliationID=?",
-                                    (actionby["AffiliationID"],))
-                        affiliation_rows = cur.fetchall()
-                        for affiliation in affiliation_rows:
-                            # get records from the People table
-                            if affiliation['PersonID'] not in author_ids_already_used:
-                                author_ids_already_used.append(affiliation['PersonID'])
-                                cur.execute("SELECT * FROM People WHERE PersonID=?",
-                                            (affiliation['PersonID'],))
-                                person = cur.fetchone()
-
-                                # get person organization name - get only one organization name
-                                organization = None
-                                if affiliation['OrganizationID']:
-                                    cur.execute("SELECT OrganizationName FROM Organizations WHERE "
-                                                "OrganizationID=?",
-                                                (affiliation["OrganizationID"],))
-                                    organization = cur.fetchone()
-
-                                # create contributor metadata elements
-                                person_name = person["PersonFirstName"]
-                                if person['PersonMiddleName']:
-                                    person_name = person_name + " " + person['PersonMiddleName']
-
-                                person_name = person_name + " " + person['PersonLastName']
-                                data_dict = {}
-                                data_dict['name'] = person_name
-                                if affiliation['PrimaryPhone']:
-                                    data_dict["phone"] = affiliation["PrimaryPhone"]
-                                if affiliation["PrimaryEmail"]:
-                                    data_dict["email"] = affiliation["PrimaryEmail"]
-                                if affiliation["PrimaryAddress"]:
-                                    data_dict["address"] = affiliation["PrimaryAddress"]
-                                if organization:
-                                    data_dict["organization"] = organization[0]
-
-                                # check if this person is an author (creator)
-                                author = None
-                                if authorlists_table_exists:
-                                    cur.execute("SELECT * FROM AuthorLists WHERE PersonID=?",
-                                                (person['PersonID'],))
-                                    author = cur.fetchone()
-
-                                if author:
-                                    # save the extracted creator data in the dictionary
-                                    # so that we can later sort it based on author order
-                                    # and then create the creator metadata elements
-                                    authors_data_dict[author["AuthorOrder"]] = data_dict
-                                else:
-                                    # create contributor metadata element
-                                    resource.metadata.create_element('contributor', **data_dict)
-
-    # TODO: extraction of creator data has not been tested as the sample database does not have
-    # any records in the AuthorLists table
-    authors_data_dict_sorted_list = sorted(authors_data_dict,
-                                           key=lambda key: authors_data_dict[key])
-    for data_dict in authors_data_dict_sorted_list:
-        # create creator metadata element
-        resource.metadata.create_element('creator', **data_dict)
-def _create_cv_lookup_models(sql_cur, metadata_obj, table_name, model_class):
-    sql_cur.execute("SELECT Term, Name FROM {}".format(table_name))
-    table_rows = sql_cur.fetchall()
-    for row in table_rows:
-        model_class.objects.create(metadata=metadata_obj, term=row['Term'], name=row['Name'])
-def _extract_coverage_metadata(resource, cur):
-    # get point or box coverage
-    cur.execute("SELECT * FROM Sites")
-    sites = cur.fetchall()
-    if len(sites) == 1:
-        site = sites[0]
-        if site["Latitude"] and site["Longitude"]:
-            value_dict = {'east': site["Longitude"], 'north': site["Latitude"],
-                          'units': "Decimal degrees"}
-            # get spatial reference
-            if site["SpatialReferenceID"]:
-                cur.execute("SELECT * FROM SpatialReferences WHERE SpatialReferenceID=?",
-                            (site["SpatialReferenceID"],))
-                spatialref = cur.fetchone()
-                if spatialref:
-                    if spatialref["SRSName"]:
-                        value_dict["projection"] = spatialref["SRSName"]
-
-            resource.metadata.create_element('coverage', type='point', value=value_dict)
-    else:
-        # in case of multiple sites we will create one coverage element of type 'box'
-        bbox = {'northlimit': -90, 'southlimit': 90, 'eastlimit': -180, 'westlimit': 180,
-                'projection': 'Unknown', 'units': "Decimal degrees"}
-        for site in sites:
-            if site["Latitude"]:
-                if bbox['northlimit'] < site["Latitude"]:
-                    bbox['northlimit'] = site["Latitude"]
-                if bbox['southlimit'] > site["Latitude"]:
-                    bbox['southlimit'] = site["Latitude"]
-
-            if site["Longitude"]:
-                if bbox['eastlimit'] < site['Longitude']:
-                    bbox['eastlimit'] = site['Longitude']
-
-                if bbox['westlimit'] > site['Longitude']:
-                    bbox['westlimit'] = site['Longitude']
-
-            if bbox['projection'] == 'Unknown':
-                if site["SpatialReferenceID"]:
-                    cur.execute("SELECT * FROM SpatialReferences WHERE SpatialReferenceID=?",
-                                (site["SpatialReferenceID"],))
-                    spatialref = cur.fetchone()
-                    if spatialref:
-                        if spatialref["SRSName"]:
-                            bbox['projection'] = spatialref["SRSName"]
-
-        resource.metadata.create_element('coverage', type='box', value=bbox)
-
-    cur.execute("SELECT * FROM Results")
-    results = cur.fetchall()
-    min_begin_date = None
-    max_end_date = None
-    for result in results:
-        cur.execute("SELECT ActionID FROM FeatureActions WHERE FeatureActionID=?",
-                    (result["FeatureActionID"],))
-        feature_action = cur.fetchone()
-        cur.execute("SELECT BeginDateTime, EndDateTime FROM Actions WHERE ActionID=?",
-                    (feature_action["ActionID"],))
-        action = cur.fetchone()
-        if min_begin_date is None:
-            min_begin_date = action["BeginDateTime"]
-        elif min_begin_date > action["BeginDateTime"]:
-            min_begin_date = action["BeginDateTime"]
-
-        if max_end_date is None:
-            max_end_date = action["EndDateTime"]
-        elif max_end_date < action["EndDateTime"]:
-            max_end_date = action["EndDateTime"]
-
-    # create coverage element
-    value_dict = {"start": min_begin_date, "end": max_end_date}
-    resource.metadata.create_element('coverage', type='period', value=value_dict)

@@ -10,7 +10,7 @@ app_class = 'hydroshare_resource_creator.app:HydroshareResourceCreator'
 app_package_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'tethysapp', app_package)
 
 ### Python Dependencies ###
-dependencies = ['simplejson']
+dependencies = ['simplejson','xmltodict']
 
 setup(
     name=release_package,
