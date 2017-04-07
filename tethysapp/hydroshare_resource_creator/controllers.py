@@ -384,10 +384,6 @@ def create_layer(request,fun_type,res_id,res_type):
             r_title = title
             # fpath = temp_dir + '/ODM2/ODM2_single_variable_multi_site.sqlite'
             print fpath
-            utilities.parse_ts_layer(fpath,file_name,abstract)
-            fpath = temp_dir+'/ODM2/'+file_name+'.sqlite'
-            resource_id = hs.createResource(r_type, r_title, keywords=r_keywords, abstract=r_abstract, metadata=metadata)
-            resource_id1 = hs.addResourceFile(resource_id, fpath)
 
 
 
@@ -471,6 +467,11 @@ def create_layer(request,fun_type,res_id,res_type):
     # print fpath
 
     # resource_id1 = hs.addResourceFile('de8a012e4aef43569272ad44328f34b0', fpath)
+    utilities.parse_ts_layer(fpath,file_name,abstract)
+    fpath = temp_dir+'/ODM2/'+file_name+'.sqlite'
+    resource_id = hs.createResource(r_type, r_title, keywords=r_keywords, abstract=r_abstract, metadata=metadata)
+    resource_id1 = hs.addResourceFile(resource_id, fpath)
+
 
     "uploaded to HydroShare"
     return JsonResponse({'Request':resource_id,'error':error})
