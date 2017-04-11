@@ -350,7 +350,8 @@ def create_layer(request,fun_type,res_id,res_type):
         r_abstract = abstract
         print res_id
         if res_type == 'refts':
-            r_type = 'GenericResource'
+            # r_type = 'GenericResource'
+            r_type = 'CompositeResource'
 
 
             if fun_type =='create':
@@ -385,6 +386,11 @@ def create_layer(request,fun_type,res_id,res_type):
             # fpath = temp_dir + '/ODM2/ODM2_single_variable_multi_site.sqlite'
             print fpath
 
+            utilities.parse_ts_layer(fpath,file_name,abstract)
+            fpath = temp_dir+'/ODM2/'+file_name+'.sqlite'
+            resource_id = hs.createResource(r_type, r_title, keywords=r_keywords, abstract=r_abstract, metadata=metadata)
+            resource_id1 = hs.addResourceFile(resource_id, fpath)
+
 
 
             # resource_id = hs.createResource(r_type, r_title, resource_file=fpath, keywords=r_keywords, abstract=r_abstract, metadata=metadata)
@@ -414,63 +420,11 @@ def create_layer(request,fun_type,res_id,res_type):
     except:
         error = 'At least one resource needs to be selected'
 
-    # odm_copy = temp_dir+'/ODM2/oenseries.sqlite'
-    # utilities._extract_metadata(odm_copy,odm_copy)
 
-    # utilities.create_odm2(fpath,file_name)
+    # utilities.parse_ts_layer(fpath,file_name,abstract)
     # fpath = temp_dir+'/ODM2/'+file_name+'.sqlite'
-
-    # utilities.create_csv(file_name)
-    # fpath = temp_dir+'/ODM2/'+file_name+'.csv'
-
-    # utilities.create_odm2(fpath,file_name)
-
-    print "database updated"
-    # r_type = 'TimeSeriesResource'
-    # r_type = 'GenericResource'
-    # r_title = "ODM test"
-    # fpath = temp_dir + '/ODM2/ODM2_single_variable_multi_site.sqlite'
-
-
-
-    # resource_id = hs.createResource(r_type, r_title, fpath, keywords=r_keywords, abstract=r_abstract, metadata=metadata)
-    # print resource_id
-    print fpath
-
-
-    #Create empty resource and then add file so metadate is parsed (Bug with hydroshare)
     # resource_id = hs.createResource(r_type, r_title, keywords=r_keywords, abstract=r_abstract, metadata=metadata)
     # resource_id1 = hs.addResourceFile(resource_id, fpath)
-    # utilities.create_odm2(fpath,file_name)
-    # fpath = temp_dir+'/ODM2/'+file_name+'.sqlite'
-    # print fpath
-    # delay = 0
-    # while (public =='false' or delay<10):
-    #     if (delay>10):
-    #         error ='Request timed out'
-    #         break
-    #     else:
-    #         try:
-    #             print "creating time series resource"
-    #             resource_id = hs.createResource(r_type, r_title, fpath, keywords=r_keywords, abstract=r_abstract, metadata=metadata)
-    #             print resource_id
-    #             print "break now"
-    #             break
-    #         except:
-    #             public='false'
-    #             time.sleep(2)
-    #         delay=delay+1
-    # print resource_id
-    # # resource_id1 = hs.addResourceFile(resource_id, fpath)
-    # print fpath
-    # fpath = temp_dir+'/ODM2/oenseries.sqlite'
-    # print fpath
-
-    # resource_id1 = hs.addResourceFile('de8a012e4aef43569272ad44328f34b0', fpath)
-    utilities.parse_ts_layer(fpath,file_name,abstract)
-    fpath = temp_dir+'/ODM2/'+file_name+'.sqlite'
-    resource_id = hs.createResource(r_type, r_title, keywords=r_keywords, abstract=r_abstract, metadata=metadata)
-    resource_id1 = hs.addResourceFile(resource_id, fpath)
 
 
     "uploaded to HydroShare"

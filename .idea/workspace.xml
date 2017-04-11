@@ -30,21 +30,21 @@
     <favorites_list name="tethysapp-hydroshare_resource_creator" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.32111925">
+    <splitter split-orientation="horizontal" split-proportion="0.72285146">
       <split-first>
         <leaf>
-          <file leaf-file-name="controllers.py" pinned="false" current-in-tab="false">
+          <file leaf-file-name="controllers.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/controllers.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="406" column="20" selection-start-line="406" selection-start-column="20" selection-end-line="406" selection-end-column="20" />
+                <state vertical-scroll-proportion="-1.1230769">
+                  <caret line="354" column="0" selection-start-line="354" selection-start-column="0" selection-end-line="354" selection-end-column="0" />
                   <folding>
                     <element signature="e#0#35#0" expanded="true" />
                     <element signature="e#7661#8255#0" expanded="false" />
                     <element signature="e#8740#10060#0" expanded="false" />
                     <element signature="e#10088#11490#0" expanded="false" />
-                    <element signature="e#18994#19206#0" expanded="false" />
-                    <element signature="e#19267#19482#0" expanded="false" />
+                    <element signature="e#17437#17649#0" expanded="false" />
+                    <element signature="e#17710#17925#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
@@ -76,11 +76,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="utilities.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="utilities.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/utilities.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.63589746">
-                  <caret line="286" column="63" selection-start-line="286" selection-start-column="63" selection-end-line="286" selection-end-column="63" />
+                <state vertical-scroll-proportion="-6.857143">
+                  <caret line="1468" column="103" selection-start-line="1468" selection-start-column="95" selection-end-line="1468" selection-end-column="103" />
                   <folding>
                     <element signature="e#0#22#0" expanded="true" />
                     <element signature="e#2232#2391#0" expanded="false" />
@@ -88,63 +88,62 @@
                     <element signature="e#2681#2961#0" expanded="false" />
                     <element signature="e#3003#3242#0" expanded="false" />
                     <element signature="e#3293#4249#0" expanded="false" />
-                    <element signature="e#4314#6743#0" expanded="false" />
                     <element signature="e#6766#7011#0" expanded="false" />
                     <element signature="e#7048#7447#0" expanded="false" />
-                    <element signature="e#11362#12254#0" expanded="false" />
-                    <element signature="e#12289#23555#0" expanded="false" />
-                    <element signature="e#24526#37782#0" expanded="false" />
-                    <element signature="e#37816#38501#0" expanded="false" />
-                    <element signature="e#38534#38926#0" expanded="false" />
-                    <marker date="1491582926932" expanded="true" signature="9240:9389" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="36652:36696" placeholder="Insert Into ..." />
-                    <marker date="1491582926932" expanded="true" signature="36723:36764" placeholder="Insert Into ..." />
-                    <marker date="1491582926932" expanded="true" signature="36798:36845" placeholder="Insert Into ..." />
-                    <marker date="1491582926932" expanded="true" signature="36871:36905" placeholder="Insert Into ..." />
-                    <marker date="1491582926932" expanded="true" signature="38152:38186" placeholder="Insert Into ..." />
-                    <marker date="1491582926932" expanded="true" signature="38362:38379" placeholder="BEGIN TRANSA..." />
-                    <marker date="1491582926932" expanded="true" signature="40503:40520" placeholder="BEGIN TRANSA..." />
-                    <marker date="1491582926932" expanded="true" signature="44481:44541" placeholder="SELECT * FRO..SamplingFeatures..." />
-                    <marker date="1491582926932" expanded="true" signature="46410:46479" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="46410:46779" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="47356:47448" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="47356:47505" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="48608:48697" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="48608:48745" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="49515:49557" placeholder="SELECT * FRO..Methods..." />
-                    <marker date="1491582926932" expanded="true" signature="50782:50880" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="50782:50934" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="51336:51382" placeholder="SELECT * FRO..Variables..." />
-                    <marker date="1491582926932" expanded="true" signature="52707:52833" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="52707:52893" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="53317:53356" placeholder="SELECT * FRO..Units..." />
-                    <marker date="1491582926932" expanded="true" signature="54590:54670" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="54590:54721" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="55201:55259" placeholder="SELECT * FRO..ProcessingLevels..." />
-                    <marker date="1491582926932" expanded="true" signature="56340:56433" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="56340:56478" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="57138:57205" placeholder="SELECT * FRO..People..." />
-                    <marker date="1491582926932" expanded="true" signature="57739:57800" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="57739:57845" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="58266:58320" placeholder="SELECT * FRO..Organizations..." />
-                    <marker date="1491582926932" expanded="true" signature="59379:59519" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="59379:59573" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="59952:60020" placeholder="SELECT * FRO..Affiliations..." />
-                    <marker date="1491582926932" expanded="true" signature="61563:61708" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="61563:61765" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="63438:63584" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="63438:63640" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="64402:64488" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="64402:64535" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="65057:65129" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="65057:65170" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="67052:67244" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="67052:67312" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="67822:67934" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="69285:69438" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="71405:71422" placeholder="BEGIN TRANSA..." />
-                    <marker date="1491582926932" expanded="true" signature="71503:71755" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="71902:71980" placeholder="INSERT INTO ..." />
+                    <element signature="e#9536#10428#0" expanded="false" />
+                    <element signature="e#10463#21729#0" expanded="false" />
+                    <element signature="e#21768#22670#0" expanded="false" />
+                    <element signature="e#22700#35956#0" expanded="false" />
+                    <element signature="e#35990#36675#0" expanded="false" />
+                    <element signature="e#36708#37100#0" expanded="false" />
+                    <marker date="1491844263305" expanded="true" signature="9119:9268" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="34826:34870" placeholder="Insert Into ..." />
+                    <marker date="1491844263305" expanded="true" signature="34897:34938" placeholder="Insert Into ..." />
+                    <marker date="1491844263305" expanded="true" signature="34972:35019" placeholder="Insert Into ..." />
+                    <marker date="1491844263305" expanded="true" signature="35045:35079" placeholder="Insert Into ..." />
+                    <marker date="1491844263305" expanded="true" signature="36326:36360" placeholder="Insert Into ..." />
+                    <marker date="1491844263305" expanded="true" signature="36536:36553" placeholder="BEGIN TRANSA..." />
+                    <marker date="1491844263305" expanded="true" signature="40005:40065" placeholder="SELECT * FRO..SamplingFeatures..." />
+                    <marker date="1491844263305" expanded="true" signature="41934:42003" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="41934:42303" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="42880:42972" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="42880:43029" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="44132:44221" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="44132:44269" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="45307:45349" placeholder="SELECT * FRO..Methods..." />
+                    <marker date="1491844263305" expanded="true" signature="46447:46545" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="46447:46599" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="47001:47047" placeholder="SELECT * FRO..Variables..." />
+                    <marker date="1491844263305" expanded="true" signature="48425:48551" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="48425:48611" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="49035:49074" placeholder="SELECT * FRO..Units..." />
+                    <marker date="1491844263305" expanded="true" signature="50308:50388" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="50308:50439" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="50919:50977" placeholder="SELECT * FRO..ProcessingLevels..." />
+                    <marker date="1491844263305" expanded="true" signature="52058:52151" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="52058:52196" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="52856:52923" placeholder="SELECT * FRO..People..." />
+                    <marker date="1491844263305" expanded="true" signature="53457:53518" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="53457:53563" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="53984:54038" placeholder="SELECT * FRO..Organizations..." />
+                    <marker date="1491844263305" expanded="true" signature="55097:55237" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="55097:55291" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="55670:55738" placeholder="SELECT * FRO..Affiliations..." />
+                    <marker date="1491844263305" expanded="true" signature="57281:57426" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="57281:57483" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="59156:59302" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="59156:59358" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="60120:60206" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="60120:60253" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="60775:60847" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="60775:60888" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="62770:62962" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="62770:63030" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="63533:63645" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="64996:65149" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="67116:67133" placeholder="BEGIN TRANSA..." />
+                    <marker date="1491844263305" expanded="true" signature="67214:67466" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="67613:67691" placeholder="INSERT INTO ..." />
                   </folding>
                 </state>
               </provider>
@@ -181,18 +180,17 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="controllers.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="controllers.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/controllers.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.53846157">
-                  <caret line="469" column="4" selection-start-line="469" selection-start-column="4" selection-end-line="469" selection-end-column="4" />
+                <state vertical-scroll-proportion="-12.857142">
+                  <caret line="426" column="7" selection-start-line="425" selection-start-column="3" selection-end-line="426" selection-end-column="7" />
                   <folding>
                     <element signature="e#0#35#0" expanded="true" />
                     <element signature="e#7661#8255#0" expanded="false" />
-                    <element signature="e#8740#10060#0" expanded="false" />
                     <element signature="e#10088#11490#0" expanded="false" />
-                    <element signature="e#18994#19206#0" expanded="false" />
-                    <element signature="e#19267#19482#0" expanded="false" />
+                    <element signature="e#17437#17649#0" expanded="false" />
+                    <element signature="e#17710#17925#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
@@ -210,67 +208,67 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="utilities.py" pinned="false" current-in-tab="false">
+          <file leaf-file-name="utilities.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/utilities.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="1041" column="0" selection-start-line="1041" selection-start-column="0" selection-end-line="1041" selection-end-column="0" />
+                <state vertical-scroll-proportion="0.9758065">
+                  <caret line="301" column="95" selection-start-line="301" selection-start-column="95" selection-end-line="301" selection-end-column="95" />
                   <folding>
                     <element signature="e#3003#3242#0" expanded="false" />
-                    <element signature="e#12289#23555#0" expanded="false" />
-                    <element signature="e#23594#24496#0" expanded="false" />
-                    <element signature="e#24526#37782#0" expanded="false" />
-                    <element signature="e#37816#38501#0" expanded="false" />
-                    <element signature="e#38534#38926#0" expanded="false" />
-                    <marker date="1491582926932" expanded="true" signature="9240:9389" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="36652:36696" placeholder="Insert Into ..." />
-                    <marker date="1491582926932" expanded="true" signature="36723:36764" placeholder="Insert Into ..." />
-                    <marker date="1491582926932" expanded="true" signature="36798:36845" placeholder="Insert Into ..." />
-                    <marker date="1491582926932" expanded="true" signature="36871:36905" placeholder="Insert Into ..." />
-                    <marker date="1491582926932" expanded="true" signature="38152:38186" placeholder="Insert Into ..." />
-                    <marker date="1491582926932" expanded="true" signature="38362:38379" placeholder="BEGIN TRANSA..." />
-                    <marker date="1491582926932" expanded="true" signature="40503:40520" placeholder="BEGIN TRANSA..." />
-                    <marker date="1491582926932" expanded="true" signature="44481:44541" placeholder="SELECT * FRO..SamplingFeatures..." />
-                    <marker date="1491582926932" expanded="true" signature="46410:46479" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="46410:46779" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="47356:47448" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="47356:47505" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="48608:48697" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="48608:48745" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="49515:49557" placeholder="SELECT * FRO..Methods..." />
-                    <marker date="1491582926932" expanded="true" signature="50782:50880" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="50782:50934" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="51336:51382" placeholder="SELECT * FRO..Variables..." />
-                    <marker date="1491582926932" expanded="true" signature="52707:52833" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="52707:52893" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="53317:53356" placeholder="SELECT * FRO..Units..." />
-                    <marker date="1491582926932" expanded="true" signature="54590:54670" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="54590:54721" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="55201:55259" placeholder="SELECT * FRO..ProcessingLevels..." />
-                    <marker date="1491582926932" expanded="true" signature="56340:56433" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="56340:56478" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="57138:57205" placeholder="SELECT * FRO..People..." />
-                    <marker date="1491582926932" expanded="true" signature="57739:57800" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="57739:57845" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="58266:58320" placeholder="SELECT * FRO..Organizations..." />
-                    <marker date="1491582926932" expanded="true" signature="59379:59519" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="59379:59573" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="59952:60020" placeholder="SELECT * FRO..Affiliations..." />
-                    <marker date="1491582926932" expanded="true" signature="61563:61708" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="61563:61765" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="63438:63584" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="63438:63640" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="64402:64488" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="64402:64535" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="65057:65129" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="65057:65170" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="67052:67244" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="67052:67312" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="67822:67934" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="69285:69438" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="71405:71422" placeholder="BEGIN TRANSA..." />
-                    <marker date="1491582926932" expanded="true" signature="71503:71755" placeholder="INSERT INTO ..." />
-                    <marker date="1491582926932" expanded="true" signature="71902:71980" placeholder="INSERT INTO ..." />
+                    <element signature="e#9536#10428#0" expanded="false" />
+                    <element signature="e#10463#21729#0" expanded="false" />
+                    <element signature="e#21768#22670#0" expanded="false" />
+                    <element signature="e#22700#35956#0" expanded="false" />
+                    <element signature="e#35990#36675#0" expanded="false" />
+                    <element signature="e#36708#37100#0" expanded="false" />
+                    <marker date="1491844263305" expanded="true" signature="9119:9268" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="34826:34870" placeholder="Insert Into ..." />
+                    <marker date="1491844263305" expanded="true" signature="34897:34938" placeholder="Insert Into ..." />
+                    <marker date="1491844263305" expanded="true" signature="34972:35019" placeholder="Insert Into ..." />
+                    <marker date="1491844263305" expanded="true" signature="35045:35079" placeholder="Insert Into ..." />
+                    <marker date="1491844263305" expanded="true" signature="36326:36360" placeholder="Insert Into ..." />
+                    <marker date="1491844263305" expanded="true" signature="36536:36553" placeholder="BEGIN TRANSA..." />
+                    <marker date="1491844263305" expanded="true" signature="40005:40065" placeholder="SELECT * FRO..SamplingFeatures..." />
+                    <marker date="1491844263305" expanded="true" signature="41934:42003" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="41934:42303" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="42880:42972" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="42880:43029" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="44132:44221" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="44132:44269" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="45307:45349" placeholder="SELECT * FRO..Methods..." />
+                    <marker date="1491844263305" expanded="true" signature="46447:46545" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="46447:46599" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="47001:47047" placeholder="SELECT * FRO..Variables..." />
+                    <marker date="1491844263305" expanded="true" signature="48425:48551" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="48425:48611" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="49035:49074" placeholder="SELECT * FRO..Units..." />
+                    <marker date="1491844263305" expanded="true" signature="50308:50388" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="50308:50439" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="50919:50977" placeholder="SELECT * FRO..ProcessingLevels..." />
+                    <marker date="1491844263305" expanded="true" signature="52058:52151" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="52058:52196" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="52856:52923" placeholder="SELECT * FRO..People..." />
+                    <marker date="1491844263305" expanded="true" signature="53457:53518" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="53457:53563" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="53984:54038" placeholder="SELECT * FRO..Organizations..." />
+                    <marker date="1491844263305" expanded="true" signature="55097:55237" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="55097:55291" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="55670:55738" placeholder="SELECT * FRO..Affiliations..." />
+                    <marker date="1491844263305" expanded="true" signature="57281:57426" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="57281:57483" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="59156:59302" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="59156:59358" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="60120:60206" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="60120:60253" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="60775:60847" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="60775:60888" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="62770:62962" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="62770:63030" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="63533:63645" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="64996:65149" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="67116:67133" placeholder="BEGIN TRANSA..." />
+                    <marker date="1491844263305" expanded="true" signature="67214:67466" placeholder="INSERT INTO ..." />
+                    <marker date="1491844263305" expanded="true" signature="67613:67691" placeholder="INSERT INTO ..." />
                   </folding>
                 </state>
               </provider>
@@ -296,8 +294,8 @@
         <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/app.py" />
         <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/public/js/main.js" />
         <option value="$PROJECT_DIR$/setup.py" />
-        <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/utilities.py" />
         <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/templates/hydroshare_resource_creator/home.html" />
+        <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/utilities.py" />
         <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/controllers.py" />
       </list>
     </option>
@@ -634,7 +632,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="19" />
+      <option name="time" value="20" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -654,61 +652,68 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="498" column="39" selection-start-line="498" selection-start-column="39" selection-end-line="498" selection-end-column="39" />
           <folding>
+            <element signature="e#0#22#0" expanded="true" />
+            <element signature="e#2232#2391#0" expanded="false" />
+            <element signature="e#2429#2652#0" expanded="false" />
+            <element signature="e#2681#2961#0" expanded="false" />
             <element signature="e#3003#3242#0" expanded="false" />
-            <element signature="e#12289#23555#0" expanded="false" />
-            <element signature="e#23594#24496#0" expanded="false" />
-            <element signature="e#24526#37782#0" expanded="false" />
-            <element signature="e#37816#38501#0" expanded="false" />
-            <element signature="e#38534#38926#0" expanded="false" />
-            <marker date="1491582926932" expanded="true" signature="9240:9389" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="36652:36696" placeholder="Insert Into ..." />
-            <marker date="1491582926932" expanded="true" signature="36723:36764" placeholder="Insert Into ..." />
-            <marker date="1491582926932" expanded="true" signature="36798:36845" placeholder="Insert Into ..." />
-            <marker date="1491582926932" expanded="true" signature="36871:36905" placeholder="Insert Into ..." />
-            <marker date="1491582926932" expanded="true" signature="38152:38186" placeholder="Insert Into ..." />
-            <marker date="1491582926932" expanded="true" signature="38362:38379" placeholder="BEGIN TRANSA..." />
-            <marker date="1491582926932" expanded="true" signature="40503:40520" placeholder="BEGIN TRANSA..." />
-            <marker date="1491582926932" expanded="true" signature="44481:44541" placeholder="SELECT * FRO..SamplingFeatures..." />
-            <marker date="1491582926932" expanded="true" signature="46410:46479" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="46410:46779" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="47356:47448" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="47356:47505" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="48608:48697" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="48608:48745" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="49515:49557" placeholder="SELECT * FRO..Methods..." />
-            <marker date="1491582926932" expanded="true" signature="50782:50880" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="50782:50934" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="51336:51382" placeholder="SELECT * FRO..Variables..." />
-            <marker date="1491582926932" expanded="true" signature="52707:52833" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="52707:52893" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="53317:53356" placeholder="SELECT * FRO..Units..." />
-            <marker date="1491582926932" expanded="true" signature="54590:54670" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="54590:54721" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="55201:55259" placeholder="SELECT * FRO..ProcessingLevels..." />
-            <marker date="1491582926932" expanded="true" signature="56340:56433" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="56340:56478" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="57138:57205" placeholder="SELECT * FRO..People..." />
-            <marker date="1491582926932" expanded="true" signature="57739:57800" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="57739:57845" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="58266:58320" placeholder="SELECT * FRO..Organizations..." />
-            <marker date="1491582926932" expanded="true" signature="59379:59519" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="59379:59573" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="59952:60020" placeholder="SELECT * FRO..Affiliations..." />
-            <marker date="1491582926932" expanded="true" signature="61563:61708" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="61563:61765" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="63438:63584" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="63438:63640" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="64402:64488" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="64402:64535" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="65057:65129" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="65057:65170" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="67052:67244" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="67052:67312" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="67822:67934" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="69285:69438" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="71405:71422" placeholder="BEGIN TRANSA..." />
-            <marker date="1491582926932" expanded="true" signature="71503:71755" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="71902:71980" placeholder="INSERT INTO ..." />
+            <element signature="e#3293#4249#0" expanded="false" />
+            <element signature="e#6766#7011#0" expanded="false" />
+            <element signature="e#7048#7447#0" expanded="false" />
+            <element signature="e#9536#10428#0" expanded="false" />
+            <element signature="e#10463#21729#0" expanded="false" />
+            <element signature="e#21768#22670#0" expanded="false" />
+            <element signature="e#22700#35956#0" expanded="false" />
+            <element signature="e#35990#36675#0" expanded="false" />
+            <element signature="e#36708#37100#0" expanded="false" />
+            <marker date="1491844263305" expanded="true" signature="9119:9268" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="34826:34870" placeholder="Insert Into ..." />
+            <marker date="1491844263305" expanded="true" signature="34897:34938" placeholder="Insert Into ..." />
+            <marker date="1491844263305" expanded="true" signature="34972:35019" placeholder="Insert Into ..." />
+            <marker date="1491844263305" expanded="true" signature="35045:35079" placeholder="Insert Into ..." />
+            <marker date="1491844263305" expanded="true" signature="36326:36360" placeholder="Insert Into ..." />
+            <marker date="1491844263305" expanded="true" signature="36536:36553" placeholder="BEGIN TRANSA..." />
+            <marker date="1491844263305" expanded="true" signature="40005:40065" placeholder="SELECT * FRO..SamplingFeatures..." />
+            <marker date="1491844263305" expanded="true" signature="41934:42003" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="41934:42303" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="42880:42972" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="42880:43029" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="44132:44221" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="44132:44269" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="45307:45349" placeholder="SELECT * FRO..Methods..." />
+            <marker date="1491844263305" expanded="true" signature="46447:46545" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="46447:46599" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="47001:47047" placeholder="SELECT * FRO..Variables..." />
+            <marker date="1491844263305" expanded="true" signature="48425:48551" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="48425:48611" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="49035:49074" placeholder="SELECT * FRO..Units..." />
+            <marker date="1491844263305" expanded="true" signature="50308:50388" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="50308:50439" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="50919:50977" placeholder="SELECT * FRO..ProcessingLevels..." />
+            <marker date="1491844263305" expanded="true" signature="52058:52151" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="52058:52196" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="52856:52923" placeholder="SELECT * FRO..People..." />
+            <marker date="1491844263305" expanded="true" signature="53457:53518" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="53457:53563" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="53984:54038" placeholder="SELECT * FRO..Organizations..." />
+            <marker date="1491844263305" expanded="true" signature="55097:55237" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="55097:55291" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="55670:55738" placeholder="SELECT * FRO..Affiliations..." />
+            <marker date="1491844263305" expanded="true" signature="57281:57426" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="57281:57483" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="59156:59302" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="59156:59358" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="60120:60206" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="60120:60253" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="60775:60847" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="60775:60888" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="62770:62962" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="62770:63030" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="63533:63645" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="64996:65149" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="67116:67133" placeholder="BEGIN TRANSA..." />
+            <marker date="1491844263305" expanded="true" signature="67214:67466" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="67613:67691" placeholder="INSERT INTO ..." />
           </folding>
         </state>
       </provider>
@@ -730,8 +735,8 @@
             <element signature="e#7661#8255#0" expanded="false" />
             <element signature="e#8740#10060#0" expanded="false" />
             <element signature="e#10088#11490#0" expanded="false" />
-            <element signature="e#18994#19206#0" expanded="false" />
-            <element signature="e#19267#19482#0" expanded="false" />
+            <element signature="e#17437#17649#0" expanded="false" />
+            <element signature="e#17710#17925#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -765,61 +770,68 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="498" column="39" selection-start-line="498" selection-start-column="39" selection-end-line="498" selection-end-column="39" />
           <folding>
+            <element signature="e#0#22#0" expanded="true" />
+            <element signature="e#2232#2391#0" expanded="false" />
+            <element signature="e#2429#2652#0" expanded="false" />
+            <element signature="e#2681#2961#0" expanded="false" />
             <element signature="e#3003#3242#0" expanded="false" />
-            <element signature="e#12289#23555#0" expanded="false" />
-            <element signature="e#23594#24496#0" expanded="false" />
-            <element signature="e#24526#37782#0" expanded="false" />
-            <element signature="e#37816#38501#0" expanded="false" />
-            <element signature="e#38534#38926#0" expanded="false" />
-            <marker date="1491582926932" expanded="true" signature="9240:9389" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="36652:36696" placeholder="Insert Into ..." />
-            <marker date="1491582926932" expanded="true" signature="36723:36764" placeholder="Insert Into ..." />
-            <marker date="1491582926932" expanded="true" signature="36798:36845" placeholder="Insert Into ..." />
-            <marker date="1491582926932" expanded="true" signature="36871:36905" placeholder="Insert Into ..." />
-            <marker date="1491582926932" expanded="true" signature="38152:38186" placeholder="Insert Into ..." />
-            <marker date="1491582926932" expanded="true" signature="38362:38379" placeholder="BEGIN TRANSA..." />
-            <marker date="1491582926932" expanded="true" signature="40503:40520" placeholder="BEGIN TRANSA..." />
-            <marker date="1491582926932" expanded="true" signature="44481:44541" placeholder="SELECT * FRO..SamplingFeatures..." />
-            <marker date="1491582926932" expanded="true" signature="46410:46479" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="46410:46779" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="47356:47448" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="47356:47505" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="48608:48697" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="48608:48745" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="49515:49557" placeholder="SELECT * FRO..Methods..." />
-            <marker date="1491582926932" expanded="true" signature="50782:50880" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="50782:50934" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="51336:51382" placeholder="SELECT * FRO..Variables..." />
-            <marker date="1491582926932" expanded="true" signature="52707:52833" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="52707:52893" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="53317:53356" placeholder="SELECT * FRO..Units..." />
-            <marker date="1491582926932" expanded="true" signature="54590:54670" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="54590:54721" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="55201:55259" placeholder="SELECT * FRO..ProcessingLevels..." />
-            <marker date="1491582926932" expanded="true" signature="56340:56433" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="56340:56478" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="57138:57205" placeholder="SELECT * FRO..People..." />
-            <marker date="1491582926932" expanded="true" signature="57739:57800" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="57739:57845" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="58266:58320" placeholder="SELECT * FRO..Organizations..." />
-            <marker date="1491582926932" expanded="true" signature="59379:59519" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="59379:59573" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="59952:60020" placeholder="SELECT * FRO..Affiliations..." />
-            <marker date="1491582926932" expanded="true" signature="61563:61708" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="61563:61765" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="63438:63584" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="63438:63640" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="64402:64488" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="64402:64535" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="65057:65129" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="65057:65170" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="67052:67244" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="67052:67312" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="67822:67934" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="69285:69438" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="71405:71422" placeholder="BEGIN TRANSA..." />
-            <marker date="1491582926932" expanded="true" signature="71503:71755" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="71902:71980" placeholder="INSERT INTO ..." />
+            <element signature="e#3293#4249#0" expanded="false" />
+            <element signature="e#6766#7011#0" expanded="false" />
+            <element signature="e#7048#7447#0" expanded="false" />
+            <element signature="e#9536#10428#0" expanded="false" />
+            <element signature="e#10463#21729#0" expanded="false" />
+            <element signature="e#21768#22670#0" expanded="false" />
+            <element signature="e#22700#35956#0" expanded="false" />
+            <element signature="e#35990#36675#0" expanded="false" />
+            <element signature="e#36708#37100#0" expanded="false" />
+            <marker date="1491844263305" expanded="true" signature="9119:9268" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="34826:34870" placeholder="Insert Into ..." />
+            <marker date="1491844263305" expanded="true" signature="34897:34938" placeholder="Insert Into ..." />
+            <marker date="1491844263305" expanded="true" signature="34972:35019" placeholder="Insert Into ..." />
+            <marker date="1491844263305" expanded="true" signature="35045:35079" placeholder="Insert Into ..." />
+            <marker date="1491844263305" expanded="true" signature="36326:36360" placeholder="Insert Into ..." />
+            <marker date="1491844263305" expanded="true" signature="36536:36553" placeholder="BEGIN TRANSA..." />
+            <marker date="1491844263305" expanded="true" signature="40005:40065" placeholder="SELECT * FRO..SamplingFeatures..." />
+            <marker date="1491844263305" expanded="true" signature="41934:42003" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="41934:42303" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="42880:42972" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="42880:43029" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="44132:44221" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="44132:44269" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="45307:45349" placeholder="SELECT * FRO..Methods..." />
+            <marker date="1491844263305" expanded="true" signature="46447:46545" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="46447:46599" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="47001:47047" placeholder="SELECT * FRO..Variables..." />
+            <marker date="1491844263305" expanded="true" signature="48425:48551" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="48425:48611" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="49035:49074" placeholder="SELECT * FRO..Units..." />
+            <marker date="1491844263305" expanded="true" signature="50308:50388" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="50308:50439" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="50919:50977" placeholder="SELECT * FRO..ProcessingLevels..." />
+            <marker date="1491844263305" expanded="true" signature="52058:52151" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="52058:52196" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="52856:52923" placeholder="SELECT * FRO..People..." />
+            <marker date="1491844263305" expanded="true" signature="53457:53518" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="53457:53563" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="53984:54038" placeholder="SELECT * FRO..Organizations..." />
+            <marker date="1491844263305" expanded="true" signature="55097:55237" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="55097:55291" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="55670:55738" placeholder="SELECT * FRO..Affiliations..." />
+            <marker date="1491844263305" expanded="true" signature="57281:57426" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="57281:57483" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="59156:59302" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="59156:59358" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="60120:60206" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="60120:60253" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="60775:60847" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="60775:60888" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="62770:62962" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="62770:63030" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="63533:63645" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="64996:65149" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="67116:67133" placeholder="BEGIN TRANSA..." />
+            <marker date="1491844263305" expanded="true" signature="67214:67466" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="67613:67691" placeholder="INSERT INTO ..." />
           </folding>
         </state>
       </provider>
@@ -841,8 +853,8 @@
             <element signature="e#7661#8255#0" expanded="false" />
             <element signature="e#8740#10060#0" expanded="false" />
             <element signature="e#10088#11490#0" expanded="false" />
-            <element signature="e#18994#19206#0" expanded="false" />
-            <element signature="e#19267#19482#0" expanded="false" />
+            <element signature="e#17437#17649#0" expanded="false" />
+            <element signature="e#17710#17925#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -876,61 +888,68 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="498" column="39" selection-start-line="498" selection-start-column="39" selection-end-line="498" selection-end-column="39" />
           <folding>
+            <element signature="e#0#22#0" expanded="true" />
+            <element signature="e#2232#2391#0" expanded="false" />
+            <element signature="e#2429#2652#0" expanded="false" />
+            <element signature="e#2681#2961#0" expanded="false" />
             <element signature="e#3003#3242#0" expanded="false" />
-            <element signature="e#12289#23555#0" expanded="false" />
-            <element signature="e#23594#24496#0" expanded="false" />
-            <element signature="e#24526#37782#0" expanded="false" />
-            <element signature="e#37816#38501#0" expanded="false" />
-            <element signature="e#38534#38926#0" expanded="false" />
-            <marker date="1491582926932" expanded="true" signature="9240:9389" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="36652:36696" placeholder="Insert Into ..." />
-            <marker date="1491582926932" expanded="true" signature="36723:36764" placeholder="Insert Into ..." />
-            <marker date="1491582926932" expanded="true" signature="36798:36845" placeholder="Insert Into ..." />
-            <marker date="1491582926932" expanded="true" signature="36871:36905" placeholder="Insert Into ..." />
-            <marker date="1491582926932" expanded="true" signature="38152:38186" placeholder="Insert Into ..." />
-            <marker date="1491582926932" expanded="true" signature="38362:38379" placeholder="BEGIN TRANSA..." />
-            <marker date="1491582926932" expanded="true" signature="40503:40520" placeholder="BEGIN TRANSA..." />
-            <marker date="1491582926932" expanded="true" signature="44481:44541" placeholder="SELECT * FRO..SamplingFeatures..." />
-            <marker date="1491582926932" expanded="true" signature="46410:46479" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="46410:46779" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="47356:47448" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="47356:47505" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="48608:48697" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="48608:48745" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="49515:49557" placeholder="SELECT * FRO..Methods..." />
-            <marker date="1491582926932" expanded="true" signature="50782:50880" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="50782:50934" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="51336:51382" placeholder="SELECT * FRO..Variables..." />
-            <marker date="1491582926932" expanded="true" signature="52707:52833" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="52707:52893" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="53317:53356" placeholder="SELECT * FRO..Units..." />
-            <marker date="1491582926932" expanded="true" signature="54590:54670" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="54590:54721" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="55201:55259" placeholder="SELECT * FRO..ProcessingLevels..." />
-            <marker date="1491582926932" expanded="true" signature="56340:56433" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="56340:56478" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="57138:57205" placeholder="SELECT * FRO..People..." />
-            <marker date="1491582926932" expanded="true" signature="57739:57800" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="57739:57845" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="58266:58320" placeholder="SELECT * FRO..Organizations..." />
-            <marker date="1491582926932" expanded="true" signature="59379:59519" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="59379:59573" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="59952:60020" placeholder="SELECT * FRO..Affiliations..." />
-            <marker date="1491582926932" expanded="true" signature="61563:61708" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="61563:61765" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="63438:63584" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="63438:63640" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="64402:64488" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="64402:64535" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="65057:65129" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="65057:65170" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="67052:67244" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="67052:67312" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="67822:67934" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="69285:69438" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="71405:71422" placeholder="BEGIN TRANSA..." />
-            <marker date="1491582926932" expanded="true" signature="71503:71755" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="71902:71980" placeholder="INSERT INTO ..." />
+            <element signature="e#3293#4249#0" expanded="false" />
+            <element signature="e#6766#7011#0" expanded="false" />
+            <element signature="e#7048#7447#0" expanded="false" />
+            <element signature="e#9536#10428#0" expanded="false" />
+            <element signature="e#10463#21729#0" expanded="false" />
+            <element signature="e#21768#22670#0" expanded="false" />
+            <element signature="e#22700#35956#0" expanded="false" />
+            <element signature="e#35990#36675#0" expanded="false" />
+            <element signature="e#36708#37100#0" expanded="false" />
+            <marker date="1491844263305" expanded="true" signature="9119:9268" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="34826:34870" placeholder="Insert Into ..." />
+            <marker date="1491844263305" expanded="true" signature="34897:34938" placeholder="Insert Into ..." />
+            <marker date="1491844263305" expanded="true" signature="34972:35019" placeholder="Insert Into ..." />
+            <marker date="1491844263305" expanded="true" signature="35045:35079" placeholder="Insert Into ..." />
+            <marker date="1491844263305" expanded="true" signature="36326:36360" placeholder="Insert Into ..." />
+            <marker date="1491844263305" expanded="true" signature="36536:36553" placeholder="BEGIN TRANSA..." />
+            <marker date="1491844263305" expanded="true" signature="40005:40065" placeholder="SELECT * FRO..SamplingFeatures..." />
+            <marker date="1491844263305" expanded="true" signature="41934:42003" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="41934:42303" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="42880:42972" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="42880:43029" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="44132:44221" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="44132:44269" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="45307:45349" placeholder="SELECT * FRO..Methods..." />
+            <marker date="1491844263305" expanded="true" signature="46447:46545" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="46447:46599" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="47001:47047" placeholder="SELECT * FRO..Variables..." />
+            <marker date="1491844263305" expanded="true" signature="48425:48551" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="48425:48611" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="49035:49074" placeholder="SELECT * FRO..Units..." />
+            <marker date="1491844263305" expanded="true" signature="50308:50388" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="50308:50439" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="50919:50977" placeholder="SELECT * FRO..ProcessingLevels..." />
+            <marker date="1491844263305" expanded="true" signature="52058:52151" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="52058:52196" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="52856:52923" placeholder="SELECT * FRO..People..." />
+            <marker date="1491844263305" expanded="true" signature="53457:53518" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="53457:53563" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="53984:54038" placeholder="SELECT * FRO..Organizations..." />
+            <marker date="1491844263305" expanded="true" signature="55097:55237" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="55097:55291" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="55670:55738" placeholder="SELECT * FRO..Affiliations..." />
+            <marker date="1491844263305" expanded="true" signature="57281:57426" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="57281:57483" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="59156:59302" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="59156:59358" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="60120:60206" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="60120:60253" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="60775:60847" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="60775:60888" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="62770:62962" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="62770:63030" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="63533:63645" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="64996:65149" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="67116:67133" placeholder="BEGIN TRANSA..." />
+            <marker date="1491844263305" expanded="true" signature="67214:67466" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="67613:67691" placeholder="INSERT INTO ..." />
           </folding>
         </state>
       </provider>
@@ -952,8 +971,8 @@
             <element signature="e#7661#8255#0" expanded="false" />
             <element signature="e#8740#10060#0" expanded="false" />
             <element signature="e#10088#11490#0" expanded="false" />
-            <element signature="e#18994#19206#0" expanded="false" />
-            <element signature="e#19267#19482#0" expanded="false" />
+            <element signature="e#17437#17649#0" expanded="false" />
+            <element signature="e#17710#17925#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -987,61 +1006,68 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="465" column="92" selection-start-line="465" selection-start-column="92" selection-end-line="465" selection-end-column="92" />
           <folding>
+            <element signature="e#0#22#0" expanded="true" />
+            <element signature="e#2232#2391#0" expanded="false" />
+            <element signature="e#2429#2652#0" expanded="false" />
+            <element signature="e#2681#2961#0" expanded="false" />
             <element signature="e#3003#3242#0" expanded="false" />
-            <element signature="e#12289#23555#0" expanded="false" />
-            <element signature="e#23594#24496#0" expanded="false" />
-            <element signature="e#24526#37782#0" expanded="false" />
-            <element signature="e#37816#38501#0" expanded="false" />
-            <element signature="e#38534#38926#0" expanded="false" />
-            <marker date="1491582926932" expanded="true" signature="9240:9389" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="36652:36696" placeholder="Insert Into ..." />
-            <marker date="1491582926932" expanded="true" signature="36723:36764" placeholder="Insert Into ..." />
-            <marker date="1491582926932" expanded="true" signature="36798:36845" placeholder="Insert Into ..." />
-            <marker date="1491582926932" expanded="true" signature="36871:36905" placeholder="Insert Into ..." />
-            <marker date="1491582926932" expanded="true" signature="38152:38186" placeholder="Insert Into ..." />
-            <marker date="1491582926932" expanded="true" signature="38362:38379" placeholder="BEGIN TRANSA..." />
-            <marker date="1491582926932" expanded="true" signature="40503:40520" placeholder="BEGIN TRANSA..." />
-            <marker date="1491582926932" expanded="true" signature="44481:44541" placeholder="SELECT * FRO..SamplingFeatures..." />
-            <marker date="1491582926932" expanded="true" signature="46410:46479" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="46410:46779" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="47356:47448" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="47356:47505" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="48608:48697" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="48608:48745" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="49515:49557" placeholder="SELECT * FRO..Methods..." />
-            <marker date="1491582926932" expanded="true" signature="50782:50880" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="50782:50934" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="51336:51382" placeholder="SELECT * FRO..Variables..." />
-            <marker date="1491582926932" expanded="true" signature="52707:52833" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="52707:52893" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="53317:53356" placeholder="SELECT * FRO..Units..." />
-            <marker date="1491582926932" expanded="true" signature="54590:54670" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="54590:54721" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="55201:55259" placeholder="SELECT * FRO..ProcessingLevels..." />
-            <marker date="1491582926932" expanded="true" signature="56340:56433" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="56340:56478" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="57138:57205" placeholder="SELECT * FRO..People..." />
-            <marker date="1491582926932" expanded="true" signature="57739:57800" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="57739:57845" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="58266:58320" placeholder="SELECT * FRO..Organizations..." />
-            <marker date="1491582926932" expanded="true" signature="59379:59519" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="59379:59573" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="59952:60020" placeholder="SELECT * FRO..Affiliations..." />
-            <marker date="1491582926932" expanded="true" signature="61563:61708" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="61563:61765" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="63438:63584" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="63438:63640" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="64402:64488" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="64402:64535" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="65057:65129" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="65057:65170" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="67052:67244" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="67052:67312" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="67822:67934" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="69285:69438" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="71405:71422" placeholder="BEGIN TRANSA..." />
-            <marker date="1491582926932" expanded="true" signature="71503:71755" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="71902:71980" placeholder="INSERT INTO ..." />
+            <element signature="e#3293#4249#0" expanded="false" />
+            <element signature="e#6766#7011#0" expanded="false" />
+            <element signature="e#7048#7447#0" expanded="false" />
+            <element signature="e#9536#10428#0" expanded="false" />
+            <element signature="e#10463#21729#0" expanded="false" />
+            <element signature="e#21768#22670#0" expanded="false" />
+            <element signature="e#22700#35956#0" expanded="false" />
+            <element signature="e#35990#36675#0" expanded="false" />
+            <element signature="e#36708#37100#0" expanded="false" />
+            <marker date="1491844263305" expanded="true" signature="9119:9268" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="34826:34870" placeholder="Insert Into ..." />
+            <marker date="1491844263305" expanded="true" signature="34897:34938" placeholder="Insert Into ..." />
+            <marker date="1491844263305" expanded="true" signature="34972:35019" placeholder="Insert Into ..." />
+            <marker date="1491844263305" expanded="true" signature="35045:35079" placeholder="Insert Into ..." />
+            <marker date="1491844263305" expanded="true" signature="36326:36360" placeholder="Insert Into ..." />
+            <marker date="1491844263305" expanded="true" signature="36536:36553" placeholder="BEGIN TRANSA..." />
+            <marker date="1491844263305" expanded="true" signature="40005:40065" placeholder="SELECT * FRO..SamplingFeatures..." />
+            <marker date="1491844263305" expanded="true" signature="41934:42003" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="41934:42303" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="42880:42972" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="42880:43029" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="44132:44221" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="44132:44269" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="45307:45349" placeholder="SELECT * FRO..Methods..." />
+            <marker date="1491844263305" expanded="true" signature="46447:46545" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="46447:46599" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="47001:47047" placeholder="SELECT * FRO..Variables..." />
+            <marker date="1491844263305" expanded="true" signature="48425:48551" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="48425:48611" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="49035:49074" placeholder="SELECT * FRO..Units..." />
+            <marker date="1491844263305" expanded="true" signature="50308:50388" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="50308:50439" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="50919:50977" placeholder="SELECT * FRO..ProcessingLevels..." />
+            <marker date="1491844263305" expanded="true" signature="52058:52151" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="52058:52196" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="52856:52923" placeholder="SELECT * FRO..People..." />
+            <marker date="1491844263305" expanded="true" signature="53457:53518" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="53457:53563" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="53984:54038" placeholder="SELECT * FRO..Organizations..." />
+            <marker date="1491844263305" expanded="true" signature="55097:55237" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="55097:55291" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="55670:55738" placeholder="SELECT * FRO..Affiliations..." />
+            <marker date="1491844263305" expanded="true" signature="57281:57426" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="57281:57483" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="59156:59302" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="59156:59358" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="60120:60206" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="60120:60253" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="60775:60847" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="60775:60888" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="62770:62962" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="62770:63030" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="63533:63645" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="64996:65149" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="67116:67133" placeholder="BEGIN TRANSA..." />
+            <marker date="1491844263305" expanded="true" signature="67214:67466" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="67613:67691" placeholder="INSERT INTO ..." />
           </folding>
         </state>
       </provider>
@@ -1063,8 +1089,8 @@
             <element signature="e#7661#8255#0" expanded="false" />
             <element signature="e#8740#10060#0" expanded="false" />
             <element signature="e#10088#11490#0" expanded="false" />
-            <element signature="e#18994#19206#0" expanded="false" />
-            <element signature="e#19267#19482#0" expanded="false" />
+            <element signature="e#17437#17649#0" expanded="false" />
+            <element signature="e#17710#17925#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1098,61 +1124,68 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="209" column="89" selection-start-line="209" selection-start-column="20" selection-end-line="209" selection-end-column="89" />
           <folding>
+            <element signature="e#0#22#0" expanded="true" />
+            <element signature="e#2232#2391#0" expanded="false" />
+            <element signature="e#2429#2652#0" expanded="false" />
+            <element signature="e#2681#2961#0" expanded="false" />
             <element signature="e#3003#3242#0" expanded="false" />
-            <element signature="e#12289#23555#0" expanded="false" />
-            <element signature="e#23594#24496#0" expanded="false" />
-            <element signature="e#24526#37782#0" expanded="false" />
-            <element signature="e#37816#38501#0" expanded="false" />
-            <element signature="e#38534#38926#0" expanded="false" />
-            <marker date="1491582926932" expanded="true" signature="9240:9389" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="36652:36696" placeholder="Insert Into ..." />
-            <marker date="1491582926932" expanded="true" signature="36723:36764" placeholder="Insert Into ..." />
-            <marker date="1491582926932" expanded="true" signature="36798:36845" placeholder="Insert Into ..." />
-            <marker date="1491582926932" expanded="true" signature="36871:36905" placeholder="Insert Into ..." />
-            <marker date="1491582926932" expanded="true" signature="38152:38186" placeholder="Insert Into ..." />
-            <marker date="1491582926932" expanded="true" signature="38362:38379" placeholder="BEGIN TRANSA..." />
-            <marker date="1491582926932" expanded="true" signature="40503:40520" placeholder="BEGIN TRANSA..." />
-            <marker date="1491582926932" expanded="true" signature="44481:44541" placeholder="SELECT * FRO..SamplingFeatures..." />
-            <marker date="1491582926932" expanded="true" signature="46410:46479" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="46410:46779" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="47356:47448" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="47356:47505" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="48608:48697" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="48608:48745" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="49515:49557" placeholder="SELECT * FRO..Methods..." />
-            <marker date="1491582926932" expanded="true" signature="50782:50880" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="50782:50934" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="51336:51382" placeholder="SELECT * FRO..Variables..." />
-            <marker date="1491582926932" expanded="true" signature="52707:52833" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="52707:52893" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="53317:53356" placeholder="SELECT * FRO..Units..." />
-            <marker date="1491582926932" expanded="true" signature="54590:54670" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="54590:54721" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="55201:55259" placeholder="SELECT * FRO..ProcessingLevels..." />
-            <marker date="1491582926932" expanded="true" signature="56340:56433" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="56340:56478" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="57138:57205" placeholder="SELECT * FRO..People..." />
-            <marker date="1491582926932" expanded="true" signature="57739:57800" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="57739:57845" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="58266:58320" placeholder="SELECT * FRO..Organizations..." />
-            <marker date="1491582926932" expanded="true" signature="59379:59519" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="59379:59573" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="59952:60020" placeholder="SELECT * FRO..Affiliations..." />
-            <marker date="1491582926932" expanded="true" signature="61563:61708" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="61563:61765" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="63438:63584" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="63438:63640" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="64402:64488" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="64402:64535" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="65057:65129" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="65057:65170" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="67052:67244" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="67052:67312" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="67822:67934" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="69285:69438" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="71405:71422" placeholder="BEGIN TRANSA..." />
-            <marker date="1491582926932" expanded="true" signature="71503:71755" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="71902:71980" placeholder="INSERT INTO ..." />
+            <element signature="e#3293#4249#0" expanded="false" />
+            <element signature="e#6766#7011#0" expanded="false" />
+            <element signature="e#7048#7447#0" expanded="false" />
+            <element signature="e#9536#10428#0" expanded="false" />
+            <element signature="e#10463#21729#0" expanded="false" />
+            <element signature="e#21768#22670#0" expanded="false" />
+            <element signature="e#22700#35956#0" expanded="false" />
+            <element signature="e#35990#36675#0" expanded="false" />
+            <element signature="e#36708#37100#0" expanded="false" />
+            <marker date="1491844263305" expanded="true" signature="9119:9268" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="34826:34870" placeholder="Insert Into ..." />
+            <marker date="1491844263305" expanded="true" signature="34897:34938" placeholder="Insert Into ..." />
+            <marker date="1491844263305" expanded="true" signature="34972:35019" placeholder="Insert Into ..." />
+            <marker date="1491844263305" expanded="true" signature="35045:35079" placeholder="Insert Into ..." />
+            <marker date="1491844263305" expanded="true" signature="36326:36360" placeholder="Insert Into ..." />
+            <marker date="1491844263305" expanded="true" signature="36536:36553" placeholder="BEGIN TRANSA..." />
+            <marker date="1491844263305" expanded="true" signature="40005:40065" placeholder="SELECT * FRO..SamplingFeatures..." />
+            <marker date="1491844263305" expanded="true" signature="41934:42003" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="41934:42303" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="42880:42972" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="42880:43029" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="44132:44221" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="44132:44269" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="45307:45349" placeholder="SELECT * FRO..Methods..." />
+            <marker date="1491844263305" expanded="true" signature="46447:46545" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="46447:46599" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="47001:47047" placeholder="SELECT * FRO..Variables..." />
+            <marker date="1491844263305" expanded="true" signature="48425:48551" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="48425:48611" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="49035:49074" placeholder="SELECT * FRO..Units..." />
+            <marker date="1491844263305" expanded="true" signature="50308:50388" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="50308:50439" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="50919:50977" placeholder="SELECT * FRO..ProcessingLevels..." />
+            <marker date="1491844263305" expanded="true" signature="52058:52151" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="52058:52196" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="52856:52923" placeholder="SELECT * FRO..People..." />
+            <marker date="1491844263305" expanded="true" signature="53457:53518" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="53457:53563" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="53984:54038" placeholder="SELECT * FRO..Organizations..." />
+            <marker date="1491844263305" expanded="true" signature="55097:55237" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="55097:55291" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="55670:55738" placeholder="SELECT * FRO..Affiliations..." />
+            <marker date="1491844263305" expanded="true" signature="57281:57426" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="57281:57483" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="59156:59302" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="59156:59358" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="60120:60206" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="60120:60253" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="60775:60847" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="60775:60888" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="62770:62962" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="62770:63030" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="63533:63645" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="64996:65149" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="67116:67133" placeholder="BEGIN TRANSA..." />
+            <marker date="1491844263305" expanded="true" signature="67214:67466" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="67613:67691" placeholder="INSERT INTO ..." />
           </folding>
         </state>
       </provider>
@@ -1174,8 +1207,8 @@
             <element signature="e#7661#8255#0" expanded="false" />
             <element signature="e#8740#10060#0" expanded="false" />
             <element signature="e#10088#11490#0" expanded="false" />
-            <element signature="e#18994#19206#0" expanded="false" />
-            <element signature="e#19267#19482#0" expanded="false" />
+            <element signature="e#17437#17649#0" expanded="false" />
+            <element signature="e#17710#17925#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1209,61 +1242,68 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
+            <element signature="e#0#22#0" expanded="true" />
+            <element signature="e#2232#2391#0" expanded="false" />
+            <element signature="e#2429#2652#0" expanded="false" />
+            <element signature="e#2681#2961#0" expanded="false" />
             <element signature="e#3003#3242#0" expanded="false" />
-            <element signature="e#12289#23555#0" expanded="false" />
-            <element signature="e#23594#24496#0" expanded="false" />
-            <element signature="e#24526#37782#0" expanded="false" />
-            <element signature="e#37816#38501#0" expanded="false" />
-            <element signature="e#38534#38926#0" expanded="false" />
-            <marker date="1491582926932" expanded="true" signature="9240:9389" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="36652:36696" placeholder="Insert Into ..." />
-            <marker date="1491582926932" expanded="true" signature="36723:36764" placeholder="Insert Into ..." />
-            <marker date="1491582926932" expanded="true" signature="36798:36845" placeholder="Insert Into ..." />
-            <marker date="1491582926932" expanded="true" signature="36871:36905" placeholder="Insert Into ..." />
-            <marker date="1491582926932" expanded="true" signature="38152:38186" placeholder="Insert Into ..." />
-            <marker date="1491582926932" expanded="true" signature="38362:38379" placeholder="BEGIN TRANSA..." />
-            <marker date="1491582926932" expanded="true" signature="40503:40520" placeholder="BEGIN TRANSA..." />
-            <marker date="1491582926932" expanded="true" signature="44481:44541" placeholder="SELECT * FRO..SamplingFeatures..." />
-            <marker date="1491582926932" expanded="true" signature="46410:46479" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="46410:46779" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="47356:47448" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="47356:47505" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="48608:48697" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="48608:48745" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="49515:49557" placeholder="SELECT * FRO..Methods..." />
-            <marker date="1491582926932" expanded="true" signature="50782:50880" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="50782:50934" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="51336:51382" placeholder="SELECT * FRO..Variables..." />
-            <marker date="1491582926932" expanded="true" signature="52707:52833" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="52707:52893" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="53317:53356" placeholder="SELECT * FRO..Units..." />
-            <marker date="1491582926932" expanded="true" signature="54590:54670" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="54590:54721" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="55201:55259" placeholder="SELECT * FRO..ProcessingLevels..." />
-            <marker date="1491582926932" expanded="true" signature="56340:56433" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="56340:56478" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="57138:57205" placeholder="SELECT * FRO..People..." />
-            <marker date="1491582926932" expanded="true" signature="57739:57800" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="57739:57845" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="58266:58320" placeholder="SELECT * FRO..Organizations..." />
-            <marker date="1491582926932" expanded="true" signature="59379:59519" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="59379:59573" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="59952:60020" placeholder="SELECT * FRO..Affiliations..." />
-            <marker date="1491582926932" expanded="true" signature="61563:61708" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="61563:61765" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="63438:63584" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="63438:63640" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="64402:64488" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="64402:64535" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="65057:65129" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="65057:65170" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="67052:67244" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="67052:67312" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="67822:67934" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="69285:69438" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="71405:71422" placeholder="BEGIN TRANSA..." />
-            <marker date="1491582926932" expanded="true" signature="71503:71755" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="71902:71980" placeholder="INSERT INTO ..." />
+            <element signature="e#3293#4249#0" expanded="false" />
+            <element signature="e#6766#7011#0" expanded="false" />
+            <element signature="e#7048#7447#0" expanded="false" />
+            <element signature="e#9536#10428#0" expanded="false" />
+            <element signature="e#10463#21729#0" expanded="false" />
+            <element signature="e#21768#22670#0" expanded="false" />
+            <element signature="e#22700#35956#0" expanded="false" />
+            <element signature="e#35990#36675#0" expanded="false" />
+            <element signature="e#36708#37100#0" expanded="false" />
+            <marker date="1491844263305" expanded="true" signature="9119:9268" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="34826:34870" placeholder="Insert Into ..." />
+            <marker date="1491844263305" expanded="true" signature="34897:34938" placeholder="Insert Into ..." />
+            <marker date="1491844263305" expanded="true" signature="34972:35019" placeholder="Insert Into ..." />
+            <marker date="1491844263305" expanded="true" signature="35045:35079" placeholder="Insert Into ..." />
+            <marker date="1491844263305" expanded="true" signature="36326:36360" placeholder="Insert Into ..." />
+            <marker date="1491844263305" expanded="true" signature="36536:36553" placeholder="BEGIN TRANSA..." />
+            <marker date="1491844263305" expanded="true" signature="40005:40065" placeholder="SELECT * FRO..SamplingFeatures..." />
+            <marker date="1491844263305" expanded="true" signature="41934:42003" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="41934:42303" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="42880:42972" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="42880:43029" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="44132:44221" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="44132:44269" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="45307:45349" placeholder="SELECT * FRO..Methods..." />
+            <marker date="1491844263305" expanded="true" signature="46447:46545" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="46447:46599" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="47001:47047" placeholder="SELECT * FRO..Variables..." />
+            <marker date="1491844263305" expanded="true" signature="48425:48551" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="48425:48611" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="49035:49074" placeholder="SELECT * FRO..Units..." />
+            <marker date="1491844263305" expanded="true" signature="50308:50388" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="50308:50439" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="50919:50977" placeholder="SELECT * FRO..ProcessingLevels..." />
+            <marker date="1491844263305" expanded="true" signature="52058:52151" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="52058:52196" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="52856:52923" placeholder="SELECT * FRO..People..." />
+            <marker date="1491844263305" expanded="true" signature="53457:53518" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="53457:53563" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="53984:54038" placeholder="SELECT * FRO..Organizations..." />
+            <marker date="1491844263305" expanded="true" signature="55097:55237" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="55097:55291" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="55670:55738" placeholder="SELECT * FRO..Affiliations..." />
+            <marker date="1491844263305" expanded="true" signature="57281:57426" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="57281:57483" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="59156:59302" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="59156:59358" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="60120:60206" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="60120:60253" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="60775:60847" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="60775:60888" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="62770:62962" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="62770:63030" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="63533:63645" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="64996:65149" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="67116:67133" placeholder="BEGIN TRANSA..." />
+            <marker date="1491844263305" expanded="true" signature="67214:67466" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="67613:67691" placeholder="INSERT INTO ..." />
           </folding>
         </state>
       </provider>
@@ -1285,8 +1325,8 @@
             <element signature="e#7661#8255#0" expanded="false" />
             <element signature="e#8740#10060#0" expanded="false" />
             <element signature="e#10088#11490#0" expanded="false" />
-            <element signature="e#18994#19206#0" expanded="false" />
-            <element signature="e#19267#19482#0" expanded="false" />
+            <element signature="e#17437#17649#0" expanded="false" />
+            <element signature="e#17710#17925#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1320,61 +1360,68 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="394" column="0" selection-start-line="394" selection-start-column="0" selection-end-line="394" selection-end-column="0" />
           <folding>
+            <element signature="e#0#22#0" expanded="true" />
+            <element signature="e#2232#2391#0" expanded="false" />
+            <element signature="e#2429#2652#0" expanded="false" />
+            <element signature="e#2681#2961#0" expanded="false" />
             <element signature="e#3003#3242#0" expanded="false" />
-            <element signature="e#12289#23555#0" expanded="false" />
-            <element signature="e#23594#24496#0" expanded="false" />
-            <element signature="e#24526#37782#0" expanded="false" />
-            <element signature="e#37816#38501#0" expanded="false" />
-            <element signature="e#38534#38926#0" expanded="false" />
-            <marker date="1491582926932" expanded="true" signature="9240:9389" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="36652:36696" placeholder="Insert Into ..." />
-            <marker date="1491582926932" expanded="true" signature="36723:36764" placeholder="Insert Into ..." />
-            <marker date="1491582926932" expanded="true" signature="36798:36845" placeholder="Insert Into ..." />
-            <marker date="1491582926932" expanded="true" signature="36871:36905" placeholder="Insert Into ..." />
-            <marker date="1491582926932" expanded="true" signature="38152:38186" placeholder="Insert Into ..." />
-            <marker date="1491582926932" expanded="true" signature="38362:38379" placeholder="BEGIN TRANSA..." />
-            <marker date="1491582926932" expanded="true" signature="40503:40520" placeholder="BEGIN TRANSA..." />
-            <marker date="1491582926932" expanded="true" signature="44481:44541" placeholder="SELECT * FRO..SamplingFeatures..." />
-            <marker date="1491582926932" expanded="true" signature="46410:46479" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="46410:46779" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="47356:47448" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="47356:47505" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="48608:48697" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="48608:48745" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="49515:49557" placeholder="SELECT * FRO..Methods..." />
-            <marker date="1491582926932" expanded="true" signature="50782:50880" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="50782:50934" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="51336:51382" placeholder="SELECT * FRO..Variables..." />
-            <marker date="1491582926932" expanded="true" signature="52707:52833" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="52707:52893" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="53317:53356" placeholder="SELECT * FRO..Units..." />
-            <marker date="1491582926932" expanded="true" signature="54590:54670" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="54590:54721" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="55201:55259" placeholder="SELECT * FRO..ProcessingLevels..." />
-            <marker date="1491582926932" expanded="true" signature="56340:56433" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="56340:56478" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="57138:57205" placeholder="SELECT * FRO..People..." />
-            <marker date="1491582926932" expanded="true" signature="57739:57800" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="57739:57845" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="58266:58320" placeholder="SELECT * FRO..Organizations..." />
-            <marker date="1491582926932" expanded="true" signature="59379:59519" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="59379:59573" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="59952:60020" placeholder="SELECT * FRO..Affiliations..." />
-            <marker date="1491582926932" expanded="true" signature="61563:61708" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="61563:61765" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="63438:63584" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="63438:63640" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="64402:64488" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="64402:64535" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="65057:65129" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="65057:65170" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="67052:67244" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="67052:67312" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="67822:67934" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="69285:69438" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="71405:71422" placeholder="BEGIN TRANSA..." />
-            <marker date="1491582926932" expanded="true" signature="71503:71755" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="71902:71980" placeholder="INSERT INTO ..." />
+            <element signature="e#3293#4249#0" expanded="false" />
+            <element signature="e#6766#7011#0" expanded="false" />
+            <element signature="e#7048#7447#0" expanded="false" />
+            <element signature="e#9536#10428#0" expanded="false" />
+            <element signature="e#10463#21729#0" expanded="false" />
+            <element signature="e#21768#22670#0" expanded="false" />
+            <element signature="e#22700#35956#0" expanded="false" />
+            <element signature="e#35990#36675#0" expanded="false" />
+            <element signature="e#36708#37100#0" expanded="false" />
+            <marker date="1491844263305" expanded="true" signature="9119:9268" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="34826:34870" placeholder="Insert Into ..." />
+            <marker date="1491844263305" expanded="true" signature="34897:34938" placeholder="Insert Into ..." />
+            <marker date="1491844263305" expanded="true" signature="34972:35019" placeholder="Insert Into ..." />
+            <marker date="1491844263305" expanded="true" signature="35045:35079" placeholder="Insert Into ..." />
+            <marker date="1491844263305" expanded="true" signature="36326:36360" placeholder="Insert Into ..." />
+            <marker date="1491844263305" expanded="true" signature="36536:36553" placeholder="BEGIN TRANSA..." />
+            <marker date="1491844263305" expanded="true" signature="40005:40065" placeholder="SELECT * FRO..SamplingFeatures..." />
+            <marker date="1491844263305" expanded="true" signature="41934:42003" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="41934:42303" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="42880:42972" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="42880:43029" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="44132:44221" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="44132:44269" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="45307:45349" placeholder="SELECT * FRO..Methods..." />
+            <marker date="1491844263305" expanded="true" signature="46447:46545" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="46447:46599" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="47001:47047" placeholder="SELECT * FRO..Variables..." />
+            <marker date="1491844263305" expanded="true" signature="48425:48551" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="48425:48611" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="49035:49074" placeholder="SELECT * FRO..Units..." />
+            <marker date="1491844263305" expanded="true" signature="50308:50388" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="50308:50439" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="50919:50977" placeholder="SELECT * FRO..ProcessingLevels..." />
+            <marker date="1491844263305" expanded="true" signature="52058:52151" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="52058:52196" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="52856:52923" placeholder="SELECT * FRO..People..." />
+            <marker date="1491844263305" expanded="true" signature="53457:53518" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="53457:53563" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="53984:54038" placeholder="SELECT * FRO..Organizations..." />
+            <marker date="1491844263305" expanded="true" signature="55097:55237" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="55097:55291" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="55670:55738" placeholder="SELECT * FRO..Affiliations..." />
+            <marker date="1491844263305" expanded="true" signature="57281:57426" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="57281:57483" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="59156:59302" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="59156:59358" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="60120:60206" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="60120:60253" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="60775:60847" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="60775:60888" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="62770:62962" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="62770:63030" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="63533:63645" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="64996:65149" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="67116:67133" placeholder="BEGIN TRANSA..." />
+            <marker date="1491844263305" expanded="true" signature="67214:67466" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="67613:67691" placeholder="INSERT INTO ..." />
           </folding>
         </state>
       </provider>
@@ -1396,8 +1443,8 @@
             <element signature="e#7661#8255#0" expanded="false" />
             <element signature="e#8740#10060#0" expanded="false" />
             <element signature="e#10088#11490#0" expanded="false" />
-            <element signature="e#18994#19206#0" expanded="false" />
-            <element signature="e#19267#19482#0" expanded="false" />
+            <element signature="e#17437#17649#0" expanded="false" />
+            <element signature="e#17710#17925#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1431,61 +1478,68 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="394" column="0" selection-start-line="394" selection-start-column="0" selection-end-line="394" selection-end-column="0" />
           <folding>
+            <element signature="e#0#22#0" expanded="true" />
+            <element signature="e#2232#2391#0" expanded="false" />
+            <element signature="e#2429#2652#0" expanded="false" />
+            <element signature="e#2681#2961#0" expanded="false" />
             <element signature="e#3003#3242#0" expanded="false" />
-            <element signature="e#12289#23555#0" expanded="false" />
-            <element signature="e#23594#24496#0" expanded="false" />
-            <element signature="e#24526#37782#0" expanded="false" />
-            <element signature="e#37816#38501#0" expanded="false" />
-            <element signature="e#38534#38926#0" expanded="false" />
-            <marker date="1491582926932" expanded="true" signature="9240:9389" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="36652:36696" placeholder="Insert Into ..." />
-            <marker date="1491582926932" expanded="true" signature="36723:36764" placeholder="Insert Into ..." />
-            <marker date="1491582926932" expanded="true" signature="36798:36845" placeholder="Insert Into ..." />
-            <marker date="1491582926932" expanded="true" signature="36871:36905" placeholder="Insert Into ..." />
-            <marker date="1491582926932" expanded="true" signature="38152:38186" placeholder="Insert Into ..." />
-            <marker date="1491582926932" expanded="true" signature="38362:38379" placeholder="BEGIN TRANSA..." />
-            <marker date="1491582926932" expanded="true" signature="40503:40520" placeholder="BEGIN TRANSA..." />
-            <marker date="1491582926932" expanded="true" signature="44481:44541" placeholder="SELECT * FRO..SamplingFeatures..." />
-            <marker date="1491582926932" expanded="true" signature="46410:46479" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="46410:46779" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="47356:47448" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="47356:47505" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="48608:48697" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="48608:48745" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="49515:49557" placeholder="SELECT * FRO..Methods..." />
-            <marker date="1491582926932" expanded="true" signature="50782:50880" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="50782:50934" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="51336:51382" placeholder="SELECT * FRO..Variables..." />
-            <marker date="1491582926932" expanded="true" signature="52707:52833" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="52707:52893" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="53317:53356" placeholder="SELECT * FRO..Units..." />
-            <marker date="1491582926932" expanded="true" signature="54590:54670" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="54590:54721" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="55201:55259" placeholder="SELECT * FRO..ProcessingLevels..." />
-            <marker date="1491582926932" expanded="true" signature="56340:56433" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="56340:56478" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="57138:57205" placeholder="SELECT * FRO..People..." />
-            <marker date="1491582926932" expanded="true" signature="57739:57800" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="57739:57845" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="58266:58320" placeholder="SELECT * FRO..Organizations..." />
-            <marker date="1491582926932" expanded="true" signature="59379:59519" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="59379:59573" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="59952:60020" placeholder="SELECT * FRO..Affiliations..." />
-            <marker date="1491582926932" expanded="true" signature="61563:61708" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="61563:61765" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="63438:63584" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="63438:63640" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="64402:64488" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="64402:64535" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="65057:65129" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="65057:65170" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="67052:67244" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="67052:67312" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="67822:67934" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="69285:69438" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="71405:71422" placeholder="BEGIN TRANSA..." />
-            <marker date="1491582926932" expanded="true" signature="71503:71755" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="71902:71980" placeholder="INSERT INTO ..." />
+            <element signature="e#3293#4249#0" expanded="false" />
+            <element signature="e#6766#7011#0" expanded="false" />
+            <element signature="e#7048#7447#0" expanded="false" />
+            <element signature="e#9536#10428#0" expanded="false" />
+            <element signature="e#10463#21729#0" expanded="false" />
+            <element signature="e#21768#22670#0" expanded="false" />
+            <element signature="e#22700#35956#0" expanded="false" />
+            <element signature="e#35990#36675#0" expanded="false" />
+            <element signature="e#36708#37100#0" expanded="false" />
+            <marker date="1491844263305" expanded="true" signature="9119:9268" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="34826:34870" placeholder="Insert Into ..." />
+            <marker date="1491844263305" expanded="true" signature="34897:34938" placeholder="Insert Into ..." />
+            <marker date="1491844263305" expanded="true" signature="34972:35019" placeholder="Insert Into ..." />
+            <marker date="1491844263305" expanded="true" signature="35045:35079" placeholder="Insert Into ..." />
+            <marker date="1491844263305" expanded="true" signature="36326:36360" placeholder="Insert Into ..." />
+            <marker date="1491844263305" expanded="true" signature="36536:36553" placeholder="BEGIN TRANSA..." />
+            <marker date="1491844263305" expanded="true" signature="40005:40065" placeholder="SELECT * FRO..SamplingFeatures..." />
+            <marker date="1491844263305" expanded="true" signature="41934:42003" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="41934:42303" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="42880:42972" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="42880:43029" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="44132:44221" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="44132:44269" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="45307:45349" placeholder="SELECT * FRO..Methods..." />
+            <marker date="1491844263305" expanded="true" signature="46447:46545" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="46447:46599" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="47001:47047" placeholder="SELECT * FRO..Variables..." />
+            <marker date="1491844263305" expanded="true" signature="48425:48551" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="48425:48611" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="49035:49074" placeholder="SELECT * FRO..Units..." />
+            <marker date="1491844263305" expanded="true" signature="50308:50388" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="50308:50439" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="50919:50977" placeholder="SELECT * FRO..ProcessingLevels..." />
+            <marker date="1491844263305" expanded="true" signature="52058:52151" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="52058:52196" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="52856:52923" placeholder="SELECT * FRO..People..." />
+            <marker date="1491844263305" expanded="true" signature="53457:53518" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="53457:53563" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="53984:54038" placeholder="SELECT * FRO..Organizations..." />
+            <marker date="1491844263305" expanded="true" signature="55097:55237" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="55097:55291" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="55670:55738" placeholder="SELECT * FRO..Affiliations..." />
+            <marker date="1491844263305" expanded="true" signature="57281:57426" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="57281:57483" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="59156:59302" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="59156:59358" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="60120:60206" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="60120:60253" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="60775:60847" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="60775:60888" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="62770:62962" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="62770:63030" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="63533:63645" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="64996:65149" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="67116:67133" placeholder="BEGIN TRANSA..." />
+            <marker date="1491844263305" expanded="true" signature="67214:67466" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="67613:67691" placeholder="INSERT INTO ..." />
           </folding>
         </state>
       </provider>
@@ -1563,70 +1617,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/utilities.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="1041" column="0" selection-start-line="1041" selection-start-column="0" selection-end-line="1041" selection-end-column="0" />
-          <folding>
-            <element signature="e#3003#3242#0" expanded="false" />
-            <element signature="e#12289#23555#0" expanded="false" />
-            <element signature="e#23594#24496#0" expanded="false" />
-            <element signature="e#24526#37782#0" expanded="false" />
-            <element signature="e#37816#38501#0" expanded="false" />
-            <element signature="e#38534#38926#0" expanded="false" />
-            <marker date="1491582926932" expanded="true" signature="9240:9389" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="36652:36696" placeholder="Insert Into ..." />
-            <marker date="1491582926932" expanded="true" signature="36723:36764" placeholder="Insert Into ..." />
-            <marker date="1491582926932" expanded="true" signature="36798:36845" placeholder="Insert Into ..." />
-            <marker date="1491582926932" expanded="true" signature="36871:36905" placeholder="Insert Into ..." />
-            <marker date="1491582926932" expanded="true" signature="38152:38186" placeholder="Insert Into ..." />
-            <marker date="1491582926932" expanded="true" signature="38362:38379" placeholder="BEGIN TRANSA..." />
-            <marker date="1491582926932" expanded="true" signature="40503:40520" placeholder="BEGIN TRANSA..." />
-            <marker date="1491582926932" expanded="true" signature="44481:44541" placeholder="SELECT * FRO..SamplingFeatures..." />
-            <marker date="1491582926932" expanded="true" signature="46410:46479" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="46410:46779" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="47356:47448" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="47356:47505" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="48608:48697" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="48608:48745" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="49515:49557" placeholder="SELECT * FRO..Methods..." />
-            <marker date="1491582926932" expanded="true" signature="50782:50880" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="50782:50934" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="51336:51382" placeholder="SELECT * FRO..Variables..." />
-            <marker date="1491582926932" expanded="true" signature="52707:52833" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="52707:52893" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="53317:53356" placeholder="SELECT * FRO..Units..." />
-            <marker date="1491582926932" expanded="true" signature="54590:54670" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="54590:54721" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="55201:55259" placeholder="SELECT * FRO..ProcessingLevels..." />
-            <marker date="1491582926932" expanded="true" signature="56340:56433" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="56340:56478" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="57138:57205" placeholder="SELECT * FRO..People..." />
-            <marker date="1491582926932" expanded="true" signature="57739:57800" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="57739:57845" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="58266:58320" placeholder="SELECT * FRO..Organizations..." />
-            <marker date="1491582926932" expanded="true" signature="59379:59519" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="59379:59573" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="59952:60020" placeholder="SELECT * FRO..Affiliations..." />
-            <marker date="1491582926932" expanded="true" signature="61563:61708" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="61563:61765" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="63438:63584" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="63438:63640" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="64402:64488" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="64402:64535" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="65057:65129" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="65057:65170" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="67052:67244" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="67052:67312" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="67822:67934" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="69285:69438" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="71405:71422" placeholder="BEGIN TRANSA..." />
-            <marker date="1491582926932" expanded="true" signature="71503:71755" placeholder="INSERT INTO ..." />
-            <marker date="1491582926932" expanded="true" signature="71902:71980" placeholder="INSERT INTO ..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/templates/hydroshare_resource_creator/home.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-1.4583334">
@@ -1640,8 +1630,7 @@
     <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/public/js/main.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="161" column="39" selection-start-line="161" selection-start-column="35" selection-end-line="161" selection-end-column="39" />
-          <caret line="240" column="28" selection-start-line="240" selection-start-column="24" selection-end-line="240" selection-end-column="28" />
+          <caret line="357" column="57" selection-start-line="357" selection-start-column="57" selection-end-line="357" selection-end-column="57" />
           <folding>
             <element signature="n#!!block;n#getCookie#0" expanded="false" />
             <element signature="n#!!block;n#trim_input#0" expanded="false" />
@@ -1652,17 +1641,88 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/utilities.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.857143">
+          <caret line="1468" column="103" selection-start-line="1468" selection-start-column="95" selection-end-line="1468" selection-end-column="103" />
+          <folding>
+            <element signature="e#0#22#0" expanded="true" />
+            <element signature="e#2232#2391#0" expanded="false" />
+            <element signature="e#2429#2652#0" expanded="false" />
+            <element signature="e#2681#2961#0" expanded="false" />
+            <element signature="e#3003#3242#0" expanded="false" />
+            <element signature="e#3293#4249#0" expanded="false" />
+            <element signature="e#6766#7011#0" expanded="false" />
+            <element signature="e#7048#7447#0" expanded="false" />
+            <element signature="e#9536#10428#0" expanded="false" />
+            <element signature="e#10463#21729#0" expanded="false" />
+            <element signature="e#21768#22670#0" expanded="false" />
+            <element signature="e#22700#35956#0" expanded="false" />
+            <element signature="e#35990#36675#0" expanded="false" />
+            <element signature="e#36708#37100#0" expanded="false" />
+            <marker date="1491844263305" expanded="true" signature="9119:9268" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="34826:34870" placeholder="Insert Into ..." />
+            <marker date="1491844263305" expanded="true" signature="34897:34938" placeholder="Insert Into ..." />
+            <marker date="1491844263305" expanded="true" signature="34972:35019" placeholder="Insert Into ..." />
+            <marker date="1491844263305" expanded="true" signature="35045:35079" placeholder="Insert Into ..." />
+            <marker date="1491844263305" expanded="true" signature="36326:36360" placeholder="Insert Into ..." />
+            <marker date="1491844263305" expanded="true" signature="36536:36553" placeholder="BEGIN TRANSA..." />
+            <marker date="1491844263305" expanded="true" signature="40005:40065" placeholder="SELECT * FRO..SamplingFeatures..." />
+            <marker date="1491844263305" expanded="true" signature="41934:42003" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="41934:42303" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="42880:42972" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="42880:43029" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="44132:44221" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="44132:44269" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="45307:45349" placeholder="SELECT * FRO..Methods..." />
+            <marker date="1491844263305" expanded="true" signature="46447:46545" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="46447:46599" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="47001:47047" placeholder="SELECT * FRO..Variables..." />
+            <marker date="1491844263305" expanded="true" signature="48425:48551" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="48425:48611" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="49035:49074" placeholder="SELECT * FRO..Units..." />
+            <marker date="1491844263305" expanded="true" signature="50308:50388" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="50308:50439" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="50919:50977" placeholder="SELECT * FRO..ProcessingLevels..." />
+            <marker date="1491844263305" expanded="true" signature="52058:52151" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="52058:52196" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="52856:52923" placeholder="SELECT * FRO..People..." />
+            <marker date="1491844263305" expanded="true" signature="53457:53518" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="53457:53563" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="53984:54038" placeholder="SELECT * FRO..Organizations..." />
+            <marker date="1491844263305" expanded="true" signature="55097:55237" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="55097:55291" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="55670:55738" placeholder="SELECT * FRO..Affiliations..." />
+            <marker date="1491844263305" expanded="true" signature="57281:57426" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="57281:57483" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="59156:59302" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="59156:59358" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="60120:60206" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="60120:60253" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="60775:60847" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="60775:60888" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="62770:62962" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="62770:63030" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="63533:63645" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="64996:65149" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="67116:67133" placeholder="BEGIN TRANSA..." />
+            <marker date="1491844263305" expanded="true" signature="67214:67466" placeholder="INSERT INTO ..." />
+            <marker date="1491844263305" expanded="true" signature="67613:67691" placeholder="INSERT INTO ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/controllers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.53846157">
-          <caret line="469" column="4" selection-start-line="469" selection-start-column="4" selection-end-line="469" selection-end-column="4" />
+        <state vertical-scroll-proportion="-1.1230769">
+          <caret line="354" column="0" selection-start-line="354" selection-start-column="0" selection-end-line="354" selection-end-column="0" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
             <element signature="e#7661#8255#0" expanded="false" />
             <element signature="e#8740#10060#0" expanded="false" />
             <element signature="e#10088#11490#0" expanded="false" />
-            <element signature="e#18994#19206#0" expanded="false" />
-            <element signature="e#19267#19482#0" expanded="false" />
+            <element signature="e#17437#17649#0" expanded="false" />
+            <element signature="e#17710#17925#0" expanded="false" />
           </folding>
         </state>
       </provider>

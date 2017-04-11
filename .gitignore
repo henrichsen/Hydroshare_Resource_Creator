@@ -7,8 +7,8 @@
 *.txt~
 .idea/*
 .build/*
-workspaces/app_workspace/hydroshare
-workspaces/app_workspace/id
-workspaces/app_workspace/ODM2
-workspaces/user_workspaces
+hydroshare/
+id/
+ODM2/
+user_workspaces/
 *.swp

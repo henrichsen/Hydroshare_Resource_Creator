@@ -249,6 +249,7 @@ def connect_wsdl_url(wsdl_url):
         raise Exception("Unexpected error")
     return client
 def parse_ts_layer(file_path,title,abstract):
+    temp_dir = get_workspace()
     # file_path_id = get_workspace() + '/id'
     # root_dir = file_path_id + '/' + res_id
     # data_dir = root_dir + '/' + res_id + '/data/contents/'
@@ -270,6 +271,9 @@ def parse_ts_layer(file_path,title,abstract):
     json_data = json.loads(data)
     json_data = json_data["timeSeriesLayerResource"]
     layer = json_data['REFTS']
+    odm_master = temp_dir+'/ODM2_master/ODM2_master.sqlite'
+    odm_copy = temp_dir+'/ODM2/'+title+'.sqlite'
+    shutil.copy(odm_master,odm_copy)
     for sub in layer:
         ref_type= sub['refType']
         service_type = sub['serviceType']
@@ -281,19 +285,13 @@ def parse_ts_layer(file_path,title,abstract):
         end_date = sub['endDate']
         # end_date = strftime("%Y-%m-%d %H:%M:%S", gmtime())
         auth_token = ''
-
-        temp_dir = get_workspace()
-        print "loading into database1111111111111111111111111111"
-        odm_master = temp_dir+'/ODM2_master/ODM2_master.sqlite'
-        # odm_master = temp_dir+'/ODM2/ODM2_7series_test_addingValues.sqlite'
-        odm_copy = temp_dir+'/ODM2/'+title+'.sqlite'
-        shutil.copy(odm_master,odm_copy)
-
         conn = sqlite3.connect(odm_copy, isolation_level=None)
         c = conn.cursor()
         dataSetInfo = (str(uuid.uuid1()),
                    'Multi-time series',
-                    variable_code,title, abstract
+                    variable_code,
+                    title,
+                    abstract
                     )
         conn.commit()
 
@@ -301,45 +299,7 @@ def parse_ts_layer(file_path,title,abstract):
               'VALUES (NULL, ?, ?, ?, ?, ?)', dataSetInfo)
         if ref_type =='WOF':
             if service_type =='SOAP':
-                # print url
-                # print site_code
-                # print variable_code
-                # print start_date
-                # print end_date
-                load_into_odm2(url,site_code,variable_code,start_date,end_date,odm_copy)
-                # print client
-                # site_code = 'NWISUV:10164500'
-                # variable_code = 'NWISUV:00060'
-                # start_date ='2016-06-03T00:00:00+00:00'
-                # end_date = '2016-10-26T00:00:00+00:00'
-
-                # client = connect_wsdl_url(url)
-                # print client
-                # print "client!!!!!!!!!!!!!!!!!!!!!"
-                # sites = client.service.GetSiteInfo([site_code])
-                # print sites
-            #     try:
-            #         response = client.service.GetValues(site_code, variable_code,start_date,end_date,auth_token)
-            #     except:
-            #         error = "unable to connect to HydroSever"
-            #     # print response
-            #     print "AAAAAAAAAAAAAAA"
-            #     temp_dir = get_workspace()
-            #     file_path = temp_dir + '/id/' + 'timeserieslayer'+str(counter) + '.xml'
-            #     try:
-            #         response = response.encode('utf-8')
-            #     except:
-            #         response = response
-            #     # print response1
-            #     # print "Response"
-            #     # response1 = unicode(response1.strip(codecs.BOM_UTF8), 'utf-8')
-            #     with open(file_path, 'w') as outfile:
-            #         outfile.write(response)
-            #     print "done"
-            # if(service_type=='REST'):
-            #     waterml_url = url+'/GetValueObject'
-            #     response = urllib2.urlopen(waterml_url)
-            #     html = response.read()
+                load_into_odm2(url,site_code,variable_code,start_date,end_date,odm_copy,counter)
             counter = counter +1
     return counter
 def Original_Checker(xml_file):
@@ -981,73 +941,12 @@ def create_csv(file_name):
                                 quotechar='|', quoting=csv.QUOTE_MINIMAL)
         for i in range(0,1000000):
             spamwriter.writerow(['2007-01-01 12:30:00',str(i)])
-def load_into_odm2(url,siteCode,variableCode,beginDate,endDate,odm_copy):
+def load_into_odm2(url,siteCode,variableCode,beginDate,endDate,odm_copy,series_number):
     print "load into odm2111"
-    # -------------------------------------------------------------------------------
-    # Summary: Load data from multiple WaterML 1.1 files into an ODM2 SQLite database
-    # Created by: Jeff Horsburgh
-    # Created on: 5-20-2016
-    #
-    # Requirements:
-    # 1.  Expects a blank ODM2 SQLite database called ODM2.sqlite in the same
-    #     directory as this script. CVs should already be loaded.
-    # 2.  Expects a WSDL URL for a WaterOneFlow web service that can deliver
-    #     WaterML 1.1 responses.
-    # 3.  Requires NetworkCode, SiteCode, BeginDate and
-    #     EndDate for each of the web service calls.
-    #
-    # Outputs:
-    # 1.  Loads data into the input ODM2.sqlite database
-    #
-    # NOTE: WaterML 1.1 does not have all of the information needed to
-    #       populate the ODM2 database. I have made notes below where that
-    #       is the case.
-    # TODO: DataValue qualifiers need to be handled - this script doesn't load them
-    # TODO: Handle MethodLinks correctly.
-    # TODO: Handle SpatialReferences for sites correctly
-    # -------------------------------------------------------------------------------
-
-    # Create the connection to the SQLite database and get a cursor
-    # -------------------------------------------------------------
-
-
-
-    # _extract_metadata(odm_copy,odm_copy)
-
-
-    #insert into TimeSeriesResultValues
-
     conn = sqlite3.connect(odm_copy, isolation_level=None)
-    # c = conn.cursor()
-    # c.execute("BEGIN TRANSACTION;")
-    # # c.executemany(data[entry][0],data[entry][1]) #list of tuples
-    # c.execute("COMMIT;")
-
-
-    # Get the Dataset information and load it into the database
-    # ------------------------------------------------------------------------
-    # NOTE: The WaterML files doesn't have information in it to satisfy many of the Dublin Core elements of the
-    # HydroShare Science Metadata. However ODM2 is capable of storing some of this information and so I am going
-    # to load it into the database. I have this information because I know this particular data, but it obviously
-    # wouldn't be available from other WaterML files
-    # conn = sqlite3.connect('ODM2.sqlite')
     print "dateset"
     c = conn.cursor()
-
-
-    # Get the ID of the DataSet record I just inserted
     dataSetID = 1
-
-    # Save (commit) the changes
-
-
-    # Loop through the sites, get the time series for each site, and load into the ODM2 database
-    # ------------------------------------------------------------------------------------------
-
-    # Construct the variableCode string to pass to the web service
-    variableCodeString = variableCode + ':qualityControlLevelCode=1'
-    # Call the web service to return the data values for the current time series
-
     autho_token =''
     # url = 'http://data.iutahepscor.org/LittleBearRiverWOF/cuahsi_1_1.asmx?WSDL'
     # networkCode = 'LBR'
@@ -1055,8 +954,6 @@ def load_into_odm2(url,siteCode,variableCode,beginDate,endDate,odm_copy):
     # variableCode = 'LBR:USU36:methodCode=28:qualityControlLevelCode=1'
     # beginDate = '2005-01-01'
     # endDate = '2016-01-01'
-    print url
-    print "connect to database"
     print url
     print siteCode
     print variableCode
@@ -1084,7 +981,7 @@ def load_into_odm2(url,siteCode,variableCode,beginDate,endDate,odm_copy):
         valuesResult = response.content
         valuesResult = xmltodict.parse(valuesResult)
         # valuesResult = etree.XML(valuesResult)
-        # # valuesResult = xmltodict(valuesResult)
+        # valuesResult = xmltodict(valuesResult)
         # valuesResult= XmlDictConfig(valuesResult)
         print valuesResult
     else:
@@ -1191,16 +1088,22 @@ def load_into_odm2(url,siteCode,variableCode,beginDate,endDate,odm_copy):
         # methodDescription = ('hi',)
         try:
             methodDescription = valuesResult.timeSeries[0].values[0].method[0].methodDescription
-            methodCode = valuesResult.timeSeries[0].values[0].method[0].methodCode
-            methodLink = None
-            c.execute('SELECT * FROM Methods WHERE MethodName = ?', methodDescription)
-            row = c.fetchone()
         except:
-            methodCode = 1
             methodDescription = 'unknown'
+        try:
+            methodCode = valuesResult.timeSeries[0].values[0].method[0].methodCode
+        except:
+            methodCode = series_number
+        try:
+            methodLink = None
+        except:
             methodLink = 'unknown'
-            row =None
+        print methodDescription
+        methodDescription1 = (methodDescription,)
+        c.execute('SELECT * FROM Methods WHERE MethodName = ?', methodDescription1)
+        row = c.fetchone()
 
+        row =None
 
         if row == None:
             # NOTE:  Some hard coded stuff here - MethodCode, MethodTypeCV, and MethodDescription don't exist in
@@ -1253,7 +1156,7 @@ def load_into_odm2(url,siteCode,variableCode,beginDate,endDate,odm_copy):
                 speciation = None
 
             variableCode = valuesResult.timeSeries[0].variable.variableCode[0].value
-            variableCode = variableCode[:20]
+            variableCode = variableCode[:20] #HydroShare limits the length of variable code field
             variableInfo = (generalCategory,
                             variableCode,
                             valuesResult.timeSeries[0].variable.variableName,
@@ -1539,8 +1442,7 @@ def load_into_odm2(url,siteCode,variableCode,beginDate,endDate,odm_copy):
         # NOTE: The intended time spacing information isn't in WaterML
         #       This is hard coded and could be problematic for some datasets.
         try:
-            unitsInfo = ('unknown', 'unknown', 'unknown')
-
+            unitsInfo = (102, 'unknown', 'unknown')
             c.execute('INSERT INTO Units(UnitsID, UnitsTypeCV, UnitsAbbreviation, UnitsName) '
                       'VALUES ( ?, ?, ?)', unitsInfo)
             # Get the ID of the Units I just inserted
