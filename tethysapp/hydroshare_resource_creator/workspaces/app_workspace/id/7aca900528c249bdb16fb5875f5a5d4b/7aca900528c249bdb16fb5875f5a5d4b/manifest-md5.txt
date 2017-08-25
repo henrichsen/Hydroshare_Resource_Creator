@@ -1,4 +1,0 @@
-c854023556daf9a031274c11d1ccf617    data/resourcemap.xml
-57193f1cc0798b0ad6351d2e1e5e6f6a    data/resourcemetadata.xml
-7d414c77d875cdc7731ec579f69bb51c    data/resourcemetadata.xml
-b196ac75cdbcc3f61a5f05f36fca87ae    data/contents/TestofVietnamdata.json.refts

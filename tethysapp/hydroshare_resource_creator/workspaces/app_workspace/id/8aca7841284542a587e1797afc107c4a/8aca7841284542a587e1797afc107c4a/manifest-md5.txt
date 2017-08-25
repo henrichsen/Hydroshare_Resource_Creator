@@ -1,4 +1,0 @@
-3ed8436806219aa872b8162c8f62e79a    data/resourcemap.xml
-2bcee1a688ac99096f71c41938b3efe2    data/resourcemetadata.xml
-637410e3e210827a1eaa3a467b2e29b9    data/resourcemetadata.xml
-a6652b296dac1fb33f442b952a77ab50    data/contents/NWISdatafortestinggraphing.json.refts

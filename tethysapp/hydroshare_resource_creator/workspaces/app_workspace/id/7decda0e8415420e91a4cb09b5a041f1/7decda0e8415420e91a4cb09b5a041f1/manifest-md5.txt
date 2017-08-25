@@ -1,4 +1,0 @@
-1c5583a32e9125fa4556b6f39fa730b0    data/resourcemap.xml
-85a8407278d521677cd0b3e92a9cfbb7    data/resourcemetadata.xml
-85a8407278d521677cd0b3e92a9cfbb7    data/resourcemetadata.xml
-78ae4558d5e8cca9af8314c48a95e287    data/contents/10smallseries.json.refts

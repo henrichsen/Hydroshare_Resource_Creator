@@ -1,4 +1,0 @@
-b758e52c4b42b3aaa46193dd949c97e3    data/resourcemap.xml
-09d037fe00b6876bae5b248459c40ae9    data/resourcemetadata.xml
-2e1090f358c85a015de5d18f3cff20c8    data/resourcemetadata.xml
-79f742923c1c55f097fc6fc0b32067fd    data/contents/Createnewresourcefromhydroshareoneseries.json.refts

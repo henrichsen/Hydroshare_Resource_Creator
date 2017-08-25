@@ -1,3 +1,0 @@
-78cbafaaa5a681addbd39bf461922790    data/resourcemap.xml
-9f20f3133e7b3b76fb6f584f9e3e057a    data/resourcemetadata.xml
-690c994cca80f62fcd1e81874c01b57d    data/contents/download.xml

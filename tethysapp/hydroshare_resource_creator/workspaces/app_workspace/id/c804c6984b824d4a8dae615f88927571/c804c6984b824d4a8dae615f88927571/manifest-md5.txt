@@ -1,4 +1,0 @@
-c6122f3082e4b17dec4db7f2491d5f8c    data/resourcemap.xml
-8ee65bd2fba5ce57c3d316c7bfe94b64    data/resourcemetadata.xml
-d22ed4ceff71c11d5a8510480a5dd0a7    data/resourcemetadata.xml
-6e3948aa25c5403da6d2a0f6155f0ce6    data/contents/localhost.json.refts

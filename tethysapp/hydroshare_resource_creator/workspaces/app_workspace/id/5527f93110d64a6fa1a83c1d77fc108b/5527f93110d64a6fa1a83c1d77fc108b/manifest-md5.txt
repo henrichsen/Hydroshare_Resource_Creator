@@ -1,3 +1,0 @@
-866f86d7b29f59671d13f3526cff7b8f    data/resourcemap.xml
-c69341a99423307441682fe9965c3658    data/resourcemetadata.xml
-3ea3a744bf37a0203d19eb33cbac9ce4    data/contents/TestforODM.json.refts

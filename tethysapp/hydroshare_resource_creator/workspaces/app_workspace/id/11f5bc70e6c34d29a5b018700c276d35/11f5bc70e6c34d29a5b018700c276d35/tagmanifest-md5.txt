@@ -1,3 +1,0 @@
-ace0ef9419c8edbe164a888d4e4ab7ee    bagit.txt
-dbcd2a5303a2d8fa1a0feb4e0f36916f    manifest-md5.txt
-3377c2abdb3b72721c22a1ae0a6ba294    readme.txt

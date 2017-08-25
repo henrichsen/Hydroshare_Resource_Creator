@@ -1,5 +1,0 @@
-766bad538ce76982deca216e88a5ec8b    data/resourcemap.xml
-766bad538ce76982deca216e88a5ec8b    data/resourcemap.xml
-8072b6de77d2699b70f3585926020851    data/resourcemetadata.xml
-b516550c1fbf13e9658336289123812f    data/contents/PublicResource.json.refts
-b516550c1fbf13e9658336289123812f    data/contents/PublicResource.json.refts

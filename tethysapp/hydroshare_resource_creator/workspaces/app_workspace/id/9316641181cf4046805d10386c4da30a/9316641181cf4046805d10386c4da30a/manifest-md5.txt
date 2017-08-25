@@ -1,3 +1,0 @@
-a505fbc973eb1a7b395dd829f87474a7    data/resourcemap.xml
-3de37c6358766ab009e6f379fa2234ff    data/resourcemetadata.xml
-7a280a9ca89fcb659d65d95af9a4665a    data/contents/12,000pointsoneseries.json.refts

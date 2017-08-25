@@ -1,3 +1,0 @@
-8c50da1c78a5e1005a10d3427b4e3162    data/resourcemap.xml
-00d4d42b18b6eec7e2280c2c4be2219f    data/resourcemetadata.xml
-2c7090f942f45753b31b22cceee014d5    data/contents/TestofGAMUTnetwork.json.refts

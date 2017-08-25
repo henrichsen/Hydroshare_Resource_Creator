@@ -1,4 +1,0 @@
-33ecabb418f75acfb7ac530934f4d6e8    data/resourcemap.xml
-e6667556c76ffdd5cd3ed730728890e1    data/resourcemetadata.xml
-eb67c277a2e1ec5be72c4cb4bba4a5af    data/resourcemetadata.xml
-f75f1b6601872bfd14be3f868f2e97be    data/contents/HydroClient-2017-01-18T16:15:32.524Z1.json.refts

@@ -1,4 +1,0 @@
-0df0976099da6b89dbe0db30b3f873d6    data/resourcemap.xml
-b874f8f09c747d6250b7a69e4fb0e861    data/resourcemap.xml
-e84a40593e2dbdba841e465eedd9cac9    data/resourcemetadata.xml
-b8e5299d265be8472f38dc1d45fdff43    data/contents/Timeseries.json.refts

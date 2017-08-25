@@ -1,4 +1,0 @@
-88ddb4bcba06363524363cd39a02aef0    data/resourcemap.xml
-599ae84d7f1096f40330eb0c942f7990    data/resourcemetadata.xml
-b8e948c5a57c8cc0130025a6fcc9ad47    data/resourcemetadata.xml
-c9fe7885daf75e288997ce123bdb477a    data/contents/Testofupdatingexisitingresource1.json_T6KNpI5.refts
