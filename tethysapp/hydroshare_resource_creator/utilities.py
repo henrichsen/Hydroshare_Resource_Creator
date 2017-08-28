@@ -88,6 +88,8 @@ def process_file_data(json_file):
 
     with open(json_file) as f:
         data = json.load(f)
+        data = json.load(data["timeSeriesReferenceFile"])
+        data = {"timeSeriesReferenceFile": data}
         for i in range(len(data['timeSeriesReferenceFile']['referencedTimeSeries'])):
             if data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['site']['siteName'] == '':
                 data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['site']['siteName'] = 'N/A'

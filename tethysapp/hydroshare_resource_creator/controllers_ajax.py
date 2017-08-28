@@ -48,8 +48,8 @@ def chart_data(request, res_id):
             except:
                 try:
                     with open(ref_file) as f:
-                        data = json.load(f)
-                        
+                        data = str(json.load(f))
+
                     return_obj['success'] = False
                     return_obj['message'] = 'JSON Data: ' + str(data)
                     return_obj['results'] = {}
