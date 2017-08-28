@@ -193,9 +193,6 @@ def load_into_odm2(url, site_code, variable_code, begin_date, end_date, odm_copy
     Libraries:      [sqlite3, requests, xmltodict, uuid, datetime]
     """
 
-    print "LOADING......"
-    starttime = datetime.now()
-
     """ Sets up sqllite3 connect """
     sql_connect = sqlite3.connect(odm_copy, isolation_level=None)
     c = sql_connect.cursor()

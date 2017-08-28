@@ -29,14 +29,16 @@ def chart_data(request, res_id):
     }
 
     temp_dir = get_workspace()
-    file = temp_dir + '/id/timeseriesLayerResource.json.refts'
+    print "Temporary Directory: " + str(temp_dir)
+    ref_file = temp_dir + '/id/timeseriesLayerResource.json.refts'
 
-    # file = '/home/kennethlippold/tethysdev/tethysapp-hydroshare_resource_creator/timeseriesLayerResource.json.refts'
+    # Temporary File Path
+    # ref_file = '/home/kennethlippold/tethysdev/tethysapp-hydroshare_resource_creator/timeseriesLayerResource.json.refts'
 
     if request.is_ajax() and request.method == 'POST':
         if res_id == 'None':
             try:
-                processed_file_data = process_file_data(file)
+                processed_file_data = process_file_data(ref_file)
 
                 ''''''''''''''''  PROCESSED FILE DATA  '''''''''''''''
                 return_obj['success'] = True
@@ -44,11 +46,19 @@ def chart_data(request, res_id):
                 return_obj['results'] = processed_file_data
 
             except:
+                if os.path.isfile(ref_file) and os.path.getsize(ref_file) < 3:
 
-                ''''''''''''''''  FILE PROCESSING ERROR  '''''''''''''''
-                return_obj['success'] = False
-                return_obj['message'] = 'Encountered an error while processing file.'
-                return_obj['results'] = {}
+                    ''''''''''''''''  NO DATA IN FILE  '''''''''''''''
+                    return_obj['success'] = False
+                    return_obj['message'] = 'No data in file'
+                    return_obj['results'] = {}
+
+                else:
+
+                    ''''''''''''''''  FILE PROCESSING ERROR  '''''''''''''''
+                    return_obj['success'] = False
+                    return_obj['message'] = 'Encountered an error while processing file.'
+                    return_obj['results'] = {}
 
         else:
             temp_dir = get_workspace()
@@ -82,9 +92,9 @@ def chart_data(request, res_id):
                             data_dir = root_dir + '/' + res_id + '/data/contents/'
                             file_data = ''
                             for subdir, dirs, files in os.walk(data_dir):
-                                for file in files:
-                                    if '.json.refts' in file:
-                                        data_file = data_dir + file
+                                for ref_file in files:
+                                    if '.json.refts' in ref_file:
+                                        data_file = data_dir + ref_file
                                         with open(data_file, 'r') as f:
                                             file_data = f.read()
                                             # print file_data
@@ -161,9 +171,9 @@ def ajax_create_timeseries_resource(request, res_id):
         # file_path = temp_dir + '/id/timeseriesLayerResource.json'
         data_dir = temp_dir + '/id/' + res_id
         for subdir, dirs, files in os.walk(data_dir):
-            for file in files:
-                if '.json.refts' in file:
-                    file_path = subdir + '/' + file
+            for ref_file in files:
+                if '.json.refts' in ref_file:
+                    file_path = subdir + '/' + ref_file
 
     # Temporary file path.
     # file_path = \
@@ -467,6 +477,11 @@ def ajax_create_refts_resource(request, res_id):
                         if '.json.refts' in json_file:
                             # fname = json_file
                             file_path = subdir + '/' + json_file
+
+            # Temporary File Path
+            # file_path = \
+            #    "/home/kennethlippold/tethysdev/tethysapp-hydroshare_resource_creator/timeseriesLayerResource.json.refts"
+
         except:
 
             ''''''''''''''''  FILE PATH ERROR  '''''''''''''''

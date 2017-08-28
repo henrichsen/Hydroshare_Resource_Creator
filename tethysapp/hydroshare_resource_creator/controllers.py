@@ -28,6 +28,10 @@ def home(request):
     # data = request.META['QUERY_STRING']
     # data = data.encode(encoding='UTF-8')
     base_path = get_workspace() + "/id/timeseriesLayerResource.json"
+
+    # Temporary Base Path
+    # base_path = "/home/kennethlippold/tethysdev/tethysapp-hydroshare_resource_creator/temp_workspace.json"
+
     if request.user.is_authenticated():
         login1 = 'True'
     else:

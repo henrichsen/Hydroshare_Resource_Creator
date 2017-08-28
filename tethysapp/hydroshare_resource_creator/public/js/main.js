@@ -101,8 +101,10 @@ loadResource = function (){
 
     // Gets the URL at which the data is located. //
     var serviceurl = trimInput($('#serviceurl').text());
+    console.log('SERVICE URL:');
+    console.log(serviceurl);
     document.title = 'Create HydroShare Resource';
-        var current_url = location.href;
+    var current_url = location.href;
     var index = current_url.indexOf("hydroshare-resource-creator");
     var base_url = current_url.substring(0, index);
     var src = findQueryParameter("src");
@@ -114,6 +116,8 @@ loadResource = function (){
         res_id ='None'
     }
     var data_url = base_url + 'hydroshare-resource-creator/chart_data/' + res_id + '/';
+    console.log('DATA URL:');
+    console.log(data_url);
 
     // Passes the data to the AJAX function for loading the resource. //
     ajaxLoadResource(data, src, data_url)
@@ -452,6 +456,7 @@ ajaxLoadResource = function (data, src, data_url){
                     }
                 }
             } else {
+                $loadingAnimation.hide();
                 var message = response.message;
                 alert(message)
             }

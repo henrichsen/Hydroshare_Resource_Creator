@@ -3,6 +3,7 @@ tethysapp/__init__.py
 tethysapp/hydroshare_resource_creator/__init__.py
 tethysapp/hydroshare_resource_creator/app.py
 tethysapp/hydroshare_resource_creator/controllers.py
+tethysapp/hydroshare_resource_creator/controllers_ajax.py
 tethysapp/hydroshare_resource_creator/handoff.py
 tethysapp/hydroshare_resource_creator/init_stores.py
 tethysapp/hydroshare_resource_creator/model.py
