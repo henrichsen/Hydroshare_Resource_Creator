@@ -30,7 +30,7 @@ def chart_data(request, res_id):
 
     temp_dir = get_workspace()
     print "Temporary Directory: " + str(temp_dir)
-    ref_file = temp_dir + '/id/timeseriesLayerResource.json.refts'
+    ref_file = temp_dir + '/id/timeseriesLayerResource.json'
 
     # Temporary File Path
     # ref_file = '/home/kennethlippold/tethysdev/tethysapp-hydroshare_resource_creator/timeseriesLayerResource.json.refts'
@@ -46,18 +46,18 @@ def chart_data(request, res_id):
                 return_obj['results'] = processed_file_data
 
             except:
-                if os.path.isfile(ref_file) and os.path.getsize(ref_file) < 3:
+                if os.path.isfile(ref_file):
 
                     ''''''''''''''''  NO DATA IN FILE  '''''''''''''''
                     return_obj['success'] = False
-                    return_obj['message'] = 'No data in file'
+                    return_obj['message'] = 'File Error. File Size: ' + str(os.path.getsize(ref_file)) + ' Bytes'
                     return_obj['results'] = {}
 
                 else:
 
                     ''''''''''''''''  FILE PROCESSING ERROR  '''''''''''''''
                     return_obj['success'] = False
-                    return_obj['message'] = 'Encountered an error while processing file.'
+                    return_obj['message'] = 'File Does Not Exist.'
                     return_obj['results'] = {}
 
         else:

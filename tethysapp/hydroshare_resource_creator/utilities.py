@@ -6,6 +6,7 @@ import uuid
 import random
 import time
 import xmltodict
+import os
 from hs_restclient import HydroShare, HydroShareAuthOAuth2, HydroShareNotAuthorized, HydroShareNotFound
 from suds.transport import TransportError
 from suds.client import Client
@@ -38,6 +39,11 @@ def get_workspace():
     """
 
     workspace = HydroshareResourceCreator.get_app_workspace().path
+
+    if not os.path.exists(workspace + "/id"):
+        os.mkdir(workspace + "/id")
+
+    print "Workspace: " + workspace
 
     return workspace
 
