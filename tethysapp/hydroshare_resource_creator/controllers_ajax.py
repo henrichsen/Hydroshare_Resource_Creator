@@ -29,7 +29,6 @@ def chart_data(request, res_id):
     }
 
     temp_dir = get_workspace()
-    print "Temporary Directory: " + str(temp_dir)
     ref_file = temp_dir + '/id/timeseriesLayerResource.json'
 
     # Temporary File Path
@@ -46,28 +45,19 @@ def chart_data(request, res_id):
                 return_obj['results'] = processed_file_data
 
             except:
-                try:
-                    with open(ref_file) as f:
-                        data = str(json.load(f))
+                if os.path.isfile(ref_file) and os.path.getsize(ref_file) < 3:
 
+                    ''''''''''''''''  NO DATA IN FILE  '''''''''''''''
                     return_obj['success'] = False
-                    return_obj['message'] = 'JSON Data: ' + str(data)
+                    return_obj['message'] = 'No data in file'
                     return_obj['results'] = {}
 
-                except:
-                    if os.path.isfile(ref_file):
+                else:
 
-                        ''''''''''''''''  NO DATA IN FILE  '''''''''''''''
-                        return_obj['success'] = False
-                        return_obj['message'] = 'File Error. File Size: ' + str(os.path.getsize(ref_file)) + ' Bytes'
-                        return_obj['results'] = {}
-
-                    else:
-
-                        ''''''''''''''''  FILE PROCESSING ERROR  '''''''''''''''
-                        return_obj['success'] = False
-                        return_obj['message'] = 'File Does Not Exist.'
-                        return_obj['results'] = {}
+                    ''''''''''''''''  FILE PROCESSING ERROR  '''''''''''''''
+                    return_obj['success'] = False
+                    return_obj['message'] = 'File processing error.'
+                    return_obj['results'] = {}
 
         else:
             temp_dir = get_workspace()

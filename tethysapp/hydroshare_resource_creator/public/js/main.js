@@ -238,7 +238,8 @@ findQueryParameter = function (name) {
     var regexS = "[\\?&]"+name+"=([^&#]*)";
     var regex = new RegExp( regexS );
     var results = regex.exec( url );
-
+    console.log("REGEX RESULTS");
+    console.log(results);
     return results === null ? null : results[1];
 };
 
