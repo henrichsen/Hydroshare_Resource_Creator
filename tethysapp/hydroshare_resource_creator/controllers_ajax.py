@@ -46,19 +46,28 @@ def chart_data(request, res_id):
                 return_obj['results'] = processed_file_data
 
             except:
-                if os.path.isfile(ref_file):
-
-                    ''''''''''''''''  NO DATA IN FILE  '''''''''''''''
+                try:
+                    with open(ref_file) as f:
+                        data = json.load(f)
+                        
                     return_obj['success'] = False
-                    return_obj['message'] = 'File Error. File Size: ' + str(os.path.getsize(ref_file)) + ' Bytes'
+                    return_obj['message'] = 'JSON Data: ' + str(data)
                     return_obj['results'] = {}
 
-                else:
+                except:
+                    if os.path.isfile(ref_file):
 
-                    ''''''''''''''''  FILE PROCESSING ERROR  '''''''''''''''
-                    return_obj['success'] = False
-                    return_obj['message'] = 'File Does Not Exist.'
-                    return_obj['results'] = {}
+                        ''''''''''''''''  NO DATA IN FILE  '''''''''''''''
+                        return_obj['success'] = False
+                        return_obj['message'] = 'File Error. File Size: ' + str(os.path.getsize(ref_file)) + ' Bytes'
+                        return_obj['results'] = {}
+
+                    else:
+
+                        ''''''''''''''''  FILE PROCESSING ERROR  '''''''''''''''
+                        return_obj['success'] = False
+                        return_obj['message'] = 'File Does Not Exist.'
+                        return_obj['results'] = {}
 
         else:
             temp_dir = get_workspace()
