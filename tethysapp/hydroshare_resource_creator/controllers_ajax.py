@@ -32,7 +32,7 @@ def chart_data(request, res_id):
     ref_file = temp_dir + '/id/timeseriesLayerResource.json'
 
     # Temporary File Path
-    ref_file = '/home/kennethlippold/tethysdev/tethysapp-hydroshare_resource_creator/timeseriesLayerResource.json'
+    # ref_file = '/home/kennethlippold/tethysdev/tethysapp-hydroshare_resource_creator/timeseriesLayerResource.json'
 
     if request.is_ajax() and request.method == 'POST':
         if res_id == 'None':
@@ -478,7 +478,7 @@ def ajax_create_refts_resource(request, res_id):
                             file_path = subdir + '/' + json_file
 
             # Temporary File Path
-            file_path = "/home/kennethlippold/tethysdev/tethysapp-hydroshare_resource_creator/timeseriesLayerResource.json"
+            # file_path = "/home/kennethlippold/tethysdev/tethysapp-hydroshare_resource_creator/timeseriesLayerResource.json"
 
         except:
 
