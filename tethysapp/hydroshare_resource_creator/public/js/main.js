@@ -5,6 +5,8 @@
 var $modalResourceDialog = $('#modal-resource-dialog');
 var $modalResourceDialogTitle = $('#modal-resource-dialog-title');
 var $modalResourceDialogWelcomeInfo = $('#modal-resource-dialog-welcome-info');
+var $modalErrorDialog = $('#modal-error-dialog');
+var $modalErrorMessage = $('#modal-error-message');
 var $btnCreateReferenceTimeseries = $('#btn-create-reference-timeseries');
 var $btnUpdateCurrentResource = $('#btn-update-current-resource');
 var $btnCreateTimeseriesResource = $('#btn-create-timeseries-resource');
@@ -459,7 +461,8 @@ ajaxLoadResource = function (data, src, data_url){
             } else {
                 $loadingAnimation.hide();
                 var message = response.message;
-                alert(message)
+                $modalErrorMessage.text(message);
+                $modalErrorDialog.modal('show');
             }
         }
     })
@@ -551,7 +554,6 @@ ajaxCreateTimeseriesResource = function (data, id){
         url: data_url,
         timeout: 3000,
         success: function (json) {
-            alert('DONE');
             if (json.success === true) {
                 alert('DONE')
             }
@@ -573,7 +575,8 @@ ajaxCreateTimeseriesResource = function (data, id){
         },
         error:function(textStatus){
             if (textStatus === 'timeout'){
-                alert('Call has timed out.')
+                $modalErrorMessage.text('Call has timed out.');
+                $modalErrorDialog.modal('show');
             }
         }
     })
@@ -659,26 +662,28 @@ ajaxCreateReftsResource = function (data, id){
         dataType: 'json',
         data: data,
         url: data_url,
-        timeout: 3000,
-        success: function (json) {
-            console.log(json);
-            if(json.error !== ''){alert(json.error)}
-            else
-            {
+        timeout: 30000,
+        success: function (response) {
+            if (response.success === true) {
                 $modalResourceDialogTitle.append("Resource Created Successfully");
-                var resource = json.Request;
+                var resource = response.results;
                 $modalResourceDialogWelcomeInfo.append('<a href="https://www.hydroshare.org/resource/' + resource + '" target="_blank">Click here to view.</a>');
                 $btnCreateReferenceTimeseries.hide();
                 $btnCreateTimeseriesResource.hide();
                 $('#public_hydro').hide();
-                $('#div_view_resource').append('<button id ="btn_view_resource" type="button" class="btn btn-success" name ="' + json.Request + '" onclick="viewResource(this.name)">View Resource</button>');
+                $('#div_view_resource').append('<button id ="btn_view_resource" type="button" class="btn btn-success" name ="' + response.results + '" onclick="viewResource(this.name)">View Resource</button>');
                 $modalResourceDialog.modal('show');
+            }
+            else {
+                $modalErrorMessage.text(response.message);
+                $modalErrorDialog.modal('show');
             }
             finishLoading()
         },
         error:function(textStatus){
             if (textStatus === 'timeout'){
-                alert('Call has timed out.')
+                $modalErrorMessage.text('Call has timed out.');
+                $modalErrorDialog.modal('show');
             }
         }
     })

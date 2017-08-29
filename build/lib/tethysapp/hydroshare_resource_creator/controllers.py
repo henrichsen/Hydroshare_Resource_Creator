@@ -39,7 +39,7 @@ def home(request):
     serviceurl=[]
     data = request.META['QUERY_STRING']
     data = data.encode(encoding ='UTF-8')
-    base_path = utilities.get_workspace() + "/id/timeseriesLayerResource.json.refts"
+    base_path = utilities.get_workspace() + "/id/timeseriesLayerResource.json"
     if request.user.is_authenticated():
         login1 = 'True'
     else:
@@ -309,7 +309,7 @@ def create_layer(request,src):
     r_abstract = abstract
     print r_title, r_keywords,r_abstract
     temp_dir = utilities.get_workspace()
-    fpath = temp_dir + '/id/timeseriesLayerResource.json.refts'
+    fpath = temp_dir + '/id/timeseriesLayerResource.json'
     try:
         resource_id = hs.createResource(r_type, r_title, resource_file=fpath, keywords=r_keywords, abstract=r_abstract, metadata=metadata)
     except:

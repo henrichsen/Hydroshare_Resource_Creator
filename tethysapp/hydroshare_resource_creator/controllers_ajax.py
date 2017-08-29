@@ -32,7 +32,7 @@ def chart_data(request, res_id):
     ref_file = temp_dir + '/id/timeseriesLayerResource.json'
 
     # Temporary File Path
-    # ref_file = '/home/kennethlippold/tethysdev/tethysapp-hydroshare_resource_creator/timeseriesLayerResource.json.refts'
+    # ref_file = '/home/kennethlippold/tethysdev/tethysapp-hydroshare_resource_creator/timeseriesLayerResource.json'
 
     if request.is_ajax() and request.method == 'POST':
         if res_id == 'None':
@@ -175,8 +175,7 @@ def ajax_create_timeseries_resource(request, res_id):
                     file_path = subdir + '/' + ref_file
 
     # Temporary file path.
-    # file_path = \
-    #     "/home/kennethlippold/tethysdev/tethysapp-hydroshare_resource_creator/timeseriesLayerResource.json.refts"
+    # file_path = "/home/kennethlippold/tethysdev/tethysapp-hydroshare_resource_creator/timeseriesLayerResource.json"
 
     ''' Create data dictionaries '''
     with open(file_path, 'r') as outfile:
@@ -478,8 +477,7 @@ def ajax_create_refts_resource(request, res_id):
                             file_path = subdir + '/' + json_file
 
             # Temporary File Path
-            # file_path = \
-            #    "/home/kennethlippold/tethysdev/tethysapp-hydroshare_resource_creator/timeseriesLayerResource.json.refts"
+            # file_path = "/home/kennethlippold/tethysdev/tethysapp-hydroshare_resource_creator/timeseriesLayerResource.json"
 
         except:
 
@@ -576,7 +574,9 @@ def ajax_create_refts_resource(request, res_id):
         ''''''''''''''''  RESOURCE CREATED SUCCESSFULLY  '''''''''''''''
         return_obj['success'] = True
         return_obj['message'] = 'Resource created successfully'
-        return_obj['results'] = {}
+        return_obj['results'] = resource_id
+        print resource_id
+        print "RESOURCE CREATED SUCCESSFULLY"
 
         return JsonResponse(return_obj)
 
@@ -671,7 +671,7 @@ def create_layer(request, fun_type, res_id, res_type):
                     file_path = subdir + '/' + file
     print(file_path)
     file_path = \
-        "/Users/kennethlippold/tethysdev/tethysapp-hydroshare_resource_creator/timeseriesLayerResource.json.refts"
+        "/Users/kennethlippold/tethysdev/tethysapp-hydroshare_resource_creator/timeseriesLayerResource.json"
 
     ''' Create data dictionaries '''
     with open(file_path, 'r') as outfile:

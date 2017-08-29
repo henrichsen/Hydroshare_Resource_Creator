@@ -24,12 +24,26 @@
         </div>
     </div>
 
+    <div id="modal-error-dialog" class="modal refts-modal fade modal-admin" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 id="modal-error-title">Error</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="modal-error-message"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" id="close-error-popup" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
 
 
 {% block app_content %}
-
-    <div id="error-message"></div>
 
     <div id="div-create-hydroshare-resource">
         <h4>Create Hydroshare Resource</h4>
