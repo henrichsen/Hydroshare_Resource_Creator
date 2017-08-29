@@ -270,7 +270,7 @@ finishLoading = function() {
 };
 
 
-viewResource = function(hydroshare_id){
+viewResource = function(hs_href){
     /**
      * Allows the user to view a HydroShare resource.
      *
@@ -278,7 +278,7 @@ viewResource = function(hydroshare_id){
      */
 
     // Opens the HydroShare resource in a window. //
-    window.open('https://www.hydroshare.org/resource/'+hydroshare_id+'/')
+    window.open(hs_href)
 };
 
 
@@ -485,11 +485,15 @@ ajaxLoginTest = function (data, type){
      * @param json.Login
      */
     $.ajax({
-        url: data.data_url,
+        type: "POST",
+        dataType: "json",
+        public: false,
+        data: data,
+        url: data.data_url + "/",
         async: true,
-        success: function (json) {
-            var login = json.Login;
-            if (login === 'True'){
+        success: function (response) {
+            var login = response;
+            if (login['success'] === "True"){
                 var errorList = [];
                 if (data.resTitle === '') {
                     errorList.push('Resource title cannot be left blank.');
@@ -514,9 +518,20 @@ ajaxLoginTest = function (data, type){
                 }
             }
             else {
+                $loadingAnimation.hide();
                 alert('User not logged in.');
                 // Opens a window prompting the user to log in to HydroShare.
                 // Consider using css/bootstrap.
+                if (data.data_url.includes("appsdev.hydroshare.org")) {
+                    window.open("/oauth2/login/hydroshare_beta/?next=/apps/hydroshare-resource-creator/login-callback/", 'windowName', 'width=1000, height=700, left=24, top=24, scrollbars, resizable');
+                }
+                if (data.data_url.includes("apps.hydroshare.org")) {
+                    window.open("/oauth2/login/hydroshare/?next=/apps/hydroshare-resource-creator/login-callback/", 'windowName', 'width=1000, height=700, left=24, top=24, scrollbars, resizable');
+                }
+                if (data.data_url.includes("8000")) {
+                    alert("YAAAAAYYYY")
+                }
+
                 window.open("/oauth2/login/hydroshare/?next=/apps/hydroshare-resource-creator/login-callback/", 'windowName', 'width=1000, height=700, left=24, top=24, scrollbars, resizable');
             }
         },
@@ -561,7 +576,6 @@ ajaxCreateTimeseriesResource = function (data, id){
             if(json.error !== ''){alert(json.error)}
             else
             {
-                //create_resource()
                 $modalResourceDialogTitle.append("Resource Created Successfully");
                 var resource = json.Request;
                 $modalResourceDialogWelcomeInfo.append('<a href="https://www.hydroshare.org/resource/' + resource + '" target="_blank">Click here to view.</a>');
@@ -667,11 +681,12 @@ ajaxCreateReftsResource = function (data, id){
             if (response.success === true) {
                 $modalResourceDialogTitle.append("Resource Created Successfully");
                 var resource = response.results;
-                $modalResourceDialogWelcomeInfo.append('<a href="https://www.hydroshare.org/resource/' + resource + '" target="_blank">Click here to view.</a>');
+                var hs_href = "https://" + resource['hs_version'] + "/resource/" + resource['resource_id'];
+                $modalResourceDialogWelcomeInfo.append('<a href=' + hs_href + ' target="_blank">Click here to view.</a>');
                 $btnCreateReferenceTimeseries.hide();
                 $btnCreateTimeseriesResource.hide();
                 $('#public_hydro').hide();
-                $('#div_view_resource').append('<button id ="btn_view_resource" type="button" class="btn btn-success" name ="' + response.results + '" onclick="viewResource(this.name)">View Resource</button>');
+                $('#div_view_resource').append('<button id ="btn_view_resource" type="button" class="btn btn-success" name ="' + hs_href + '" onclick="viewResource(this.name)">View Resource</button>');
                 $modalResourceDialog.modal('show');
             }
             else {

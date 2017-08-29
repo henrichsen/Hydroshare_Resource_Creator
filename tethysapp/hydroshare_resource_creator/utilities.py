@@ -71,6 +71,7 @@ def get_o_auth_hs(request):
         hs_hostname = "{0}.hydroshare.org".format(hs_instance_name)
         auth = HydroShareAuthOAuth2(client_id, client_secret, token=token)
         hs = HydroShare(auth=auth, hostname=hs_hostname)
+        print "HYDROSHARE"
 
     return hs
 

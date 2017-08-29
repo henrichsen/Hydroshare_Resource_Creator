@@ -32,7 +32,7 @@ def chart_data(request, res_id):
     ref_file = temp_dir + '/id/timeseriesLayerResource.json'
 
     # Temporary File Path
-    # ref_file = '/home/kennethlippold/tethysdev/tethysapp-hydroshare_resource_creator/timeseriesLayerResource.json'
+    ref_file = '/home/kennethlippold/tethysdev/tethysapp-hydroshare_resource_creator/timeseriesLayerResource.json'
 
     if request.is_ajax() and request.method == 'POST':
         if res_id == 'None':
@@ -447,6 +447,7 @@ def ajax_create_refts_resource(request, res_id):
         try:
             ''' Gets HydroShare Open Authorization '''
             hs = get_o_auth_hs(request)
+            hs_version = hs.hostname
 
         except:
 
@@ -477,7 +478,7 @@ def ajax_create_refts_resource(request, res_id):
                             file_path = subdir + '/' + json_file
 
             # Temporary File Path
-            # file_path = "/home/kennethlippold/tethysdev/tethysapp-hydroshare_resource_creator/timeseriesLayerResource.json"
+            file_path = "/home/kennethlippold/tethysdev/tethysapp-hydroshare_resource_creator/timeseriesLayerResource.json"
 
         except:
 
@@ -574,7 +575,7 @@ def ajax_create_refts_resource(request, res_id):
         ''''''''''''''''  RESOURCE CREATED SUCCESSFULLY  '''''''''''''''
         return_obj['success'] = True
         return_obj['message'] = 'Resource created successfully'
-        return_obj['results'] = resource_id
+        return_obj['results'] = {"resource_id": resource_id, "hs_version": hs_version}
         print resource_id
         print "RESOURCE CREATED SUCCESSFULLY"
 
@@ -590,6 +591,8 @@ def ajax_create_refts_resource(request, res_id):
         return JsonResponse(return_obj)
 
 
+@csrf_exempt
+# @login_required()
 def login_test(request):
     """
     Ajax controller for login_test. Tests user login.
@@ -601,11 +604,28 @@ def login_test(request):
     Libraries:      []
     """
 
+    return_obj = {
+        'success': "False",
+        'message': None,
+        'results': {}
+    }
+
     if request.user.is_authenticated():
-        login_status = "True"
+        data_url = request.POST.get('data_url')
+        hs = get_o_auth_hs(request)
+        hs_version = hs.hostname
+        if "appsdev.hydroshare.org" in str(data_url) and "beta" in str(hs_version):
+            return_obj['success'] = "True"
+        elif "apps.hydroshare.org" in str(data_url) and "www" in str(hs_version):
+            return_obj['success'] = "True"
+        elif "127.0.0.1:8000" in str(data_url):
+            return_obj['success'] = "True"
+        else:
+            return_obj['success'] = "False"
     else:
-        login_status = "False"
-    return JsonResponse({'Login': login_status})
+        return_obj['success'] = "False"
+
+    return JsonResponse(return_obj)
 
 
 """
