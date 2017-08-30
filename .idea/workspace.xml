@@ -2,14 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0159a467-9ea1-416a-a2e1-1190ff65c86f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/static_data/ODM2_master.sqlite" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nldasResource.json" afterPath="$PROJECT_DIR$/nldasResource.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/controllers.py" afterPath="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/controllers.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/controllers_ajax.py" afterPath="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/controllers_ajax.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/public/js/main.js" afterPath="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/public/js/main.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/utilities.py" afterPath="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/utilities.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/timeseriesLayerResource.json" afterPath="$PROJECT_DIR$/timeseriesLayerResource.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/templates/hydroshare_resource_creator/home.html" afterPath="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/templates/hydroshare_resource_creator/home.html" />
     </list>
     <ignored path="tethysapp-hydroshare_resource_creator.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -45,8 +40,8 @@
       <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/public/js/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="471" column="37" lean-forward="false" selection-start-line="471" selection-start-column="37" selection-end-line="471" selection-end-column="37" />
+            <state relative-caret-position="3060">
+              <caret line="540" column="50" lean-forward="false" selection-start-line="540" selection-start-column="50" selection-end-line="540" selection-end-column="50" />
               <folding>
                 <element signature="e#1636#4222#0" expanded="false" />
                 <element signature="e#4264#4701#0" expanded="false" />
@@ -60,26 +55,14 @@
                 <element signature="e#9258#9715#0" expanded="false" />
                 <element signature="e#9748#10009#0" expanded="false" />
                 <element signature="e#10207#15944#0" expanded="false" />
-                <element signature="e#15985#18669#0" expanded="false" />
-                <element signature="e#18723#20692#0" expanded="false" />
-                <element signature="e#20736#22760#0" expanded="false" />
-                <element signature="e#22809#24759#0" expanded="false" />
-                <element signature="e#25128#31028#0" expanded="false" />
-                <element signature="e#31030#38100#0" expanded="false" />
-                <element signature="e#38102#40159#0" expanded="false" />
-                <marker date="1504117784585" expanded="true" signature="13058:13075" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="controllers.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/controllers.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#35#0" expanded="true" />
+                <element signature="e#15985#18638#0" expanded="false" />
+                <element signature="e#18692#20877#0" expanded="false" />
+                <element signature="e#20921#22945#0" expanded="false" />
+                <element signature="e#22994#25133#0" expanded="false" />
+                <element signature="e#25502#31402#0" expanded="false" />
+                <element signature="e#31404#38474#0" expanded="false" />
+                <element signature="e#38476#40533#0" expanded="false" />
+                <marker date="1504122507654" expanded="true" signature="13058:13075" ph="..." />
               </folding>
             </state>
           </provider>
@@ -88,8 +71,8 @@
       <file leaf-file-name="controllers_ajax.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/controllers_ajax.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3931">
-              <caret line="499" column="14" lean-forward="false" selection-start-line="499" selection-start-column="14" selection-end-line="499" selection-end-column="14" />
+            <state relative-caret-position="-2517">
+              <caret line="499" column="23" lean-forward="false" selection-start-line="499" selection-start-column="23" selection-end-line="499" selection-end-column="23" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
                 <element signature="e#10556#14988#0" expanded="false" />
@@ -97,6 +80,16 @@
                 <element signature="e#29277#32634#1" expanded="false" />
                 <element signature="e#32636#32833#1" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="home.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/templates/hydroshare_resource_creator/home.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1020">
+              <caret line="30" column="20" lean-forward="false" selection-start-line="30" selection-start-column="20" selection-end-line="30" selection-end-column="20" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -234,12 +227,12 @@
         <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/app.py" />
         <option value="$PROJECT_DIR$/setup.py" />
         <option value="$PROJECT_DIR$/timeseriesLayerResource.json.refts" />
-        <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/templates/hydroshare_resource_creator/home.html" />
         <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/controllers.py" />
         <option value="$PROJECT_DIR$/nldasResource.json" />
         <option value="$PROJECT_DIR$/timeseriesLayerResource.json" />
-        <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/public/js/main.js" />
         <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/utilities.py" />
+        <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/templates/hydroshare_resource_creator/home.html" />
+        <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/public/js/main.js" />
         <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/controllers_ajax.py" />
       </list>
     </option>
@@ -333,54 +326,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="hydroshare_resource_creator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tethysapp-hydroshare_resource_creator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tethysapp-hydroshare_resource_creator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tethysapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hydroshare_resource_creator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tethysapp-hydroshare_resource_creator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tethysapp-hydroshare_resource_creator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tethysapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hydroshare_resource_creator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -806,7 +751,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#35#0" expanded="true" />
+            <element signature="e#0#35#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -887,7 +832,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#35#0" expanded="true" />
+            <element signature="e#0#35#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -968,7 +913,7 @@
         <state relative-caret-position="0">
           <caret line="44" column="31" lean-forward="false" selection-start-line="44" selection-start-column="31" selection-end-line="44" selection-end-column="31" />
           <folding>
-            <element signature="e#0#35#0" expanded="true" />
+            <element signature="e#0#35#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1049,7 +994,7 @@
         <state relative-caret-position="0">
           <caret line="16" column="37" lean-forward="false" selection-start-line="16" selection-start-column="37" selection-end-line="16" selection-end-column="37" />
           <folding>
-            <element signature="e#0#35#0" expanded="true" />
+            <element signature="e#0#35#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1130,7 +1075,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#35#0" expanded="true" />
+            <element signature="e#0#35#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1284,14 +1229,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/templates/hydroshare_resource_creator/home.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-747">
-          <caret line="29" column="42" lean-forward="false" selection-start-line="29" selection-start-column="42" selection-end-line="29" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/app.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="756">
@@ -1384,15 +1321,23 @@
         <state relative-caret-position="136">
           <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
           <folding>
-            <element signature="e#0#35#0" expanded="true" />
+            <element signature="e#0#35#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/templates/hydroshare_resource_creator/home.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1020">
+          <caret line="30" column="20" lean-forward="false" selection-start-line="30" selection-start-column="20" selection-end-line="30" selection-end-column="20" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/public/js/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="471" column="37" lean-forward="false" selection-start-line="471" selection-start-column="37" selection-end-line="471" selection-end-column="37" />
+        <state relative-caret-position="3060">
+          <caret line="540" column="50" lean-forward="false" selection-start-line="540" selection-start-column="50" selection-end-line="540" selection-end-column="50" />
           <folding>
             <element signature="e#1636#4222#0" expanded="false" />
             <element signature="e#4264#4701#0" expanded="false" />
@@ -1406,22 +1351,22 @@
             <element signature="e#9258#9715#0" expanded="false" />
             <element signature="e#9748#10009#0" expanded="false" />
             <element signature="e#10207#15944#0" expanded="false" />
-            <element signature="e#15985#18669#0" expanded="false" />
-            <element signature="e#18723#20692#0" expanded="false" />
-            <element signature="e#20736#22760#0" expanded="false" />
-            <element signature="e#22809#24759#0" expanded="false" />
-            <element signature="e#25128#31028#0" expanded="false" />
-            <element signature="e#31030#38100#0" expanded="false" />
-            <element signature="e#38102#40159#0" expanded="false" />
-            <marker date="1504117784585" expanded="true" signature="13058:13075" ph="..." />
+            <element signature="e#15985#18638#0" expanded="false" />
+            <element signature="e#18692#20877#0" expanded="false" />
+            <element signature="e#20921#22945#0" expanded="false" />
+            <element signature="e#22994#25133#0" expanded="false" />
+            <element signature="e#25502#31402#0" expanded="false" />
+            <element signature="e#31404#38474#0" expanded="false" />
+            <element signature="e#38476#40533#0" expanded="false" />
+            <marker date="1504122507654" expanded="true" signature="13058:13075" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/controllers_ajax.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3931">
-          <caret line="499" column="14" lean-forward="false" selection-start-line="499" selection-start-column="14" selection-end-line="499" selection-end-column="14" />
+        <state relative-caret-position="-2517">
+          <caret line="499" column="23" lean-forward="false" selection-start-line="499" selection-start-column="23" selection-end-line="499" selection-end-column="23" />
           <folding>
             <element signature="e#0#36#0" expanded="true" />
             <element signature="e#10556#14988#0" expanded="false" />

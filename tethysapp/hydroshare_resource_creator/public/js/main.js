@@ -492,8 +492,7 @@ ajaxLoginTest = function (data, type){
         url: data.data_url + "/",
         async: true,
         success: function (response) {
-            var login = response;
-            if (login['success'] === "True"){
+            if (response['success'] === "True"){
                 var errorList = [];
                 if (data.resTitle === '') {
                     errorList.push('Resource title cannot be left blank.');
@@ -575,18 +574,21 @@ ajaxCreateTimeseriesResource = function (data, id){
                 $('#public_hydro').hide();
                 $('#div_view_resource').append('<button id ="btn_view_resource" type="button" class="btn btn-success" name ="' + hs_href + '" onclick="viewResource(this.name)">View Resource</button>');
                 $modalResourceDialog.modal('show');
+                $modalResourceDialog.on('hidden.bs.modal', finishLoading)
             }
             else {
+                $loadingAnimation.hide();
                 $modalErrorMessage.text(response.message);
                 $modalErrorDialog.modal('show');
+                $modalErrorDialog.on('hidden.bs.modal', finishLoading)
             }
             finishLoading()
         },
-        error:function(textStatus){
-            if (textStatus === 'timeout') {
-                $modalErrorMessage.text('Call has timed out.');
-                $modalErrorDialog.modal('show');
-            }
+        error:function(){
+            $loadingAnimation.hide();
+            $modalErrorMessage.text('Call has timed out.');
+            $modalErrorDialog.modal('show');
+            $modalErrorDialog.on('hidden.bs.modal', finishLoading)
         }
     })
 };
@@ -683,18 +685,20 @@ ajaxCreateReftsResource = function (data, id){
                 $('#public_hydro').hide();
                 $('#div_view_resource').append('<button id ="btn_view_resource" type="button" class="btn btn-success" name ="' + hs_href + '" onclick="viewResource(this.name)">View Resource</button>');
                 $modalResourceDialog.modal('show');
+                $modalResourceDialog.on('hidden.bs.modal', finishLoading)
             }
             else {
+                $loadingAnimation.hide();
                 $modalErrorMessage.text(response.message);
                 $modalErrorDialog.modal('show');
+                $modalErrorDialog.on('hidden.bs.modal', finishLoading)
             }
-            finishLoading()
         },
-        error:function(textStatus){
-            if (textStatus === 'timeout'){
-                $modalErrorMessage.text('Call has timed out.');
-                $modalErrorDialog.modal('show');
-            }
+        error:function(){
+            $loadingAnimation.hide();
+            $modalErrorMessage.text('Call has timed out.');
+            $modalErrorDialog.modal('show');
+            $modalErrorDialog.on('hidden.bs.modal', finishLoading)
         }
     })
 };
