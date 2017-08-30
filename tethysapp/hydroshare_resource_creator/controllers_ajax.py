@@ -139,103 +139,126 @@ def ajax_create_timeseries_resource(request, res_id):
         'results': {}
     }
 
-    ''' Sets some initial values '''
-    error = ''
+    ''''''''''''''''  VERIFIES REQUEST  '''''''''''''''
+    if request.is_ajax() and request.method == 'POST':
+        pass
+    else:
+        return_obj['success'] = False
+        return_obj['message'] = "Encountered AJAX Error."
+        return_obj['results'] = {}
 
-    ''' Gets data from JavaScript '''
-    title = str(request.POST.get('resTitle'))
-    abstract = str(request.POST.get('resAbstract'))
-    keywords = str(request.POST.get('resKeywords')).split(',')
-    res_access = str(request.POST.get('resAccess'))
-    str_resource = trim(request.POST.get('checked_ids'))
-    file_name = title.replace(" ", "")[:10]
-    # keywords = keywords.split(',')
-    # str_resource = trim(str_resource)
-    # file_name = file_name[:10]
-    int_resource = []
-    for res in str_resource:
-        int_resource.append(int(res))
-    metadata = []
+        return JsonResponse(return_obj)
 
-    ''' Gets HydroShare Open Authorization '''
-    hs = get_o_auth_hs(request)
+    ''''''''''''''''  GETS DATA FROM JAVASCRIPT  '''''''''''''''
+    try:
+        title = str(request.POST.get('resTitle'))
+        abstract = str(request.POST.get('resAbstract'))
+        keywords = str(request.POST.get('resKeywords')).split(',')
+        res_access = str(request.POST.get('resAccess'))
+        str_resource = trim(request.POST.get('checked_ids'))
+        file_name = title.replace(" ", "")[:10]  # THIS IS CAUSING THE CUTOFF TITLES.
+        int_resource = []
+        for res in str_resource:
+            int_resource.append(int(res))
+        metadata = []
 
-    ''' Sets directory name '''
-    temp_dir = get_workspace()
-    fpath = temp_dir + '/id/' + file_name + '.json.refts'
-    # path where file will be stored before upload to hydroshare
-    if res_id == 'null':  # if resource is coming for data client
-        file_path = temp_dir + '/id/timeseriesLayerResource.json'
-    else:  # if resource is already a HydroShare resource
-        # file_path = temp_dir + '/id/timeseriesLayerResource.json'
-        data_dir = temp_dir + '/id/' + res_id
-        for subdir, dirs, files in os.walk(data_dir):
-            for ref_file in files:
-                if '.json.refts' in ref_file:
-                    file_path = subdir + '/' + ref_file
+    except:
+        return_obj['success'] = False
+        return_obj['message'] = 'Data request error.'
+        return_obj['results'] = {}
 
-    # Temporary file path.
-    # file_path = "/home/kennethlippold/tethysdev/tethysapp-hydroshare_resource_creator/timeseriesLayerResource.json"
+        return JsonResponse(return_obj)
 
-    ''' Create data dictionaries '''
-    with open(file_path, 'r') as outfile:
-        file_data = outfile.read()
-        data = file_data.encode(encoding='UTF-8')
-        data = json.loads(data)
-        data = data['timeSeriesReferenceFile']
-        try:
-            data_symbol = data['symbol']
-            data_file = data['fileVersion']
-        except:
+    ''''''''''''''''  GETS HYDROSHARE OAUTH  '''''''''''''''
+    try:
+        hs = get_o_auth_hs(request)
+        hs_version = hs.hostname
+        print hs_version
+
+    except:
+        return_obj['success'] = False
+        return_obj['message'] = 'HydroShare Open Authorization error.'
+        return_obj['results'] = {}
+
+        return JsonResponse(return_obj)
+
+    ''''''''''''''''  SETS FILE PATH  '''''''''''''''
+    try:
+        temp_dir = get_workspace()
+        fpath = temp_dir + '/id/' + file_name + '.json.refts'
+        if res_id == 'null':
+            file_path = temp_dir + '/id/timeseriesLayerResource.json'
+        else:  # if resource is already a HydroShare resource
+            # file_path = temp_dir + '/id/timeseriesLayerResource.json'
+            data_dir = temp_dir + '/id/' + res_id
+            for subdir, dirs, files in os.walk(data_dir):
+                for ref_file in files:
+                    if '.json.refts' in ref_file:
+                        file_path = subdir + '/' + ref_file
+        # Temporary file path.
+        # file_path = "/home/kennethlippold/tethysdev/tethysapp-hydroshare_resource_creator/timeseriesLayerResource.json"
+
+    except:
+        return_obj['success'] = False
+        return_obj['message'] = 'File path error.'
+        return_obj['results'] = {}
+
+        return JsonResponse(return_obj)
+
+    ''''''''''''''''  LOADS DATA  '''''''''''''''
+    try:
+        with open(file_path, 'r') as outfile:
+            file_data = outfile.read()
+            data = file_data.encode(encoding='UTF-8')
             data = json.loads(data)
-            data_symbol = data['symbol']
-            data_file = data['fileVersion']
-        data_stor = []
-        counter = 0
-        for i in data['referencedTimeSeries']:
-            if counter in int_resource:
-                data_stor.append(i)
-            counter = counter + 1
-        data_dic = {"referencedTimeSeries": data_stor, "fileVersion": data_file, "title": title,
-                    "symbol": data_symbol, "abstract": abstract, 'keyWords': keywords}
-        data.update(data_dic)
-        final_dic = {"timeSeriesReferenceFile": data}
-        with open(fpath, 'w') as outfile1:
-            json.dump(final_dic, outfile1)
-    # r_title = title
-    r_keywords = keywords
-    r_abstract = abstract
+            data = data['timeSeriesReferenceFile']
+            try:
+                data_symbol = data['symbol']
+                data_file = data['fileVersion']
+            except:
+                data = json.loads(data)
+                data_symbol = data['symbol']
+                data_file = data['fileVersion']
+            data_stor = []
+            counter = 0
+            for i in data['referencedTimeSeries']:
+                if counter in int_resource:
+                    data_stor.append(i)
+                counter = counter + 1
+            data_dic = {"referencedTimeSeries": data_stor, "fileVersion": data_file, "title": title,
+                        "symbol": data_symbol, "abstract": abstract, 'keyWords': keywords}
+            data.update(data_dic)
+            final_dic = {"timeSeriesReferenceFile": data}
+            with open(fpath, 'w') as outfile1:
+                json.dump(final_dic, outfile1)
+        # r_title = title
+        r_keywords = keywords
+        r_abstract = abstract
 
-    ''' Create Resource '''
-    # utilities.create_odm2(fpath,file_name)
-    r_type = 'TimeSeriesResource'
-    r_title = title
-    # fpath = temp_dir + '/ODM2/ODM2_single_variable_multi_site.sqlite'
-    parse_ts_layer(fpath, file_name, abstract)
-    fpath = temp_dir + '/ODM2/' + file_name + '.sqlite'
-    # resource_id = hs.createResource(
-    #     r_type, r_title, keywords=r_keywords, abstract=r_abstract, metadata=metadata)
-    # resource_id1 = hs.addResourceFile(resource_id, fpath)
-    resource_id = hs.createResource(r_type, r_title, resource_file=fpath, keywords=r_keywords, abstract=r_abstract,
-                                    metadata=metadata)
-    """
-    if res_access == 'public':
-        delay = 0
-        public = 'false'
-        while public == 'false' or delay :
-            if delay > 10:
-                error = 'Request timed out'
-                break
-            else:
-                try:
-                    hs.setAccessRules(resource_id, public=True)
-                    public = 'true'
-                except:
-                    public = 'false'
-                    time.sleep(2)
-                    delay += 1
-    """
+    except:
+        return_obj['success'] = False
+        return_obj['message'] = 'Data loading error.'
+        return_obj['results'] = {}
 
+        return JsonResponse(return_obj)
+
+    ''''''''''''''''  CREATES HYDROSHARE RESOURCE  '''''''''''''''
+    try:
+        r_type = 'TimeSeriesResource'
+        r_title = title
+        parse_ts_layer(fpath, file_name, abstract)
+        fpath = temp_dir + '/id/' + file_name + '.sqlite'
+        resource_id = hs.createResource(r_type, r_title, resource_file=fpath, keywords=r_keywords,
+                                        abstract=r_abstract, metadata=metadata)
+
+    except:
+        return_obj['success'] = False
+        return_obj['message'] = 'Encountered a problem while creating timeseries resource.'
+        return_obj['results'] = {}
+
+        return JsonResponse(return_obj)
+
+    ''''''''''''''''  SETS RESOURCE AS PUBLIC  '''''''''''''''
     if res_access == "public":
         public = False
         timeout = time.time() + 20
@@ -247,22 +270,18 @@ def ajax_create_timeseries_resource(request, res_id):
                 time.sleep(2)
 
         if public is False:
-            ''''''''''''''''  TIME OUT ERROR  '''''''''''''''
             return_obj['success'] = False
             return_obj['message'] = 'Request timed out.'
             return_obj['results'] = {}
 
-    '''                
-    except:
-        error = 'At least one resource needs to be selected'
-        # utilities.parse_ts_layer(fpath,file_name,abstract)
-        # fpath = temp_dir+'/ODM2/'+file_name+'.sqlite'
-        # resource_id = hs.createResource(r_type, r_title, keywords=r_keywords, abstract=r_abstract, metadata=metadata)
-        # resource_id1 = hs.addResourceFile(resource_id, fpath)
-        "uploaded to HydroShare"
-    '''
+            return JsonResponse(return_obj)
 
-    return JsonResponse({'Request': resource_id, 'error': error})
+    ''''''''''''''''  RESOURCE CREATED SUCCESSFULLY  '''''''''''''''
+    return_obj['success'] = True
+    return_obj['message'] = 'Resource created successfully'
+    return_obj['results'] = {"resource_id": resource_id, "hs_version": hs_version}
+
+    return JsonResponse(return_obj)
 
 
 @ensure_csrf_cookie
@@ -516,7 +535,7 @@ def ajax_create_refts_resource(request, res_id):
             r_title = title
             r_keywords = keywords
             r_abstract = abstract
-        except SyntaxError:
+        except:
 
             ''''''''''''''''  DATA LOADING ERROR  '''''''''''''''
             return_obj['success'] = False
@@ -576,8 +595,6 @@ def ajax_create_refts_resource(request, res_id):
         return_obj['success'] = True
         return_obj['message'] = 'Resource created successfully'
         return_obj['results'] = {"resource_id": resource_id, "hs_version": hs_version}
-        print resource_id
-        print "RESOURCE CREATED SUCCESSFULLY"
 
         return JsonResponse(return_obj)
 
@@ -614,11 +631,12 @@ def login_test(request):
         data_url = request.POST.get('data_url')
         hs = get_o_auth_hs(request)
         hs_version = hs.hostname
+
         if "appsdev.hydroshare.org" in str(data_url) and "beta" in str(hs_version):
             return_obj['success'] = "True"
         elif "apps.hydroshare.org" in str(data_url) and "www" in str(hs_version):
             return_obj['success'] = "True"
-        elif "127.0.0.1:8000" in str(data_url):
+        elif "127.0.0.1:8000" in str(data_url) and "beta" in str(hs_version):
             return_obj['success'] = "True"
         else:
             return_obj['success'] = "False"

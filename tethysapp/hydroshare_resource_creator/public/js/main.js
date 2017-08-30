@@ -563,28 +563,27 @@ ajaxCreateTimeseriesResource = function (data, id){
         dataType: 'json',
         data: data,
         url: data_url,
-        timeout: 3000,
-        success: function (json) {
-            if (json.success === true) {
-                alert('DONE')
-            }
-            console.log(json);
-            if(json.error !== ''){alert(json.error)}
-            else
-            {
+        timeout: 300000,
+        success: function (response) {
+            if (response.success === true) {
                 $modalResourceDialogTitle.append("Resource Created Successfully");
-                var resource = json.Request;
-                $modalResourceDialogWelcomeInfo.append('<a href="https://www.hydroshare.org/resource/' + resource + '" target="_blank">Click here to view.</a>');
+                var resource = response.results;
+                var hs_href = "https://" + resource['hs_version'] + "/resource/" + resource['resource_id'];
+                $modalResourceDialogWelcomeInfo.append('<a href=' + hs_href + ' target="_blank">Click here to view.</a>');
                 $btnCreateReferenceTimeseries.hide();
                 $btnCreateTimeseriesResource.hide();
                 $('#public_hydro').hide();
-                $('#div_view_resource').append('<button id ="btn_view_resource" type="button" class="btn btn-success" name ="' + json.Request + '" onclick="viewResource(this.name)">View Resource</button>');
+                $('#div_view_resource').append('<button id ="btn_view_resource" type="button" class="btn btn-success" name ="' + hs_href + '" onclick="viewResource(this.name)">View Resource</button>');
                 $modalResourceDialog.modal('show');
+            }
+            else {
+                $modalErrorMessage.text(response.message);
+                $modalErrorDialog.modal('show');
             }
             finishLoading()
         },
         error:function(textStatus){
-            if (textStatus === 'timeout'){
+            if (textStatus === 'timeout') {
                 $modalErrorMessage.text('Call has timed out.');
                 $modalErrorDialog.modal('show');
             }
@@ -672,7 +671,7 @@ ajaxCreateReftsResource = function (data, id){
         dataType: 'json',
         data: data,
         url: data_url,
-        timeout: 30000,
+        timeout: 300000,
         success: function (response) {
             if (response.success === true) {
                 $modalResourceDialogTitle.append("Resource Created Successfully");

@@ -43,8 +43,6 @@ def get_workspace():
     if not os.path.exists(workspace + "/id"):
         os.mkdir(workspace + "/id")
 
-    print "Workspace: " + workspace
-
     return workspace
 
 
@@ -158,8 +156,9 @@ def parse_ts_layer(file_path, title, abstract):
     json_data = json.loads(data)
     json_data = json_data["timeSeriesReferenceFile"]
     layer = json_data['referencedTimeSeries']
-    odm_master = temp_dir+'/ODM2_master/ODM2_master.sqlite'
-    odm_copy = temp_dir+'/ODM2/'+title+'.sqlite'
+    current_path = os.path.dirname(os.path.realpath(__file__))
+    odm_master = os.path.join(current_path, "static_data/ODM2_master.sqlite")
+    odm_copy = temp_dir+'/id/' + title + '.sqlite'
     shutil.copy(odm_master, odm_copy)
     for sub in layer:
         ref_type = sub['requestInfo']['refType']
@@ -216,6 +215,7 @@ def load_into_odm2(url, site_code, variable_code, begin_date, end_date, odm_copy
     # variable_code = 'LBR:USU36:methodCode=28:qualityControlLevelCode=1'
     # begin_date = '2005-01-01'
     # end_date = '2016-01-01'
+    print "Loading......"
 
     """ Handles NASA data with requests  """
     if 'nasa' in url:
@@ -240,7 +240,9 @@ def load_into_odm2(url, site_code, variable_code, begin_date, end_date, odm_copy
     else:
         client = connect_wsdl_url(url)
         # The following line bottlenecks getting the results data.
+        print "BOTTLENECK START"
         values_result = client.service.GetValuesObject(site_code, variable_code, begin_date, end_date, autho_token)
+        print "BOTTLENECK END"
 
     if len(values_result.timeSeries[0].values[0]) == 0:
         print "No data values found."
@@ -779,6 +781,7 @@ def load_into_odm2(url, site_code, variable_code, begin_date, end_date, odm_copy
         # Save (commit) the changes
         c.execute("COMMIT;")
         sql_connect.commit()
+        print "DONE!"
         # seriesCounter += 1
     # Close the connection to the database
     # ------------------------------------

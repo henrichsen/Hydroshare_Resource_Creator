@@ -2,7 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0159a467-9ea1-416a-a2e1-1190ff65c86f" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/static_data/ODM2_master.sqlite" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nldasResource.json" afterPath="$PROJECT_DIR$/nldasResource.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/controllers.py" afterPath="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/controllers.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/controllers_ajax.py" afterPath="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/controllers_ajax.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/public/js/main.js" afterPath="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/public/js/main.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/utilities.py" afterPath="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/utilities.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/timeseriesLayerResource.json" afterPath="$PROJECT_DIR$/timeseriesLayerResource.json" />
     </list>
     <ignored path="tethysapp-hydroshare_resource_creator.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -35,11 +42,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="600">
-      <file leaf-file-name="main.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/public/js/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3332">
-              <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+            <state relative-caret-position="176">
+              <caret line="471" column="37" lean-forward="false" selection-start-line="471" selection-start-column="37" selection-end-line="471" selection-end-column="37" />
               <folding>
                 <element signature="e#1636#4222#0" expanded="false" />
                 <element signature="e#4264#4701#0" expanded="false" />
@@ -53,27 +60,42 @@
                 <element signature="e#9258#9715#0" expanded="false" />
                 <element signature="e#9748#10009#0" expanded="false" />
                 <element signature="e#10207#15944#0" expanded="false" />
-                <element signature="e#18723#20631#0" expanded="false" />
-                <element signature="e#20675#22699#0" expanded="false" />
-                <element signature="e#25066#30966#0" expanded="false" />
-                <element signature="e#30968#38038#0" expanded="false" />
-                <element signature="e#38040#40097#0" expanded="false" />
-                <marker date="1504051207237" expanded="true" signature="13058:13075" ph="..." />
+                <element signature="e#15985#18669#0" expanded="false" />
+                <element signature="e#18723#20692#0" expanded="false" />
+                <element signature="e#20736#22760#0" expanded="false" />
+                <element signature="e#22809#24759#0" expanded="false" />
+                <element signature="e#25128#31028#0" expanded="false" />
+                <element signature="e#31030#38100#0" expanded="false" />
+                <element signature="e#38102#40159#0" expanded="false" />
+                <marker date="1504117784585" expanded="true" signature="13058:13075" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="controllers_ajax.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="controllers.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/controllers.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="136">
+              <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#35#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="controllers_ajax.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/controllers_ajax.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-4169">
-              <caret line="480" column="14" lean-forward="false" selection-start-line="480" selection-start-column="14" selection-end-line="480" selection-end-column="14" />
+            <state relative-caret-position="-3931">
+              <caret line="499" column="14" lean-forward="false" selection-start-line="499" selection-start-column="14" selection-end-line="499" selection-end-column="14" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
-                <element signature="e#22692#28825#1" expanded="false" />
-                <element signature="e#28827#32184#1" expanded="false" />
-                <element signature="e#32186#32383#1" expanded="false" />
+                <element signature="e#10556#14988#0" expanded="false" />
+                <element signature="e#23142#29275#1" expanded="false" />
+                <element signature="e#29277#32634#1" expanded="false" />
+                <element signature="e#32636#32833#1" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -89,52 +111,91 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="setup.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/setup.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="12" column="41" lean-forward="false" selection-start-line="12" selection-start-column="41" selection-end-line="12" selection-end-column="41" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="nldasResource.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/nldasResource.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="2" column="17" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="1106" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="utilities.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/utilities.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="578">
-              <caret line="62" column="34" lean-forward="false" selection-start-line="62" selection-start-column="34" selection-end-line="62" selection-end-column="34" />
+            <state relative-caret-position="476">
+              <caret line="14" column="42" lean-forward="false" selection-start-line="14" selection-start-column="42" selection-end-line="14" selection-end-column="42" />
               <folding>
-                <element signature="e#0#29#0" expanded="true" />
-                <element signature="e#40557#72609#1" expanded="false" />
-                <element signature="e#72668#73281#0" expanded="false" />
-                <element signature="e#73310#73781#0" expanded="false" />
-                <element signature="e#73899#75446#0" expanded="false" />
-                <element signature="e#75473#76286#0" expanded="false" />
-                <element signature="e#76332#76735#0" expanded="false" />
-                <element signature="e#76783#77187#0" expanded="false" />
-                <element signature="e#77235#79636#0" expanded="false" />
-                <element signature="e#79685#82094#0" expanded="false" />
-                <element signature="e#82096#82250#1" expanded="false" />
-                <marker date="1504040307297" expanded="true" signature="7940:8113" ph="INSERT INTO Datasets... " />
-                <marker date="1504040307297" expanded="true" signature="11336:11396" ph="SELECT * FRO... SamplingFeatures" />
-                <marker date="1504040307297" expanded="true" signature="13422:13791" ph="INSERT INTO SamplingFeatures... " />
-                <marker date="1504040307297" expanded="true" signature="14453:14602" ph="INSERT INTO SpatialReferences... " />
-                <marker date="1504040307297" expanded="true" signature="15719:15856" ph="INSERT INTO Sites... " />
-                <marker date="1504040307297" expanded="true" signature="16949:16991" ph="SELECT * FRO... Methods" />
-                <marker date="1504040307297" expanded="true" signature="18080:18231" ph="INSERT INTO Methods... " />
-                <marker date="1504040307297" expanded="true" signature="18759:18805" ph="SELECT * FRO... Variables" />
-                <marker date="1504040307297" expanded="true" signature="20207:20441" ph="INSERT INTO Variables... " />
-                <marker date="1504040307297" expanded="true" signature="20945:20984" ph="SELECT * FRO... Units" />
-                <marker date="1504040307297" expanded="true" signature="22247:22378" ph="INSERT INTO Units... " />
-                <marker date="1504040307297" expanded="true" signature="22955:23013" ph="SELECT * FRO... ProcessingLevels" />
-                <marker date="1504040307297" expanded="true" signature="24109:24247" ph="INSERT INTO ProcessingLevels... " />
-                <marker date="1504040307297" expanded="true" signature="24921:24988" ph="SELECT * FRO... People" />
-                <marker date="1504040307297" expanded="true" signature="25523:25629" ph="INSERT INTO People... " />
-                <marker date="1504040307297" expanded="true" signature="26055:26109" ph="SELECT * FRO... Organizations" />
-                <marker date="1504040307297" expanded="true" signature="27353:27595" ph="INSERT INTO Organizations... " />
-                <marker date="1504040307297" expanded="true" signature="27977:28045" ph="SELECT * FRO... Affiliations" />
-                <marker date="1504040307297" expanded="true" signature="29597:29823" ph="INSERT INTO Affiliations... " />
-                <marker date="1504040307297" expanded="true" signature="31524:31746" ph="INSERT INTO Actions... " />
-                <marker date="1504040307297" expanded="true" signature="32514:32647" ph="INSERT INTO ActionBy... " />
-                <marker date="1504040307297" expanded="true" signature="33176:33289" ph="INSERT INTO FeatureActions... " />
-                <marker date="1504040307297" expanded="true" signature="35187:35467" ph="INSERT INTO Results... " />
-                <marker date="1504040307297" expanded="true" signature="35973:36085" ph="INSERT INTO Units... " />
-                <marker date="1504040307297" expanded="true" signature="37484:37657" ph="INSERT INTO TimeSeriesResults... " />
-                <marker date="1504040307297" expanded="true" signature="39677:39694" ph="BEGIN TRANSA... " />
-                <marker date="1504040307297" expanded="true" signature="39721:40021" ph="INSERT INTO TimeSeriesResultValues... " />
-                <marker date="1504040307297" expanded="true" signature="40176:40254" ph="INSERT INTO DataSetsResults... " />
+                <element signature="e#40715#72767#1" expanded="false" />
+                <element signature="e#72826#73439#0" expanded="false" />
+                <element signature="e#73468#73939#0" expanded="false" />
+                <element signature="e#74057#75604#0" expanded="false" />
+                <element signature="e#75631#76444#0" expanded="false" />
+                <element signature="e#76490#76893#0" expanded="false" />
+                <element signature="e#76941#77345#0" expanded="false" />
+                <element signature="e#77393#79794#0" expanded="false" />
+                <element signature="e#79843#82252#0" expanded="false" />
+                <element signature="e#82254#82408#1" expanded="false" />
+                <marker date="1504118172405" expanded="true" signature="7986:8159" ph="INSERT INTO Datasets... " />
+                <marker date="1504118172405" expanded="true" signature="11472:11532" ph="SELECT * FRO... SamplingFeatures" />
+                <marker date="1504118172405" expanded="true" signature="13558:13927" ph="INSERT INTO SamplingFeatures... " />
+                <marker date="1504118172405" expanded="true" signature="14589:14738" ph="INSERT INTO SpatialReferences... " />
+                <marker date="1504118172405" expanded="true" signature="15855:15992" ph="INSERT INTO Sites... " />
+                <marker date="1504118172405" expanded="true" signature="17085:17127" ph="SELECT * FRO... Methods" />
+                <marker date="1504118172405" expanded="true" signature="18216:18367" ph="INSERT INTO Methods... " />
+                <marker date="1504118172405" expanded="true" signature="18895:18941" ph="SELECT * FRO... Variables" />
+                <marker date="1504118172405" expanded="true" signature="20343:20577" ph="INSERT INTO Variables... " />
+                <marker date="1504118172405" expanded="true" signature="21081:21120" ph="SELECT * FRO... Units" />
+                <marker date="1504118172405" expanded="true" signature="22383:22514" ph="INSERT INTO Units... " />
+                <marker date="1504118172405" expanded="true" signature="23091:23149" ph="SELECT * FRO... ProcessingLevels" />
+                <marker date="1504118172405" expanded="true" signature="24245:24383" ph="INSERT INTO ProcessingLevels... " />
+                <marker date="1504118172405" expanded="true" signature="25057:25124" ph="SELECT * FRO... People" />
+                <marker date="1504118172405" expanded="true" signature="25659:25765" ph="INSERT INTO People... " />
+                <marker date="1504118172405" expanded="true" signature="26191:26245" ph="SELECT * FRO... Organizations" />
+                <marker date="1504118172405" expanded="true" signature="27489:27731" ph="INSERT INTO Organizations... " />
+                <marker date="1504118172405" expanded="true" signature="28113:28181" ph="SELECT * FRO... Affiliations" />
+                <marker date="1504118172405" expanded="true" signature="29733:29959" ph="INSERT INTO Affiliations... " />
+                <marker date="1504118172405" expanded="true" signature="31660:31882" ph="INSERT INTO Actions... " />
+                <marker date="1504118172405" expanded="true" signature="32650:32783" ph="INSERT INTO ActionBy... " />
+                <marker date="1504118172405" expanded="true" signature="33312:33425" ph="INSERT INTO FeatureActions... " />
+                <marker date="1504118172405" expanded="true" signature="35323:35603" ph="INSERT INTO Results... " />
+                <marker date="1504118172405" expanded="true" signature="36109:36221" ph="INSERT INTO Units... " />
+                <marker date="1504118172405" expanded="true" signature="37620:37793" ph="INSERT INTO TimeSeriesResults... " />
+                <marker date="1504118172405" expanded="true" signature="39813:39830" ph="BEGIN TRANSA... " />
+                <marker date="1504118172405" expanded="true" signature="39857:40157" ph="INSERT INTO TimeSeriesResultValues... " />
+                <marker date="1504118172405" expanded="true" signature="40312:40390" ph="INSERT INTO DataSetsResults... " />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="timeseriesLayerResource.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/timeseriesLayerResource.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2142">
+              <caret line="63" column="1" lean-forward="false" selection-start-line="63" selection-start-column="1" selection-end-line="63" selection-end-column="1" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="data.JSON" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/data.JSON">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -173,13 +234,13 @@
         <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/app.py" />
         <option value="$PROJECT_DIR$/setup.py" />
         <option value="$PROJECT_DIR$/timeseriesLayerResource.json.refts" />
+        <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/templates/hydroshare_resource_creator/home.html" />
         <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/controllers.py" />
         <option value="$PROJECT_DIR$/nldasResource.json" />
-        <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/templates/hydroshare_resource_creator/home.html" />
         <option value="$PROJECT_DIR$/timeseriesLayerResource.json" />
+        <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/public/js/main.js" />
         <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/utilities.py" />
         <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/controllers_ajax.py" />
-        <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/public/js/main.js" />
       </list>
     </option>
   </component>
@@ -293,32 +354,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hydroshare_resource_creator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tethysapp-hydroshare_resource_creator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tethysapp-hydroshare_resource_creator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tethysapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hydroshare_resource_creator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="public" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -364,6 +399,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/static" />
       <recent name="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/workspaces" />
     </key>
   </component>
@@ -629,7 +665,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="114" y="-7" width="2446" height="1607" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -637,7 +672,7 @@
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32973805" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3293944" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21301775" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23330516" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27187273" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32969433" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32967034" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -716,45 +751,44 @@
         <state relative-caret-position="0">
           <caret line="498" column="39" lean-forward="false" selection-start-line="498" selection-start-column="39" selection-end-line="498" selection-end-column="39" />
           <folding>
-            <element signature="e#0#29#0" expanded="true" />
-            <element signature="e#40557#72609#1" expanded="false" />
-            <element signature="e#72668#73281#0" expanded="false" />
-            <element signature="e#73310#73781#0" expanded="false" />
-            <element signature="e#73899#75446#0" expanded="false" />
-            <element signature="e#75473#76286#0" expanded="false" />
-            <element signature="e#76332#76735#0" expanded="false" />
-            <element signature="e#76783#77187#0" expanded="false" />
-            <element signature="e#77235#79636#0" expanded="false" />
-            <element signature="e#79685#82094#0" expanded="false" />
-            <element signature="e#82096#82250#1" expanded="false" />
-            <marker date="1504040307297" expanded="true" signature="7940:8113" ph="INSERT INTO Datasets... " />
-            <marker date="1504040307297" expanded="true" signature="11336:11396" ph="SELECT * FRO... SamplingFeatures" />
-            <marker date="1504040307297" expanded="true" signature="13422:13791" ph="INSERT INTO SamplingFeatures... " />
-            <marker date="1504040307297" expanded="true" signature="14453:14602" ph="INSERT INTO SpatialReferences... " />
-            <marker date="1504040307297" expanded="true" signature="15719:15856" ph="INSERT INTO Sites... " />
-            <marker date="1504040307297" expanded="true" signature="16949:16991" ph="SELECT * FRO... Methods" />
-            <marker date="1504040307297" expanded="true" signature="18080:18231" ph="INSERT INTO Methods... " />
-            <marker date="1504040307297" expanded="true" signature="18759:18805" ph="SELECT * FRO... Variables" />
-            <marker date="1504040307297" expanded="true" signature="20207:20441" ph="INSERT INTO Variables... " />
-            <marker date="1504040307297" expanded="true" signature="20945:20984" ph="SELECT * FRO... Units" />
-            <marker date="1504040307297" expanded="true" signature="22247:22378" ph="INSERT INTO Units... " />
-            <marker date="1504040307297" expanded="true" signature="22955:23013" ph="SELECT * FRO... ProcessingLevels" />
-            <marker date="1504040307297" expanded="true" signature="24109:24247" ph="INSERT INTO ProcessingLevels... " />
-            <marker date="1504040307297" expanded="true" signature="24921:24988" ph="SELECT * FRO... People" />
-            <marker date="1504040307297" expanded="true" signature="25523:25629" ph="INSERT INTO People... " />
-            <marker date="1504040307297" expanded="true" signature="26055:26109" ph="SELECT * FRO... Organizations" />
-            <marker date="1504040307297" expanded="true" signature="27353:27595" ph="INSERT INTO Organizations... " />
-            <marker date="1504040307297" expanded="true" signature="27977:28045" ph="SELECT * FRO... Affiliations" />
-            <marker date="1504040307297" expanded="true" signature="29597:29823" ph="INSERT INTO Affiliations... " />
-            <marker date="1504040307297" expanded="true" signature="31524:31746" ph="INSERT INTO Actions... " />
-            <marker date="1504040307297" expanded="true" signature="32514:32647" ph="INSERT INTO ActionBy... " />
-            <marker date="1504040307297" expanded="true" signature="33176:33289" ph="INSERT INTO FeatureActions... " />
-            <marker date="1504040307297" expanded="true" signature="35187:35467" ph="INSERT INTO Results... " />
-            <marker date="1504040307297" expanded="true" signature="35973:36085" ph="INSERT INTO Units... " />
-            <marker date="1504040307297" expanded="true" signature="37484:37657" ph="INSERT INTO TimeSeriesResults... " />
-            <marker date="1504040307297" expanded="true" signature="39677:39694" ph="BEGIN TRANSA... " />
-            <marker date="1504040307297" expanded="true" signature="39721:40021" ph="INSERT INTO TimeSeriesResultValues... " />
-            <marker date="1504040307297" expanded="true" signature="40176:40254" ph="INSERT INTO DataSetsResults... " />
+            <element signature="e#40715#72767#1" expanded="false" />
+            <element signature="e#72826#73439#0" expanded="false" />
+            <element signature="e#73468#73939#0" expanded="false" />
+            <element signature="e#74057#75604#0" expanded="false" />
+            <element signature="e#75631#76444#0" expanded="false" />
+            <element signature="e#76490#76893#0" expanded="false" />
+            <element signature="e#76941#77345#0" expanded="false" />
+            <element signature="e#77393#79794#0" expanded="false" />
+            <element signature="e#79843#82252#0" expanded="false" />
+            <element signature="e#82254#82408#1" expanded="false" />
+            <marker date="1504118172405" expanded="true" signature="7986:8159" ph="INSERT INTO Datasets... " />
+            <marker date="1504118172405" expanded="true" signature="11472:11532" ph="SELECT * FRO... SamplingFeatures" />
+            <marker date="1504118172405" expanded="true" signature="13558:13927" ph="INSERT INTO SamplingFeatures... " />
+            <marker date="1504118172405" expanded="true" signature="14589:14738" ph="INSERT INTO SpatialReferences... " />
+            <marker date="1504118172405" expanded="true" signature="15855:15992" ph="INSERT INTO Sites... " />
+            <marker date="1504118172405" expanded="true" signature="17085:17127" ph="SELECT * FRO... Methods" />
+            <marker date="1504118172405" expanded="true" signature="18216:18367" ph="INSERT INTO Methods... " />
+            <marker date="1504118172405" expanded="true" signature="18895:18941" ph="SELECT * FRO... Variables" />
+            <marker date="1504118172405" expanded="true" signature="20343:20577" ph="INSERT INTO Variables... " />
+            <marker date="1504118172405" expanded="true" signature="21081:21120" ph="SELECT * FRO... Units" />
+            <marker date="1504118172405" expanded="true" signature="22383:22514" ph="INSERT INTO Units... " />
+            <marker date="1504118172405" expanded="true" signature="23091:23149" ph="SELECT * FRO... ProcessingLevels" />
+            <marker date="1504118172405" expanded="true" signature="24245:24383" ph="INSERT INTO ProcessingLevels... " />
+            <marker date="1504118172405" expanded="true" signature="25057:25124" ph="SELECT * FRO... People" />
+            <marker date="1504118172405" expanded="true" signature="25659:25765" ph="INSERT INTO People... " />
+            <marker date="1504118172405" expanded="true" signature="26191:26245" ph="SELECT * FRO... Organizations" />
+            <marker date="1504118172405" expanded="true" signature="27489:27731" ph="INSERT INTO Organizations... " />
+            <marker date="1504118172405" expanded="true" signature="28113:28181" ph="SELECT * FRO... Affiliations" />
+            <marker date="1504118172405" expanded="true" signature="29733:29959" ph="INSERT INTO Affiliations... " />
+            <marker date="1504118172405" expanded="true" signature="31660:31882" ph="INSERT INTO Actions... " />
+            <marker date="1504118172405" expanded="true" signature="32650:32783" ph="INSERT INTO ActionBy... " />
+            <marker date="1504118172405" expanded="true" signature="33312:33425" ph="INSERT INTO FeatureActions... " />
+            <marker date="1504118172405" expanded="true" signature="35323:35603" ph="INSERT INTO Results... " />
+            <marker date="1504118172405" expanded="true" signature="36109:36221" ph="INSERT INTO Units... " />
+            <marker date="1504118172405" expanded="true" signature="37620:37793" ph="INSERT INTO TimeSeriesResults... " />
+            <marker date="1504118172405" expanded="true" signature="39813:39830" ph="BEGIN TRANSA... " />
+            <marker date="1504118172405" expanded="true" signature="39857:40157" ph="INSERT INTO TimeSeriesResultValues... " />
+            <marker date="1504118172405" expanded="true" signature="40312:40390" ph="INSERT INTO DataSetsResults... " />
           </folding>
         </state>
       </provider>
@@ -772,7 +806,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#35#0" expanded="false" />
+            <element signature="e#0#35#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -798,45 +832,44 @@
         <state relative-caret-position="0">
           <caret line="465" column="92" lean-forward="false" selection-start-line="465" selection-start-column="92" selection-end-line="465" selection-end-column="92" />
           <folding>
-            <element signature="e#0#29#0" expanded="true" />
-            <element signature="e#40557#72609#1" expanded="false" />
-            <element signature="e#72668#73281#0" expanded="false" />
-            <element signature="e#73310#73781#0" expanded="false" />
-            <element signature="e#73899#75446#0" expanded="false" />
-            <element signature="e#75473#76286#0" expanded="false" />
-            <element signature="e#76332#76735#0" expanded="false" />
-            <element signature="e#76783#77187#0" expanded="false" />
-            <element signature="e#77235#79636#0" expanded="false" />
-            <element signature="e#79685#82094#0" expanded="false" />
-            <element signature="e#82096#82250#1" expanded="false" />
-            <marker date="1504040307297" expanded="true" signature="7940:8113" ph="INSERT INTO Datasets... " />
-            <marker date="1504040307297" expanded="true" signature="11336:11396" ph="SELECT * FRO... SamplingFeatures" />
-            <marker date="1504040307297" expanded="true" signature="13422:13791" ph="INSERT INTO SamplingFeatures... " />
-            <marker date="1504040307297" expanded="true" signature="14453:14602" ph="INSERT INTO SpatialReferences... " />
-            <marker date="1504040307297" expanded="true" signature="15719:15856" ph="INSERT INTO Sites... " />
-            <marker date="1504040307297" expanded="true" signature="16949:16991" ph="SELECT * FRO... Methods" />
-            <marker date="1504040307297" expanded="true" signature="18080:18231" ph="INSERT INTO Methods... " />
-            <marker date="1504040307297" expanded="true" signature="18759:18805" ph="SELECT * FRO... Variables" />
-            <marker date="1504040307297" expanded="true" signature="20207:20441" ph="INSERT INTO Variables... " />
-            <marker date="1504040307297" expanded="true" signature="20945:20984" ph="SELECT * FRO... Units" />
-            <marker date="1504040307297" expanded="true" signature="22247:22378" ph="INSERT INTO Units... " />
-            <marker date="1504040307297" expanded="true" signature="22955:23013" ph="SELECT * FRO... ProcessingLevels" />
-            <marker date="1504040307297" expanded="true" signature="24109:24247" ph="INSERT INTO ProcessingLevels... " />
-            <marker date="1504040307297" expanded="true" signature="24921:24988" ph="SELECT * FRO... People" />
-            <marker date="1504040307297" expanded="true" signature="25523:25629" ph="INSERT INTO People... " />
-            <marker date="1504040307297" expanded="true" signature="26055:26109" ph="SELECT * FRO... Organizations" />
-            <marker date="1504040307297" expanded="true" signature="27353:27595" ph="INSERT INTO Organizations... " />
-            <marker date="1504040307297" expanded="true" signature="27977:28045" ph="SELECT * FRO... Affiliations" />
-            <marker date="1504040307297" expanded="true" signature="29597:29823" ph="INSERT INTO Affiliations... " />
-            <marker date="1504040307297" expanded="true" signature="31524:31746" ph="INSERT INTO Actions... " />
-            <marker date="1504040307297" expanded="true" signature="32514:32647" ph="INSERT INTO ActionBy... " />
-            <marker date="1504040307297" expanded="true" signature="33176:33289" ph="INSERT INTO FeatureActions... " />
-            <marker date="1504040307297" expanded="true" signature="35187:35467" ph="INSERT INTO Results... " />
-            <marker date="1504040307297" expanded="true" signature="35973:36085" ph="INSERT INTO Units... " />
-            <marker date="1504040307297" expanded="true" signature="37484:37657" ph="INSERT INTO TimeSeriesResults... " />
-            <marker date="1504040307297" expanded="true" signature="39677:39694" ph="BEGIN TRANSA... " />
-            <marker date="1504040307297" expanded="true" signature="39721:40021" ph="INSERT INTO TimeSeriesResultValues... " />
-            <marker date="1504040307297" expanded="true" signature="40176:40254" ph="INSERT INTO DataSetsResults... " />
+            <element signature="e#40715#72767#1" expanded="false" />
+            <element signature="e#72826#73439#0" expanded="false" />
+            <element signature="e#73468#73939#0" expanded="false" />
+            <element signature="e#74057#75604#0" expanded="false" />
+            <element signature="e#75631#76444#0" expanded="false" />
+            <element signature="e#76490#76893#0" expanded="false" />
+            <element signature="e#76941#77345#0" expanded="false" />
+            <element signature="e#77393#79794#0" expanded="false" />
+            <element signature="e#79843#82252#0" expanded="false" />
+            <element signature="e#82254#82408#1" expanded="false" />
+            <marker date="1504118172405" expanded="true" signature="7986:8159" ph="INSERT INTO Datasets... " />
+            <marker date="1504118172405" expanded="true" signature="11472:11532" ph="SELECT * FRO... SamplingFeatures" />
+            <marker date="1504118172405" expanded="true" signature="13558:13927" ph="INSERT INTO SamplingFeatures... " />
+            <marker date="1504118172405" expanded="true" signature="14589:14738" ph="INSERT INTO SpatialReferences... " />
+            <marker date="1504118172405" expanded="true" signature="15855:15992" ph="INSERT INTO Sites... " />
+            <marker date="1504118172405" expanded="true" signature="17085:17127" ph="SELECT * FRO... Methods" />
+            <marker date="1504118172405" expanded="true" signature="18216:18367" ph="INSERT INTO Methods... " />
+            <marker date="1504118172405" expanded="true" signature="18895:18941" ph="SELECT * FRO... Variables" />
+            <marker date="1504118172405" expanded="true" signature="20343:20577" ph="INSERT INTO Variables... " />
+            <marker date="1504118172405" expanded="true" signature="21081:21120" ph="SELECT * FRO... Units" />
+            <marker date="1504118172405" expanded="true" signature="22383:22514" ph="INSERT INTO Units... " />
+            <marker date="1504118172405" expanded="true" signature="23091:23149" ph="SELECT * FRO... ProcessingLevels" />
+            <marker date="1504118172405" expanded="true" signature="24245:24383" ph="INSERT INTO ProcessingLevels... " />
+            <marker date="1504118172405" expanded="true" signature="25057:25124" ph="SELECT * FRO... People" />
+            <marker date="1504118172405" expanded="true" signature="25659:25765" ph="INSERT INTO People... " />
+            <marker date="1504118172405" expanded="true" signature="26191:26245" ph="SELECT * FRO... Organizations" />
+            <marker date="1504118172405" expanded="true" signature="27489:27731" ph="INSERT INTO Organizations... " />
+            <marker date="1504118172405" expanded="true" signature="28113:28181" ph="SELECT * FRO... Affiliations" />
+            <marker date="1504118172405" expanded="true" signature="29733:29959" ph="INSERT INTO Affiliations... " />
+            <marker date="1504118172405" expanded="true" signature="31660:31882" ph="INSERT INTO Actions... " />
+            <marker date="1504118172405" expanded="true" signature="32650:32783" ph="INSERT INTO ActionBy... " />
+            <marker date="1504118172405" expanded="true" signature="33312:33425" ph="INSERT INTO FeatureActions... " />
+            <marker date="1504118172405" expanded="true" signature="35323:35603" ph="INSERT INTO Results... " />
+            <marker date="1504118172405" expanded="true" signature="36109:36221" ph="INSERT INTO Units... " />
+            <marker date="1504118172405" expanded="true" signature="37620:37793" ph="INSERT INTO TimeSeriesResults... " />
+            <marker date="1504118172405" expanded="true" signature="39813:39830" ph="BEGIN TRANSA... " />
+            <marker date="1504118172405" expanded="true" signature="39857:40157" ph="INSERT INTO TimeSeriesResultValues... " />
+            <marker date="1504118172405" expanded="true" signature="40312:40390" ph="INSERT INTO DataSetsResults... " />
           </folding>
         </state>
       </provider>
@@ -854,7 +887,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#35#0" expanded="false" />
+            <element signature="e#0#35#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -880,45 +913,44 @@
         <state relative-caret-position="0">
           <caret line="209" column="89" lean-forward="false" selection-start-line="209" selection-start-column="20" selection-end-line="209" selection-end-column="89" />
           <folding>
-            <element signature="e#0#29#0" expanded="true" />
-            <element signature="e#40557#72609#1" expanded="false" />
-            <element signature="e#72668#73281#0" expanded="false" />
-            <element signature="e#73310#73781#0" expanded="false" />
-            <element signature="e#73899#75446#0" expanded="false" />
-            <element signature="e#75473#76286#0" expanded="false" />
-            <element signature="e#76332#76735#0" expanded="false" />
-            <element signature="e#76783#77187#0" expanded="false" />
-            <element signature="e#77235#79636#0" expanded="false" />
-            <element signature="e#79685#82094#0" expanded="false" />
-            <element signature="e#82096#82250#1" expanded="false" />
-            <marker date="1504040307297" expanded="true" signature="7940:8113" ph="INSERT INTO Datasets... " />
-            <marker date="1504040307297" expanded="true" signature="11336:11396" ph="SELECT * FRO... SamplingFeatures" />
-            <marker date="1504040307297" expanded="true" signature="13422:13791" ph="INSERT INTO SamplingFeatures... " />
-            <marker date="1504040307297" expanded="true" signature="14453:14602" ph="INSERT INTO SpatialReferences... " />
-            <marker date="1504040307297" expanded="true" signature="15719:15856" ph="INSERT INTO Sites... " />
-            <marker date="1504040307297" expanded="true" signature="16949:16991" ph="SELECT * FRO... Methods" />
-            <marker date="1504040307297" expanded="true" signature="18080:18231" ph="INSERT INTO Methods... " />
-            <marker date="1504040307297" expanded="true" signature="18759:18805" ph="SELECT * FRO... Variables" />
-            <marker date="1504040307297" expanded="true" signature="20207:20441" ph="INSERT INTO Variables... " />
-            <marker date="1504040307297" expanded="true" signature="20945:20984" ph="SELECT * FRO... Units" />
-            <marker date="1504040307297" expanded="true" signature="22247:22378" ph="INSERT INTO Units... " />
-            <marker date="1504040307297" expanded="true" signature="22955:23013" ph="SELECT * FRO... ProcessingLevels" />
-            <marker date="1504040307297" expanded="true" signature="24109:24247" ph="INSERT INTO ProcessingLevels... " />
-            <marker date="1504040307297" expanded="true" signature="24921:24988" ph="SELECT * FRO... People" />
-            <marker date="1504040307297" expanded="true" signature="25523:25629" ph="INSERT INTO People... " />
-            <marker date="1504040307297" expanded="true" signature="26055:26109" ph="SELECT * FRO... Organizations" />
-            <marker date="1504040307297" expanded="true" signature="27353:27595" ph="INSERT INTO Organizations... " />
-            <marker date="1504040307297" expanded="true" signature="27977:28045" ph="SELECT * FRO... Affiliations" />
-            <marker date="1504040307297" expanded="true" signature="29597:29823" ph="INSERT INTO Affiliations... " />
-            <marker date="1504040307297" expanded="true" signature="31524:31746" ph="INSERT INTO Actions... " />
-            <marker date="1504040307297" expanded="true" signature="32514:32647" ph="INSERT INTO ActionBy... " />
-            <marker date="1504040307297" expanded="true" signature="33176:33289" ph="INSERT INTO FeatureActions... " />
-            <marker date="1504040307297" expanded="true" signature="35187:35467" ph="INSERT INTO Results... " />
-            <marker date="1504040307297" expanded="true" signature="35973:36085" ph="INSERT INTO Units... " />
-            <marker date="1504040307297" expanded="true" signature="37484:37657" ph="INSERT INTO TimeSeriesResults... " />
-            <marker date="1504040307297" expanded="true" signature="39677:39694" ph="BEGIN TRANSA... " />
-            <marker date="1504040307297" expanded="true" signature="39721:40021" ph="INSERT INTO TimeSeriesResultValues... " />
-            <marker date="1504040307297" expanded="true" signature="40176:40254" ph="INSERT INTO DataSetsResults... " />
+            <element signature="e#40715#72767#1" expanded="false" />
+            <element signature="e#72826#73439#0" expanded="false" />
+            <element signature="e#73468#73939#0" expanded="false" />
+            <element signature="e#74057#75604#0" expanded="false" />
+            <element signature="e#75631#76444#0" expanded="false" />
+            <element signature="e#76490#76893#0" expanded="false" />
+            <element signature="e#76941#77345#0" expanded="false" />
+            <element signature="e#77393#79794#0" expanded="false" />
+            <element signature="e#79843#82252#0" expanded="false" />
+            <element signature="e#82254#82408#1" expanded="false" />
+            <marker date="1504118172405" expanded="true" signature="7986:8159" ph="INSERT INTO Datasets... " />
+            <marker date="1504118172405" expanded="true" signature="11472:11532" ph="SELECT * FRO... SamplingFeatures" />
+            <marker date="1504118172405" expanded="true" signature="13558:13927" ph="INSERT INTO SamplingFeatures... " />
+            <marker date="1504118172405" expanded="true" signature="14589:14738" ph="INSERT INTO SpatialReferences... " />
+            <marker date="1504118172405" expanded="true" signature="15855:15992" ph="INSERT INTO Sites... " />
+            <marker date="1504118172405" expanded="true" signature="17085:17127" ph="SELECT * FRO... Methods" />
+            <marker date="1504118172405" expanded="true" signature="18216:18367" ph="INSERT INTO Methods... " />
+            <marker date="1504118172405" expanded="true" signature="18895:18941" ph="SELECT * FRO... Variables" />
+            <marker date="1504118172405" expanded="true" signature="20343:20577" ph="INSERT INTO Variables... " />
+            <marker date="1504118172405" expanded="true" signature="21081:21120" ph="SELECT * FRO... Units" />
+            <marker date="1504118172405" expanded="true" signature="22383:22514" ph="INSERT INTO Units... " />
+            <marker date="1504118172405" expanded="true" signature="23091:23149" ph="SELECT * FRO... ProcessingLevels" />
+            <marker date="1504118172405" expanded="true" signature="24245:24383" ph="INSERT INTO ProcessingLevels... " />
+            <marker date="1504118172405" expanded="true" signature="25057:25124" ph="SELECT * FRO... People" />
+            <marker date="1504118172405" expanded="true" signature="25659:25765" ph="INSERT INTO People... " />
+            <marker date="1504118172405" expanded="true" signature="26191:26245" ph="SELECT * FRO... Organizations" />
+            <marker date="1504118172405" expanded="true" signature="27489:27731" ph="INSERT INTO Organizations... " />
+            <marker date="1504118172405" expanded="true" signature="28113:28181" ph="SELECT * FRO... Affiliations" />
+            <marker date="1504118172405" expanded="true" signature="29733:29959" ph="INSERT INTO Affiliations... " />
+            <marker date="1504118172405" expanded="true" signature="31660:31882" ph="INSERT INTO Actions... " />
+            <marker date="1504118172405" expanded="true" signature="32650:32783" ph="INSERT INTO ActionBy... " />
+            <marker date="1504118172405" expanded="true" signature="33312:33425" ph="INSERT INTO FeatureActions... " />
+            <marker date="1504118172405" expanded="true" signature="35323:35603" ph="INSERT INTO Results... " />
+            <marker date="1504118172405" expanded="true" signature="36109:36221" ph="INSERT INTO Units... " />
+            <marker date="1504118172405" expanded="true" signature="37620:37793" ph="INSERT INTO TimeSeriesResults... " />
+            <marker date="1504118172405" expanded="true" signature="39813:39830" ph="BEGIN TRANSA... " />
+            <marker date="1504118172405" expanded="true" signature="39857:40157" ph="INSERT INTO TimeSeriesResultValues... " />
+            <marker date="1504118172405" expanded="true" signature="40312:40390" ph="INSERT INTO DataSetsResults... " />
           </folding>
         </state>
       </provider>
@@ -936,7 +968,7 @@
         <state relative-caret-position="0">
           <caret line="44" column="31" lean-forward="false" selection-start-line="44" selection-start-column="31" selection-end-line="44" selection-end-column="31" />
           <folding>
-            <element signature="e#0#35#0" expanded="false" />
+            <element signature="e#0#35#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -962,45 +994,44 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#29#0" expanded="true" />
-            <element signature="e#40557#72609#1" expanded="false" />
-            <element signature="e#72668#73281#0" expanded="false" />
-            <element signature="e#73310#73781#0" expanded="false" />
-            <element signature="e#73899#75446#0" expanded="false" />
-            <element signature="e#75473#76286#0" expanded="false" />
-            <element signature="e#76332#76735#0" expanded="false" />
-            <element signature="e#76783#77187#0" expanded="false" />
-            <element signature="e#77235#79636#0" expanded="false" />
-            <element signature="e#79685#82094#0" expanded="false" />
-            <element signature="e#82096#82250#1" expanded="false" />
-            <marker date="1504040307297" expanded="true" signature="7940:8113" ph="INSERT INTO Datasets... " />
-            <marker date="1504040307297" expanded="true" signature="11336:11396" ph="SELECT * FRO... SamplingFeatures" />
-            <marker date="1504040307297" expanded="true" signature="13422:13791" ph="INSERT INTO SamplingFeatures... " />
-            <marker date="1504040307297" expanded="true" signature="14453:14602" ph="INSERT INTO SpatialReferences... " />
-            <marker date="1504040307297" expanded="true" signature="15719:15856" ph="INSERT INTO Sites... " />
-            <marker date="1504040307297" expanded="true" signature="16949:16991" ph="SELECT * FRO... Methods" />
-            <marker date="1504040307297" expanded="true" signature="18080:18231" ph="INSERT INTO Methods... " />
-            <marker date="1504040307297" expanded="true" signature="18759:18805" ph="SELECT * FRO... Variables" />
-            <marker date="1504040307297" expanded="true" signature="20207:20441" ph="INSERT INTO Variables... " />
-            <marker date="1504040307297" expanded="true" signature="20945:20984" ph="SELECT * FRO... Units" />
-            <marker date="1504040307297" expanded="true" signature="22247:22378" ph="INSERT INTO Units... " />
-            <marker date="1504040307297" expanded="true" signature="22955:23013" ph="SELECT * FRO... ProcessingLevels" />
-            <marker date="1504040307297" expanded="true" signature="24109:24247" ph="INSERT INTO ProcessingLevels... " />
-            <marker date="1504040307297" expanded="true" signature="24921:24988" ph="SELECT * FRO... People" />
-            <marker date="1504040307297" expanded="true" signature="25523:25629" ph="INSERT INTO People... " />
-            <marker date="1504040307297" expanded="true" signature="26055:26109" ph="SELECT * FRO... Organizations" />
-            <marker date="1504040307297" expanded="true" signature="27353:27595" ph="INSERT INTO Organizations... " />
-            <marker date="1504040307297" expanded="true" signature="27977:28045" ph="SELECT * FRO... Affiliations" />
-            <marker date="1504040307297" expanded="true" signature="29597:29823" ph="INSERT INTO Affiliations... " />
-            <marker date="1504040307297" expanded="true" signature="31524:31746" ph="INSERT INTO Actions... " />
-            <marker date="1504040307297" expanded="true" signature="32514:32647" ph="INSERT INTO ActionBy... " />
-            <marker date="1504040307297" expanded="true" signature="33176:33289" ph="INSERT INTO FeatureActions... " />
-            <marker date="1504040307297" expanded="true" signature="35187:35467" ph="INSERT INTO Results... " />
-            <marker date="1504040307297" expanded="true" signature="35973:36085" ph="INSERT INTO Units... " />
-            <marker date="1504040307297" expanded="true" signature="37484:37657" ph="INSERT INTO TimeSeriesResults... " />
-            <marker date="1504040307297" expanded="true" signature="39677:39694" ph="BEGIN TRANSA... " />
-            <marker date="1504040307297" expanded="true" signature="39721:40021" ph="INSERT INTO TimeSeriesResultValues... " />
-            <marker date="1504040307297" expanded="true" signature="40176:40254" ph="INSERT INTO DataSetsResults... " />
+            <element signature="e#40715#72767#1" expanded="false" />
+            <element signature="e#72826#73439#0" expanded="false" />
+            <element signature="e#73468#73939#0" expanded="false" />
+            <element signature="e#74057#75604#0" expanded="false" />
+            <element signature="e#75631#76444#0" expanded="false" />
+            <element signature="e#76490#76893#0" expanded="false" />
+            <element signature="e#76941#77345#0" expanded="false" />
+            <element signature="e#77393#79794#0" expanded="false" />
+            <element signature="e#79843#82252#0" expanded="false" />
+            <element signature="e#82254#82408#1" expanded="false" />
+            <marker date="1504118172405" expanded="true" signature="7986:8159" ph="INSERT INTO Datasets... " />
+            <marker date="1504118172405" expanded="true" signature="11472:11532" ph="SELECT * FRO... SamplingFeatures" />
+            <marker date="1504118172405" expanded="true" signature="13558:13927" ph="INSERT INTO SamplingFeatures... " />
+            <marker date="1504118172405" expanded="true" signature="14589:14738" ph="INSERT INTO SpatialReferences... " />
+            <marker date="1504118172405" expanded="true" signature="15855:15992" ph="INSERT INTO Sites... " />
+            <marker date="1504118172405" expanded="true" signature="17085:17127" ph="SELECT * FRO... Methods" />
+            <marker date="1504118172405" expanded="true" signature="18216:18367" ph="INSERT INTO Methods... " />
+            <marker date="1504118172405" expanded="true" signature="18895:18941" ph="SELECT * FRO... Variables" />
+            <marker date="1504118172405" expanded="true" signature="20343:20577" ph="INSERT INTO Variables... " />
+            <marker date="1504118172405" expanded="true" signature="21081:21120" ph="SELECT * FRO... Units" />
+            <marker date="1504118172405" expanded="true" signature="22383:22514" ph="INSERT INTO Units... " />
+            <marker date="1504118172405" expanded="true" signature="23091:23149" ph="SELECT * FRO... ProcessingLevels" />
+            <marker date="1504118172405" expanded="true" signature="24245:24383" ph="INSERT INTO ProcessingLevels... " />
+            <marker date="1504118172405" expanded="true" signature="25057:25124" ph="SELECT * FRO... People" />
+            <marker date="1504118172405" expanded="true" signature="25659:25765" ph="INSERT INTO People... " />
+            <marker date="1504118172405" expanded="true" signature="26191:26245" ph="SELECT * FRO... Organizations" />
+            <marker date="1504118172405" expanded="true" signature="27489:27731" ph="INSERT INTO Organizations... " />
+            <marker date="1504118172405" expanded="true" signature="28113:28181" ph="SELECT * FRO... Affiliations" />
+            <marker date="1504118172405" expanded="true" signature="29733:29959" ph="INSERT INTO Affiliations... " />
+            <marker date="1504118172405" expanded="true" signature="31660:31882" ph="INSERT INTO Actions... " />
+            <marker date="1504118172405" expanded="true" signature="32650:32783" ph="INSERT INTO ActionBy... " />
+            <marker date="1504118172405" expanded="true" signature="33312:33425" ph="INSERT INTO FeatureActions... " />
+            <marker date="1504118172405" expanded="true" signature="35323:35603" ph="INSERT INTO Results... " />
+            <marker date="1504118172405" expanded="true" signature="36109:36221" ph="INSERT INTO Units... " />
+            <marker date="1504118172405" expanded="true" signature="37620:37793" ph="INSERT INTO TimeSeriesResults... " />
+            <marker date="1504118172405" expanded="true" signature="39813:39830" ph="BEGIN TRANSA... " />
+            <marker date="1504118172405" expanded="true" signature="39857:40157" ph="INSERT INTO TimeSeriesResultValues... " />
+            <marker date="1504118172405" expanded="true" signature="40312:40390" ph="INSERT INTO DataSetsResults... " />
           </folding>
         </state>
       </provider>
@@ -1018,7 +1049,7 @@
         <state relative-caret-position="0">
           <caret line="16" column="37" lean-forward="false" selection-start-line="16" selection-start-column="37" selection-end-line="16" selection-end-column="37" />
           <folding>
-            <element signature="e#0#35#0" expanded="false" />
+            <element signature="e#0#35#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1044,45 +1075,44 @@
         <state relative-caret-position="0">
           <caret line="394" column="0" lean-forward="false" selection-start-line="394" selection-start-column="0" selection-end-line="394" selection-end-column="0" />
           <folding>
-            <element signature="e#0#29#0" expanded="true" />
-            <element signature="e#40557#72609#1" expanded="false" />
-            <element signature="e#72668#73281#0" expanded="false" />
-            <element signature="e#73310#73781#0" expanded="false" />
-            <element signature="e#73899#75446#0" expanded="false" />
-            <element signature="e#75473#76286#0" expanded="false" />
-            <element signature="e#76332#76735#0" expanded="false" />
-            <element signature="e#76783#77187#0" expanded="false" />
-            <element signature="e#77235#79636#0" expanded="false" />
-            <element signature="e#79685#82094#0" expanded="false" />
-            <element signature="e#82096#82250#1" expanded="false" />
-            <marker date="1504040307297" expanded="true" signature="7940:8113" ph="INSERT INTO Datasets... " />
-            <marker date="1504040307297" expanded="true" signature="11336:11396" ph="SELECT * FRO... SamplingFeatures" />
-            <marker date="1504040307297" expanded="true" signature="13422:13791" ph="INSERT INTO SamplingFeatures... " />
-            <marker date="1504040307297" expanded="true" signature="14453:14602" ph="INSERT INTO SpatialReferences... " />
-            <marker date="1504040307297" expanded="true" signature="15719:15856" ph="INSERT INTO Sites... " />
-            <marker date="1504040307297" expanded="true" signature="16949:16991" ph="SELECT * FRO... Methods" />
-            <marker date="1504040307297" expanded="true" signature="18080:18231" ph="INSERT INTO Methods... " />
-            <marker date="1504040307297" expanded="true" signature="18759:18805" ph="SELECT * FRO... Variables" />
-            <marker date="1504040307297" expanded="true" signature="20207:20441" ph="INSERT INTO Variables... " />
-            <marker date="1504040307297" expanded="true" signature="20945:20984" ph="SELECT * FRO... Units" />
-            <marker date="1504040307297" expanded="true" signature="22247:22378" ph="INSERT INTO Units... " />
-            <marker date="1504040307297" expanded="true" signature="22955:23013" ph="SELECT * FRO... ProcessingLevels" />
-            <marker date="1504040307297" expanded="true" signature="24109:24247" ph="INSERT INTO ProcessingLevels... " />
-            <marker date="1504040307297" expanded="true" signature="24921:24988" ph="SELECT * FRO... People" />
-            <marker date="1504040307297" expanded="true" signature="25523:25629" ph="INSERT INTO People... " />
-            <marker date="1504040307297" expanded="true" signature="26055:26109" ph="SELECT * FRO... Organizations" />
-            <marker date="1504040307297" expanded="true" signature="27353:27595" ph="INSERT INTO Organizations... " />
-            <marker date="1504040307297" expanded="true" signature="27977:28045" ph="SELECT * FRO... Affiliations" />
-            <marker date="1504040307297" expanded="true" signature="29597:29823" ph="INSERT INTO Affiliations... " />
-            <marker date="1504040307297" expanded="true" signature="31524:31746" ph="INSERT INTO Actions... " />
-            <marker date="1504040307297" expanded="true" signature="32514:32647" ph="INSERT INTO ActionBy... " />
-            <marker date="1504040307297" expanded="true" signature="33176:33289" ph="INSERT INTO FeatureActions... " />
-            <marker date="1504040307297" expanded="true" signature="35187:35467" ph="INSERT INTO Results... " />
-            <marker date="1504040307297" expanded="true" signature="35973:36085" ph="INSERT INTO Units... " />
-            <marker date="1504040307297" expanded="true" signature="37484:37657" ph="INSERT INTO TimeSeriesResults... " />
-            <marker date="1504040307297" expanded="true" signature="39677:39694" ph="BEGIN TRANSA... " />
-            <marker date="1504040307297" expanded="true" signature="39721:40021" ph="INSERT INTO TimeSeriesResultValues... " />
-            <marker date="1504040307297" expanded="true" signature="40176:40254" ph="INSERT INTO DataSetsResults... " />
+            <element signature="e#40715#72767#1" expanded="false" />
+            <element signature="e#72826#73439#0" expanded="false" />
+            <element signature="e#73468#73939#0" expanded="false" />
+            <element signature="e#74057#75604#0" expanded="false" />
+            <element signature="e#75631#76444#0" expanded="false" />
+            <element signature="e#76490#76893#0" expanded="false" />
+            <element signature="e#76941#77345#0" expanded="false" />
+            <element signature="e#77393#79794#0" expanded="false" />
+            <element signature="e#79843#82252#0" expanded="false" />
+            <element signature="e#82254#82408#1" expanded="false" />
+            <marker date="1504118172405" expanded="true" signature="7986:8159" ph="INSERT INTO Datasets... " />
+            <marker date="1504118172405" expanded="true" signature="11472:11532" ph="SELECT * FRO... SamplingFeatures" />
+            <marker date="1504118172405" expanded="true" signature="13558:13927" ph="INSERT INTO SamplingFeatures... " />
+            <marker date="1504118172405" expanded="true" signature="14589:14738" ph="INSERT INTO SpatialReferences... " />
+            <marker date="1504118172405" expanded="true" signature="15855:15992" ph="INSERT INTO Sites... " />
+            <marker date="1504118172405" expanded="true" signature="17085:17127" ph="SELECT * FRO... Methods" />
+            <marker date="1504118172405" expanded="true" signature="18216:18367" ph="INSERT INTO Methods... " />
+            <marker date="1504118172405" expanded="true" signature="18895:18941" ph="SELECT * FRO... Variables" />
+            <marker date="1504118172405" expanded="true" signature="20343:20577" ph="INSERT INTO Variables... " />
+            <marker date="1504118172405" expanded="true" signature="21081:21120" ph="SELECT * FRO... Units" />
+            <marker date="1504118172405" expanded="true" signature="22383:22514" ph="INSERT INTO Units... " />
+            <marker date="1504118172405" expanded="true" signature="23091:23149" ph="SELECT * FRO... ProcessingLevels" />
+            <marker date="1504118172405" expanded="true" signature="24245:24383" ph="INSERT INTO ProcessingLevels... " />
+            <marker date="1504118172405" expanded="true" signature="25057:25124" ph="SELECT * FRO... People" />
+            <marker date="1504118172405" expanded="true" signature="25659:25765" ph="INSERT INTO People... " />
+            <marker date="1504118172405" expanded="true" signature="26191:26245" ph="SELECT * FRO... Organizations" />
+            <marker date="1504118172405" expanded="true" signature="27489:27731" ph="INSERT INTO Organizations... " />
+            <marker date="1504118172405" expanded="true" signature="28113:28181" ph="SELECT * FRO... Affiliations" />
+            <marker date="1504118172405" expanded="true" signature="29733:29959" ph="INSERT INTO Affiliations... " />
+            <marker date="1504118172405" expanded="true" signature="31660:31882" ph="INSERT INTO Actions... " />
+            <marker date="1504118172405" expanded="true" signature="32650:32783" ph="INSERT INTO ActionBy... " />
+            <marker date="1504118172405" expanded="true" signature="33312:33425" ph="INSERT INTO FeatureActions... " />
+            <marker date="1504118172405" expanded="true" signature="35323:35603" ph="INSERT INTO Results... " />
+            <marker date="1504118172405" expanded="true" signature="36109:36221" ph="INSERT INTO Units... " />
+            <marker date="1504118172405" expanded="true" signature="37620:37793" ph="INSERT INTO TimeSeriesResults... " />
+            <marker date="1504118172405" expanded="true" signature="39813:39830" ph="BEGIN TRANSA... " />
+            <marker date="1504118172405" expanded="true" signature="39857:40157" ph="INSERT INTO TimeSeriesResultValues... " />
+            <marker date="1504118172405" expanded="true" signature="40312:40390" ph="INSERT INTO DataSetsResults... " />
           </folding>
         </state>
       </provider>
@@ -1100,7 +1130,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#0#35#0" expanded="false" />
+            <element signature="e#0#35#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1126,45 +1156,44 @@
         <state relative-caret-position="0">
           <caret line="394" column="0" lean-forward="false" selection-start-line="394" selection-start-column="0" selection-end-line="394" selection-end-column="0" />
           <folding>
-            <element signature="e#0#29#0" expanded="true" />
-            <element signature="e#40557#72609#1" expanded="false" />
-            <element signature="e#72668#73281#0" expanded="false" />
-            <element signature="e#73310#73781#0" expanded="false" />
-            <element signature="e#73899#75446#0" expanded="false" />
-            <element signature="e#75473#76286#0" expanded="false" />
-            <element signature="e#76332#76735#0" expanded="false" />
-            <element signature="e#76783#77187#0" expanded="false" />
-            <element signature="e#77235#79636#0" expanded="false" />
-            <element signature="e#79685#82094#0" expanded="false" />
-            <element signature="e#82096#82250#1" expanded="false" />
-            <marker date="1504040307297" expanded="true" signature="7940:8113" ph="INSERT INTO Datasets... " />
-            <marker date="1504040307297" expanded="true" signature="11336:11396" ph="SELECT * FRO... SamplingFeatures" />
-            <marker date="1504040307297" expanded="true" signature="13422:13791" ph="INSERT INTO SamplingFeatures... " />
-            <marker date="1504040307297" expanded="true" signature="14453:14602" ph="INSERT INTO SpatialReferences... " />
-            <marker date="1504040307297" expanded="true" signature="15719:15856" ph="INSERT INTO Sites... " />
-            <marker date="1504040307297" expanded="true" signature="16949:16991" ph="SELECT * FRO... Methods" />
-            <marker date="1504040307297" expanded="true" signature="18080:18231" ph="INSERT INTO Methods... " />
-            <marker date="1504040307297" expanded="true" signature="18759:18805" ph="SELECT * FRO... Variables" />
-            <marker date="1504040307297" expanded="true" signature="20207:20441" ph="INSERT INTO Variables... " />
-            <marker date="1504040307297" expanded="true" signature="20945:20984" ph="SELECT * FRO... Units" />
-            <marker date="1504040307297" expanded="true" signature="22247:22378" ph="INSERT INTO Units... " />
-            <marker date="1504040307297" expanded="true" signature="22955:23013" ph="SELECT * FRO... ProcessingLevels" />
-            <marker date="1504040307297" expanded="true" signature="24109:24247" ph="INSERT INTO ProcessingLevels... " />
-            <marker date="1504040307297" expanded="true" signature="24921:24988" ph="SELECT * FRO... People" />
-            <marker date="1504040307297" expanded="true" signature="25523:25629" ph="INSERT INTO People... " />
-            <marker date="1504040307297" expanded="true" signature="26055:26109" ph="SELECT * FRO... Organizations" />
-            <marker date="1504040307297" expanded="true" signature="27353:27595" ph="INSERT INTO Organizations... " />
-            <marker date="1504040307297" expanded="true" signature="27977:28045" ph="SELECT * FRO... Affiliations" />
-            <marker date="1504040307297" expanded="true" signature="29597:29823" ph="INSERT INTO Affiliations... " />
-            <marker date="1504040307297" expanded="true" signature="31524:31746" ph="INSERT INTO Actions... " />
-            <marker date="1504040307297" expanded="true" signature="32514:32647" ph="INSERT INTO ActionBy... " />
-            <marker date="1504040307297" expanded="true" signature="33176:33289" ph="INSERT INTO FeatureActions... " />
-            <marker date="1504040307297" expanded="true" signature="35187:35467" ph="INSERT INTO Results... " />
-            <marker date="1504040307297" expanded="true" signature="35973:36085" ph="INSERT INTO Units... " />
-            <marker date="1504040307297" expanded="true" signature="37484:37657" ph="INSERT INTO TimeSeriesResults... " />
-            <marker date="1504040307297" expanded="true" signature="39677:39694" ph="BEGIN TRANSA... " />
-            <marker date="1504040307297" expanded="true" signature="39721:40021" ph="INSERT INTO TimeSeriesResultValues... " />
-            <marker date="1504040307297" expanded="true" signature="40176:40254" ph="INSERT INTO DataSetsResults... " />
+            <element signature="e#40715#72767#1" expanded="false" />
+            <element signature="e#72826#73439#0" expanded="false" />
+            <element signature="e#73468#73939#0" expanded="false" />
+            <element signature="e#74057#75604#0" expanded="false" />
+            <element signature="e#75631#76444#0" expanded="false" />
+            <element signature="e#76490#76893#0" expanded="false" />
+            <element signature="e#76941#77345#0" expanded="false" />
+            <element signature="e#77393#79794#0" expanded="false" />
+            <element signature="e#79843#82252#0" expanded="false" />
+            <element signature="e#82254#82408#1" expanded="false" />
+            <marker date="1504118172405" expanded="true" signature="7986:8159" ph="INSERT INTO Datasets... " />
+            <marker date="1504118172405" expanded="true" signature="11472:11532" ph="SELECT * FRO... SamplingFeatures" />
+            <marker date="1504118172405" expanded="true" signature="13558:13927" ph="INSERT INTO SamplingFeatures... " />
+            <marker date="1504118172405" expanded="true" signature="14589:14738" ph="INSERT INTO SpatialReferences... " />
+            <marker date="1504118172405" expanded="true" signature="15855:15992" ph="INSERT INTO Sites... " />
+            <marker date="1504118172405" expanded="true" signature="17085:17127" ph="SELECT * FRO... Methods" />
+            <marker date="1504118172405" expanded="true" signature="18216:18367" ph="INSERT INTO Methods... " />
+            <marker date="1504118172405" expanded="true" signature="18895:18941" ph="SELECT * FRO... Variables" />
+            <marker date="1504118172405" expanded="true" signature="20343:20577" ph="INSERT INTO Variables... " />
+            <marker date="1504118172405" expanded="true" signature="21081:21120" ph="SELECT * FRO... Units" />
+            <marker date="1504118172405" expanded="true" signature="22383:22514" ph="INSERT INTO Units... " />
+            <marker date="1504118172405" expanded="true" signature="23091:23149" ph="SELECT * FRO... ProcessingLevels" />
+            <marker date="1504118172405" expanded="true" signature="24245:24383" ph="INSERT INTO ProcessingLevels... " />
+            <marker date="1504118172405" expanded="true" signature="25057:25124" ph="SELECT * FRO... People" />
+            <marker date="1504118172405" expanded="true" signature="25659:25765" ph="INSERT INTO People... " />
+            <marker date="1504118172405" expanded="true" signature="26191:26245" ph="SELECT * FRO... Organizations" />
+            <marker date="1504118172405" expanded="true" signature="27489:27731" ph="INSERT INTO Organizations... " />
+            <marker date="1504118172405" expanded="true" signature="28113:28181" ph="SELECT * FRO... Affiliations" />
+            <marker date="1504118172405" expanded="true" signature="29733:29959" ph="INSERT INTO Affiliations... " />
+            <marker date="1504118172405" expanded="true" signature="31660:31882" ph="INSERT INTO Actions... " />
+            <marker date="1504118172405" expanded="true" signature="32650:32783" ph="INSERT INTO ActionBy... " />
+            <marker date="1504118172405" expanded="true" signature="33312:33425" ph="INSERT INTO FeatureActions... " />
+            <marker date="1504118172405" expanded="true" signature="35323:35603" ph="INSERT INTO Results... " />
+            <marker date="1504118172405" expanded="true" signature="36109:36221" ph="INSERT INTO Units... " />
+            <marker date="1504118172405" expanded="true" signature="37620:37793" ph="INSERT INTO TimeSeriesResults... " />
+            <marker date="1504118172405" expanded="true" signature="39813:39830" ph="BEGIN TRANSA... " />
+            <marker date="1504118172405" expanded="true" signature="39857:40157" ph="INSERT INTO TimeSeriesResultValues... " />
+            <marker date="1504118172405" expanded="true" signature="40312:40390" ph="INSERT INTO DataSetsResults... " />
           </folding>
         </state>
       </provider>
@@ -1231,31 +1260,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/setup.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="12" column="41" lean-forward="false" selection-start-line="12" selection-start-column="41" selection-end-line="12" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nldasResource.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="5" column="10" lean-forward="false" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/temp_workspace.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data.JSON">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -1271,29 +1276,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/timeseriesLayerResource.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="1" lean-forward="false" selection-start-line="0" selection-start-column="1" selection-end-line="0" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/templates/hydroshare_resource_creator/login_callback.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
           <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/controllers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1972">
-          <caret line="58" column="93" lean-forward="false" selection-start-line="58" selection-start-column="93" selection-end-line="58" selection-end-column="93" />
-          <folding>
-            <element signature="e#0#35#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1313,71 +1300,99 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/data.JSON">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/setup.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="12" column="41" lean-forward="false" selection-start-line="12" selection-start-column="41" selection-end-line="12" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nldasResource.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="2" column="17" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="1106" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/timeseriesLayerResource.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2142">
+          <caret line="63" column="1" lean-forward="false" selection-start-line="63" selection-start-column="1" selection-end-line="63" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/utilities.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="62" column="34" lean-forward="false" selection-start-line="62" selection-start-column="34" selection-end-line="62" selection-end-column="34" />
+        <state relative-caret-position="476">
+          <caret line="14" column="42" lean-forward="false" selection-start-line="14" selection-start-column="42" selection-end-line="14" selection-end-column="42" />
           <folding>
-            <element signature="e#0#29#0" expanded="true" />
-            <element signature="e#40557#72609#1" expanded="false" />
-            <element signature="e#72668#73281#0" expanded="false" />
-            <element signature="e#73310#73781#0" expanded="false" />
-            <element signature="e#73899#75446#0" expanded="false" />
-            <element signature="e#75473#76286#0" expanded="false" />
-            <element signature="e#76332#76735#0" expanded="false" />
-            <element signature="e#76783#77187#0" expanded="false" />
-            <element signature="e#77235#79636#0" expanded="false" />
-            <element signature="e#79685#82094#0" expanded="false" />
-            <element signature="e#82096#82250#1" expanded="false" />
-            <marker date="1504040307297" expanded="true" signature="7940:8113" ph="INSERT INTO Datasets... " />
-            <marker date="1504040307297" expanded="true" signature="11336:11396" ph="SELECT * FRO... SamplingFeatures" />
-            <marker date="1504040307297" expanded="true" signature="13422:13791" ph="INSERT INTO SamplingFeatures... " />
-            <marker date="1504040307297" expanded="true" signature="14453:14602" ph="INSERT INTO SpatialReferences... " />
-            <marker date="1504040307297" expanded="true" signature="15719:15856" ph="INSERT INTO Sites... " />
-            <marker date="1504040307297" expanded="true" signature="16949:16991" ph="SELECT * FRO... Methods" />
-            <marker date="1504040307297" expanded="true" signature="18080:18231" ph="INSERT INTO Methods... " />
-            <marker date="1504040307297" expanded="true" signature="18759:18805" ph="SELECT * FRO... Variables" />
-            <marker date="1504040307297" expanded="true" signature="20207:20441" ph="INSERT INTO Variables... " />
-            <marker date="1504040307297" expanded="true" signature="20945:20984" ph="SELECT * FRO... Units" />
-            <marker date="1504040307297" expanded="true" signature="22247:22378" ph="INSERT INTO Units... " />
-            <marker date="1504040307297" expanded="true" signature="22955:23013" ph="SELECT * FRO... ProcessingLevels" />
-            <marker date="1504040307297" expanded="true" signature="24109:24247" ph="INSERT INTO ProcessingLevels... " />
-            <marker date="1504040307297" expanded="true" signature="24921:24988" ph="SELECT * FRO... People" />
-            <marker date="1504040307297" expanded="true" signature="25523:25629" ph="INSERT INTO People... " />
-            <marker date="1504040307297" expanded="true" signature="26055:26109" ph="SELECT * FRO... Organizations" />
-            <marker date="1504040307297" expanded="true" signature="27353:27595" ph="INSERT INTO Organizations... " />
-            <marker date="1504040307297" expanded="true" signature="27977:28045" ph="SELECT * FRO... Affiliations" />
-            <marker date="1504040307297" expanded="true" signature="29597:29823" ph="INSERT INTO Affiliations... " />
-            <marker date="1504040307297" expanded="true" signature="31524:31746" ph="INSERT INTO Actions... " />
-            <marker date="1504040307297" expanded="true" signature="32514:32647" ph="INSERT INTO ActionBy... " />
-            <marker date="1504040307297" expanded="true" signature="33176:33289" ph="INSERT INTO FeatureActions... " />
-            <marker date="1504040307297" expanded="true" signature="35187:35467" ph="INSERT INTO Results... " />
-            <marker date="1504040307297" expanded="true" signature="35973:36085" ph="INSERT INTO Units... " />
-            <marker date="1504040307297" expanded="true" signature="37484:37657" ph="INSERT INTO TimeSeriesResults... " />
-            <marker date="1504040307297" expanded="true" signature="39677:39694" ph="BEGIN TRANSA... " />
-            <marker date="1504040307297" expanded="true" signature="39721:40021" ph="INSERT INTO TimeSeriesResultValues... " />
-            <marker date="1504040307297" expanded="true" signature="40176:40254" ph="INSERT INTO DataSetsResults... " />
+            <element signature="e#40715#72767#1" expanded="false" />
+            <element signature="e#72826#73439#0" expanded="false" />
+            <element signature="e#73468#73939#0" expanded="false" />
+            <element signature="e#74057#75604#0" expanded="false" />
+            <element signature="e#75631#76444#0" expanded="false" />
+            <element signature="e#76490#76893#0" expanded="false" />
+            <element signature="e#76941#77345#0" expanded="false" />
+            <element signature="e#77393#79794#0" expanded="false" />
+            <element signature="e#79843#82252#0" expanded="false" />
+            <element signature="e#82254#82408#1" expanded="false" />
+            <marker date="1504118172405" expanded="true" signature="7986:8159" ph="INSERT INTO Datasets... " />
+            <marker date="1504118172405" expanded="true" signature="11472:11532" ph="SELECT * FRO... SamplingFeatures" />
+            <marker date="1504118172405" expanded="true" signature="13558:13927" ph="INSERT INTO SamplingFeatures... " />
+            <marker date="1504118172405" expanded="true" signature="14589:14738" ph="INSERT INTO SpatialReferences... " />
+            <marker date="1504118172405" expanded="true" signature="15855:15992" ph="INSERT INTO Sites... " />
+            <marker date="1504118172405" expanded="true" signature="17085:17127" ph="SELECT * FRO... Methods" />
+            <marker date="1504118172405" expanded="true" signature="18216:18367" ph="INSERT INTO Methods... " />
+            <marker date="1504118172405" expanded="true" signature="18895:18941" ph="SELECT * FRO... Variables" />
+            <marker date="1504118172405" expanded="true" signature="20343:20577" ph="INSERT INTO Variables... " />
+            <marker date="1504118172405" expanded="true" signature="21081:21120" ph="SELECT * FRO... Units" />
+            <marker date="1504118172405" expanded="true" signature="22383:22514" ph="INSERT INTO Units... " />
+            <marker date="1504118172405" expanded="true" signature="23091:23149" ph="SELECT * FRO... ProcessingLevels" />
+            <marker date="1504118172405" expanded="true" signature="24245:24383" ph="INSERT INTO ProcessingLevels... " />
+            <marker date="1504118172405" expanded="true" signature="25057:25124" ph="SELECT * FRO... People" />
+            <marker date="1504118172405" expanded="true" signature="25659:25765" ph="INSERT INTO People... " />
+            <marker date="1504118172405" expanded="true" signature="26191:26245" ph="SELECT * FRO... Organizations" />
+            <marker date="1504118172405" expanded="true" signature="27489:27731" ph="INSERT INTO Organizations... " />
+            <marker date="1504118172405" expanded="true" signature="28113:28181" ph="SELECT * FRO... Affiliations" />
+            <marker date="1504118172405" expanded="true" signature="29733:29959" ph="INSERT INTO Affiliations... " />
+            <marker date="1504118172405" expanded="true" signature="31660:31882" ph="INSERT INTO Actions... " />
+            <marker date="1504118172405" expanded="true" signature="32650:32783" ph="INSERT INTO ActionBy... " />
+            <marker date="1504118172405" expanded="true" signature="33312:33425" ph="INSERT INTO FeatureActions... " />
+            <marker date="1504118172405" expanded="true" signature="35323:35603" ph="INSERT INTO Results... " />
+            <marker date="1504118172405" expanded="true" signature="36109:36221" ph="INSERT INTO Units... " />
+            <marker date="1504118172405" expanded="true" signature="37620:37793" ph="INSERT INTO TimeSeriesResults... " />
+            <marker date="1504118172405" expanded="true" signature="39813:39830" ph="BEGIN TRANSA... " />
+            <marker date="1504118172405" expanded="true" signature="39857:40157" ph="INSERT INTO TimeSeriesResultValues... " />
+            <marker date="1504118172405" expanded="true" signature="40312:40390" ph="INSERT INTO DataSetsResults... " />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/controllers_ajax.py">
+    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/controllers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4169">
-          <caret line="480" column="14" lean-forward="false" selection-start-line="480" selection-start-column="14" selection-end-line="480" selection-end-column="14" />
+        <state relative-caret-position="136">
+          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
           <folding>
-            <element signature="e#0#36#0" expanded="true" />
-            <element signature="e#22692#28825#1" expanded="false" />
-            <element signature="e#28827#32184#1" expanded="false" />
-            <element signature="e#32186#32383#1" expanded="false" />
+            <element signature="e#0#35#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/public/js/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3332">
-          <caret line="19" column="0" lean-forward="true" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+        <state relative-caret-position="176">
+          <caret line="471" column="37" lean-forward="false" selection-start-line="471" selection-start-column="37" selection-end-line="471" selection-end-column="37" />
           <folding>
             <element signature="e#1636#4222#0" expanded="false" />
             <element signature="e#4264#4701#0" expanded="false" />
@@ -1391,12 +1406,28 @@
             <element signature="e#9258#9715#0" expanded="false" />
             <element signature="e#9748#10009#0" expanded="false" />
             <element signature="e#10207#15944#0" expanded="false" />
-            <element signature="e#18723#20631#0" expanded="false" />
-            <element signature="e#20675#22699#0" expanded="false" />
-            <element signature="e#25066#30966#0" expanded="false" />
-            <element signature="e#30968#38038#0" expanded="false" />
-            <element signature="e#38040#40097#0" expanded="false" />
-            <marker date="1504051207237" expanded="true" signature="13058:13075" ph="..." />
+            <element signature="e#15985#18669#0" expanded="false" />
+            <element signature="e#18723#20692#0" expanded="false" />
+            <element signature="e#20736#22760#0" expanded="false" />
+            <element signature="e#22809#24759#0" expanded="false" />
+            <element signature="e#25128#31028#0" expanded="false" />
+            <element signature="e#31030#38100#0" expanded="false" />
+            <element signature="e#38102#40159#0" expanded="false" />
+            <marker date="1504117784585" expanded="true" signature="13058:13075" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/controllers_ajax.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3931">
+          <caret line="499" column="14" lean-forward="false" selection-start-line="499" selection-start-column="14" selection-end-line="499" selection-end-column="14" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
+            <element signature="e#10556#14988#0" expanded="false" />
+            <element signature="e#23142#29275#1" expanded="false" />
+            <element signature="e#29277#32634#1" expanded="false" />
+            <element signature="e#32636#32833#1" expanded="false" />
           </folding>
         </state>
       </provider>
