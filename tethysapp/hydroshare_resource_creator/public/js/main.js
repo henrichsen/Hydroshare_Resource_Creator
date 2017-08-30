@@ -519,9 +519,7 @@ ajaxLoginTest = function (data, type){
             }
             else {
                 $loadingAnimation.hide();
-                alert('User not logged in.');
-                // Opens a window prompting the user to log in to HydroShare.
-                // Consider using css/bootstrap.
+
                 if (data.data_url.includes("appsdev.hydroshare.org")) {
                     window.open("/oauth2/login/hydroshare_beta/?next=/apps/hydroshare-resource-creator/login-callback/", 'windowName', 'width=1000, height=700, left=24, top=24, scrollbars, resizable');
                 }
@@ -529,10 +527,8 @@ ajaxLoginTest = function (data, type){
                     window.open("/oauth2/login/hydroshare/?next=/apps/hydroshare-resource-creator/login-callback/", 'windowName', 'width=1000, height=700, left=24, top=24, scrollbars, resizable');
                 }
                 if (data.data_url.includes("8000")) {
-                    alert("YAAAAAYYYY")
+                    window.open("/oauth2/login/hydroshare_beta/?next=/apps/hydroshare-resource-creator/login-callback/", 'windowName', 'width=1000, height=700, left=24, top=24, scrollbars, resizable');
                 }
-
-                window.open("/oauth2/login/hydroshare/?next=/apps/hydroshare-resource-creator/login-callback/", 'windowName', 'width=1000, height=700, left=24, top=24, scrollbars, resizable');
             }
         },
         error: function (ignore, textStatus) {
