@@ -494,11 +494,17 @@ ajaxLoginTest = function (data, type){
         success: function (response) {
             if (response['success'] === "True"){
                 var errorList = [];
-                if (data.resTitle === '') {
-                    errorList.push('Resource title cannot be left blank.');
-                }
                 if (data.checked_ids.length === 2){
-                    errorList.push('At least one resource needs to be selected.')
+                    errorList.push('Please select at least one resource to create.')
+                }
+                if (data.resTitle === '') {
+                    errorList.push('Please enter a title for your resource.');
+                }
+                if (data.resAbstract === '') {
+                    errorList.push('Please enter an abstract for your resource.');
+                }
+                if (data.resKeywords === '') {
+                    errorList.push('Please enter at least one keyword for your resource.');
                 }
                 if (errorList.length === 0) {
                     if (type === 'CreateTimeseriesResource'){
@@ -513,6 +519,7 @@ ajaxLoginTest = function (data, type){
                 }
                 else {
                     errorList = (errorList.toString()).split(",").join("\n");
+                    $loadingAnimation.hide()
                     alert(errorList)
                 }
             }

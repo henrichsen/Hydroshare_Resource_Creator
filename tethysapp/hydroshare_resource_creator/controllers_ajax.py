@@ -140,9 +140,7 @@ def ajax_create_timeseries_resource(request, res_id):
     }
 
     ''''''''''''''''  VERIFIES REQUEST  '''''''''''''''
-    if request.is_ajax() and request.method == 'POST':
-        pass
-    else:
+    if not (request.is_ajax() and request.method == 'POST'):
         return_obj['success'] = False
         return_obj['message'] = "Encountered AJAX Error."
         return_obj['results'] = {}
@@ -154,18 +152,22 @@ def ajax_create_timeseries_resource(request, res_id):
         title = str(request.POST.get('resTitle'))
         abstract = str(request.POST.get('resAbstract'))
         keywords = str(request.POST.get('resKeywords')).split(',')
+        if abstract.isspace():
+            abstract = 'None'
+        if not any(keyword.strip() for keyword in keywords):
+            keywords = ['None']
         res_access = str(request.POST.get('resAccess'))
         str_resource = trim(request.POST.get('checked_ids'))
-        file_name = title.replace(" ", "")[:10]  # THIS IS CAUSING THE CUTOFF TITLES.
+        file_name = title.replace(' ', '')[:10]
         int_resource = []
         for res in str_resource:
             int_resource.append(int(res))
         metadata = []
 
-    except:
+    except Exception, e:
         return_obj['success'] = False
         return_obj['message'] = 'Data request error.'
-        return_obj['results'] = {}
+        return_obj['results'] = {'error': str(e)}
 
         return JsonResponse(return_obj)
 
@@ -173,7 +175,6 @@ def ajax_create_timeseries_resource(request, res_id):
     try:
         hs = get_o_auth_hs(request)
         hs_version = hs.hostname
-        print hs_version
 
     except:
         return_obj['success'] = False
@@ -246,11 +247,18 @@ def ajax_create_timeseries_resource(request, res_id):
     try:
         r_type = 'TimeSeriesResource'
         r_title = title
-        parse_ts_layer(fpath, file_name, abstract)
-        fpath = temp_dir + '/id/' + file_name + '.sqlite'
-        resource_id = hs.createResource(r_type, r_title, resource_file=fpath, keywords=r_keywords,
-                                        abstract=r_abstract, metadata=metadata)
+        parse_result = parse_ts_layer(fpath, file_name, abstract)
+        if "Database loaded" not in parse_result["parse_result"]:
+            return_obj['success'] = False
+            return_obj['message'] = parse_result["parse_result"]
+            return_obj['results'] = {}
 
+            return JsonResponse(return_obj)
+
+        else:
+            fpath = temp_dir + '/id/' + file_name + '.sqlite'
+            resource_id = hs.createResource(r_type, r_title, resource_file=fpath, keywords=r_keywords,
+                                            abstract=r_abstract, metadata=metadata)
     except:
         return_obj['success'] = False
         return_obj['message'] = 'Encountered a problem while creating timeseries resource.'
@@ -421,7 +429,6 @@ def ajax_update_resource(request, res_id):
 @ensure_csrf_cookie
 # @login_required()
 def ajax_create_refts_resource(request, res_id):
-
     """
     Ajax controller for create_layer.
 

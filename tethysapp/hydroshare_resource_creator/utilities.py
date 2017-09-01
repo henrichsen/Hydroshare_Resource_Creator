@@ -160,6 +160,7 @@ def parse_ts_layer(file_path, title, abstract):
     odm_master = os.path.join(current_path, "static_data/ODM2_master.sqlite")
     odm_copy = temp_dir+'/id/' + title + '.sqlite'
     shutil.copy(odm_master, odm_copy)
+    parse_result = []
     for sub in layer:
         ref_type = sub['requestInfo']['refType']
         service_type = sub['requestInfo']['serviceType']
@@ -186,10 +187,16 @@ def parse_ts_layer(file_path, title, abstract):
                   'VALUES (NULL, ?, ?, ?, ?, ?)', data_set_info)
         if ref_type == 'WOF':
             if service_type == 'SOAP':
-                load_into_odm2(url, site_code, variable_code, start_date, end_date, odm_copy, series_count)
+                odm_result = load_into_odm2(url, site_code, variable_code, start_date, end_date, odm_copy, series_count)
+                parse_result.append(odm_result)
             series_count += 1
 
-    return series_count
+    return_obj = {
+        "series_count": series_count,
+        "parse_result": parse_result
+    }
+
+    return return_obj
 
 
 def load_into_odm2(url, site_code, variable_code, begin_date, end_date, odm_copy, series_number):
@@ -237,23 +244,34 @@ def load_into_odm2(url, site_code, variable_code, begin_date, end_date, odm_copy
         response = requests.post(url, data=body, headers=headers)
         values_result = response.content
         values_result = xmltodict.parse(values_result)
+        data_root = values_result["soap:Envelope"]["soap:Body"]["GetValuesObjectResponse"]["timeSeriesResponse"]
+        data_type = "NASA"
     else:
         client = connect_wsdl_url(url)
         # The following line bottlenecks getting the results data.
         print "BOTTLENECK START"
         values_result = client.service.GetValuesObject(site_code, variable_code, begin_date, end_date, autho_token)
         print "BOTTLENECK END"
+        data_type = "OTHER"
 
-    if len(values_result.timeSeries[0].values[0]) == 0:
-        print "No data values found."
-    elif len(values_result.timeSeries[0].values[0].value) < 100:
-        print "No sensor data found."
+    if data_type == "NASA" and len(data_root["timeSeries"]["values"]) == 0:
+        return "No data values found."
+    elif data_type != "NASA" and len(values_result.timeSeries[0].values[0]) == 0:
+        return "No data values found."
+    elif data_type == "NASA" and len(data_root["timeSeries"]["values"]["value"]) < 24:
+        return "No sensor data found"
+    elif data_type != "NASA" and len(values_result.timeSeries[0].values[0].value) < 24:
+        return "No sensor data found"
     else:
         # ----------------------------------------------------------------
         # Get the SamplingFeatureInformation and load it into the database
         # ----------------------------------------------------------------
         # Check first to see if the sampling feature already exists in the database
-        site_code_tup = (values_result.timeSeries[0].sourceInfo.siteCode[0].value,)
+        if data_type == "NASA":
+            site_code_tup = (data_root["timeSeries"]["sourceInfo"]["siteCode"]["#text"],)
+        else:
+            site_code_tup = (values_result.timeSeries[0].sourceInfo.siteCode[0].value,)
+
         c.execute('SELECT * FROM SamplingFeatures WHERE SamplingFeatureCode = ?', site_code_tup)
         row = c.fetchone()
         if row is None:
@@ -270,21 +288,37 @@ def load_into_odm2(url, site_code, variable_code, begin_date, end_date, odm_copy
             # Elevation_m = WaterML elevation_m
             # ElevationDatumCV = WaterML verticalDatum
             try:
-                elevation_m = values_result.timeSeries[0].sourceInfo.elevation_m
+                if data_type == 'NASA':
+                    elevation_m = data_root["timeSeries"]["sourceInfo"]["elevation_m"]["#text"]
+                else:
+                    elevation_m = values_result.timeSeries[0].sourceInfo.elevation_m
             except:
                 elevation_m = None
             try:
-                vertical_datum = values_result.timeSeries[0].sourceInfo.verticalDatum
+                if data_type == 'NASA':
+                    vertical_datum = data_root["timeSeries"]["sourceInfo"]["verticalDatum"]["#text"]
+                else:
+                    vertical_datum = values_result.timeSeries[0].sourceInfo.verticalDatum
             except:
                 vertical_datum = None
+
+            if data_type == 'NASA':
+                r_site_code = data_root["timeSeries"]["sourceInfo"]["siteCode"]["#text"]
+                r_site_name = data_root["timeSeries"]["sourceInfo"]["siteName"]
+                r_lon = data_root["timeSeries"]["sourceInfo"]["geoLocation"]["geogLocation"]["longitude"]
+                r_lat = data_root["timeSeries"]["sourceInfo"]["geoLocation"]["geogLocation"]["latitude"]
+            else:
+                r_site_code = values_result.timeSeries[0].sourceInfo.siteCode[0].value
+                r_site_name = values_result.timeSeries[0].sourceInfo.siteName
+                r_lon = values_result.timeSeries[0].sourceInfo.geoLocation.geogLocation.longitude
+                r_lat = values_result.timeSeries[0].sourceInfo.geoLocation.geogLocation.latitude
+
             sampling_feature_info = (str(uuid.uuid1()),
                                      'Site',
-                                     values_result.timeSeries[0].sourceInfo.siteCode[0].value,
-                                     values_result.timeSeries[0].sourceInfo.siteName,
+                                     r_site_code,
+                                     r_site_name,
                                      'Point',
-                                     'POINT (' + str(values_result.timeSeries[0].sourceInfo.geoLocation.geogLocation.
-                                                     longitude) + ' ' + str(values_result.timeSeries[0].sourceInfo.
-                                                                            geoLocation.geogLocation.latitude) + ')',
+                                     'POINT (' + str(r_lon) + ' ' + str(r_lat) + ')',
                                      elevation_m,
                                      vertical_datum)
 
@@ -316,13 +350,16 @@ def load_into_odm2(url, site_code, variable_code, begin_date, end_date, odm_copy
             # Longitude = WaterML longitude
             # SpatialReferenceID = SpatialReferenceID of the record just loaded into the SpatialReferences table
             try:
-                sitetypecv = values_result.timeSeries[0].sourceInfo.siteProperty[4].value
+                if data_type == 'NASA':
+                    sitetypecv = data_root["timeSeries"]["sourceInfo"]["siteProperty"]["#text"]
+                else:
+                    sitetypecv = values_result.timeSeries[0].sourceInfo.siteProperty[4].value
             except:
                 sitetypecv = 'unknown'
             site_info = (sampling_feature_id,
                          sitetypecv,
-                         values_result.timeSeries[0].sourceInfo.geoLocation.geogLocation.latitude,
-                         values_result.timeSeries[0].sourceInfo.geoLocation.geogLocation.longitude,
+                         r_lat,
+                         r_lon,
                          spatial_reference_id)
 
             c.execute('INSERT INTO Sites(SamplingFeatureID, SiteTypeCV, Latitude, Longitude, SpatialReferenceID) '
@@ -338,19 +375,28 @@ def load_into_odm2(url, site_code, variable_code, begin_date, end_date, odm_copy
         # print valuesResult.timeSeries[0].values[0]
         # methodDescription = ('hi',)
         try:
-            method_description = values_result.timeSeries[0].values[0].method[0].methodDescription
+            if data_type == 'NASA':
+                method_description = data_root["timeSeries"]["method"]["MethodDescription"]
+            else:
+                method_description = values_result.timeSeries[0].values[0].method[0].methodDescription
         except:
             method_description = 'unknown'
         try:
-            method_code = values_result.timeSeries[0].values[0].method[0].methodCode
+            if data_type == 'NASA':
+                method_code = data_root["timeSeries"]["method"]["methodCode"]
+            else:
+                method_code = values_result.timeSeries[0].values[0].method[0].methodCode
         except:
             method_code = series_number
         try:
-            method_link = None
+            if data_type == 'NASA':
+                method_link = data_root["timeSeries"]["method"]["methodLink"]
+            else:
+                method_link = values_result.timeSeries[0].values[0].method[0].methodLink
         except:
             method_link = 'unknown'
-        method_description1 = (method_description,)
-        c.execute('SELECT * FROM Methods WHERE MethodName = ?', method_description1)
+        r_method_description = (method_description,)
+        c.execute('SELECT * FROM Methods WHERE MethodName = ?', r_method_description)
         row = c.fetchone()
 
         if row is None:
@@ -378,11 +424,13 @@ def load_into_odm2(url, site_code, variable_code, begin_date, end_date, odm_copy
 
         else:  # The method already exists in the database
             method_id = row[0]
-
         # ----------------------------------------------------------------
         # Get the Variable information and load it into the database
         # ----------------------------------------------------------------
-        variable_code_tup = (values_result.timeSeries[0].variable.variableCode[0].value,)
+        if data_type == 'NASA':
+            variable_code_tup = (data_root["timeSeries"]["variable"]["variableCode"]["#text"],)
+        else:
+            variable_code_tup = (values_result.timeSeries[0].variable.variableCode[0].value,)
         c.execute('SELECT * FROM Variables WHERE VariableCode = ?', variable_code_tup)
         row = c.fetchone()
 
@@ -396,21 +444,36 @@ def load_into_odm2(url, site_code, variable_code, begin_date, end_date, odm_copy
             # SpeciationCV = WaterML speciation
             # NoDataValue = WaterML noDataValue
             try:
-                general_category = values_result.timeSeries[0].variable.generalCategory
+                if data_type == 'NASA':
+                    general_category = data_root["timeSeries"]["variable"]["generalCategory"]
+                else:
+                    general_category = values_result.timeSeries[0].variable.generalCategory
             except:
                 general_category = "Variable"
             try:
-                speciation = values_result.timeSeries[0].variable.speciation
+                if data_type == 'NASA':
+                    speciation = data_root["timeSeries"]["variable"]["speciation"]
+                else:
+                    speciation = values_result.timeSeries[0].variable.speciation
             except:
                 speciation = None
 
-            variable_code = values_result.timeSeries[0].variable.variableCode[0].value
+            if data_type == 'NASA':
+                variable_code = data_root["timeSeries"]["variable"]["variableCode"]["#text"]
+            else:
+                variable_code = values_result.timeSeries[0].variable.variableCode[0].value
             variable_code = variable_code[:20]  # HydroShare limits the length of variable code field
+            if data_type == 'NASA':
+                r_variable_name = data_root["timeSeries"]["variable"]["variableName"]
+                r_no_data_value = data_root["timeSeries"]["variable"]["NoDataValue"]
+            else:
+                r_variable_name = values_result.timeSeries[0].variable.variableName
+                r_no_data_value = values_result.timeSeries[0].variable.noDataValue
             variable_info = (general_category,
                              variable_code,
-                             values_result.timeSeries[0].variable.variableName,
+                             r_variable_name,
                              speciation,
-                             values_result.timeSeries[0].variable.noDataValue)
+                             r_no_data_value)
 
             c.execute('INSERT INTO Variables\
                       (VariableID, VariableTypeCV, VariableCode, VariableNameCV, VariableDefinition, SpeciationCV, \
@@ -426,7 +489,10 @@ def load_into_odm2(url, site_code, variable_code, begin_date, end_date, odm_copy
         # ----------------------------------------------------------------
         # Get the Units information and load it into the database
         # ----------------------------------------------------------------
-        units_name = (values_result.timeSeries[0].variable.unit.unitName,)
+        if data_type == 'NASA':
+            units_name = (data_root["timeSeries"]["variable"]["timeSupport"]["unit"]["UnitName"],)
+        else:
+            units_name = (values_result.timeSeries[0].variable.unit.unitName,)
         c.execute('SELECT * FROM Units WHERE UnitsName = ?', units_name)
         row = c.fetchone()
 
@@ -438,19 +504,31 @@ def load_into_odm2(url, site_code, variable_code, begin_date, end_date, odm_copy
             # unitsName = WaterML unitName
             # unitsLink = NULL (doesn't exist in WaterML)
             try:
-                unit_code = values_result.timeSeries[0].variable.unit.unitCode
+                if data_type == 'NASA':
+                    unit_code = data_root["timeSeries"]["variable"]["timeSupport"]["unit"]["UnitCode"]
+                else:
+                    unit_code = values_result.timeSeries[0].variable.unit.unitCode
             except:
                 unit_code = '1'
             try:
-                unit_type = values_result.timeSeries[0].variable.unit.unitType
+                if data_type == 'NASA':
+                    unit_type = data_root["timeSeries"]["variable"]["timeSupport"]["unit"]['UnitType']
+                else:
+                    unit_type = values_result.timeSeries[0].variable.unit.unitType
             except:
                 unit_type = 'unknown'
             try:
-                unit_abbreviation = values_result.timeSeries[0].variable.unit.unitAbbreviation
+                if data_type == 'NASA':
+                    unit_abbreviation = data_root["timeSeries"]["variable"]["timeSupport"]["unit"]["UnitAbbreviation"]
+                else:
+                    unit_abbreviation = values_result.timeSeries[0].variable.unit.unitAbbreviation
             except:
                 unit_abbreviation = 'unknown'
             try:
-                unit_name = values_result.timeSeries[0].variable.unit.unitName
+                if data_type == 'NASA':
+                    unit_name = data_root["timeSeries"]["variable"]["timeSupport"]["unit"]["UnitName"]
+                else:
+                    unit_name = values_result.timeSeries[0].variable.unit.unitName
             except:
                 unit_name = 'unknown'
             units_info = (unit_code,
@@ -466,12 +544,14 @@ def load_into_odm2(url, site_code, variable_code, begin_date, end_date, odm_copy
 
         else:  # The unit already exists in the database
             units_id = row[0]
-
         # -----------------------------------------------------------------
         # Get the ProcessingLevel information and load it into the database
         # -----------------------------------------------------------------
-        quality_control_level_id = \
-            (values_result.timeSeries[0].values[0].qualityControlLevel[0]._qualityControlLevelID,)
+        if data_type == 'NASA':
+            quality_control_level_id = (1,)
+        else:
+            quality_control_level_id = \
+                (values_result.timeSeries[0].values[0].qualityControlLevel[0]._qualityControlLevelID,)
         c.execute('SELECT * FROM ProcessingLevels WHERE ProcessingLevelID = ?', quality_control_level_id)
         row = c.fetchone()
 
@@ -481,17 +561,35 @@ def load_into_odm2(url, site_code, variable_code, begin_date, end_date, odm_copy
             # ProcessingLevelCode = WaterML qualityControlLevelCode
             # Definition = WaterML definition
             # Explanation = WaterML explanation
-            qa_id = values_result.timeSeries[0].values[0].qualityControlLevel[0]._qualityControlLevelID
-            qa_code = values_result.timeSeries[0].values[0].qualityControlLevel[0].qualityControlLevelCode
+            if data_type == 'NASA':
+                qa_id = 1
+                qa_code = 1
+            else:
+                qa_id = values_result.timeSeries[0].values[0].qualityControlLevel[0]._qualityControlLevelID
+                qa_code = values_result.timeSeries[0].values[0].qualityControlLevel[0].qualityControlLevelCode
             # HydroShare expects qa code to be a integer
             try:
                 qa_code = int(qa_code)
             except:
                 qa_code = qa_id
+            try:
+                if data_type == 'NASA':
+                    r_qa_definition = data_root["timeSeries"]["qualityControlLevel"]["definition"]
+                else:
+                    r_qa_definition = values_result.timeSeries[0].values[0].qualityControlLevel[0].definition
+            except:
+                r_qa_definition = "None"
+            try:
+                if data_type == 'NASA':
+                    r_qa_explanation = data_root["timeSeries"]["qualityControlLevel"]["explanation"]
+                else:
+                    r_qa_explanation = values_result.timeSeries[0].values[0].qualityControlLevel[0].explanation
+            except:
+                r_qa_explanation = "None"
             processing_level_info = (qa_id,
                                      qa_code,
-                                     values_result.timeSeries[0].values[0].qualityControlLevel[0].definition,
-                                     values_result.timeSeries[0].values[0].qualityControlLevel[0].explanation)
+                                     r_qa_definition,
+                                     r_qa_explanation)
 
             c.execute('INSERT INTO ProcessingLevels(ProcessingLevelID, ProcessingLevelCode, Definition, Explanation) '
                       'VALUES (?, ?, ?, ?)', processing_level_info)
@@ -501,11 +599,13 @@ def load_into_odm2(url, site_code, variable_code, begin_date, end_date, odm_copy
 
         else:  # The ProcessingLevel already exists in the database
             processing_level_id = row[0]
-
         # Get the People information and load it
         # -----------------------------------------------------------------
         try:
-            contact_name = values_result.timeSeries[0].values[0].source[0].contactInformation[0].contactName
+            if data_type == 'NASA':
+                contact_name = data_root["timeSeries"]["source"]["ContactInformation"]["ContactName"]
+            else:
+                contact_name = values_result.timeSeries[0].values[0].source[0].contactInformation[0].contactName
         except:
             contact_name = 'unknown unknown'
         split_name = contact_name.split(' ')
@@ -531,7 +631,10 @@ def load_into_odm2(url, site_code, variable_code, begin_date, end_date, odm_copy
 
         # Get the Organization information and load it
         # -----------------------------------------------------------------
-        organization_name = (values_result.timeSeries[0].values[0].source[0].organization,)
+        if data_type == 'NASA':
+            organization_name = (data_root["timeSeries"]["source"]["Organization"],)
+        else:
+            organization_name = (values_result.timeSeries[0].values[0].source[0].organization,)
         c.execute('SELECT * FROM Organizations WHERE OrganizationName = ?', organization_name)
         row = c.fetchone()
         if row is None:
@@ -543,12 +646,34 @@ def load_into_odm2(url, site_code, variable_code, begin_date, end_date, odm_copy
             # OrganizationDescription = WaterML sourceDescription
             # OrganizationLink = waterML sourceLink
             # ParentOrganizationID = NULL (doesn't exist in WaterML)
+            try:
+                if data_type == 'NASA':
+                    r_organization = data_root["timeSeries"]["source"]["Organization"]
+                else:
+                    r_organization = values_result.timeSeries[0].values[0].source[0].organization
+            except:
+                r_organization = "None"
+            try:
+                if data_type == 'NASA':
+                    r_source_description = data_root["timeSeries"]["source"]["SourceDescription"]
+                else:
+                    r_source_description = values_result.timeSeries[0].values[0].source[0].sourceDescription
+            except:
+                r_source_description = "None"
+            try:
+                if data_type == 'NASA':
+                    r_source_link = data_root["timeSeries"]["source"]["SourceLink"]
+                else:
+                    r_source_link = values_result.timeSeries[0].values[0].source[0].sourceLink[0]
+            except:
+                r_source_link = "None"
+
             organization_info = ('unknown',
                                  # values_result.timeSeries[0].values[0].source[0].sourceCode,
                                  random.randint(1, 99),  # TODO Temporary value, should be unique source code.
-                                 values_result.timeSeries[0].values[0].source[0].organization,
-                                 values_result.timeSeries[0].values[0].source[0].sourceDescription,
-                                 values_result.timeSeries[0].values[0].source[0].sourceLink[0])
+                                 r_organization,
+                                 r_source_description,
+                                 r_source_link)
             c.execute('INSERT INTO Organizations\
                       (OrganizationID, OrganizationTypeCV, OrganizationCode, OrganizationName, OrganizationDescription,\
                        OrganizationLink) '
@@ -559,7 +684,6 @@ def load_into_odm2(url, site_code, variable_code, begin_date, end_date, odm_copy
 
         else:  # The organization already exists
             organization_id = row[0]
-
         # Create the Affiliation between the person and the organization
         # -----------------------------------------------------------------
         c.execute('SELECT * FROM Affiliations WHERE PersonID = ? AND OrganizationID = ?', (person_id, organization_id))
@@ -578,11 +702,17 @@ def load_into_odm2(url, site_code, variable_code, begin_date, end_date, odm_copy
             # PrimaryAddress = NULL (doesn't exist in WaterML)
             # PersonLink = NULL (doesn't exist in WaterML)
             try:
-                phone = values_result.timeSeries[0].values[0].source[0].contactInformation[0].phone[0]
+                if data_type == 'NASA':
+                    phone = data_root["timeSeries"]["source"]["ContactInformation"]["Phone"]
+                else:
+                    phone = values_result.timeSeries[0].values[0].source[0].contactInformation[0].phone[0]
             except:
                 phone = "unknown"
             try:
-                email = values_result.timeSeries[0].values[0].source[0].contactInformation[0].email[0]
+                if data_type == 'NASA':
+                    email = data_root["timeSeries"]["source"]["ContactInformation"]["Email"]
+                else:
+                    email = values_result.timeSeries[0].values[0].source[0].contactInformation[0].email[0]
             except:
                 email = "unknown"
             affiliation_info = (person_id,
@@ -601,7 +731,6 @@ def load_into_odm2(url, site_code, variable_code, begin_date, end_date, odm_copy
 
         else:  # The affilation already exists
             affiliation_id = row[0]
-
         # Get the Action information and load it
         # -----------------------------------------------------------------
         # WaterML 1.1 ----> ODM2 Mapping for Action Information
@@ -615,12 +744,22 @@ def load_into_odm2(url, site_code, variable_code, begin_date, end_date, odm_copy
         # ActionDescription = 'An observation action that generated a time series result.' \
         # (HARD CODED FOR NOW - doesn't exist in WaterML)
         # ActionFileLink = NULL (doesn't exist in WaterML)
+        if data_type == 'NASA':
+            r_begin_date_time = data_root["timeSeries"]["values"]["value"][0]["@dateTime"]
+            r_begin_time_offset = 0
+            r_end_date_time = data_root["timeSeries"]["values"]["value"][-1]["@dateTime"]
+            r_end_time_offset = 0
+        else:
+            r_begin_date_time = values_result.timeSeries[0].values[0].value[0]._dateTime
+            r_begin_time_offset = int(values_result.timeSeries[0].values[0].value[0]._timeOffset.split(':')[0])
+            r_end_date_time = values_result.timeSeries[0].values[0].value[-1]._dateTime
+            r_end_time_offset = int(values_result.timeSeries[0].values[0].value[-1]._timeOffset.split(':')[0])
         action_info = ('Observation',
                        method_id,
-                       values_result.timeSeries[0].values[0].value[0]._dateTime,
-                       int(values_result.timeSeries[0].values[0].value[0]._timeOffset.split(':')[0]),
-                       values_result.timeSeries[0].values[0].value[-1]._dateTime,
-                       int(values_result.timeSeries[0].values[0].value[-1]._timeOffset.split(':')[0]),
+                       r_begin_date_time,
+                       r_begin_time_offset,
+                       r_end_date_time,
+                       r_end_time_offset,
                        'An observation action that generated a time series result.')
 
         c.execute('INSERT INTO Actions(ActionID, ActionTypeCV, MethodID, BeginDateTime, BeginDateTimeUTCOffset, \
@@ -656,7 +795,6 @@ def load_into_odm2(url, site_code, variable_code, begin_date, end_date, odm_copy
 
         # Get the FeatureActionID for the record I just created
         feature_action_id = c.lastrowid
-
         # Create the Result information an load it into the database
         # ------------------------------------------------------------------
         # WaterML 1.1 ----> ODM2 Mapping for Result Information
@@ -675,6 +813,12 @@ def load_into_odm2(url, site_code, variable_code, begin_date, end_date, odm_copy
         # StatusCV = 'Unknown' (doesn't exist in WaterML - could also be NULL)
         # SampledMediumCV = WaterML sampleMedium
         # ValueCount = python len function length of the WaterML values list
+        if data_type == 'NASA':
+            r_sample_medium = data_root["timeSeries"]["variable"]["sampleMedium"]
+            r_values_length = len(data_root["timeSeries"]["values"])
+        else:
+            r_sample_medium = values_result.timeSeries[0].variable.sampleMedium
+            r_values_length = len(values_result.timeSeries[0].values[0].value)
         result_info = (str(uuid.uuid1()),
                        feature_action_id,
                        'Time series coverage',
@@ -684,8 +828,8 @@ def load_into_odm2(url, site_code, variable_code, begin_date, end_date, odm_copy
                        datetime.now(),
                        -time.timezone / 3600,
                        'unknown',
-                       values_result.timeSeries[0].variable.sampleMedium,
-                       len(values_result.timeSeries[0].values[0].value))
+                       r_sample_medium,
+                       r_values_length)
 
         c.execute('INSERT INTO Results(ResultID, ResultUUID, FeatureActionID, ResultTypeCV, VariableID, UnitsID, \
                   ProcessingLevelID, ResultDateTime, ResultDateTimeUTCOffset, StatusCV, SampledMediumCV, ValueCount) '
@@ -726,12 +870,18 @@ def load_into_odm2(url, site_code, variable_code, begin_date, end_date, odm_copy
         #  I know this for the test dataset, but would have to be null for generic WaterML files\
         #  because it doesn't exist in WaterML)
         # AggregationStatisticCV = WaterML dataType
-        time_series_result_info = (result_id, 30, time_units_id, values_result.timeSeries[0].variable.dataType)
+        if data_type == 'NASA':
+            r_data_type = data_root["timeSeries"]["variable"]["dataType"]
+        else:
+            r_data_type = values_result.timeSeries[0].variable.dataType
+        time_series_result_info = (result_id,
+                                   30,
+                                   time_units_id,
+                                   r_data_type)
 
         c.execute('INSERT INTO TimeSeriesResults(ResultID, IntendedTimeSpacing, IntendedTimeSpacingUnitsID, \
                   AggregationStatisticCV) '
                   'VALUES (?, ?, ?, ?)', time_series_result_info)
-
         # Get the TimeSeriesResultValues information and load it into the database
         # ------------------------------------------------------------------------
         # WaterML 1.1 ----> ODM2 Mapping for TimeSeriesResultValues Information
@@ -745,25 +895,46 @@ def load_into_odm2(url, site_code, variable_code, begin_date, end_date, odm_copy
         # TimeAggregationInterval = WaterML timeSupport
         # TimeAggregationIntervalUnitsID = WaterML timeScale.unit.unitCode
         ts_result_values = []
-        num_values = len(values_result.timeSeries[0].values[0].value)
+        if data_type == 'NASA':
+            num_values = len(data_root["timeSeries"]["values"]["value"])
+        else:
+            num_values = len(values_result.timeSeries[0].values[0].value)
+        print num_values
         for z in range(0, num_values - 1):
             try:
-                censor_code = values_result.timeSeries[0].values[0].value[z].censorCode
+                if data_type == 'NASA':
+                    censor_code = data_root["timeSeries"]["values"]["value"][z]["@censorCode"]
+                else:
+                    censor_code = values_result.timeSeries[0].values[0].value[z].censorCode
             except:
                 censor_code = 'unknown'
             try:
-                time_support = values_result.timeSeries[0].variable.timeScale.timeSupport
+                if data_type == 'NASA':
+                    time_support = data_root["timeSeries"]["variable"]["timeScale"]
+                else:
+                    time_support = values_result.timeSeries[0].variable.timeScale.timeSupport
             except:
                 time_support = 'unknown'
             try:
-                unit_code = values_result.timeSeries[0].variable.timeScale.unit.unitCode
+                if data_type == 'NASA':
+                    unit_code = data_root["timeSeries"]["variable"]["timeSupport"]["unit"]["unitCode"]
+                else:
+                    unit_code = values_result.timeSeries[0].variable.timeScale.unit.unitCode
             except:
                 unit_code = 'unknown'
 
+            if data_type == 'NASA':
+                r_value = data_root["timeSeries"]["values"]["value"][z]["#text"]
+                r_date_time = data_root["timeSeries"]["values"]["value"][z]["@dateTime"]
+                r_time_offset = 0
+            else:
+                r_value = values_result.timeSeries[0].values[0].value[z].value
+                r_date_time = values_result.timeSeries[0].values[0].value[z]._dateTime
+                r_time_offset = int(values_result.timeSeries[0].values[0].value[z]._timeOffset.split(':')[0])
             ts_result_values.append((result_id,
-                                     values_result.timeSeries[0].values[0].value[z].value,
-                                     values_result.timeSeries[0].values[0].value[z]._dateTime,
-                                     int(values_result.timeSeries[0].values[0].value[z]._timeOffset.split(':')[0]),
+                                     r_value,
+                                     r_date_time,
+                                     r_time_offset,
                                      censor_code,
                                      'Unknown',
                                      time_support,
@@ -786,6 +957,7 @@ def load_into_odm2(url, site_code, variable_code, begin_date, end_date, odm_copy
     # Close the connection to the database
     # ------------------------------------
     sql_connect.close()
+    return "Database loaded"
 
     # DO NOT DELETE
     '''
