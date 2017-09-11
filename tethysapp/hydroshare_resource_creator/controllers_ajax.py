@@ -2,6 +2,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.csrf import ensure_csrf_cookie
 from tethys_apps.base import TethysWorkspace
+import traceback
 import json
 import shutil
 import os
@@ -257,9 +258,9 @@ def ajax_create_resource(request, res_id):
             hs.deleteResource(resource_id)
             raise Exception
 
-    except Exception as e:
+    except Exception, e:
         return_obj['success'] = False
-        return_obj['message'] = str(e)
+        return_obj['message'] = traceback.format_exc()
         return_obj['results'] = {}
 
         return JsonResponse(return_obj)

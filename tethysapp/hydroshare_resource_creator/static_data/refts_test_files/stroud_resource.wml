@@ -1,7 +1,7 @@
 (TimeSeriesResponseType){
    queryInfo = 
       (QueryInfoType){
-         creationTime = 2017-09-11 15:59:41.976619
+         creationTime = 2017-09-11 16:51:16.392320
          criteria = 
             (criteria){
                _MethodCalled = "GetValues"
