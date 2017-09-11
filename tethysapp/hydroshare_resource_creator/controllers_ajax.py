@@ -257,9 +257,9 @@ def ajax_create_resource(request, res_id):
             hs.deleteResource(resource_id)
             raise Exception
 
-    except:
+    except Exception as e:
         return_obj['success'] = False
-        return_obj['message'] = str(user_dir)
+        return_obj['message'] = str(e)
         return_obj['results'] = {}
 
         return JsonResponse(return_obj)
