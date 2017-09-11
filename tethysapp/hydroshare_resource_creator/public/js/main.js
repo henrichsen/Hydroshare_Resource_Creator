@@ -10,9 +10,11 @@ var $modalErrorMessage = $('#modal-error-message');
 var $btnCreateReferenceTimeseries = $('#btn-create-reference-timeseries');
 var $btnUpdateCurrentResource = $('#btn-update-current-resource');
 var $btnCreateTimeseriesResource = $('#btn-create-timeseries-resource');
+var $publicResource = $('#public_hydro');
 var $loadingAnimation = $('#loading');
 var $document = $(document);
 var $divCreateHydroshareResource = $('#div-create-hydroshare-resource');
+var $divViewResource = $('#div_view_resource');
 var $tableResourceData = $('#table-resource-data');
 var $resTitle = $('#res-title');
 var $resAbstract = $('#res-abstract');
@@ -36,9 +38,7 @@ var trimInput;
 var errorReport;
 var ajaxLoadResource;
 var ajaxLoginTest;
-var ajaxCreateTimeseriesResource;
-var ajaxUpdateResource;
-var ajaxCreateReftsResource;
+var ajaxCreateResource;
 
 
 /**********************************************
@@ -138,8 +138,8 @@ createTimeseriesResource = function (){
     $loadingAnimation.show();
 
     // Gets data from the page's data table and runs the ajaxLoginTest function. //
-    var data = loadFormData();
-    ajaxLoginTest(data, 'CreateTimeseriesResource')
+    var data = loadFormData('ts');
+    ajaxLoginTest(data)
 };
 
 
@@ -155,8 +155,8 @@ updateResource = function (){
     $loadingAnimation.show();
 
     // Gets data from the page's data table and runs the ajaxLoginTest function. //
-    var data = loadFormData();
-    ajaxLoginTest(data, 'UpdateResource')
+    var data = loadFormData('update');
+    ajaxLoginTest(data)
 };
 
 
@@ -172,12 +172,12 @@ createReftsResource = function (){
     $loadingAnimation.show();
 
     // Gets data from the page's data table and runs the ajaxLoginTest function. //
-    var data = loadFormData();
-    ajaxLoginTest(data, 'CreateReftsResource')
+    var data = loadFormData('refts');
+    ajaxLoginTest(data)
 };
 
 
-loadFormData = function (){
+loadFormData = function (action_request){
     /**
      * Gets resource data from the data table and prepares it for AJAX function.
      *
@@ -220,7 +220,8 @@ loadFormData = function (){
         'fun_type': fun_type,
         'res_type': res_type,
         'res_id': res_id,
-        'data_url': data_url
+        'data_url': data_url,
+        'action_request': action_request
     };
 
     return data
@@ -469,16 +470,57 @@ ajaxLoadResource = function (data, src, data_url){
 };
 
 
-ajaxLoginTest = function (data, type){
+ajaxCreateResource = function (data) {
+    $divCreateHydroshareResource.hide();
+    var csrf_token = getCookie('csrftoken');
+    var data_url = data.base_url + 'hydroshare-resource-creator/create_resource/create/' + data.res_id + '/refts/';
+    $.ajax({
+        type: 'POST',
+        headers: {'X-CSRFToken': csrf_token},
+        dataType: 'json',
+        data: data,
+        url: data_url,
+        timeout: 300000,
+        success: function (response) {
+            if (response.success === true) {
+                $modalResourceDialogTitle.append('Resource Created Successfully');
+                var resource = response.results;
+                var hs_href = 'https://' + resource['hs_version'] + '/resource/' + resource['resource_id'];
+                $modalResourceDialogWelcomeInfo.append('<a href=' + hs_href + ' target="_blank">Click here to view.</a>');
+                $btnCreateTimeseriesResource.hide();
+                $btnCreateReferenceTimeseries.hide();
+                $publicResource.hide();
+                $divViewResource.append('<button id ="btn_view_resource" type="button" class="btn btn-success" name ="' + hs_href + '" onclick="viewResource(this.name)">View Resource</button>');
+                $modalResourceDialog.modal('show');
+                $modalResourceDialog.on('hidden.bs.modal', finishLoading)
+            }
+            else {
+                $loadingAnimation.hide();
+                $modalErrorMessage.text(response.message);
+                $modalErrorDialog.modal('show');
+                $modalErrorDialog.on('hidden.bs.modal', finishLoading)
+            }
+
+            finishLoading()
+        },
+        error:function(){
+            $loadingAnimation.hide();
+            $modalErrorMessage.text('Call has timed out.');
+            $modalErrorDialog.modal('show');
+            $modalErrorDialog.on('hidden.bs.modal', finishLoading)
+        }
+    })
+};
+
+
+ajaxLoginTest = function (data){
     /**
      * Sends data to login_test AJAX Controller
      *
      * @parameter data
      * @parameter src
      * @parameter data_url
-     * @requires ajaxCreateTimeseriesResource
-     * @requires ajaxUpdateResource
-     * @requires ajaxCreateReftsResource
+     * @requires ajaxCreateResource
      *
      * @param data.resTitle
      * @param data.checked_ids
@@ -507,19 +549,11 @@ ajaxLoginTest = function (data, type){
                     errorList.push('Please enter at least one keyword for your resource.');
                 }
                 if (errorList.length === 0) {
-                    if (type === 'CreateTimeseriesResource'){
-                        ajaxCreateTimeseriesResource(data)
-                    }
-                    if (type === 'UpdateResource'){
-                        ajaxUpdateResource(data)
-                    }
-                    if (type === 'CreateReftsResource'){
-                        ajaxCreateReftsResource(data)
-                    }
+                    ajaxCreateResource(data);
                 }
                 else {
                     errorList = (errorList.toString()).split(",").join("\n");
-                    $loadingAnimation.hide()
+                    $loadingAnimation.hide();
                     alert(errorList)
                 }
             }
@@ -545,172 +579,6 @@ ajaxLoginTest = function (data, type){
 };
 
 
-ajaxCreateTimeseriesResource = function (data, id){
-    /**
-     * Sends data to ajax_create_timeseries_resource AJAX Controller.
-     *
-     * @parameter data
-     * @paramter id
-     * @requires getCookie
-     * @requires finishLoading
-     *
-     * @param data.base_url
-     * @param json.success
-     * @param json.error
-     * @param json.Request
-     */
-    $divCreateHydroshareResource.hide();
-    var csrf_token = getCookie('csrftoken');
-    var data_url = data.base_url + 'hydroshare-resource-creator/create_timeseries_resource/create/' + data.res_id + '/refts/';
-
-    $.ajax({
-        type: "POST",
-        headers: {'X-CSRFToken': csrf_token},
-        dataType: 'json',
-        data: data,
-        url: data_url,
-        timeout: 300000,
-        success: function (response) {
-            if (response.success === true) {
-                $modalResourceDialogTitle.append("Resource Created Successfully");
-                var resource = response.results;
-                var hs_href = "https://" + resource['hs_version'] + "/resource/" + resource['resource_id'];
-                $modalResourceDialogWelcomeInfo.append('<a href=' + hs_href + ' target="_blank">Click here to view.</a>');
-                $btnCreateReferenceTimeseries.hide();
-                $btnCreateTimeseriesResource.hide();
-                $('#public_hydro').hide();
-                $('#div_view_resource').append('<button id ="btn_view_resource" type="button" class="btn btn-success" name ="' + hs_href + '" onclick="viewResource(this.name)">View Resource</button>');
-                $modalResourceDialog.modal('show');
-                $modalResourceDialog.on('hidden.bs.modal', finishLoading)
-            }
-            else {
-                $loadingAnimation.hide();
-                $modalErrorMessage.text(response.message);
-                $modalErrorDialog.modal('show');
-                $modalErrorDialog.on('hidden.bs.modal', finishLoading)
-            }
-            finishLoading()
-        },
-        error:function(){
-            $loadingAnimation.hide();
-            $modalErrorMessage.text('Call has timed out.');
-            $modalErrorDialog.modal('show');
-            $modalErrorDialog.on('hidden.bs.modal', finishLoading)
-        }
-    })
-};
-
-
-ajaxUpdateResource = function (data, id){
-    /**
-     * Sends data to ajax_update_resource AJAX Controller.
-     *
-     * @parameter data
-     * @parameter id
-     * @requires getCookie
-     * @requires finishLoading
-     *
-     * @param data.base_url
-     * @param data.res_id
-     * @param json.error
-     */
-    $divCreateHydroshareResource.hide();
-    var csrf_token = getCookie('csrftoken');
-    var data_url = data.base_url + 'hydroshare-resource-creator/update_resource/update/' + data.res_id + '/refts/';
-
-    $.ajax({
-        type: "POST",
-        headers: {'X-CSRFToken': csrf_token},
-        dataType: 'json',
-        data: data,
-        url: data_url,
-        timeout: 3000,
-        success: function (json) {
-            alert('Done');
-            console.log(json);
-            if(json.error !== ''){alert(json.error)}
-            else
-            {
-                //create_resource()
-                //wait(50000);
-                var current_url = location.href;
-                var index = current_url.indexOf("hydroshare-resource-creator");
-                var base_url = current_url.substring(0, index);
-                window.location = base_url + 'hydroshare-resource-creator/?src=hydroshare&res_id=' + data.res_id;
-                var resource = json.Request;
-                $modalResourceDialogWelcomeInfo.append('<a href="https://www.hydroshare.org/resource/' + resource + '" target="_blank">Click here to view.</a>');
-                $btnCreateReferenceTimeseries.hide();
-                $btnCreateTimeseriesResource.hide();
-                $('#public_hydro').hide();
-                $('#div_view_resource').append('<button id ="btn_view_resource" type="button" class="btn btn-success" name ="' + json.Request + '" onclick="viewResource(this.name)">View Resource</button>');
-                $modalResourceDialog.modal('show');
-            }
-            finishLoading()
-        },
-        error:function(textStatus){
-            if (textStatus === 'timeout'){
-                alert('Call has timed out.')
-            }
-        }
-    })
-};
-
-
-ajaxCreateReftsResource = function (data, id){
-    /**
-     * Sends data to ajax_create_refts_resource AJAX Controller.
-     *
-     * @parameter data
-     * @paramter id
-     * @requires getCookie
-     * @requires finishLoading
-     *
-     * @param data.base_url
-     * @param data.res_id
-     * @param json.error
-     * @param json.Request
-     */
-    $divCreateHydroshareResource.hide();
-    var csrf_token = getCookie('csrftoken');
-    var data_url = data.base_url + 'hydroshare-resource-creator/create_refts_resource/ts/' + data.res_id + '/ts/';
-
-    $.ajax({
-        type: "POST",
-        headers: {'X-CSRFToken': csrf_token},
-        dataType: 'json',
-        data: data,
-        url: data_url,
-        timeout: 300000,
-        success: function (response) {
-            if (response.success === true) {
-                $modalResourceDialogTitle.append("Resource Created Successfully");
-                var resource = response.results;
-                var hs_href = "https://" + resource['hs_version'] + "/resource/" + resource['resource_id'];
-                $modalResourceDialogWelcomeInfo.append('<a href=' + hs_href + ' target="_blank">Click here to view.</a>');
-                $btnCreateReferenceTimeseries.hide();
-                $btnCreateTimeseriesResource.hide();
-                $('#public_hydro').hide();
-                $('#div_view_resource').append('<button id ="btn_view_resource" type="button" class="btn btn-success" name ="' + hs_href + '" onclick="viewResource(this.name)">View Resource</button>');
-                $modalResourceDialog.modal('show');
-                $modalResourceDialog.on('hidden.bs.modal', finishLoading)
-            }
-            else {
-                $loadingAnimation.hide();
-                $modalErrorMessage.text(response.message);
-                $modalErrorDialog.modal('show');
-                $modalErrorDialog.on('hidden.bs.modal', finishLoading)
-            }
-        },
-        error:function(){
-            $loadingAnimation.hide();
-            $modalErrorMessage.text('Call has timed out.');
-            $modalErrorDialog.modal('show');
-            $modalErrorDialog.on('hidden.bs.modal', finishLoading)
-        }
-    })
-};
-
-
 /**********************************************
 *************** EVENT LISTENERS ***************
 **********************************************/
@@ -719,367 +587,3 @@ $document.ready(loadResource);
 $btnCreateReferenceTimeseries.on('click', createReftsResource);
 $btnUpdateCurrentResource.on('click', updateResource);
 $btnCreateTimeseriesResource.on('click', createTimeseriesResource);
-
-
-/*
-        $.ajax({
-        type:"POST",
-        dataType: 'json',
-        public: false,
-        data:{'serviceurl':serviceurl},
-        url: data_url,
-        success: function (json) {
-            console.log(json);
-            if (json.error !== ''){
-                errorReport(json.error);
-                console.log('error')
-            }
-            else {
-                console.log(json.public);
-                if (json.public === true){
-                    document.getElementById("#chk_public").checked = true;
-                }
-                console.log('No error');
-                var series_details = json.data;
-                var title = series_details.title;
-                var abstract = series_details.abstract;
-                var keywords = series_details.keyWords;
-                var date_small = new Date();
-                var date_large = new Date('1600-01-01');
-                var date_now = new Date();
-                var site_list = [];
-                var var_list = [];
-                series_details = series_details.REFTS;
-                var total_number = series_details.length;
-                console.log(total_number);
-                for (var val in series_details) {
-                    var entry = series_details[val];
-                    var series_counter = series_counter + 1;
-                    var site_name = entry.site;
-                    if(site_list.indexOf(site_name) === -1){
-                        site_list.push(site_name)
-                    }
-                    var variable_name = entry.variable;
-                    var RefType = entry.refType;
-                    var ServiceType = entry.serviceType;
-                    var URL = entry.url;
-                    var ReturnType = entry.returnType;
-                    var Lat = entry.location.latitude;
-                    var Lon = entry.location.longitude;
-                    var begindate = entry.beginDate;
-                    var enddate = entry.endDate;
-                    var date_begindate = new Date(begindate);
-                    var date_enddate = new Date(enddate);
-                    if(date_small > date_begindate){
-                        date_small = date_begindate
-                    }
-                    if(date_large < date_enddate){
-                        date_large = date_enddate
-                    }
-                    var variable = entry.variable;
-                    if(var_list.indexOf(variable) === -1){
-                        var_list.push(variable)
-                    }
-                    var var_code = entry.variableCode;
-                    var site_code = entry.siteCode;
-                    var network = entry.networkName;
-                    if (site_name === null) {
-                        site_name = "N/A"
-                    }
-                    if (variable_name === null) {
-                        variable_name = "N/A"
-                    }
-                    if (RefType === null) {
-                        RefType = "N/A"
-                    }
-                    if (ServiceType === null) {
-                        ServiceType = "N/A"
-                    }
-                    if (URL === null) {
-                        URL = "N/A"
-                    }
-                    if (ReturnType === null) {
-                        ReturnType = "N/A"
-                    }
-                    if (Lat === null) {
-                        Lat = "N/A"
-                    }
-                    if (Lon === null) {
-                        Lon = "N/A"
-                    }
-                    var legend = "<div style='text-align:center' '><input class = 'checkbox' id =" + number + " data1-resid =" + number
-                        + " type='checkbox' checked = 'checked'>" + "</div>";
-                    var dataset = {
-                        legend: legend,
-                        RefType: RefType,
-                        ServiceType: ServiceType,
-                        URL: URL,
-                        ReturnType: ReturnType,
-                        Lat: Lat,
-                        Lon: Lon,
-                        site: site_name,
-                        beginDate: begindate,
-                        //endDate: enddate,
-                        variable: variable,
-                        var_code: var_code,
-                        site_code: site_code,
-                        network: network
-                    };
-                    var table = $tableResourceData.DataTable();
-                    table.row.add(dataset).draw();
-                    number = number + 1
-                }
-                if (number === total_number) {
-                    if(src === 'hydroshare')    {}
-                    else {
-                        console.log("formatting abstract");
-                        if (site_list.length > 1) {
-                        var last = site_list[site_list.length - 1];
-                        site_list.pop();
-                        site_list.push('and ' + last);
-                        site_list = site_list.join(', ')
-                        }
-                        title ="Time series layer resource created on "+date_now;
-                        abstract = var_list +" data collected from "+date_small.toISOString().substring(0, 10) +" to "+ date_large.toISOString().substring(0, 10)+
-                                " created on "+ date_now+" from the following site(s): " + site_list+". Data created by CUAHSI HydroClient: " +
-                                "http://data.cuahsi.org/#."
-                    }
-                    $resTitle.val(title);
-                    $resAbstract.text(abstract);
-                    $resKeywords.val(keywords);
-                    finishLoading()
-                }
-            }
-        },
-        error: function(){
-            errorReport("Error loading data from data client");
-            console.log("error")
-        }
-    })
-};
-*/
-
-/*
-onReadyLoadResource = function (){
-
-    * Loads resource data with ajax call, then populates table with resource data.
-    *
-    *
-
-    $divCreateHydroshareResource.hide();
-    $btnUpdateCurrentResource.hide();
-    var data = [];
-    $tableResourceData.DataTable({
-        "scrollX": true,
-        "createdRow": function () {
-            var table = $tableResourceData.DataTable();
-            table.$('td').tooltip({
-                selector: '[data-toggle="tooltip"]',
-                container: 'body',
-                "delay": 0,
-                "track": true,
-                "fade": 100
-            });
-        },
-        data: data,
-        "columns": [
-            {
-                "className": "legend",
-                "data": "legend"
-            },
-            {"data": "site",
-            "width":"50%"
-            },
-            {"data": "RefType"},
-            {"data": "ServiceType"},
-            {"data": "URL"},
-            {"data": "ReturnType"},
-            {"data": "Lat"},
-            {"data": "Lon"},
-            {"data": "beginDate"},
-            {"data": "variable"},
-            {"data": "var_code"},
-            {"data": "site_code"},
-            {"data": "network"}
-        ],
-        "order": [[1, 'asc']]
-    });
-    var serviceurl = $('#serviceurl').text();
-    serviceurl = trimInput(serviceurl);
-    document.title = 'Create HydroShare Resource';
-        var current_url = location.href;
-    var index = current_url.indexOf("hydroshare-resource-creator");
-    var base_url = current_url.substring(0, index);
-    var src = findQueryParameter("src");
-    if (src === 'hydroshare'){
-        var res_id = findQueryParameter("res_id");
-        $('#')
-    }
-    else{
-        res_id ='None'
-    }
-    var data_url = base_url + 'hydroshare-resource-creator/chart_data/'+res_id+'/';
-
-    $.ajax({
-
-        * AJAX Controller: chart_data
-        *
-        * @param response              Response from server.
-        * @param response.success      Either true or false.
-        * @param response.message      Contains server side error message.
-        * @param response.results      Contains results from server.
-        * @param results               List of data for each reference timeseries.
-        * @param results.abstract      Resource abstract, if available.
-        * @param results.keyWords      Resource keywords, if available.
-        * @param results.REFTS         Individual reference timeseries data.
-        * @param REFTS.site
-        * @param REFTS.refType
-        * @param REFTS.serviceType
-        * @param REFTS.url
-        * @param REFTS.returnType
-        * @param REFTS.beginDate
-        * @param REFTS.endDate
-        * @param REFTS.variable
-        * @param REFTS.variableCode
-        * @param REFTS.siteCode
-        * @param REFTS.networkName
-        * @param table.row
-
-
-        type:"POST",
-        dataType: 'json',
-        public: false,
-        data: data,
-        url: data_url,
-        error: function (ignore, textStatus) {
-            showLoadingCompleteStatus('error', textStatus);
-        },
-        success: function (response) {
-            if (response.success === true) {
-                var results = response.results;
-                var title = results.title;
-                var abstract = results.abstract;
-                var keywords = results.keyWords;
-                var date_small = new Date();
-                var date_large = new Date('1600-01-01');
-                var date_now = new Date();
-                var site_list = [];
-                var var_list = [];
-                var REFTS = results.REFTS;
-                var total_number = REFTS.length;
-                for (var val in REFTS) {
-                    if (REFTS.hasOwnProperty(val)) {
-                        var entry = REFTS[val];
-                        var site_name = entry.site;
-                        var RefType = entry.refType;
-                        var ServiceType = entry.serviceType;
-                        var URL = entry.url;
-                        var ReturnType = entry.returnType;
-                        var Lat = entry.location.latitude;
-                        var Lon = entry.location.longitude;
-                        var begindate = entry.beginDate;
-                        // var enddate = entry.endDate;
-                        var variable = entry.variable;
-                        var var_code = entry.variableCode;
-                        var site_code = entry.siteCode;
-                        var network = entry.networkName;
-                        var legend = "<div style='text-align:center' '><input class = 'checkbox' id =" + number + " data1-resid =" + number
-                            + " type='checkbox' checked = 'checked'>" + "</div>";
-                        var dataset = {
-                            legend: legend,
-                            RefType: RefType,
-                            ServiceType: ServiceType,
-                            URL: URL,
-                            ReturnType: ReturnType,
-                            Lat: Lat,
-                            Lon: Lon,
-                            site: site_name,
-                            beginDate: begindate,
-                            //endDate: enddate,
-                            variable: variable,
-                            var_code: var_code,
-                            site_code: site_code,
-                            network: network
-                        };
-                        var table = $tableResourceData.DataTable();
-                        table.row.add(dataset).draw();
-                        number = number + 1
-                    }
-                    if (number === total_number) {
-                        if(src === 'hydroshare')    {}
-                        else {
-                            console.log("formatting abstract");
-                            if (site_list.length > 1) {
-                                var last = site_list[site_list.length - 1];
-                                site_list.pop();
-                                site_list.push('and ' + last);
-                                site_list = site_list.join(', ')
-                            }
-                            title = "Time series layer resource created on " + date_now;
-                            abstract = var_list + " data collected from " + date_small.toISOString().substring(0, 10) +
-                                " to " + date_large.toISOString().substring(0, 10) + " created on " + date_now +
-                                " from the following site(s): " + site_list + ". Data created by CUAHSI HydroClient: " +
-                                "http://data.cuahsi.org/#."
-                        }
-                        $resTitle.val(title);
-                        $resAbstract.text(abstract);
-                        $resKeywords.val(keywords);
-                        finishLoading();
-                    }
-                }
-            } else {
-                var message = response.message;
-                alert(message)
-            }
-        }
-    })
-};
-*/
-
-/*
-ajaxCreateUpdate = function (data){
-    $divCreateHydroshareResource.hide();
-    var csrf_token = getCookie('csrftoken');
-    var data_url = data.base_url + 'hydroshare-resource-creator/create_layer/' + data.fun_type+'/' + data.res_id + '/' + data.res_type + '/';
-
-    $.ajax({
-        type: "POST",
-        headers: {'X-CSRFToken': csrf_token},
-        dataType: 'json',
-        data: data,
-        url: data_url,
-        timeout: 3000,
-        success: function (json) {
-            alert('Done');
-            console.log(json);
-            if(json.error !== ''){alert(json.error)}
-            else
-            {
-                //create_resource()
-                if (data.fun_type === 'update')//reloads page so that resource is reloaded
-                {
-                    //wait(50000);
-                    var current_url = location.href;
-                    var index = current_url.indexOf("hydroshare-resource-creator");
-                    var base_url = current_url.substring(0, index);
-                    window.location = base_url + 'hydroshare-resource-creator/?src=hydroshare&res_id=' + data.res_id
-                }
-                else{$modalResourceDialogTitle.append("Resource Created Successfully") }
-                var resource = json.Request;
-                $modalResourceDialogWelcomeInfo.append('<a href="https://www.hydroshare.org/resource/' + resource + '" target="_blank">Click here to view.</a>');
-                $btnCreateReferenceTimeseries.hide();
-                $btnCreateTimeseriesResource.hide();
-                $('#public_hydro').hide();
-                $('#div_view_resource').append('<button id ="btn_view_resource" type="button" class="btn btn-success" name ="' + json.Request + '" onclick="viewResource(this.name)">View Resource</button>');
-                $modalResourceDialog.modal('show');
-            }
-            finishLoading()
-        },
-        error:function(textStatus){
-            if (textStatus === 'timeout'){
-                alert('Call has timed out.')
-            }
-        }
-    })
-};
- */

@@ -132,7 +132,7 @@ def chart_data(request):
     #     # returns an error message if the unzip_waterml failed
     #     # parses the WaterML to a chart data object
     #     # data_for_chart = utilities.Original_Checker(file_path)
-    #         temp_dir = utilities.get_workspace()
+    #         temp_dir = utilities.get_user_workspace()
     #         if not os.path.exists(temp_dir+"/hydroshare"):
     #             os.makedirs(temp_dir+"/hydroshare")
     #         file_temp_name = temp_dir + '/hydroshare/HIS_reference_timeseries.txt'
@@ -208,7 +208,7 @@ def write_file(request):
     #                     metadata=json.dumps(metadata))
 
 
-    # temp_dir = utilities.get_workspace()
+    # temp_dir = utilities.get_user_workspace()
     # file_temp_name = temp_dir + '/hydroshare/cuahsi-wdc-2016-07-26-66422054.xml'
     #
     # abstract = 'My abstract'
@@ -248,7 +248,7 @@ def response(request):
     # print client
     # print response1
     # response1 = {"File uploaded":"sucess"}
-    # base_path = utilities.get_workspace()+"/hydroshare"
+    # base_path = utilities.get_user_workspace()+"/hydroshare"
     # file_path = base_path + "/" +title
     # response = HttpResponse(FileWrapper(open(file_path)), content_type='application/xml')
     # return response1

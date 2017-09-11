@@ -1,11 +1,12 @@
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.csrf import ensure_csrf_cookie
+from tethys_apps.base import TethysWorkspace
 import json
 import shutil
 import os
 import time
-from .utilities import get_workspace, parse_ts_layer, get_o_auth_hs, trim, \
+from .utilities import get_user_workspace, create_ts_resource, create_refts_resource, get_o_auth_hs, trim, \
      process_file_data
 
 
@@ -18,7 +19,7 @@ def chart_data(request, res_id):
     Arguments:      [request, res_id]
     Returns:        [JsonResponse(return_obj)]
     Referenced By:  [main.js]
-    References:     [utilities.process_file_data, utilities.get_workspace, utilities.get_o_auth_hs, get_oauth_hs]
+    References:     [utilities.process_file_data, utilities.get_user_workspace, utilities.get_o_auth_hs, get_oauth_hs]
     Libraries:      [time, shutil, os, JsonResponse, json]
     """
 
@@ -28,11 +29,9 @@ def chart_data(request, res_id):
         'results': {}
     }
 
-    temp_dir = get_workspace()
-    ref_file = temp_dir + '/id/timeseriesLayerResource.json'
+    temp_dir = get_user_workspace(request)
 
-    # Temporary File Path
-    # ref_file = '/home/kennethlippold/tethysdev/tethysapp-hydroshare_resource_creator/timeseriesLayerResource.json'
+    ref_file = temp_dir + '/timeseriesLayerResource.json'
 
     if request.is_ajax() and request.method == 'POST':
         if res_id == 'None':
@@ -60,7 +59,7 @@ def chart_data(request, res_id):
                     return_obj['results'] = {}
 
         else:
-            temp_dir = get_workspace()
+            temp_dir = get_user_workspace(request)
             root_dir = temp_dir + '/id/' + res_id
             try:
                 # Ensures that resource is downloaded each time
@@ -120,501 +119,6 @@ def chart_data(request, res_id):
     return JsonResponse(return_obj)
 
 
-@ensure_csrf_cookie
-# @login_required()
-def ajax_create_timeseries_resource(request, res_id):
-    """
-    Ajax controller for create_layer.
-
-    Arguments:      []
-    Returns:        []
-    Referenced By:  []
-    References:     []
-    Libraries:      []
-    """
-
-    return_obj = {
-        'success': False,
-        'message': None,
-        'results': {}
-    }
-
-    ''''''''''''''''  VERIFIES REQUEST  '''''''''''''''
-    if not (request.is_ajax() and request.method == 'POST'):
-        return_obj['success'] = False
-        return_obj['message'] = "Encountered AJAX Error."
-        return_obj['results'] = {}
-
-        return JsonResponse(return_obj)
-
-    ''''''''''''''''  GETS DATA FROM JAVASCRIPT  '''''''''''''''
-    try:
-        title = str(request.POST.get('resTitle'))
-        abstract = str(request.POST.get('resAbstract'))
-        keywords = str(request.POST.get('resKeywords')).split(',')
-        if abstract.isspace():
-            abstract = 'None'
-        if not any(keyword.strip() for keyword in keywords):
-            keywords = ['None']
-        res_access = str(request.POST.get('resAccess'))
-        str_resource = trim(request.POST.get('checked_ids'))
-        file_name = title.replace(' ', '')[:10]
-        int_resource = []
-        for res in str_resource:
-            int_resource.append(int(res))
-        metadata = []
-
-    except Exception, e:
-        return_obj['success'] = False
-        return_obj['message'] = 'Data request error.'
-        return_obj['results'] = {'error': str(e)}
-
-        return JsonResponse(return_obj)
-
-    ''''''''''''''''  GETS HYDROSHARE OAUTH  '''''''''''''''
-    try:
-        hs = get_o_auth_hs(request)
-        hs_version = hs.hostname
-
-    except:
-        return_obj['success'] = False
-        return_obj['message'] = 'HydroShare Open Authorization error.'
-        return_obj['results'] = {}
-
-        return JsonResponse(return_obj)
-
-    ''''''''''''''''  SETS FILE PATH  '''''''''''''''
-    try:
-        temp_dir = get_workspace()
-        fpath = temp_dir + '/id/' + file_name + '.json.refts'
-        if res_id == 'null':
-            file_path = temp_dir + '/id/timeseriesLayerResource.json'
-        else:  # if resource is already a HydroShare resource
-            # file_path = temp_dir + '/id/timeseriesLayerResource.json'
-            data_dir = temp_dir + '/id/' + res_id
-            for subdir, dirs, files in os.walk(data_dir):
-                for ref_file in files:
-                    if '.json.refts' in ref_file:
-                        file_path = subdir + '/' + ref_file
-        # Temporary file path.
-        # file_path = "/home/kennethlippold/tethysdev/tethysapp-hydroshare_resource_creator/timeseriesLayerResource.json"
-
-    except:
-        return_obj['success'] = False
-        return_obj['message'] = 'File path error.'
-        return_obj['results'] = {}
-
-        return JsonResponse(return_obj)
-
-    ''''''''''''''''  LOADS DATA  '''''''''''''''
-    try:
-        with open(file_path, 'r') as outfile:
-            file_data = outfile.read()
-            data = file_data.encode(encoding='UTF-8')
-            data = json.loads(data)
-            data = data['timeSeriesReferenceFile']
-            try:
-                data_symbol = data['symbol']
-                data_file = data['fileVersion']
-            except:
-                data = json.loads(data)
-                data_symbol = data['symbol']
-                data_file = data['fileVersion']
-            data_stor = []
-            counter = 0
-            for i in data['referencedTimeSeries']:
-                if counter in int_resource:
-                    data_stor.append(i)
-                counter = counter + 1
-            data_dic = {"referencedTimeSeries": data_stor, "fileVersion": data_file, "title": title,
-                        "symbol": data_symbol, "abstract": abstract, 'keyWords': keywords}
-            data.update(data_dic)
-            final_dic = {"timeSeriesReferenceFile": data}
-            with open(fpath, 'w') as outfile1:
-                json.dump(final_dic, outfile1)
-        # r_title = title
-        r_keywords = keywords
-        r_abstract = abstract
-
-    except:
-        return_obj['success'] = False
-        return_obj['message'] = 'Data loading error.'
-        return_obj['results'] = {}
-
-        return JsonResponse(return_obj)
-
-    ''''''''''''''''  CREATES HYDROSHARE RESOURCE  '''''''''''''''
-    try:
-        r_type = 'TimeSeriesResource'
-        r_title = title
-        parse_result = parse_ts_layer(fpath, file_name, abstract)
-        if "Database loaded" not in parse_result["parse_result"]:
-            return_obj['success'] = False
-            return_obj['message'] = parse_result["parse_result"]
-            return_obj['results'] = {}
-
-            return JsonResponse(return_obj)
-
-        else:
-            fpath = temp_dir + '/id/' + file_name + '.sqlite'
-            resource_id = hs.createResource(r_type, r_title, resource_file=fpath, keywords=r_keywords,
-                                            abstract=r_abstract, metadata=metadata)
-    except:
-        return_obj['success'] = False
-        return_obj['message'] = 'Encountered a problem while creating timeseries resource.'
-        return_obj['results'] = {}
-
-        return JsonResponse(return_obj)
-
-    ''''''''''''''''  SETS RESOURCE AS PUBLIC  '''''''''''''''
-    if res_access == "public":
-        public = False
-        timeout = time.time() + 20
-        while public is False or time.time() < timeout:
-            try:
-                hs.setAccessRules(resource_id, public=True)
-                public = True
-            except:
-                time.sleep(2)
-
-        if public is False:
-            return_obj['success'] = False
-            return_obj['message'] = 'Request timed out.'
-            return_obj['results'] = {}
-
-            return JsonResponse(return_obj)
-
-    ''''''''''''''''  RESOURCE CREATED SUCCESSFULLY  '''''''''''''''
-    return_obj['success'] = True
-    return_obj['message'] = 'Resource created successfully'
-    return_obj['results'] = {"resource_id": resource_id, "hs_version": hs_version}
-
-    return JsonResponse(return_obj)
-
-
-@ensure_csrf_cookie
-# @login_required()
-def ajax_update_resource(request, res_id):
-    """
-    Ajax controller for create_layer.
-
-    Arguments:      []
-    Returns:        []
-    Referenced By:  []
-    References:     []
-    Libraries:      []
-    """
-
-    ''' Sets some initial values '''
-    resource_id = None
-    data_stor = []
-    int_resource = []
-    counter = 0
-    error = ''
-    public = 'false'
-
-    ''' Gets data from JavaScript '''
-    title = str(request.POST.get('resTitle'))
-    abstract = str(request.POST.get('resAbstract'))
-    keywords = str(request.POST.get('resKeywords'))
-    res_access = str(request.POST.get('resAccess'))
-    str_resource = request.POST.get('checked_ids')
-    keywords = keywords.split(',')
-    str_resource = trim(str_resource)
-    file_name = title.replace(" ", "")
-    file_name = file_name[:10]
-    for res in str_resource:
-        # Throws an error if no resources are checked.
-        # Should be tested in the javascript before this function is called.
-        int_resource.append(int(res))
-    # metadata = []
-
-    ''' Gets HydroShare Open Authorization '''
-    hs = get_o_auth_hs(request)
-
-    ''' Sets directory name '''
-    temp_dir = get_workspace()
-    # print title.lstrip(10)
-    fpath = temp_dir + '/id/' + file_name + '.json.refts'
-    # path where file will be stored before upload to hydroshare
-    file_path = ""
-    fname = ""
-    root_dir = ""
-    if res_id == 'null':  # if resource is coming for data client
-        file_path = temp_dir + '/id/timeseriesLayerResource.json'
-    else:  # if resource is already a HydroShare resource
-        # file_path = temp_dir + '/id/timeseriesLayerResource.json'
-        data_dir = temp_dir + '/id/' + res_id
-        for subdir, dirs, files in os.walk(data_dir):
-            for file in files:
-                if '.json.refts' in file:
-                    fname = file
-                    file_path = subdir + '/' + file
-
-    ''' Create data dictionaries '''
-    with open(file_path, 'r') as outfile:
-        file_data = outfile.read()
-        data = file_data.encode(encoding='UTF-8')
-        data = json.loads(data)
-        data = data['timeSeriesReferenceFile']
-        try:
-            data_symbol = data['symbol']
-            data_file = data['fileVersion']
-        except:
-            data = json.loads(data)
-            data_symbol = data['symbol']
-            data_file = data['fileVersion']
-        for i in data['referencedTimeSeries']:
-            if counter in int_resource:
-                data_stor.append(i)
-            counter = counter + 1
-        data_dic = {"referencedTimeSeries": data_stor, "fileVersion": data_file, "title": title,
-                    "symbol": data_symbol, "abstract": abstract, 'keyWords': keywords}
-        data.update(data_dic)
-        final_dic = {"timeSeriesReferenceFile": data}
-        with open(fpath, 'w') as outfile1:
-            json.dump(final_dic, outfile1)
-    # r_title = title
-    # r_keywords = keywords
-    # r_abstract = abstract
-
-    ''' Create Resource '''
-    # r_type = 'GenericResource'
-    # r_type = 'CompositeResource'
-    try:
-        try:
-            resource_id = hs.deleteResourceFile(res_id, fname)
-        except:
-            error = 'File does not exist'
-        resource_id = hs.addResourceFile(res_id, fpath)
-        temp_dir = get_workspace()
-        root_dir = temp_dir + '/id/' + res_id
-    except:
-        error = "error"
-    try:
-        shutil.rmtree(root_dir)
-    except:
-        pass
-        # nothing = None
-
-    if res_access == 'public':
-        delay = 0
-        while public == 'false' or delay < 10:
-            if delay > 10:
-                error = 'Request timed out'
-                break
-            else:
-                try:
-                    hs.setAccessRules(resource_id, public=True)
-                    # public = 'true'
-                    break
-                except:
-                    public = 'false'
-                    time.sleep(2)
-                delay = delay + 1
-    else:
-        print 'BROKE'
-    '''                
-    except:
-        error = 'At least one resource needs to be selected'
-        # utilities.parse_ts_layer(fpath,file_name,abstract)
-        # fpath = temp_dir+'/ODM2/'+file_name+'.sqlite'
-        # resource_id = hs.createResource(r_type, r_title, keywords=r_keywords, abstract=r_abstract, metadata=metadata)
-        # resource_id1 = hs.addResourceFile(resource_id, fpath)
-        "uploaded to HydroShare"
-    '''
-    return JsonResponse({'Request': resource_id, 'error': error})
-
-
-@ensure_csrf_cookie
-# @login_required()
-def ajax_create_refts_resource(request, res_id):
-    """
-    Ajax controller for create_layer.
-
-    Arguments:      [request, res_id]
-    Returns:        [JsonResponse(return_obj)]
-    Referenced By:  [ajaxCreateTimeseriesResource]
-    References:     [utilities.get_workspace, utilities.get_o_auth_hs, utilities.trim]
-    Libraries:      [JsonResponse, json, os, time]
-    """
-
-    return_obj = {
-        'success': False,
-        'message': None,
-        'results': {}
-    }
-
-    if request.is_ajax() and request.method == 'POST':
-        try:
-            int_resource = []
-            title = str(request.POST.get('resTitle'))
-            abstract = str(request.POST.get('resAbstract'))
-            keywords = str(request.POST.get('resKeywords'))
-            res_access = str(request.POST.get('resAccess'))
-            str_resource = request.POST.get('checked_ids')
-            keywords = keywords.split(',')
-            str_resource = trim(str_resource)
-            file_name = title.replace(" ", "")
-            file_name = file_name[:10]
-            for res in str_resource:
-                int_resource.append(int(res))
-            metadata = []
-
-        except:
-
-            ''''''''''''''''  DATA REQUEST ERROR  '''''''''''''''
-            return_obj['success'] = False
-            return_obj['message'] = 'Data request error.'
-            return_obj['results'] = {}
-
-            return JsonResponse(return_obj)
-
-        try:
-            ''' Gets HydroShare Open Authorization '''
-            hs = get_o_auth_hs(request)
-            hs_version = hs.hostname
-
-        except:
-
-            ''''''''''''''''  HYDROSHARE OAUTH ERROR  '''''''''''''''
-            return_obj['success'] = False
-            return_obj['message'] = 'HydroShare Open Authorization error.'
-            return_obj['results'] = {}
-
-            return JsonResponse(return_obj)
-
-        try:
-            temp_dir = get_workspace()
-            # print title.lstrip(10)
-            fpath = temp_dir + '/id/' + file_name + '.json.refts'
-            # path where file will be stored before upload to hydroshare
-            file_path = ""
-            # fname = ""
-            # root_dir = ""
-            if res_id == 'null':  # if resource is coming for data client
-                file_path = temp_dir + '/id/timeseriesLayerResource.json'
-            else:  # if resource is already a HydroShare resource
-                # file_path = temp_dir + '/id/timeseriesLayerResource.json'
-                data_dir = temp_dir + '/id/' + res_id
-                for subdir, dirs, files in os.walk(data_dir):
-                    for json_file in files:
-                        if '.json.refts' in json_file:
-                            # fname = json_file
-                            file_path = subdir + '/' + json_file
-
-            # Temporary File Path
-            # file_path = "/home/kennethlippold/tethysdev/tethysapp-hydroshare_resource_creator/timeseriesLayerResource.json"
-
-        except:
-
-            ''''''''''''''''  FILE PATH ERROR  '''''''''''''''
-            return_obj['success'] = False
-            return_obj['message'] = 'File path error.'
-            return_obj['results'] = {}
-
-            return JsonResponse(return_obj)
-        try:
-            counter = 0
-            data_stor = []
-            with open(file_path, 'r') as outfile:
-                file_data = outfile.read()
-                data = file_data.encode(encoding='UTF-8')
-                data = json.loads(data)
-                data = data['timeSeriesReferenceFile']
-                try:
-                    data_symbol = data['symbol']
-                    data_file = data['fileVersion']
-                except:
-                    data = json.loads(data)
-                    data_symbol = data['symbol']
-                    data_file = data['fileVersion']
-                for i in data['referencedTimeSeries']:
-                    if counter in int_resource:
-                        data_stor.append(i)
-                    counter = counter + 1
-                data_dic = {"referencedTimeSeries": data_stor, "fileVersion": data_file, "title": title,
-                            "symbol": data_symbol, "abstract": abstract, 'keyWords': keywords}
-                data.update(data_dic)
-                final_dic = {"timeSeriesReferenceFile": data}
-                with open(fpath, 'w') as outfile1:
-                    json.dump(final_dic, outfile1)
-            r_title = title
-            r_keywords = keywords
-            r_abstract = abstract
-        except:
-
-            ''''''''''''''''  DATA LOADING ERROR  '''''''''''''''
-            return_obj['success'] = False
-            return_obj['message'] = 'Data loading error.'
-            return_obj['results'] = {}
-
-            return JsonResponse(return_obj)
-
-        ''' Create Resource '''
-        # r_type = 'GenericResource'
-        r_type = 'CompositeResource'
-        try:
-            resource_id = hs.createResource(
-                r_type, r_title, resource_file=fpath, keywords=r_keywords, abstract=r_abstract,
-                metadata=metadata)
-        except:
-            resource_id = "error"
-
-            ''''''''''''''''  RESOURCE ID ERROR  '''''''''''''''
-            return_obj['success'] = False
-            return_obj['message'] = 'Resource ID error.'
-            return_obj['results'] = {}
-
-        if res_access == 'public':
-            public = 'false'
-            delay = 0
-
-            while public == 'false' and delay < 10:
-                try:
-                    hs.setAccessRules(resource_id, public=True)
-                    public = 'true'
-                except:
-                    time.sleep(2)
-                    delay = delay + 1
-
-            if public == 'false':
-
-                ''''''''''''''''  REQUEST TIMEOUT ERROR  '''''''''''''''
-                return_obj['success'] = False
-                return_obj['message'] = 'Request timed out.'
-                return_obj['results'] = {}
-
-                return JsonResponse(return_obj)
-
-        '''                
-        except:
-            error = 'At least one resource needs to be selected'
-            # utilities.parse_ts_layer(fpath,file_name,abstract)
-            # fpath = temp_dir+'/ODM2/'+file_name+'.sqlite'
-            # resource_id = hs.createResource(r_type, r_title, keywords=r_keywords, abstract=r_abstract, 
-                                              metadata=metadata)
-            # resource_id1 = hs.addResourceFile(resource_id, fpath)
-            "uploaded to HydroShare"
-        '''
-
-        ''''''''''''''''  RESOURCE CREATED SUCCESSFULLY  '''''''''''''''
-        return_obj['success'] = True
-        return_obj['message'] = 'Resource created successfully'
-        return_obj['results'] = {"resource_id": resource_id, "hs_version": hs_version}
-
-        return JsonResponse(return_obj)
-
-    else:
-
-        ''''''''''''''''  AJAX ERROR  '''''''''''''''
-        return_obj['success'] = False
-        return_obj['message'] = "Encountered AJAX Error."
-        return_obj['results'] = {}
-
-        return JsonResponse(return_obj)
-
-
 @csrf_exempt
 # @login_required()
 def login_test(request):
@@ -653,271 +157,136 @@ def login_test(request):
     return JsonResponse(return_obj)
 
 
-"""
-def create_layer(request, fun_type, res_id, res_type):
-    '''
+@ensure_csrf_cookie
+# @login_required()
+def ajax_create_resource(request, res_id):
+    """
     Ajax controller for create_layer.
 
-    Arguments:      [request, fun_type, res_id, res_type]
-    Returns:        [JsonResponse(return_obj)]
-    Referenced By:  [main.js]
-    References:     [utilities.trim, utilities.get_o_auth_hs, utilities.get_workspace, utilities.parse_ts_layer]
-    Libraries:      [get_oauth_hs, os, json, shutil]
-    '''
+    Arguments:      []
+    Returns:        []
+    Referenced By:  []
+    References:     []
+    Libraries:      []
+    """
 
-    ''' Sets some initial values '''
-    resource_id = None
-    data_stor = []
-    int_resource = []
-    counter = 0
-    error = ''
-    public = 'false'
+    return_obj = {
+        'success': False,
+        'message': None,
+        'results': {}
+    }
 
-    ''' Gets data from JavaScript '''
-    title = str(request.POST.get('resTitle'))
-    abstract = str(request.POST.get('resAbstract'))
-    keywords = str(request.POST.get('resKeywords'))
-    res_access = str(request.POST.get('resAccess'))
-    str_resource = request.POST.get('checked_ids')
-    keywords = keywords.split(',')
-    str_resource = trim(str_resource)
-    file_name = title.replace(" ", "")
-    file_name = file_name[:10]
-    for res in str_resource:
-        # Throws an error if no resources are checked.
-        # Should be tested in the javascript before this function is called.
-        int_resource.append(int(res))
-    metadata = []
+    ''''''''''''''''  VERIFIES REQUEST  '''''''''''''''
+    if not (request.is_ajax() and request.method == 'POST'):
+        return_obj['success'] = False
+        return_obj['message'] = "Unable to communicate with server."
+        return_obj['results'] = {}
 
-    ''' Gets HydroShare Open Authorization '''
-    if use_hs_client_helper:
-        hs = get_oauth_hs(request)
-    else:
+        return JsonResponse(return_obj)
+
+    ''''''''''''''''  GETS DATA FROM JAVASCRIPT  '''''''''''''''
+    try:
+        user_dir = get_user_workspace(request)
+        action_request = str(request.POST.get('action_request'))
+        res_title = str(request.POST.get('resTitle'))
+        res_abstract = str(request.POST.get('resAbstract'))
+        res_keywords = str(request.POST.get('resKeywords')).split(',')
+        res_access = str(request.POST.get('resAccess'))
+        res_filename = res_title.replace(' ', '')[:10]
+        selected_resources = []
+        for res in trim(request.POST.get('checked_ids')):
+            selected_resources.append(int(res))
+        res_data = {'res_title': res_title,
+                    'res_abstract': res_abstract,
+                    'res_keywords': res_keywords,
+                    'res_access': res_access,
+                    'res_filename': res_filename,
+                    'selected_resources': selected_resources,
+                    'user_dir': user_dir,
+                    'res_id': res_id}
+
+    except Exception, e:
+        return_obj['success'] = False
+        return_obj['message'] = 'We encountered a problem while loading your resource data.'
+        return_obj['results'] = {'error': str(e)}
+
+        return JsonResponse(return_obj)
+
+    ''''''''''''''''  GETS HYDROSHARE OAUTH  '''''''''''''''
+    try:
         hs = get_o_auth_hs(request)
+        hs_version = hs.hostname
 
-    ''' Sets directory name '''
-    temp_dir = get_workspace()
-    # print title.lstrip(10)
-    fpath = temp_dir + '/id/' + file_name + '.json.refts'
-    # path where file will be stored before upload to hydroshare
-    file_path = ""
-    fname = ""
-    root_dir = ""
-    if res_id == 'null':  # if resource is coming for data client
-        file_path = temp_dir + '/id/timeseriesLayerResource.json'
-    else:  # if resource is already a HydroShare resource
-        # file_path = temp_dir + '/id/timeseriesLayerResource.json'
-        data_dir = temp_dir + '/id/' + res_id
-        for subdir, dirs, files in os.walk(data_dir):
-            for file in files:
-                if '.json.refts' in file:
-                    print(subdir)
-                    fname = file
-                    file_path = subdir + '/' + file
-    print(file_path)
-    file_path = \
-        "/Users/kennethlippold/tethysdev/tethysapp-hydroshare_resource_creator/timeseriesLayerResource.json"
-
-    ''' Create data dictionaries '''
-    with open(file_path, 'r') as outfile:
-        file_data = outfile.read()
-        data = file_data.encode(encoding='UTF-8')
-        data = json.loads(data)
-        data = data['timeSeriesLayerResource']
-        try:
-            data_symbol = data['symbol']
-            data_file = data['fileVersion']
-        except:
-            data = json.loads(data)
-            data_symbol = data['symbol']
-            data_file = data['fileVersion']
-        for i in data['REFTS']:
-            if counter in int_resource:
-                data_stor.append(i)
-            counter = counter + 1
-        data_dic = {"REFTS": data_stor, "fileVersion": data_file, "title": title,
-                    "symbol": data_symbol, "abstract": abstract, 'keyWords': keywords}
-        data.update(data_dic)
-        final_dic = {"timeSeriesLayerResource": data}
-        with open(fpath, 'w') as outfile1:
-            json.dump(final_dic, outfile1)
-    r_title = title
-    r_keywords = keywords
-    r_abstract = abstract
-
-    ''' Create Resource '''
-    if res_type == 'refts':
-        # r_type = 'GenericResource'
-        r_type = 'CompositeResource'
-        if fun_type == 'create':
-            try:
-                resource_id = hs.createResource(
-                    r_type, r_title, resource_file=fpath, keywords=r_keywords, abstract=r_abstract,
-                    metadata=metadata)
-            except:
-                resource_id = "error"
-        elif fun_type == 'update':
-            try:
-                try:
-                    resource_id = hs.deleteResourceFile(res_id, fname)
-                except:
-                    error = 'File does not exist'
-                resource_id = hs.addResourceFile(res_id, fpath)
-                temp_dir = get_workspace()
-                root_dir = temp_dir + '/id/' + res_id
-            except:
-                error = "error"
-            try:
-                shutil.rmtree(root_dir)
-                print("removing directory")
-            except:
-                pass
-                # nothing = None
-    elif res_type == 'ts':
-        # utilities.create_odm2(fpath,file_name)
-        r_type = 'TimeSeriesResource'
-        r_title = title
-        # fpath = temp_dir + '/ODM2/ODM2_single_variable_multi_site.sqlite'
-        print(fpath)
-        parse_ts_layer(fpath, file_name, abstract)
-        # fpath = temp_dir + '/ODM2/' + file_name + '.sqlite'
-        resource_id = hs.createResource(
-            r_type, r_title, keywords=r_keywords, abstract=r_abstract, metadata=metadata)
-        # resource_id1 = hs.addResourceFile(resource_id, fpath)
-        # resource_id = hs.createResource\
-        # (r_type, r_title, resource_file=fpath, keywords=r_keywords, abstract=r_abstract, metadata=metadata)
-
-    if res_access == 'public':
-        delay = 0
-        while public == 'false' or delay < 10:
-            if delay > 10:
-                error = 'Request timed out'
-                break
-            else:
-                try:
-                    hs.setAccessRules(resource_id, public=True)
-                    # public = 'true'
-                    break
-                except:
-                    public = 'false'
-                    time.sleep(2)
-                delay = delay + 1
-    else:
-        print('BROKE')
-    '''                
     except:
-        error = 'At least one resource needs to be selected'
-        # utilities.parse_ts_layer(fpath,file_name,abstract)
-        # fpath = temp_dir+'/ODM2/'+file_name+'.sqlite'
-        # resource_id = hs.createResource(r_type, r_title, keywords=r_keywords, abstract=r_abstract, metadata=metadata)
-        # resource_id1 = hs.addResourceFile(resource_id, fpath)
-        "uploaded to HydroShare"
-    '''
-    return JsonResponse({'Request': resource_id, 'error': error})
-"""
+        return_obj['success'] = False
+        return_obj['message'] = 'We were unable to authenticate your HydroShare sign-in.'
+        return_obj['results'] = {}
 
-'''
-@login_required()
-def write_file(request):
-    """
-    Ajax controller for write_file.
+        return JsonResponse(return_obj)
 
-    :param request: 
-    :return JsonResponse(success): 
-    """
+    ''''''''''''''''  CREATES HYDROSHARE RESOURCE  '''''''''''''''
+    try:
+        actions = {'ts': create_ts_resource,
+                   'update': None,
+                   'refts': create_refts_resource}
 
-    success = {"File uploaded": "success"}
-    metadata = []
-    # hs = get_o_auth_hs(request)
-    waterml_url = "http://hydrodata.info/chmi-h/cuahsi_1_1.asmx/GetValuesObject?location=CHMI-H:140&variable=\
-    CHMI-H:TEPLOTA&startDate=2015-07-01&endDate=2015-07-10&authToken="
-    ref_type = "rest"
-    metadata.append({"referenceurl": {"value": waterml_url, "type": ref_type}})
-    # r_type = 'RefTimeSeriesResource'
-    # r_title = "test"
-    # r_keywords = ["test"]
-    # r_abstract = "This is a test of the resource creator"
-    # res_id = hs.createResource(r_type,
-    #                            r_title,
-    #                            resource_file=None,
-    #                            keywords=r_keywords,
-    #                            abstract=r_abstract,
-    #                            metadata=json.dumps(metadata))
+        processed_data = actions[action_request](res_data)
 
-    # temp_dir = utilities.get_workspace()
-    # file_temp_name = temp_dir + '/hydroshare/cuahsi-wdc-2016-07-26-66422054.xml'
-    #
-    # abstract = 'My abstract'
-    # title = 'My resource script'
-    # keywords = ('my keyword 1', 'my keyword 2')
-    # rtype = 'RefTimeSeriesResource'
-    # fpath = file_temp_name
-    # resource_id = hs.createResource(rtype, title, resource_file=fpath, keywords=keywords, abstract=abstract)
-    # os.remove(file_temp_name)
-    return JsonResponse(success)
+        res_type = processed_data['res_type']
+        res_filepath = processed_data['res_filepath']
+        res_filename = res_filename + processed_data['file_extension']
 
+        if processed_data['res_type'] == 'TimeSeriesResource' and 'Data Loaded' not in processed_data['parse_result']:
+            return_obj['success'] = False
+            return_obj['message'] = processed_data["parse_result"]
+            return_obj['results'] = {}
 
-@login_required()
-def temp_waterml(request, id):
-    """
-    Ajax controller for temp_waterml.
+            return JsonResponse(return_obj)
 
-    :param request: 
-    :param id: 
-    :return response:
-    """
-    
-    base_path = get_workspace() + "/id"
-    file_path = base_path + "/" + id
-    response = HttpResponse(FileWrapper(open(file_path)), content_type='application/xml')
-    return response
+        resource_id = hs.createResource(res_type, res_title, abstract=res_abstract, keywords=res_keywords)
 
+        try:
+            with open(res_filepath, 'rb') as res_file:
+                hs.addResourceFile(resource_id, resource_file=res_file, resource_filename=res_filename)
+            res_file.close()
+            hs.getResourceFile(resource_id, res_filename)
+            if hs.getSystemMetadata(resource_id)['resource_title'] == 'Untitled resource':
+                hs.deleteResource(resource_id)
+                raise Exception
+        except:
+            hs.deleteResource(resource_id)
+            raise Exception
 
-def response(request):
-    """
-    Ajax controller response.
+    except:
+        return_obj['success'] = False
+        return_obj['message'] = 'We encountered a problem while creating your resource.'
+        return_obj['results'] = {}
 
-    :param request: 
-    :return service_url: 
-    """
+        return JsonResponse(return_obj)
 
-    service_url = 'http://hydroportal.cuahsi.org/nwisdv/cuahsi_1_1.asmx?WSDL'
-    # service_url = 'http://hiscentral.cuahsi.org/webservices/hiscentral.asmx?WSDL'
-    # # site_code = '10147100'
-    site_code = 'ODM:010210JHI'
-    # variable_code = 'ODM:Discharge'
-    variable_code = 'NWISDV:00060'
-    client = connect_wsdl_url(service_url)
-    # print client
-    start_date = ''
-    end_date = ''
-    auth_token = ''
-    response1 = client.service.GetValues(site_code, variable_code, start_date, end_date, auth_token)
-    print(response1)
-    response_ = urllib2.urlopen('http://hiscentral.cuahsi.org/webservices/hiscentral.asmx/GetWaterOneFlowServiceInfo')
-    html = response_.read()
-    temp_dir = get_workspace()
-    file_temp_name = temp_dir + '/id/' + 'WaterOneFlowServiceInfo' + '.xml'
-    file_temp = open(file_temp_name, 'wb')
-    file_temp.write(html)
-    file_temp.close()
-    service_url = parse_service_info(file_temp_name)
-    # service_url = 'http://hiscentral.cuahsi.org/webservices/hiscentral.asmx?WSDL'
-    # client = connect_wsdl_url(service_url)
-    # print client
-    # print response1
-    # response1 = {"File uploaded":"sucess"}
-    # base_path = utilities.get_workspace()+"/hydroshare"
-    # file_path = base_path + "/" +title
-    # response = HttpResponse(FileWrapper(open(file_path)), content_type='application/xml')
-    # return response1
-    return service_url
-'''
+    ''''''''''''''''  SETS RESOURCE AS PUBLIC  '''''''''''''''
+    if res_access == 'public':
+        public = False
+        timeout = time.time() + 20
+        while public is False or time.time() < timeout:
+            try:
+                hs.setAccessRules(resource_id, public=True)
+                public = True
+            except:
+                time.sleep(2)
 
-'''
-from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
-from wsgiref.util import FileWrapper
-from .app import HydroshareResourceCreator
-import urllib2
-'''
+        if public is False:
+            return_obj['success'] = False
+            return_obj['message'] = 'Request timed out.'
+            return_obj['results'] = {}
+
+            return JsonResponse(return_obj)
+
+    ''''''''''''''''  RESOURCE CREATED SUCCESSFULLY  '''''''''''''''
+    return_obj['success'] = True
+    return_obj['message'] = 'Resource created successfully'
+    return_obj['results'] = {'resource_id': resource_id, 'hs_version': hs_version}
+
+    TethysWorkspace(user_dir).clear()
+
+    return JsonResponse(return_obj)

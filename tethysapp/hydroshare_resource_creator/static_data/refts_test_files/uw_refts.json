@@ -1,0 +1,40 @@
+{"timeSeriesReferenceFile":{
+      "fileVersion":"1.0.0",
+      "title":"Time series layer resource created on Tue Sep 05 2017 10:46:48 GMT-0600 (MDT)",
+      "symbol":"http://qa-hiswebclient.azurewebsites.net/content/images/Cuahsi-HydroClient-v3.gif",
+      "referencedTimeSeries":[
+         {
+            "endDate":"2011-05-25T09:56:00+00:00",
+            "sampleMedium":"Soil",
+            "requestInfo":{
+               "refType":"WOF",
+               "returnType":"WaterML 1.1",
+               "serviceType":"SOAP",
+               "networkName":"CedarRiver",
+               "url":"http://hydroportal.cuahsi.org/cedarriver/cuahsi_1_1.asmx?WSDL"
+            },
+            "beginDate":"2011-03-17T13:56:00+00:00",
+            "site":{
+               "siteName":"Cedar River Watershed Fiber Optic Cable Transect at Bear Creek",
+               "latitude":47.34295577,
+               "longitude":-121.5427058,
+               "siteCode":"CedarRiver:FOC537"
+            },
+            "valueCount":3305,
+            "variable":{
+               "variableCode":"CedarRiver:gTempC_FOC",
+               "variableName":"Temperature"
+            },
+            "method":{
+               "methodLink":"unknown",
+               "methodDescription":"A 900 m fiber-optic cable (BRUsens Temperature +85 \ufffdC; Brugg Cable International, Bragg, Switzerland) was deployed to collect ground temperature every 1 m along the cable at approximately 30 minute temporal resolution.  The cable was placed on the surface of the ground and secured with landscaping staples.  Efforts were made to cut woody debris and place the cable directly on the ground, replacing debris on top of the cable, but in some locations the cable runs over logs or is suspended over topographic hollows.  Data from 800 m of the  fiber-optic cable that transected experimental plots were retained for analysis.  A Sensornet Oryx distributed temperature sensing (DTS) system (Sensornet, Elstree, United Kingdom) was installed in an equipment trailer and used to generate light pulses and measure the corresponding reflected spectra. The Oryx compares the ratio of anti-Stokes photons (higher frequency, shorter wavelength) and Stokes photons (lower frequency, longer wavelength) that are absorbed and reemitted as the light pulse comes into contact with the cable wall . The ratio of anti-Stokes photons to Stokes photons follows a Boltzmann distribution proportional to the ambient temperature surrounding the FOC .  Deployment specifics and experimental design are described further in Lutz et al. [2012, Northwest Science] and Dickerson-Lange et al. [2014, in revision for Water Resources Research]"
+            }
+         }
+      ],
+      "keyWords":[
+         "Time Series",
+         "CUAHSI"
+      ],
+      "abstract":" data collected from 2017-09-05 to 1600-01-01 created on Tue Sep 05 2017 10:46:48 GMT-0600 (MDT) from the following site(s): . Data created by CUAHSI HydroClient: http://data.cuahsi.org/#."
+   }
+}

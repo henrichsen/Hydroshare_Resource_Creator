@@ -1,0 +1,40 @@
+{"timeSeriesReferenceFile":{
+      "fileVersion":"1.0.0",
+      "title":"Time series layer resource created on Tue Sep 05 2017 10:49:35 GMT-0600 (MDT)",
+      "symbol":"http://qa-hiswebclient.azurewebsites.net/content/images/Cuahsi-HydroClient-v3.gif",
+      "referencedTimeSeries":[
+         {
+            "endDate":"2009-12-10T14:00:00+00:00",
+            "sampleMedium":"Surface Water",
+            "requestInfo":{
+               "refType":"WOF",
+               "returnType":"WaterML 1.1",
+               "serviceType":"SOAP",
+               "networkName":"czo_udel",
+               "url":"http://hydroportal.cuahsi.org/czo_udel/cuahsi_1_1.asmx?WSDL"
+            },
+            "beginDate":"2009-07-31T15:00:00+00:00",
+            "site":{
+               "siteName":"White Clay Creek west branch at Rt. 926 downstream side ISCO location",
+               "latitude":39.871802,
+               "longitude":-75.786826,
+               "siteCode":"czo_udel:WCCISCO_926"
+            },
+            "valueCount":16,
+            "variable":{
+               "variableCode":"czo_udel:Alkalinitytotal6",
+               "variableName":"Alkalinity, total"
+            },
+            "method":{
+               "methodLink":"unknown",
+               "methodDescription":"Manual titration at Stroud Water Research Center"
+            }
+         }
+      ],
+      "keyWords":[
+         "Time Series",
+         "CUAHSI"
+      ],
+      "abstract":" data collected from 2017-09-05 to 1600-01-01 created on Tue Sep 05 2017 10:49:35 GMT-0600 (MDT) from the following site(s): . Data created by CUAHSI HydroClient: http://data.cuahsi.org/#."
+   }
+}
