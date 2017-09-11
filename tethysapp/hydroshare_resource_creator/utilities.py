@@ -134,7 +134,11 @@ def create_ts_resource(res_data):
     series_count = 0
     json_data = json.loads(refts_data)
     json_data = json_data["timeSeriesReferenceFile"]
-    layer = json_data['referencedTimeSeries']
+    try:
+        layer = json_data['referencedTimeSeries']
+    except:
+        json_data = json.loads(json_data)
+        layer = json_data['referencedTimeSeries']
     current_path = os.path.dirname(os.path.realpath(__file__))
     odm_master = os.path.join(current_path, "static_data/ODM2_master.sqlite")
     res_filepath = res_data['user_dir'] + '/' + res_data['res_filename'] + '.sqlite'
@@ -185,9 +189,15 @@ def update_resource():
 def create_refts_resource(res_data):
     refts_path = res_data['user_dir'] + '/timeseriesLayerResource.json'
     with open(refts_path, 'r') as refts_file:
+        print refts_file
         refts_data = json.loads((refts_file.read()).encode(encoding='UTF-8'))['timeSeriesReferenceFile']
-        data_symbol = refts_data['symbol']
-        data_file = refts_data['fileVersion']
+        try:
+            data_symbol = refts_data['symbol']
+            data_file = refts_data['fileVersion']
+        except:
+            refts_data = json.loads(refts_data)
+            data_symbol = refts_data['symbol']
+            data_file = refts_data['fileVersion']
         data_stor = []
         for i, refts in enumerate(refts_data['referencedTimeSeries']):
             if i in res_data['selected_resources']:
