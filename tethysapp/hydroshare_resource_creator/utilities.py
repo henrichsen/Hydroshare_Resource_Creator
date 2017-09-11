@@ -261,9 +261,6 @@ def load_into_odm2(url, site_code, variable_code, begin_date, end_date, odm_copy
         client = connect_wsdl_url(url)
         # The following line bottlenecks getting the results data.
         values_result = client.service.GetValuesObject(site_code, variable_code, begin_date, end_date, autho_token)
-        with open("/home/kennethlippold/tethysdev/tethysapp-hydroshare_resource_creator/tethysapp/hydroshare_resource_creator/static_data/refts_test_files/stroud_resource.wml", "w") as my_file:
-            my_file.write(str(values_result))
-        my_file.close()
         data_type = "OTHER"
 
     if data_type == "NASA" and len(data_root["timeSeries"]["values"]) == 0:
