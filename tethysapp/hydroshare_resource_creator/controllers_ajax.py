@@ -259,7 +259,7 @@ def ajax_create_resource(request, res_id):
 
     except:
         return_obj['success'] = False
-        return_obj['message'] = 'We encountered a problem while creating your resource.'
+        return_obj['message'] = str(user_dir)
         return_obj['results'] = {}
 
         return JsonResponse(return_obj)
