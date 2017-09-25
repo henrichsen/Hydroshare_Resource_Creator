@@ -195,6 +195,8 @@ def ajax_create_resource(request, res_id):
         res_access = str(request.POST.get('resAccess'))
         res_filename = res_title.replace(' ', '')[:10]
         selected_resources = []
+        print "REQUEST"
+        print request
         for res in trim(request.POST.get('checked_ids')):
             selected_resources.append(int(res))
         res_data = {'res_title': res_title,
@@ -204,7 +206,8 @@ def ajax_create_resource(request, res_id):
                     'res_filename': res_filename,
                     'selected_resources': selected_resources,
                     'user_dir': user_dir,
-                    'res_id': res_id}
+                    'res_id': res_id,
+                    }
 
     except Exception, e:
         return_obj['success'] = False
