@@ -103,8 +103,6 @@ loadResource = function (){
 
     // Gets the URL at which the data is located. //
     var serviceurl = trimInput($('#serviceurl').text());
-    console.log('SERVICE URL:');
-    console.log(serviceurl);
     document.title = 'Create HydroShare Resource';
     var current_url = location.href;
     var index = current_url.indexOf("hydroshare-resource-creator");
@@ -118,8 +116,6 @@ loadResource = function (){
         res_id ='None'
     }
     var data_url = base_url + 'hydroshare-resource-creator/chart_data/' + res_id + '/';
-    console.log('DATA URL:');
-    console.log(data_url);
 
     // Passes the data to the AJAX function for loading the resource. //
     ajaxLoadResource(data, src, data_url)
@@ -196,6 +192,7 @@ loadFormData = function (action_request){
     var resTitle = $resTitle.val();
     var resAbstract = $resAbstract.val();
     var resKeywords = $resKeywords.val();
+    var refts_filename = $('#reftsfilename').text()
     var checked_ids = $('input[data1-resid]:checkbox:checked').map(function() {
         return this.getAttribute("data1-resid");
     }).get();
@@ -221,6 +218,7 @@ loadFormData = function (action_request){
         'res_type': res_type,
         'res_id': res_id,
         'data_url': data_url,
+        'refts_filename': refts_filename,
         'action_request': action_request
     };
 
@@ -372,7 +370,7 @@ ajaxLoadResource = function (data, src, data_url){
         type:"POST",
         dataType: 'json',
         public: false,
-        data: data,
+        data: {"refts_filename": $('#reftsfilename').text()},
         url: data_url,
         error: function (ignore, textStatus) {
             showLoadingCompleteStatus('error', textStatus);

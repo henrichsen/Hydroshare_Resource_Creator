@@ -28,6 +28,12 @@
             "method":{
                "methodLink":"unknown",
                "methodDescription":"No method specified"
+            },
+            "wofParams": {
+               "WofUri": "cuahsi-wdc-2017-09-26-65003742",
+               "QCLID": "0",
+               "MethodId": "0",
+               "SourceId": "0"
             }
          }
       ],

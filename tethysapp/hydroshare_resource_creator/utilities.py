@@ -16,6 +16,7 @@ from django.conf import settings
 from .app import HydroshareResourceCreator
 import json
 import logging
+import zipfile, io
 
 logger = logging.getLogger(__name__)
 use_hs_client_helper = True
@@ -152,7 +153,7 @@ def create_ts_resource(res_data):
     Libraries:      [json, shutil, sqlite3]
     """
 
-    refts_path = res_data['user_dir'] + '/timeseriesLayerResource.json'
+    refts_path = res_data['user_dir'] + res_data["res_data_pathname"]
     with open(refts_path, 'r') as refts_file:
         refts_data = ((refts_file.read()).encode(encoding='UTF-8')).replace("'", '"')
     series_count = 0
@@ -170,36 +171,50 @@ def create_ts_resource(res_data):
     parse_result = []
     for sub in layer:
         url = sub['requestInfo']['url']
+        print "URL"
+        print url
         site_code = sub['site']['siteCode']
         variable_code = sub['variable']['variableCode']
         start_date = sub['beginDate']
         end_date = sub['endDate']
         return_type = sub['requestInfo']['returnType']
         autho_token = ''
-        if "nasa" in url:
-            headers = {'content-type': 'text/xml'}
-            body = """<?xml version="1.0" encoding="utf-8"?>
-                <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" """ + \
-                   """xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
-                       <soap:Body>
-                           <GetValuesObject xmlns="http://www.cuahsi.org/his/1.0/ws/">
-                               <location>""" + site_code + """</location>
-                            <variable>""" + variable_code + """</variable>
-                            <startDate>""" + start_date + """</startDate>
-                            <endDate>""" + end_date + """</endDate>
-                            <authToken>""" + autho_token + """"</authToken>
-                        </GetValuesObject>
-                    </soap:Body>
-                </soap:Envelope>"""
-            response = requests.post(url, data=body, headers=headers)
-            values_result = response.content
-            values_result = xmltodict.parse(values_result)
-            data_root = values_result["soap:Envelope"]["soap:Body"]["GetValuesObjectResponse"]["timeSeriesResponse"]
-        else:
-            client = connect_wsdl_url(url)
-            values_result = client.service.GetValues(site_code, variable_code, start_date, end_date, autho_token)
-            values_result = xmltodict.parse(values_result)
-            data_root = values_result["timeSeriesResponse"]
+        try:
+            wof_uri = sub["wofParams"]["WofUri"]
+            data_url = "http://qa-hiswebclient.azurewebsites.net/CUAHSI/HydroClient/WaterOneFlowArchive/" + wof_uri + "/zip"
+            r = requests.get(data_url)
+            z = (zipfile.ZipFile(io.BytesIO(r.content))).extractall(res_data["user_dir"])
+            with open(res_data["user_dir"] + '/' + z.namelist()[0], "r") as unzipped_file:
+                values_result = unzipped_file.read()
+                values_result = xmltodict.parse(values_result)
+            unzipped_file.close()
+            print values_result["soap:Envelope"]["soap:Body"].keys()
+            data_root = values_result["soap:Envelope"]["soap:Body"]["TimeSeriesResponse"]["timeSeriesResponse"]
+        except:
+            if "nasa" in url:
+                headers = {'content-type': 'text/xml'}
+                body = """<?xml version="1.0" encoding="utf-8"?>
+                    <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" """ + \
+                       """xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+                           <soap:Body>
+                               <GetValuesObject xmlns="http://www.cuahsi.org/his/1.0/ws/">
+                                   <location>""" + site_code + """</location>
+                                <variable>""" + variable_code + """</variable>
+                                <startDate>""" + start_date + """</startDate>
+                                <endDate>""" + end_date + """</endDate>
+                                <authToken>""" + autho_token + """"</authToken>
+                            </GetValuesObject>
+                        </soap:Body>
+                    </soap:Envelope>"""
+                response = requests.post(url, data=body, headers=headers)
+                values_result = response.content
+                values_result = xmltodict.parse(values_result)
+                data_root = values_result["soap:Envelope"]["soap:Body"]["GetValuesObjectResponse"]["timeSeriesResponse"]
+            else:
+                client = connect_wsdl_url(url)
+                values_result = client.service.GetValues(site_code, variable_code, start_date, end_date, autho_token)
+                values_result = xmltodict.parse(values_result)
+                data_root = values_result["timeSeriesResponse"]
 
         current_path = os.path.dirname(os.path.realpath(__file__))
         odm_master = os.path.join(current_path, "static_data/ODM2_master.sqlite")
@@ -848,28 +863,60 @@ def update_resource():
 
 
 def create_refts_resource(res_data):
-    refts_path = res_data['user_dir'] + '/timeseriesLayerResource.json'
+    refts_path = res_data['user_dir'] + res_data['res_data_pathname']
     with open(refts_path, 'r') as refts_file:
-        print refts_file
         refts_data = json.loads((refts_file.read()).encode(encoding='UTF-8'))['timeSeriesReferenceFile']
         try:
-            data_symbol = refts_data['symbol']
-            data_file = refts_data['fileVersion']
+            json_test = refts_data["symbol"]
+            print json_test
         except:
             refts_data = json.loads(refts_data)
-            data_symbol = refts_data['symbol']
-            data_file = refts_data['fileVersion']
-        data_stor = []
+        json_dict = {
+            "timeSeriesReferenceFile": {
+                "fileVersion": refts_data["fileVersion"],
+                "title": refts_data["title"],
+                "symbol": refts_data["symbol"],
+                "abstract": refts_data["abstract"],
+                "keyWords": refts_data["keyWords"],
+                "referencedTimeSeries" : {}
+            }
+        }
+
         for i, refts in enumerate(refts_data['referencedTimeSeries']):
             if i in res_data['selected_resources']:
-                data_stor.append(refts)
-        data_dic = {"referencedTimeSeries": data_stor, "fileVersion": data_file, "title": res_data['res_title'],
-                    "symbol": data_symbol, "abstract": res_data['res_abstract'], 'keyWords': res_data['res_keywords']}
-        refts_data.update(data_dic)
-        final_dic = {"timeSeriesReferenceFile": refts_data}
+                sub = {
+                    "requestInfo": {
+                        "serviceType": refts["requestInfo"]["serviceType"],
+                        "refType": refts["requestInfo"]["refType"],
+                        "returnType": refts["requestInfo"]["returnType"],
+                        "networkName": refts["requestInfo"]["networkName"],
+                        "url": refts["requestInfo"]["url"]
+                    },
+                    "sampleMedium": refts["sampleMedium"],
+                    "valueCount": refts["valueCount"],
+                    "beginDate": refts["beginDate"],
+                    "endDate": refts["endDate"],
+                    "site": {
+                        "siteCode": refts["site"]["siteCode"],
+                        "siteName": refts["site"]["siteName"],
+                        "latitude": refts["site"]["latitude"],
+                        "longitude": refts["site"]["longitude"]
+                    },
+                    "variable": {
+                        "variableCode": refts["variable"]["variableCode"],
+                        "variableName": refts["variable"]["variableName"]
+                    },
+                    "method": {
+                        "methodDescription": refts["method"]["methodDescription"],
+                        "methodLink": refts["method"]["methodLink"]
+                    }
+                }
+                json_dict["timeSeriesReferenceFile"]["referencedTimeSeries"].update(sub)
+
         res_filepath = res_data['user_dir'] + '/' + res_data['res_filename'] + '.refts.json'
+
         with open(res_filepath, 'w') as res_file:
-            json.dump(final_dic, res_file)
+            json.dump(json_dict, res_file)
 
         return_obj = {'res_type': 'CompositeResource',
                       'res_filepath': res_filepath,

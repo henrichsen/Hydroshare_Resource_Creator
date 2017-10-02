@@ -32,8 +32,7 @@ def chart_data(request, res_id):
 
     temp_dir = get_user_workspace(request)
 
-    ref_file = temp_dir + '/timeseriesLayerResource.json'
-
+    ref_file = temp_dir + (request.POST)["refts_filename"]
     if request.is_ajax() and request.method == 'POST':
         if res_id == 'None':
             try:
@@ -177,7 +176,10 @@ def ajax_create_resource(request, res_id):
         'results': {}
     }
 
-    ''''''''''''''''  VERIFIES REQUEST  '''''''''''''''
+    # -------------------- #
+    #   VERIFIES REQUEST   #
+    # -------------------- #
+
     if not (request.is_ajax() and request.method == 'POST'):
         return_obj['success'] = False
         return_obj['message'] = "Unable to communicate with server."
@@ -185,7 +187,10 @@ def ajax_create_resource(request, res_id):
 
         return JsonResponse(return_obj)
 
-    ''''''''''''''''  GETS DATA FROM JAVASCRIPT  '''''''''''''''
+    # ----------------------------- #
+    #   GETS DATA FROM JAVASCRIPT   #
+    # ----------------------------- #
+
     try:
         user_dir = get_user_workspace(request)
         action_request = str(request.POST.get('action_request'))
@@ -194,9 +199,8 @@ def ajax_create_resource(request, res_id):
         res_keywords = str(request.POST.get('resKeywords')).split(',')
         res_access = str(request.POST.get('resAccess'))
         res_filename = res_title.replace(' ', '')[:10]
+        res_data_pathname = request.POST.get('refts_filename')
         selected_resources = []
-        print "REQUEST"
-        print request
         for res in trim(request.POST.get('checked_ids')):
             selected_resources.append(int(res))
         res_data = {'res_title': res_title,
@@ -207,6 +211,7 @@ def ajax_create_resource(request, res_id):
                     'selected_resources': selected_resources,
                     'user_dir': user_dir,
                     'res_id': res_id,
+                    'res_data_pathname': res_data_pathname
                     }
 
     except Exception, e:
