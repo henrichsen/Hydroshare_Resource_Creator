@@ -28,7 +28,7 @@ def home(request):
     TethysWorkspace(get_user_workspace(request)).clear()
 
     # FORM DATA FOR LOCAL TESTING
-    # test_file_name = 'uw_refts.json'  # Comment out before uploading to GitHub
+    # test_file_name = 'combo_refts.json'  # Comment out before uploading to GitHub
 
     try:  # LOCAL TESTING USE ONLY
         local_path = '/home/klippold/tethysdev/HS_TimeseriesCreator/tethysapp/hydroshare_resource_creator/static_data/refts_test_files/'

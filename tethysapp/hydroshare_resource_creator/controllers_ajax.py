@@ -217,7 +217,7 @@ def ajax_create_resource(request, res_id):
     except Exception, e:
         return_obj['success'] = False
         return_obj['message'] = 'We encountered a problem while loading your resource data.'
-        return_obj['results'] = {'error': str(e)}
+        return_obj['results'] = str(e)
 
         return JsonResponse(return_obj)
 
@@ -226,10 +226,10 @@ def ajax_create_resource(request, res_id):
         hs = get_o_auth_hs(request)
         hs_version = hs.hostname
 
-    except:
+    except Exception, e:
         return_obj['success'] = False
         return_obj['message'] = 'We were unable to authenticate your HydroShare sign-in.'
-        return_obj['results'] = {}
+        return_obj['results'] = str(e)
 
         return JsonResponse(return_obj)
 
@@ -268,8 +268,8 @@ def ajax_create_resource(request, res_id):
 
     except Exception, e:
         return_obj['success'] = False
-        return_obj['message'] = traceback.format_exc()
-        return_obj['results'] = {}
+        return_obj['message'] = "We were unable to "
+        return_obj['results'] = "Server Error: " + str(traceback.format_exc)
 
         return JsonResponse(return_obj)
 
