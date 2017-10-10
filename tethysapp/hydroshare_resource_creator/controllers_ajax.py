@@ -11,7 +11,7 @@ from .utilities import get_user_workspace, create_ts_resource, create_refts_reso
      process_file_data
 
 
-@ensure_csrf_cookie
+@csrf_exempt
 def chart_data(request, res_id):
     """
     Ajax controller for chart_data.
@@ -118,7 +118,7 @@ def chart_data(request, res_id):
     return JsonResponse(return_obj)
 
 
-@ensure_csrf_cookie
+@csrf_exempt
 def login_test(request):
     """
     Ajax controller for login_test. Tests user login.
@@ -155,7 +155,7 @@ def login_test(request):
     return JsonResponse(return_obj)
 
 
-@ensure_csrf_cookie
+@csrf_exempt
 def ajax_create_resource(request):
     """
     Ajax controller for create_layer.

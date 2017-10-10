@@ -8,7 +8,7 @@ import uuid
 from .utilities import get_user_workspace
 
 
-@ensure_csrf_cookie
+@csrf_exempt
 def home(request):
     """
     Controller for app home page.
@@ -28,7 +28,7 @@ def home(request):
     TethysWorkspace(get_user_workspace(request)).clear()
 
     # FORM DATA FOR LOCAL TESTING
-    # test_file_name = 'combo_refts.json'  # Comment out before uploading to GitHub
+    test_file_name = 'combo_refts.json'  # Comment out before uploading to GitHub
 
     try:  # LOCAL TESTING USE ONLY
         local_path = "/home/klippold/tethysdev/HS_TimeseriesCreator/tethysapp/hydroshare_resource_creator/static_data/refts_test_files/"
@@ -68,7 +68,7 @@ def home(request):
     return render_obj
 
 
-@ensure_csrf_cookie
+@csrf_exempt
 @never_cache
 def login_callback(request):
     """
