@@ -239,8 +239,6 @@ findQueryParameter = function (name) {
     var regexS = "[\\?&]"+name+"=([^&#]*)";
     var regex = new RegExp( regexS );
     var results = regex.exec( url );
-    console.log("REGEX RESULTS");
-    console.log(results);
     return results === null ? null : results[1];
 };
 
@@ -362,6 +360,8 @@ ajaxLoadResource = function (data, src, data_url){
             if (response.success === true) {
                 var number = 0;
                 var results = response.results;
+                console.log("HELLO")
+                console.log(results)
                 var title = results.title;
                 var abstract = results.abstract;
                 var keywords = results.keyWords;

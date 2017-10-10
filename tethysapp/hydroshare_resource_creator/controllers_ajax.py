@@ -264,6 +264,7 @@ def ajax_create_resource(request):
 
                 return JsonResponse(return_obj)
 
+        print "Attempting to create HydroShare Resource"
         resource_id = hs_api.createResource(res_type, res_title, abstract=res_abstract, keywords=res_keywords)
 
         try:
@@ -295,7 +296,7 @@ def ajax_create_resource(request):
         timeout = time.time() + 20
         while public is False or time.time() < timeout:
             try:
-                hs.setAccessRules(resource_id, public=True)
+                hs_api.setAccessRules(resource_id, public=True)
                 public = True
             except:
                 time.sleep(2)

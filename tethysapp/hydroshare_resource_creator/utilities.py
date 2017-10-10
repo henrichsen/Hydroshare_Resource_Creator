@@ -400,9 +400,6 @@ def create_ts_resource(res_data):
                         ds_dataset_abstract = res_data["res_abstract"]                 
                     dataset = [ds_dataset_uuid, ds_dataset_type_cv, ds_dataset_code, ds_dataset_title, ds_dataset_abstract]  
                     conn.execute(odm_tables["Datasets"], dataset)
-
-                else:
-                    return None
             except:
                 parse_status.append({
                     "res_name": variable_name + " at " + site_name + " from " + start_date + " to " + end_date,
@@ -1031,14 +1028,13 @@ def create_ts_resource(res_data):
                 continue
             print "SUCCESS"
 
-            # ------------------------------------------ #
-            #    Commits Changes and Closes Connection   #
-            # ------------------------------------------ #
+            # -------------------- #
+            #    Commits Changes   #
+            # -------------------- #
             print "Commiting Changes: ",
             try:
                 conn.execute("COMMIT;")
                 sql_connect.commit()
-                sql_connect.close()
 
                 parse_status.append({
                     "res_name": variable_name + " at " + site_name + " from " + start_date + " to " + end_date,
@@ -1063,6 +1059,9 @@ def create_ts_resource(res_data):
                 })
             print "Series " + str(series_count) + " encountered unknown issue"
             continue
+
+    print "Closing Connection"        
+    sql_connect.close()        
 
     return_obj = {
         "res_type": "CompositeResource",
