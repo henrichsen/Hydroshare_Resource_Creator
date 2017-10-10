@@ -1,14 +1,14 @@
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.cache import never_cache
+from django.views.decorators.csrf import ensure_csrf_cookie
 from tethys_apps.base import TethysWorkspace
 import json
 import uuid
 from .utilities import get_user_workspace
 
 
-# @login_required()
-@csrf_exempt
+@ensure_csrf_cookie
 def home(request):
     """
     Controller for app home page.
@@ -21,9 +21,9 @@ def home(request):
     """
 
     if request.user.is_authenticated():
-        user_login = 'True'
+        user_login = "True"
     else:
-        user_login = 'False'
+        user_login = "False"
 
     TethysWorkspace(get_user_workspace(request)).clear()
 
@@ -31,10 +31,10 @@ def home(request):
     # test_file_name = 'combo_refts.json'  # Comment out before uploading to GitHub
 
     try:  # LOCAL TESTING USE ONLY
-        local_path = '/home/klippold/tethysdev/HS_TimeseriesCreator/tethysapp/hydroshare_resource_creator/static_data/refts_test_files/'
+        local_path = "/home/klippold/tethysdev/HS_TimeseriesCreator/tethysapp/hydroshare_resource_creator/static_data/refts_test_files/"
         local_file = local_path + test_file_name
         print local_file
-        with open(local_file, 'r') as test_file:
+        with open(local_file, "r") as test_file:
             form_body = json.load(test_file)
 
     except:  # PRODUCTION USE ONLY
@@ -47,28 +47,28 @@ def home(request):
     base_path = get_user_workspace(request) + refts_filename
 
 
-    with open(base_path, 'w') as outfile:
+    with open(base_path, "w") as outfile:
         json.dump(form_body, outfile)
 
     source_id = []
     service_url = []
     body = request.body
 
-    context = {'source': body,
-               'quality': form_body,
-               'method': request,
-               'source_id': source_id,
-               'service_url': service_url,
-               'user_login': user_login,
-               'reftsfilename': refts_filename
+    context = {"source": body,
+               "quality": form_body,
+               "method": request,
+               "source_id": source_id,
+               "service_url": service_url,
+               "user_login": user_login,
+               "reftsfilename": refts_filename
                }
 
-    render_obj = render(request, 'hydroshare_resource_creator/home.html', context)
+    render_obj = render(request, "hydroshare_resource_creator/home.html", context)
 
     return render_obj
 
 
-@csrf_exempt
+@ensure_csrf_cookie
 @never_cache
 def login_callback(request):
     """
@@ -82,11 +82,12 @@ def login_callback(request):
     """
 
     context = {}
+
     if request.user.is_authenticated():
         context["login"] = "yes"
     else:
         context["login"] = "no"
 
-    render_obj = render(request, 'hydroshare_resource_creator/login_callback.html', context)
+    render_obj = render(request, "hydroshare_resource_creator/login_callback.html", context)
 
     return render_obj

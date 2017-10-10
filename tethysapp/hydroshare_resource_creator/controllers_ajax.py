@@ -11,8 +11,7 @@ from .utilities import get_user_workspace, create_ts_resource, create_refts_reso
      process_file_data
 
 
-@csrf_exempt
-# @login_required()
+@ensure_csrf_cookie
 def chart_data(request, res_id):
     """
     Ajax controller for chart_data.
@@ -119,8 +118,7 @@ def chart_data(request, res_id):
     return JsonResponse(return_obj)
 
 
-@csrf_exempt
-# @login_required()
+@ensure_csrf_cookie
 def login_test(request):
     """
     Ajax controller for login_test. Tests user login.
@@ -158,8 +156,7 @@ def login_test(request):
 
 
 @ensure_csrf_cookie
-# @login_required()
-def ajax_create_resource(request, res_id):
+def ajax_create_resource(request):
     """
     Ajax controller for create_layer.
 
@@ -171,19 +168,19 @@ def ajax_create_resource(request, res_id):
     """
 
     return_obj = {
-        'success': False,
-        'message': None,
-        'results': {}
+        "success": False,
+        "message": None,
+        "results": {}
     }
 
     # -------------------- #
     #   VERIFIES REQUEST   #
     # -------------------- #
 
-    if not (request.is_ajax() and request.method == 'POST'):
-        return_obj['success'] = False
-        return_obj['message'] = "Unable to communicate with server."
-        return_obj['results'] = {}
+    if not (request.is_ajax() and request.method == "POST"):
+        return_obj["success"] = False
+        return_obj["message"] = "Unable to communicate with server."
+        return_obj["results"] = {}
 
         return JsonResponse(return_obj)
 
@@ -193,87 +190,106 @@ def ajax_create_resource(request, res_id):
 
     try:
         user_dir = get_user_workspace(request)
-        action_request = str(request.POST.get('action_request'))
-        res_title = str(request.POST.get('resTitle'))
-        res_abstract = str(request.POST.get('resAbstract'))
-        res_keywords = str(request.POST.get('resKeywords')).split(',')
-        res_access = str(request.POST.get('resAccess'))
-        res_filename = res_title.replace(' ', '')[:10]
-        res_data_pathname = request.POST.get('refts_filename')
+        action_request = str(request.POST.get("action_request"))
+        res_title = str(request.POST.get("resTitle"))
+        res_abstract = str(request.POST.get("resAbstract"))
+        res_keywords = str(request.POST.get("resKeywords")).split(",")
+        res_access = str(request.POST.get("resAccess"))
+        res_filename = res_title.replace(" ", "")[:10]
+        res_data_pathname = request.POST.get("refts_filename")
         selected_resources = []
-        for res in trim(request.POST.get('checked_ids')):
+        for res in trim(request.POST.get("checked_ids")):
             selected_resources.append(int(res))
-        res_data = {'res_title': res_title,
-                    'res_abstract': res_abstract,
-                    'res_keywords': res_keywords,
-                    'res_access': res_access,
-                    'res_filename': res_filename,
-                    'selected_resources': selected_resources,
-                    'user_dir': user_dir,
-                    'res_id': res_id,
-                    'res_data_pathname': res_data_pathname
+        res_data = {"res_title": res_title,
+                    "res_abstract": res_abstract,
+                    "res_keywords": res_keywords,
+                    "res_access": res_access,
+                    "res_filename": res_filename,
+                    "selected_resources": selected_resources,
+                    "user_dir": user_dir,
+                    "res_id": "None",
+                    "res_data_pathname": res_data_pathname
                     }
+        print "SELECTED RESOURCES"
+        print selected_resources
 
-    except Exception, e:
-        return_obj['success'] = False
-        return_obj['message'] = 'We encountered a problem while loading your resource data.'
-        return_obj['results'] = str(e)
-
-        return JsonResponse(return_obj)
-
-    ''''''''''''''''  GETS HYDROSHARE OAUTH  '''''''''''''''
-    try:
-        hs = get_o_auth_hs(request)
-        hs_version = hs.hostname
-
-    except Exception, e:
-        return_obj['success'] = False
-        return_obj['message'] = 'We were unable to authenticate your HydroShare sign-in.'
-        return_obj['results'] = str(e)
+    except Exception, error_message:
+        return_obj["success"] = False
+        return_obj["message"] = "We encountered a problem while loading your resource data."
+        return_obj["results"] = str(error_message)
 
         return JsonResponse(return_obj)
 
-    ''''''''''''''''  CREATES HYDROSHARE RESOURCE  '''''''''''''''
+    # ------------------------- #
+    #   GETS HYDROSHARE OAUTH   #
+    # ------------------------- #
+
     try:
-        actions = {'ts': create_ts_resource,
-                   'update': None,
-                   'refts': create_refts_resource}
+        hs_api = get_o_auth_hs(request)
+        hs_version = hs_api.hostname
+
+    except Exception, error_message:
+        return_obj["success"] = False
+        return_obj["message"] = "We were unable to authenticate your HydroShare sign-in."
+        return_obj["results"] = str(error_message)
+
+        return JsonResponse(return_obj)
+
+    # ------------------------------- #
+    #   CREATES HYDROSHARE RESOURCE   #
+    # ------------------------------- #
+
+    try:
+        actions = {"ts": create_ts_resource,
+                   "update": None,
+                   "refts": create_refts_resource}
 
         processed_data = actions[action_request](res_data)
 
-        res_type = processed_data['res_type']
-        res_filepath = processed_data['res_filepath']
-        res_filename = res_filename + processed_data['file_extension']
+        res_type = processed_data["res_type"]
+        res_filepath = processed_data["res_filepath"]
+        res_filename = res_filename + processed_data["file_extension"]
+        res_status = processed_data["parse_status"]
 
-        if processed_data['res_type'] == 'TimeSeriesResource' and 'Data Loaded' not in processed_data['parse_result']:
-            return_obj['success'] = False
-            return_obj['message'] = processed_data["parse_result"]
-            return_obj['results'] = {}
+        return_status = []
+        if action_request == "ts":
+            for status in res_status:
+                if status["res_status"] != "Success":
+                    return_status.append(status["res_status"] + " for " + status["res_name"])
+            if return_status:
+                open(res_filepath, "w").close()
+                return_obj["success"] = False
+                return_obj["message"] = "PARSE_ERROR"
+                return_obj["results"] = return_status
 
-            return JsonResponse(return_obj)
+                return JsonResponse(return_obj)
 
-        resource_id = hs.createResource(res_type, res_title, abstract=res_abstract, keywords=res_keywords)
+        resource_id = hs_api.createResource(res_type, res_title, abstract=res_abstract, keywords=res_keywords)
 
         try:
-            with open(res_filepath, 'rb') as res_file:
-                hs.addResourceFile(resource_id, resource_file=res_file, resource_filename=res_filename)
+            with open(res_filepath, "rb") as res_file:
+                hs_api.addResourceFile(resource_id, resource_file=res_file, resource_filename=res_filename)
             res_file.close()
-            hs.getResourceFile(resource_id, res_filename)
-            if hs.getSystemMetadata(resource_id)['resource_title'] == 'Untitled resource':
-                hs.deleteResource(resource_id)
+            hs_api.getResourceFile(resource_id, res_filename)
+            if hs_api.getSystemMetadata(resource_id)["resource_title"] == "Untitled resource":
+                hs_api.deleteResource(resource_id)
                 raise Exception
         except:
-            hs.deleteResource(resource_id)
+            hs_api.deleteResource(resource_id)
             raise Exception
 
-    except Exception, e:
+    except Exception, error_message:
+        print error_message
         return_obj['success'] = False
-        return_obj['message'] = "We were unable to "
+        return_obj['message'] = "We were unable to create your resource."
         return_obj['results'] = "Server Error: " + str(traceback.format_exc)
 
         return JsonResponse(return_obj)
 
-    ''''''''''''''''  SETS RESOURCE AS PUBLIC  '''''''''''''''
+    # --------------------------- #
+    #   SETS RESOURCE AS PUBLIC   #
+    # --------------------------- #
+
     if res_access == 'public':
         public = False
         timeout = time.time() + 20
@@ -291,7 +307,10 @@ def ajax_create_resource(request, res_id):
 
             return JsonResponse(return_obj)
 
-    ''''''''''''''''  RESOURCE CREATED SUCCESSFULLY  '''''''''''''''
+    # --------------------------------- #
+    #   RESOURCE CREATED SUCCESSFULLY   #
+    # --------------------------------- #
+
     return_obj['success'] = True
     return_obj['message'] = 'Resource created successfully'
     return_obj['results'] = {'resource_id': resource_id, 'hs_version': hs_version}

@@ -115,7 +115,7 @@ loadResource = function (){
     else{
         res_id ='None'
     }
-    var data_url = base_url + 'hydroshare-resource-creator/chart_data/' + res_id + '/';
+    var data_url = base_url + 'hydroshare-resource-creator/chart-data/' + res_id + '/';
 
     // Passes the data to the AJAX function for loading the resource. //
     ajaxLoadResource(data, src, data_url)
@@ -348,31 +348,14 @@ errorReport = function(error){
 
 ajaxLoadResource = function (data, src, data_url){
     $.ajax({
-        /**
-         * Sends data to chart_data AJAX Controller
-         *
-         * @parameter data
-         * @parameter src
-         * @parameter data_url
-         * @requires finishLoading
-         * @param response.results
-         * @param results.title
-         * @param results.abstract
-         * @param results.keyWords
-         * @param results.referencedTimeSeries
-         * @param entry.site
-         * @param entry.requestInfo
-         * @param entry.method.methodDescription
-         * @param entry.method.methodLink
-         * @param entry.variable
-         * @param table.row
-         */
+        headers: {'X-CSRFToken': getCookie('csrftoken')},
         type:"POST",
         dataType: 'json',
         public: false,
         data: {"refts_filename": $('#reftsfilename').text()},
         url: data_url,
-        error: function (ignore, textStatus) {
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            console.log(errorThrown)
             showLoadingCompleteStatus('error', textStatus);
         },
         success: function (response) {
@@ -470,11 +453,12 @@ ajaxLoadResource = function (data, src, data_url){
 
 ajaxCreateResource = function (data) {
     $divCreateHydroshareResource.hide();
-    var csrf_token = getCookie('csrftoken');
-    var data_url = data.base_url + 'hydroshare-resource-creator/create_resource/create/' + data.res_id + '/refts/';
+    $modalErrorMessage.empty()
+    var data_url = data.base_url + 'hydroshare-resource-creator/create-resource/';
+    console.log(data_url)
     $.ajax({
         type: 'POST',
-        headers: {'X-CSRFToken': csrf_token},
+        headers: {'X-CSRFToken': getCookie('csrftoken')},
         dataType: 'json',
         data: data,
         url: data_url,
@@ -494,16 +478,30 @@ ajaxCreateResource = function (data) {
             }
             else {
                 $loadingAnimation.hide();
-                $modalErrorMessage.text(response.message);
-                $modalErrorDialog.modal('show');
-                $modalErrorDialog.on('hidden.bs.modal', finishLoading)
+                if (response.message === "PARSE_ERROR") {
+                    for (var i = 0; i < (response.results).length; i++) {
+                        $modalErrorMessage.append("<div>" + response.results[i] + "</div><br/>")
+
+                    }
+                    $modalErrorDialog.modal('show');
+                    $modalErrorDialog.on('hidden.bs.modal', finishLoading)
+                } else {
+                    $modalErrorMessage.text(response.message);
+                    $modalErrorDialog.modal('show');
+                    $modalErrorDialog.on('hidden.bs.modal', finishLoading)
+                }
             }
 
             finishLoading()
         },
-        error:function(){
+        error:function(XMLHttpRequest, textStatus, errorThrown){
             $loadingAnimation.hide();
-            $modalErrorMessage.text('Call has timed out.');
+            console.log('Error: ', errorThrown)
+            if (errorThrown === 'timeout') {
+                $modalErrorMessage.text('Call has timed out.');
+            } else {
+                $modalErrorMessage.text('Encountered unknown error.');
+            }
             $modalErrorDialog.modal('show');
             $modalErrorDialog.on('hidden.bs.modal', finishLoading)
         }
@@ -512,24 +510,13 @@ ajaxCreateResource = function (data) {
 
 
 ajaxLoginTest = function (data){
-    /**
-     * Sends data to login_test AJAX Controller
-     *
-     * @parameter data
-     * @parameter src
-     * @parameter data_url
-     * @requires ajaxCreateResource
-     *
-     * @param data.resTitle
-     * @param data.checked_ids
-     * @param json.Login
-     */
     $.ajax({
+        headers: {'X-CSRFToken': getCookie('csrftoken')},
         type: "POST",
         dataType: "json",
         public: false,
         data: data,
-        url: data.data_url + "/",
+        url: data.data_url + '/',
         async: true,
         success: function (response) {
             if (response['success'] === "True"){
@@ -569,9 +556,9 @@ ajaxLoginTest = function (data){
                 }
             }
         },
-        error: function (ignore, textStatus) {
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
             //Edit later
-            showLoadingCompleteStatus('error', textStatus);
+            console.log(errorThrown)
         }
     });
 };
