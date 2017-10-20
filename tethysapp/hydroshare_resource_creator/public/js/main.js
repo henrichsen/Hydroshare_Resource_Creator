@@ -62,7 +62,7 @@ loadResource = function (){
     var data = [];
     $tableResourceData.DataTable({
         "scrollX": true,
-        "createdRow": function (){
+        "createdRow": function (row, data, index){
             var table = $tableResourceData.DataTable();
             table.$('td').tooltip({
                 selector: '[data-toggle="tooltip"]',
@@ -79,7 +79,7 @@ loadResource = function (){
                 "data": "legend"
             },
             {"data": "siteName",
-            "width":"50%"
+            "color":"red"
             },
             {"data": "refType"},
             {"data": "serviceType"},
@@ -98,7 +98,7 @@ loadResource = function (){
             {"data": "valueCount"},
             {"data": "sampleMedium"}
         ],
-        "order": [[1, 'asc']]
+        "order": [[1, 'asc']],
     });
 
     // Gets the URL at which the data is located. //
@@ -360,7 +360,6 @@ ajaxLoadResource = function (data, src, data_url){
             if (response.success === true) {
                 var number = 0;
                 var results = response.results;
-                console.log("HELLO")
                 console.log(results)
                 var title = results.title;
                 var abstract = results.abstract;
@@ -416,22 +415,44 @@ ajaxLoadResource = function (data, src, data_url){
                         };
                         var table = $tableResourceData.DataTable();
                         table.row.add(dataset).draw();
+                        var_list.push(variableName);
+                        site_list.push(siteName);
                         number = number + 1
                     }
                     if (number === total_number) {
                         if(src === 'hydroshare')    {}
                         else {
-                            console.log("formatting abstract");
+                            console.log("Formatting abstract");
                             if (site_list.length > 1) {
-                                var last = site_list[site_list.length - 1];
-                                site_list.pop();
-                                site_list.push('and ' + last);
-                                site_list = site_list.join(', ')
+                                var u_site_list = []
+                                $.each(site_list, function(i, el) {
+                                    if($.inArray(el, u_site_list) === -1) u_site_list.push(el);
+                                });
+
+                                var last = u_site_list[u_site_list.length - 1];
+                                u_site_list.pop();
+                                u_site_list.push('and ' + last);
+                                u_site_list = u_site_list.join(', ')
+                            } else {
+                                u_site_list = site_list.toString()
+                            }
+                            if (var_list.length > 1) {
+                                var u_var_list = []
+                                $.each(var_list, function(i, el) {
+                                    if($.inArray(el, u_var_list) === -1) u_var_list.push(el);
+                                });
+                                console.log(var_list)
+                                var last = u_var_list[u_var_list.length - 1];
+                                u_var_list.pop();
+                                u_var_list.push('and ' + last);
+                                u_var_list = u_var_list.join(', ')
+                            } else {
+                                u_var_list = var_list.toString()
                             }
                             title = "Time series layer resource created on " + date_now;
-                            abstract = var_list + " data collected from " + date_small.toISOString().substring(0, 10) +
+                            abstract = u_var_list + " data collected from " + date_small.toISOString().substring(0, 10) +
                                 " to " + date_large.toISOString().substring(0, 10) + " created on " + date_now +
-                                " from the following site(s): " + site_list + ". Data created by CUAHSI HydroClient: " +
+                                " from the following site(s): " + u_site_list + ". Data created by CUAHSI HydroClient: " +
                                 "http://data.cuahsi.org/#."
                         }
                         $resTitle.val(title);
@@ -487,6 +508,7 @@ ajaxCreateResource = function (data) {
                     $modalErrorDialog.on('hidden.bs.modal', finishLoading)
                 } else {
                     $modalErrorMessage.text(response.message);
+                    console.log(response.results);
                     $modalErrorDialog.modal('show');
                     $modalErrorDialog.on('hidden.bs.modal', finishLoading)
                 }
@@ -572,3 +594,7 @@ $document.ready(loadResource);
 $btnCreateReferenceTimeseries.on('click', createReftsResource);
 $btnUpdateCurrentResource.on('click', updateResource);
 $btnCreateTimeseriesResource.on('click', createTimeseriesResource);
+
+$("#table-resource-data").on("mouseenter", "td", function() {
+  $(this).attr('title', this.innerText);
+});

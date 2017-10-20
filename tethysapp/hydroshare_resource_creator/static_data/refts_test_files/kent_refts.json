@@ -1,0 +1,40 @@
+{"timeSeriesReferenceFile":{
+      "fileVersion":"1.0.0",
+      "title":"Time series layer resource created on Thu Oct 19 2017 13:13:50 GMT-0600 (MDT)",
+      "symbol":"http://qa-hiswebclient.azurewebsites.net/content/images/Cuahsi-HydroClient-v3.gif",
+      "referencedTimeSeries":[
+         {
+            "endDate":"2014-04-10T17:38:00+00:00",
+            "sampleMedium":"Surface water",
+            "requestInfo":{
+               "refType":"WOF",
+               "returnType":"WaterML 1.1",
+               "serviceType":"SOAP",
+               "networkName":"ODM_KentState",
+               "url":"http://hydroportal.cuahsi.org/KentState/cuahsi_1_1.asmx?WSDL"
+            },
+            "beginDate":"2014-03-21T16:23:00+00:00",
+            "site":{
+               "siteName":"West Branch Mahoning River in Jennings Woods",
+               "latitude":41.174,
+               "longitude":-81.2,
+               "siteCode":"ODM_KentState:Jennings"
+            },
+            "valueCount":1926,
+            "variable":{
+               "variableCode":"KentState:Qstream",
+               "variableName":"Discharge"
+            },
+            "method":{
+               "methodLink":"unknown",
+               "methodDescription":"Discharge derived from Gage Height and surveyed channel cross-section and long profile, using manning's equation"
+            }
+         }
+      ],
+      "keyWords":[
+         "Time Series",
+         "CUAHSI"
+      ],
+      "abstract":"Retrieved timeseries..."
+   }
+}

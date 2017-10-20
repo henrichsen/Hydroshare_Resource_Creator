@@ -157,9 +157,10 @@ def create_ts_resource(res_data):
     refts_path = res_data["user_dir"] + res_data["res_data_pathname"]
 
     with open(refts_path, "r") as refts_file:
-        refts_data = ((refts_file.read()).encode(encoding="UTF-8")).replace("'", '"')
+        refts_data = ((refts_file.read()).encode(encoding="UTF-8"))
 
     json_data = json.loads(refts_data)
+
     json_data = json_data["timeSeriesReferenceFile"]
     layer = []
 
@@ -1079,7 +1080,7 @@ def create_refts_resource(res_data):
     refts_path = res_data["user_dir"] + res_data["res_data_pathname"]
 
     with open(refts_path, "r") as refts_file:
-        refts_data = ((refts_file.read()).encode(encoding="UTF-8")).replace("'", '"')
+        refts_data = ((refts_file.read()).encode(encoding="UTF-8"))
 
     json_data = json.loads(refts_data)
     json_data = json_data["timeSeriesReferenceFile"]
@@ -1100,10 +1101,10 @@ def create_refts_resource(res_data):
     json_dict = {
         "timeSeriesReferenceFile": {
             "fileVersion": json_data["fileVersion"],
-            "title": json_data["title"],
+            "title": res_data["res_title"],
             "symbol": json_data["symbol"],
-            "abstract": json_data["abstract"],
-            "keyWords": json_data["keyWords"],
+            "abstract": res_data["res_abstract"],
+            "keyWords": res_data["res_keywords"],
             "referencedTimeSeries" : []
         }
     }

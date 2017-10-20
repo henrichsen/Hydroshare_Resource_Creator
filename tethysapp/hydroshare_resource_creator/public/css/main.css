@@ -1,3 +1,12 @@
+td {
+	height: 30px;
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
 /*makes the scroll bar appear */
 #app-content-wrapper{
     overflow:inherit !important;
@@ -94,14 +103,18 @@
     text-align:center;
 }
 
+/*
 td.details-control {
     background:  url('open1.png') no-repeat center center;
     cursor: pointer;
 }
+*/
 
+/*
 tr.shown td.details-control {
 	background: url('close1.png') no-repeat center center;
 }
+*/
 
 #data_table_length{
 	visibility: hidden;
