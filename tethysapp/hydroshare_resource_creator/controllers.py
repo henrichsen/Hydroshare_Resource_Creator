@@ -28,12 +28,11 @@ def home(request):
     TethysWorkspace(get_user_workspace(request)).clear()
 
     # FORM DATA FOR LOCAL TESTING
-    # test_file_name = 'kent_refts.json'  # Comment out before uploading to GitHub
+    # test_file_name = 'nldas_refts.json'  # Comment out before uploading to GitHub
 
     try:  # LOCAL TESTING USE ONLY
         local_path = "/home/klippold/tethysdev/HS_TimeseriesCreator/tethysapp/hydroshare_resource_creator/static_data/refts_test_files/"
         local_file = local_path + test_file_name
-        print local_file
         with open(local_file, "r") as test_file:
             form_body = json.load(test_file)
 

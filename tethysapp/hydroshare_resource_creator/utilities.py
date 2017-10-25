@@ -137,6 +137,8 @@ def get_data(root_data, keylist, defaultvalue="None"):
                 break
         if data != defaultvalue and not isinstance(data, (collections.OrderedDict, list)):
             return data
+        elif defaultvalue == "IS_LIST" and isinstance(data, (collections.OrderedDict, list)):
+            return data
     if data == "RAISE_EXCEPTION":
         raise Exception
     else:
@@ -286,20 +288,19 @@ def create_ts_resource(res_data):
                 try:
                     if "nasa" in url:
                         headers = {'content-type': 'text/xml'}
-                        body = """
-                                <?xml version="1.0" encoding="utf-8"?>
-                                    <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
-                                        <soap:Body>
-                                            <GetValuesObject xmlns="http://www.cuahsi.org/his/1.0/ws/">
-                                                <location>""" + site_code + """</location>
-                                                <variable>""" + variable_code + """</variable>
-                                                <startDate>""" + start_date + """</startDate>
-                                                <endDate>""" + end_date + """</endDate>
-                                                <authToken>""" + autho_token + """"</authToken>
-                                            </GetValuesObject>
-                                        </soap:Body>
-                                    </soap:Envelope>
-                                """
+                        body = """<?xml version="1.0" encoding="utf-8"?>
+                            <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+                              <soap:Body>
+                                <GetValuesObject xmlns="http://www.cuahsi.org/his/1.0/ws/">
+                                  <location>""" + site_code + """</location>
+                                  <variable>""" + variable_code + """</variable>
+                                  <startDate>""" + start_date + """</startDate>
+                                  <endDate>""" + end_date + """</endDate>
+                                  <authToken></authToken>
+                                </GetValuesObject>
+                              </soap:Body>
+                            </soap:Envelope>"""
+                        body = body.encode('utf-8')
                         response = requests.post(url, data=body, headers=headers)
                         values_result = response.content
                         values_result = xmltodict.parse(values_result)
@@ -531,29 +532,47 @@ def create_ts_resource(res_data):
             print "Preparing Methods Row: ",
             try:
                 if return_type == "WaterML 1.0":
-                    md_method_name = get_data(data_root, [["timeSeries", "method", "MethodDescription"]], "Unknown")
+                    md_list = get_data(data_root, [["timeSeries", "values", "method"]], "IS_LIST")
                 elif return_type == "WaterML 1.1":
-                    md_method_name = get_data(data_root, [["timeSeries", "method", "methodDescription"]], "Unknown")
-                conn.execute('SELECT * FROM Methods WHERE MethodName = ?', (md_method_name, ))
-                row = conn.fetchone()
-                if row is None:
+                    md_list = get_data(data_root, [["timeSeries", "values", "method"]], "IS_LIST")
+                if not isinstance(md_list, list):
+                    md_list = [md_list]
+                md_code_list = []
+
+                for i, md in enumerate(md_list):
                     if return_type == "WaterML 1.0":
-                        md_method_type_cv = "Observation"
-                        md_method_code = get_data(data_root, [["timeSeries", "method", "methodCode"]], str(series_count + 1))
-                        md_method_name = md_method_name
-                        md_method_description = md_method_name
-                        md_method_link = get_data(data_root, [["timeSeries", "method", "methodLink"]], "Unknown")
+                        md_method_name = get_data(data_root, [["timeSeries", "values", "method", i, "MethodDescription"],
+                                                              ["timeSeries", "values", "method", "MethodDescription"]], "Unknown")
                     elif return_type == "WaterML 1.1":
-                        md_method_type_cv = "Observation"
-                        md_method_code = get_data(data_root, [["timeSeries", "method", "methodCode"]], str(series_count + 1))
-                        md_method_name = md_method_name
-                        md_method_description = md_method_name
-                        md_method_link = get_data(data_root, [["timeSeries", "method", "methodLink"]], "Unknown")
-                    method = [md_method_type_cv, md_method_code, md_method_name, md_method_description, md_method_link]
-                    conn.execute(odm_tables["Methods"], method)
-                    md_method_id = conn.lastrowid
-                else:
-                    md_method_id = row[0]
+                        md_method_name = get_data(data_root, [["timeSeries", "values", "method", i, "methodDescription"],
+                                                              ["timeSeries", "values", "method", "methodDescription"]], "Unknown")
+                    print "METHOD NAME:"
+                    print md_method_name
+                    conn.execute('SELECT * FROM Methods WHERE MethodName = ?', (md_method_name, ))
+                    row = conn.fetchone()
+                    if row is None:
+                        if return_type == "WaterML 1.0":
+                            md_method_type_cv = "Observation"
+                            md_method_code = get_data(data_root, [["timeSeries", "values", "method", i, "methodCode"],
+                                                                  ["timeSeries", "values", "method", "methodCode"]], str(series_count + 1))
+                            md_method_name = md_method_name
+                            md_method_description = md_method_name
+                            md_method_link = get_data(data_root, [["timeSeries", "values", "method", i, "methodLink"],
+                                                                  ["timeSeries", "values", "method", "methodLink"]], "Unknown")
+                        elif return_type == "WaterML 1.1":
+                            md_method_type_cv = "Observation"
+                            md_method_code = get_data(data_root, [["timeSeries", "values", "method", i, "methodCode"],
+                                                                  ["timeSeries", "values", "method", "methodCode"]], str(series_count + 1))
+                            md_method_name = md_method_name
+                            md_method_description = md_method_name
+                            md_method_link = get_data(data_root, [["timeSeries", "method", i, "methodLink"],
+                                                                  ["timeSeries", "method", "methodLink"]], "Unknown")
+                        method = [md_method_type_cv, md_method_code, md_method_name, md_method_description, md_method_link]
+                        conn.execute(odm_tables["Methods"], method)
+                        md_method_id = conn.lastrowid
+                        md_code_list.append(md_method_code)
+                    else:
+                        md_method_id = row[0]
             except:
                 parse_status.append({
                     "res_name": variable_name + " at " + site_name + " from " + start_date + " to " + end_date,
@@ -691,8 +710,8 @@ def create_ts_resource(res_data):
                     pp_person_first_name = (get_data(data_root, [["timeSeries", "source", "ContactInformation", "ContactName"]], "Unknown Unknown").split(" "))[0]
                     pp_person_last_name = (get_data(data_root, [["timeSeries", "source", "ContactInformation", "ContactName"]], "Unknown Unknown").split(" "))[-1]
                 elif return_type == "WaterML 1.1":
-                    pp_person_first_name = (get_data(data_root, [["timeSeries", "source", "contactInformation", "contactName"]], "Unknown Unknown").split(" "))[0]
-                    pp_person_last_name = (get_data(data_root, [["timeSeries", "source", "contactInformation", "contactName"]], "Unknown Unknown").split(" "))[-1]
+                    pp_person_first_name = (get_data(data_root, [["timeSeries", "values", "source", "contactInformation", "contactName"]], "Unknown Unknown").split(" "))[0]
+                    pp_person_last_name = (get_data(data_root, [["timeSeries", "values", "source", "contactInformation", "contactName"]], "Unknown Unknown").split(" "))[-1]
                 conn.execute('SELECT * FROM People WHERE PersonFirstName = ? AND PersonLastName=?', (pp_person_first_name, pp_person_last_name))
                 row = conn.fetchone()
                 if row is None:
@@ -878,34 +897,37 @@ def create_ts_resource(res_data):
             # ------------------------------------- #
             print "Preparing Results Row: ",
             try:
-                if return_type == "WaterML 1.0":
-                    rt_result_uuid = str(uuid.uuid4())
-                    rt_feature_action_id = fa_feature_action_id
-                    rt_result_type_cv = "Time series coverage"
-                    rt_variable_id = vr_variable_id
-                    rt_units_id = ut_units_id
-                    rt_processing_level_id = pl_processing_level_id
-                    rt_result_datetime = datetime.now()
-                    rt_result_datetime_utc_offset = -time.timezone / 3600
-                    rt_status_cv = "Unknown"
-                    rt_sampled_medium_cv = get_data(data_root, [["timeSeries", "variable", "sampledMedium"]], "Unknown")
-                    rt_value_count = len(get_data(data_root, [["timeSeries", "values"]]))
-                elif return_type == "WaterML 1.1":
-                    rt_result_uuid = str(uuid.uuid4())
-                    rt_feature_action_id = fa_feature_action_id
-                    rt_result_type_cv = "Time series coverage"
-                    rt_variable_id = vr_variable_id
-                    rt_units_id = ut_units_id
-                    rt_processing_level_id = pl_processing_level_id
-                    rt_result_datetime = datetime.now()
-                    rt_result_datetime_utc_offset = -time.timezone / 3600
-                    rt_status_cv = "Unknown"
-                    rt_sampled_medium_cv = get_data(data_root, [["timeSeries", "variable", "sampledMedium"]], "Unknown")
-                    rt_value_count = len(get_data(data_root, [["timeSeries", "values"]]))      
-                result = [rt_result_uuid, rt_feature_action_id, rt_result_type_cv, rt_variable_id, rt_units_id, rt_processing_level_id, rt_result_datetime,
-                          rt_result_datetime_utc_offset, rt_status_cv, rt_sampled_medium_cv, rt_value_count]
-                conn.execute(odm_tables["Results"], result)
-                rt_result_id = conn.lastrowid
+                rt_id_list = []
+                for md_code in md_code_list:
+                    if return_type == "WaterML 1.0":
+                        rt_result_uuid = str(uuid.uuid4())
+                        rt_feature_action_id = fa_feature_action_id
+                        rt_result_type_cv = "Time series coverage"
+                        rt_variable_id = vr_variable_id
+                        rt_units_id = ut_units_id
+                        rt_processing_level_id = pl_processing_level_id
+                        rt_result_datetime = datetime.now()
+                        rt_result_datetime_utc_offset = -time.timezone / 3600
+                        rt_status_cv = "Unknown"
+                        rt_sampled_medium_cv = get_data(data_root, [["timeSeries", "variable", "sampledMedium"]], "Unknown")
+                        rt_value_count = len(get_data(data_root, [["timeSeries", "values"]]))
+                    elif return_type == "WaterML 1.1":
+                        rt_result_uuid = str(uuid.uuid4())
+                        rt_feature_action_id = fa_feature_action_id
+                        rt_result_type_cv = "Time series coverage"
+                        rt_variable_id = vr_variable_id
+                        rt_units_id = ut_units_id
+                        rt_processing_level_id = pl_processing_level_id
+                        rt_result_datetime = datetime.now()
+                        rt_result_datetime_utc_offset = -time.timezone / 3600
+                        rt_status_cv = "Unknown"
+                        rt_sampled_medium_cv = get_data(data_root, [["timeSeries", "variable", "sampleMedium"]], "Unknown")
+                        rt_value_count = sum(x.get("@methodCode") == md_code for x in get_data(data_root, [["timeSeries", "values", "value"]], "IS_LIST"))
+                    result = [rt_result_uuid, rt_feature_action_id, rt_result_type_cv, rt_variable_id, rt_units_id, rt_processing_level_id, rt_result_datetime,
+                              rt_result_datetime_utc_offset, rt_status_cv, rt_sampled_medium_cv, rt_value_count]
+                    conn.execute(odm_tables["Results"], result)
+                    rt_result_id = conn.lastrowid
+                    rt_id_list.append(rt_result_id)
             except:
                 parse_status.append({
                     "res_name": variable_name + " at " + site_name + " from " + start_date + " to " + end_date,
@@ -940,18 +962,19 @@ def create_ts_resource(res_data):
             # ----------------------------------------------- #
             print "Preparing TimeSeriesResults Row: ",
             try:
-                if return_type == "WaterML 1.0":
-                    tr_result_id = rt_result_id
-                    tr_intended_time_spacing = 30
-                    tr_time_units_id = tu_units_id
-                    tr_aggregation_statistic_cv = get_data(data_root, [["timeSeries", "variable", "dataType"]], "Unknown")
-                elif return_type == "WaterML 1.1":
-                    tr_result_id = rt_result_id
-                    tr_intended_time_spacing = 30
-                    tr_time_units_id = tu_units_id
-                    tr_aggregation_statistic_cv = get_data(data_root, [["timeSeries", "variable", "dataType"]], "Unknown")      
-                timeseries_result = [tr_result_id, tr_intended_time_spacing, tr_time_units_id, tr_aggregation_statistic_cv]
-                conn.execute(odm_tables["TimeSeriesResults"], timeseries_result)
+                for rt_id in rt_id_list:
+                    if return_type == "WaterML 1.0":
+                        tr_result_id = rt_id
+                        tr_intended_time_spacing = 30
+                        tr_time_units_id = tu_units_id
+                        tr_aggregation_statistic_cv = get_data(data_root, [["timeSeries", "variable", "dataType"]], "Unknown")
+                    elif return_type == "WaterML 1.1":
+                        tr_result_id = rt_id
+                        tr_intended_time_spacing = 30
+                        tr_time_units_id = tu_units_id
+                        tr_aggregation_statistic_cv = get_data(data_root, [["timeSeries", "variable", "dataType"]], "Unknown")      
+                    timeseries_result = [tr_result_id, tr_intended_time_spacing, tr_time_units_id, tr_aggregation_statistic_cv]
+                    conn.execute(odm_tables["TimeSeriesResults"], timeseries_result)
             except:
                 parse_status.append({
                     "res_name": variable_name + " at " + site_name + " from " + start_date + " to " + end_date,
@@ -965,40 +988,83 @@ def create_ts_resource(res_data):
             #    Extracts Data for TimeSeriesResultValues Table    #
             # ---------------------------------------------------- #
             print "Preparing TimeSeriesResultValues Rows: ",
-            try:
-                if return_type == "WaterML 1.0":
-                    result_values = []
-                    num_values = len(data_root["timeSeries"]["values"]["value"])
-                    for z in range(0, num_values - 1):
-                        rv_result_id = rt_result_id
-                        rv_data_value = data_root["timeSeries"]["values"]["value"][z]["#text"]
-                        rv_value_date_time = data_root["timeSeries"]["values"]["value"][z]["@dateTime"]
-                        rv_value_date_time_utc_offset = 0
-                        rv_censor_code_cv = get_data(data_root, [["timeSeries", "values", "value", z, "@censorCode"],
-                                                                 ["timeSeries", "values", "censorCode", "censorCode"]], "Unknown")
-                        rv_quality_code_cv = "Unknown"
-                        rv_time_aggregation_interval = get_data(data_root, [["timeSeries", "variable", "timeScale"]], "Unknown")
-                        rv_time_aggregation_interval_units_id = get_data(data_root, [["timeSeries", "variable", "timeSupport", "unit", "unitCode"]], "Unknown")
-                        result_values.append((rv_result_id, rv_data_value, rv_value_date_time, rv_value_date_time_utc_offset, rv_censor_code_cv, 
-                                              rv_quality_code_cv, rv_time_aggregation_interval, rv_time_aggregation_interval_units_id))
-                elif return_type == "WaterML 1.1":
-                    result_values = []
-                    num_values = len(data_root["timeSeries"]["values"]["value"])
-                    for z in range(0, num_values - 1):
-                        rv_result_id = rt_result_id
-                        rv_data_value = data_root["timeSeries"]["values"]["value"][z]["#text"]
-                        rv_value_date_time = data_root["timeSeries"]["values"]["value"][z]["@dateTime"]
-                        rv_value_date_time_utc_offset = 0
-                        rv_censor_code_cv = get_data(data_root, [["timeSeries", "values", "value", z, "@censorCode"],
-                                                                 ["timeSeries", "values", "censorCode", "censorCode"]], "Unknown")
-                        rv_quality_code_cv = "Unknown"
-                        rv_time_aggregation_interval = get_data(data_root, [["timeSeries", "variable", "timeScale"]], "Unknown")
-                        rv_time_aggregation_interval_units_id = get_data(data_root, [["timeSeries", "variable", "timeSupport", "unit", "unitCode"]], "Unknown")
-                        result_values.append((rv_result_id, rv_data_value, rv_value_date_time, rv_value_date_time_utc_offset, rv_censor_code_cv, 
-                                              rv_quality_code_cv, rv_time_aggregation_interval, rv_time_aggregation_interval_units_id))      
-                conn.execute("BEGIN TRANSACTION;")
-                conn.executemany(odm_tables["TimeSeriesResultValues"], result_values)
-            except:
+            if True is True:
+                if len(rt_id_list) == 1:
+                    if return_type == "WaterML 1.0":
+                        result_values = []
+                        num_values = len(data_root["timeSeries"]["values"]["value"])
+                        for z in range(0, num_values - 1):
+                            rv_result_id = rt_result_id
+                            rv_data_value = data_root["timeSeries"]["values"]["value"][z]["#text"]
+                            rv_value_date_time = data_root["timeSeries"]["values"]["value"][z]["@dateTime"]
+                            rv_value_date_time_utc_offset = 0
+                            rv_censor_code_cv = get_data(data_root, [["timeSeries", "values", "value", z, "@censorCode"],
+                                                                     ["timeSeries", "values", "censorCode", "censorCode"]], "Unknown")
+                            rv_quality_code_cv = "Unknown"
+                            rv_time_aggregation_interval = get_data(data_root, [["timeSeries", "variable", "timeScale"]], "Unknown")
+                            rv_time_aggregation_interval_units_id = get_data(data_root, [["timeSeries", "variable", "timeSupport", "unit", "unitCode"]], "Unknown")
+                            result_values.append((rv_result_id, rv_data_value, rv_value_date_time, rv_value_date_time_utc_offset, rv_censor_code_cv, 
+                                                  rv_quality_code_cv, rv_time_aggregation_interval, rv_time_aggregation_interval_units_id))
+                    elif return_type == "WaterML 1.1":
+                        result_values = []
+                        num_values = len(data_root["timeSeries"]["values"]["value"])
+                        for z in range(0, num_values - 1):
+                            rv_result_id = rt_result_id
+                            rv_data_value = data_root["timeSeries"]["values"]["value"][z]["#text"]
+                            rv_value_date_time = data_root["timeSeries"]["values"]["value"][z]["@dateTime"]
+                            rv_value_date_time_utc_offset = 0
+                            rv_censor_code_cv = get_data(data_root, [["timeSeries", "values", "value", z, "@censorCode"],
+                                                                     ["timeSeries", "values", "censorCode", "censorCode"]], "Unknown")
+                            rv_quality_code_cv = "Unknown"
+                            rv_time_aggregation_interval = get_data(data_root, [["timeSeries", "variable", "timeScale"]], "Unknown")
+                            rv_time_aggregation_interval_units_id = get_data(data_root, [["timeSeries", "variable", "timeSupport", "unit", "unitCode"]], "Unknown")
+                            result_values.append((rv_result_id, rv_data_value, rv_value_date_time, rv_value_date_time_utc_offset, rv_censor_code_cv, 
+                                                  rv_quality_code_cv, rv_time_aggregation_interval, rv_time_aggregation_interval_units_id))      
+                    conn.execute("BEGIN TRANSACTION;")
+                    conn.executemany(odm_tables["TimeSeriesResultValues"], result_values)
+                else:
+                    conn.execute("BEGIN TRANSACTION;")
+                    for i, rt_id in enumerate(rt_id_list):
+                        if return_type == "WaterML 1.0":
+                            result_values = []
+                            num_values = len(data_root["timeSeries"]["values"]["value"])
+                            md_values = []
+                            for y in range(0, num_values - 1):
+                                if data_root["timeSeries"]["values"]["value"][y]["@methodCode"] == md_code_list[i]:
+                                    md_values.append(y)
+                            for z in md_values:
+                                rv_result_id = rt_id
+                                rv_data_value = data_root["timeSeries"]["values"]["value"][z]["#text"]
+                                rv_value_date_time = data_root["timeSeries"]["values"]["value"][z]["@dateTime"]
+                                rv_value_date_time_utc_offset = 0
+                                rv_censor_code_cv = get_data(data_root, [["timeSeries", "values", "value", z, "@censorCode"],
+                                                                         ["timeSeries", "values", "censorCode", "censorCode"]], "Unknown")
+                                rv_quality_code_cv = "Unknown"
+                                rv_time_aggregation_interval = get_data(data_root, [["timeSeries", "variable", "timeScale"]], "Unknown")
+                                rv_time_aggregation_interval_units_id = get_data(data_root, [["timeSeries", "variable", "timeSupport", "unit", "unitCode"]], "Unknown")
+                                result_values.append((rv_result_id, rv_data_value, rv_value_date_time, rv_value_date_time_utc_offset, rv_censor_code_cv, 
+                                                      rv_quality_code_cv, rv_time_aggregation_interval, rv_time_aggregation_interval_units_id))
+                        elif return_type == "WaterML 1.1":
+                            result_values = []
+                            num_values = len(data_root["timeSeries"]["values"]["value"])
+                            md_values = []
+                            for y in range(0, num_values - 1):
+                                if data_root["timeSeries"]["values"]["value"][y]["@methodCode"] == md_code_list[i]:
+                                    md_values.append(y)
+                            for z in md_values:
+                                rv_result_id = rt_id
+                                rv_data_value = data_root["timeSeries"]["values"]["value"][z]["#text"]
+                                rv_value_date_time = data_root["timeSeries"]["values"]["value"][z]["@dateTime"]
+                                rv_value_date_time_utc_offset = 0
+                                rv_censor_code_cv = get_data(data_root, [["timeSeries", "values", "value", z, "@censorCode"],
+                                                                         ["timeSeries", "values", "censorCode", "censorCode"]], "Unknown")
+                                rv_quality_code_cv = "Unknown"
+                                rv_time_aggregation_interval = get_data(data_root, [["timeSeries", "variable", "timeScale", "unit", "unitName"]], "Unknown")
+                                rv_time_aggregation_interval_units_id = get_data(data_root, [["timeSeries", "variable", "timeScale", "unit", "unitCode"]], "Unknown")
+                                result_values.append((rv_result_id, rv_data_value, rv_value_date_time, rv_value_date_time_utc_offset, rv_censor_code_cv, 
+                                                      rv_quality_code_cv, rv_time_aggregation_interval, rv_time_aggregation_interval_units_id))      
+                        conn.executemany(odm_tables["TimeSeriesResultValues"], result_values)                    
+            else:
                 parse_status.append({
                     "res_name": variable_name + " at " + site_name + " from " + start_date + " to " + end_date,
                     "res_status": "Failed to extract timeseries result values data"
@@ -1012,14 +1078,15 @@ def create_ts_resource(res_data):
             # -------------------------------------------- #
             print "Preparing DataSetResults Row: ",
             try:
-                if return_type == "WaterML 1.0":
-                    dr_dataset_id = 1
-                    dr_result_id = rt_result_id
-                elif return_type == "WaterML 1.1":
-                    dr_dataset_id = 1
-                    dr_result_id = rt_result_id      
-                dataset_result = [dr_dataset_id, dr_result_id]
-                conn.execute(odm_tables["DataSetsResults"], dataset_result)
+                for rt_id in rt_id_list:
+                    if return_type == "WaterML 1.0":
+                        dr_dataset_id = 1
+                        dr_result_id = rt_id
+                    elif return_type == "WaterML 1.1":
+                        dr_dataset_id = 1
+                        dr_result_id = rt_id      
+                    dataset_result = [dr_dataset_id, dr_result_id]
+                    conn.execute(odm_tables["DataSetsResults"], dataset_result)
             except:
                 parse_status.append({
                     "res_name": variable_name + " at " + site_name + " from " + start_date + " to " + end_date,
