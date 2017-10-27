@@ -275,7 +275,8 @@ def create_ts_resource(res_data):
                 wof_uri = sub["wofParams"]["WofUri"]
                 data_url = "http://qa-hiswebclient.azurewebsites.net/CUAHSI/HydroClient/WaterOneFlowArchive/" + wof_uri + "/zip"
                 cuahsi_zip_file = requests.get(data_url)
-                extracted_data = (zipfile.ZipFile(io.BytesIO(cuahsi_zip_file.content))).extractall(res_data["user_dir"])
+                extracted_data = zipfile.ZipFile(io.BytesIO(cuahsi_zip_file.content), "r")
+                extracted_data.extractall(res_data["user_dir"])
                 with open(res_data["user_dir"] + '/' + extracted_data.namelist()[0], "r") as unzipped_file:
                     values_result = unzipped_file.read()
                     values_result = xmltodict.parse(values_result)
@@ -988,7 +989,7 @@ def create_ts_resource(res_data):
             #    Extracts Data for TimeSeriesResultValues Table    #
             # ---------------------------------------------------- #
             print "Preparing TimeSeriesResultValues Rows: ",
-            if True is True:
+            try:
                 if len(rt_id_list) == 1:
                     if return_type == "WaterML 1.0":
                         result_values = []
@@ -1064,7 +1065,7 @@ def create_ts_resource(res_data):
                                 result_values.append((rv_result_id, rv_data_value, rv_value_date_time, rv_value_date_time_utc_offset, rv_censor_code_cv, 
                                                       rv_quality_code_cv, rv_time_aggregation_interval, rv_time_aggregation_interval_units_id))      
                         conn.executemany(odm_tables["TimeSeriesResultValues"], result_values)                    
-            else:
+            except:
                 parse_status.append({
                     "res_name": variable_name + " at " + site_name + " from " + start_date + " to " + end_date,
                     "res_status": "Failed to extract timeseries result values data"
