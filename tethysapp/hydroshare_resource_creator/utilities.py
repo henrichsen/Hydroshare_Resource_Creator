@@ -3,6 +3,7 @@ import shutil
 import requests
 import sqlite3
 import uuid
+import traceback
 import random
 import time
 import xmltodict
@@ -281,10 +282,14 @@ def create_ts_resource(res_data):
                     values_result = unzipped_file.read()
                     values_result = xmltodict.parse(values_result)
                 unzipped_file.close()
-                data_root = values_result["soap:Envelope"]["soap:Body"]["TimeSeriesResponse"]["timeSeriesResponse"]
+                try:
+                    data_root = values_result["soap:Envelope"]["soap:Body"]["TimeSeriesResponse"]["timeSeriesResponse"]
+                except:
+                    data_root = values_result["soap:Envelope"]["soap:Body"]["GetValuesObjectResponse"]["timeSeriesResponse"]
                 print "SUCCESS"
-            except:
+            except: # Exception, err:
                 print "FAILED"
+                # print traceback.print_exc()
                 print "Attempting WaterOneFlow: ",
                 try:
                     if "nasa" in url:
