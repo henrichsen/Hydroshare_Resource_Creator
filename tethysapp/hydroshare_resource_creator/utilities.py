@@ -544,6 +544,7 @@ def create_ts_resource(res_data):
                 if not isinstance(md_list, list):
                     md_list = [md_list]
                 md_code_list = []
+                md_id_list = []
 
                 for i, md in enumerate(md_list):
                     if return_type == "WaterML 1.0":
@@ -576,6 +577,7 @@ def create_ts_resource(res_data):
                         method = [md_method_type_cv, md_method_code, md_method_name, md_method_description, md_method_link]
                         conn.execute(odm_tables["Methods"], method)
                         md_method_id = conn.lastrowid
+                        md_id_list.append(md_method_id)
                         md_code_list.append(md_method_code)
                     else:
                         md_method_id = row[0]
@@ -821,26 +823,37 @@ def create_ts_resource(res_data):
             # ----------------------------------- #
             print "Preparing Actions Row: ",
             try:
-                if return_type == "WaterML 1.0":
-                    ac_action_type_cv = "Observation"
-                    ac_method_id = md_method_id
-                    ac_begin_datetime = get_data(data_root, [["timeSeries", "values", "value", 0, "@dateTime"]], "Unknown")
-                    ac_begin_datetime_offset = get_data(data_root, [["timeSeries", "values", "value", 0, "@timeOffset"]], "Unknown")
-                    ac_end_datetime = get_data(data_root, [["timeSeries", "values", "value", -1, "@dateTime"]], "Unknown")
-                    ac_end_datetime_offset = get_data(data_root, [["timeSeries", "values", "value", -1, "@timeOffset"]], "Unknown")
-                    ac_action_description = "An observation action that generated a time series result."
-                elif return_type == "WaterML 1.1":
-                    ac_action_type_cv = "Observation"
-                    ac_method_id = md_method_id
-                    ac_begin_datetime = get_data(data_root, [["timeSeries", "values", "value", 0, "@dateTime"]], "Unknown")
-                    ac_begin_datetime_offset = get_data(data_root, [["timeSeries", "values", "value", 0, "@timeOffset"]], "Unknown")
-                    ac_end_datetime = get_data(data_root, [["timeSeries", "values", "value", -1, "@dateTime"]], "Unknown")
-                    ac_end_datetime_offset = get_data(data_root, [["timeSeries", "values", "value", -1, "@timeOffset"]], "Unknown")
-                    ac_action_description = "An observation action that generated a time series result."
-                action = [ac_action_type_cv, ac_method_id, ac_begin_datetime, ac_begin_datetime_offset, ac_end_datetime, ac_end_datetime_offset, ac_action_description]
-                conn.execute(odm_tables["Actions"], action)
-                ac_action_id = conn.lastrowid
-            except:
+                ac_list = []
+                for i, md_code in enumerate(md_code_list):
+                    if return_type == "WaterML 1.0":
+                        ac_action_type_cv = "Observation"
+                        ac_method_id = md_id_list[i]
+
+                        ac_begin_datetime = get_data(data_root, [["timeSeries", "values", "value", 0, "@dateTime"]], "Unknown")
+                        ac_begin_datetime_offset = get_data(data_root, [["timeSeries", "values", "value", 0, "@timeOffset"]], "Unknown")
+                        ac_end_datetime = get_data(data_root, [["timeSeries", "values", "value", -1, "@dateTime"]], "Unknown")
+                        ac_end_datetime_offset = get_data(data_root, [["timeSeries", "values", "value", -1, "@timeOffset"]], "Unknown")
+                        ac_action_description = "An observation action that generated a time series result."
+                    elif return_type == "WaterML 1.1":
+                        ac_action_type_cv = "Observation"
+                        ac_method_id = md_id_list[i]
+                        for j, _ in enumerate(data_root["timeSeries"]["values"]["value"]):
+                            if data_root["timeSeries"]["values"]["value"][j]["@methodCode"] == md_code:
+                                ac_begin_datetime = get_data(data_root, [["timeSeries", "values", "value", j, "@dateTime"]], "Unknown")
+                                ac_begin_datetime_offset = get_data(data_root, [["timeSeries", "values", "value", j, "@timeOffset"]], "Unknown")
+                                break
+                        for j, _ in reversed(list(enumerate(data_root["timeSeries"]["values"]["value"]))):
+                            if data_root["timeSeries"]["values"]["value"][j]["@methodCode"] == md_code:
+                                ac_end_datetime = get_data(data_root, [["timeSeries", "values", "value", j, "@dateTime"]], "Unknown")
+                                ac_end_datetime_offset = get_data(data_root, [["timeSeries", "values", "value", j, "@timeOffset"]], "Unknown")
+                                break
+                        ac_action_description = "An observation action that generated a time series result."
+                    action = [ac_action_type_cv, ac_method_id, ac_begin_datetime, ac_begin_datetime_offset, ac_end_datetime, ac_end_datetime_offset, ac_action_description]
+                    conn.execute(odm_tables["Actions"], action)
+                    ac_action_id = conn.lastrowid
+                    ac_list.append(ac_action_id)
+            except Exception, e:
+                print traceback.print_exc()
                 parse_status.append({
                     "res_name": variable_name + " at " + site_name + " from " + start_date + " to " + end_date,
                     "res_status": "Failed to extract actions data"
@@ -854,18 +867,19 @@ def create_ts_resource(res_data):
             # ------------------------------------ #
             print "Preparing ActionBy Row: ",
             try:
-                if return_type == "WaterML 1.0":
-                    ab_action_id = ac_action_id
-                    ab_affiliation_id = af_affiliation_id
-                    ab_is_action_lead = 1
-                    ab_role_description = "Responsible party"
-                elif return_type == "WaterML 1.1":
-                    ab_action_id = ac_action_id
-                    ab_affiliation_id = af_affiliation_id
-                    ab_is_action_lead = 1
-                    ab_role_description = "Responsible party"
-                actionby = [ab_action_id, ab_affiliation_id, ab_is_action_lead, ab_role_description]
-                conn.execute(odm_tables["ActionBy"], actionby)
+                for ac_id in ac_list:
+                    if return_type == "WaterML 1.0":
+                        ab_action_id = ac_id
+                        ab_affiliation_id = af_affiliation_id
+                        ab_is_action_lead = 1
+                        ab_role_description = "Responsible party"
+                    elif return_type == "WaterML 1.1":
+                        ab_action_id = ac_id
+                        ab_affiliation_id = af_affiliation_id
+                        ab_is_action_lead = 1
+                        ab_role_description = "Responsible party"
+                    actionby = [ab_action_id, ab_affiliation_id, ab_is_action_lead, ab_role_description]
+                    conn.execute(odm_tables["ActionBy"], actionby)
             except:
                 parse_status.append({
                     "res_name": variable_name + " at " + site_name + " from " + start_date + " to " + end_date,
@@ -880,15 +894,18 @@ def create_ts_resource(res_data):
             # ------------------------------------------ #
             print "Preparing FeatureActions Row: ",
             try:
-                if return_type == "WaterML 1.0":
-                    fa_sampling_feature_id = sf_sampling_feature_id
-                    fa_action_id = ac_action_id
-                elif return_type == "WaterML 1.1":
-                    fa_sampling_feature_id = sf_sampling_feature_id
-                    fa_action_id = ac_action_id        
-                featureaction = [fa_sampling_feature_id, fa_action_id]
-                conn.execute(odm_tables["FeatureActions"], featureaction)
-                fa_feature_action_id = conn.lastrowid
+                fa_list = []
+                for ac_id in ac_list:
+                    if return_type == "WaterML 1.0":
+                        fa_sampling_feature_id = sf_sampling_feature_id
+                        fa_action_id = ac_id
+                    elif return_type == "WaterML 1.1":
+                        fa_sampling_feature_id = sf_sampling_feature_id
+                        fa_action_id = ac_id        
+                    featureaction = [fa_sampling_feature_id, fa_action_id]
+                    conn.execute(odm_tables["FeatureActions"], featureaction)
+                    fa_feature_action_id = conn.lastrowid
+                    fa_list.append(fa_feature_action_id)
             except:
                 parse_status.append({
                     "res_name": variable_name + " at " + site_name + " from " + start_date + " to " + end_date,
@@ -904,10 +921,10 @@ def create_ts_resource(res_data):
             print "Preparing Results Row: ",
             try:
                 rt_id_list = []
-                for md_code in md_code_list:
+                for i, fa_id in enumerate(fa_list):
                     if return_type == "WaterML 1.0":
                         rt_result_uuid = str(uuid.uuid4())
-                        rt_feature_action_id = fa_feature_action_id
+                        rt_feature_action_id = fa_id
                         rt_result_type_cv = "Time series coverage"
                         rt_variable_id = vr_variable_id
                         rt_units_id = ut_units_id
@@ -919,7 +936,7 @@ def create_ts_resource(res_data):
                         rt_value_count = len(get_data(data_root, [["timeSeries", "values"]]))
                     elif return_type == "WaterML 1.1":
                         rt_result_uuid = str(uuid.uuid4())
-                        rt_feature_action_id = fa_feature_action_id
+                        rt_feature_action_id = fa_id
                         rt_result_type_cv = "Time series coverage"
                         rt_variable_id = vr_variable_id
                         rt_units_id = ut_units_id
@@ -928,7 +945,7 @@ def create_ts_resource(res_data):
                         rt_result_datetime_utc_offset = -time.timezone / 3600
                         rt_status_cv = "Unknown"
                         rt_sampled_medium_cv = get_data(data_root, [["timeSeries", "variable", "sampleMedium"]], "Unknown")
-                        rt_value_count = sum(x.get("@methodCode") == md_code for x in get_data(data_root, [["timeSeries", "values", "value"]], "IS_LIST"))
+                        rt_value_count = sum(x.get("@methodCode") == md_code_list[i] for x in get_data(data_root, [["timeSeries", "values", "value"]], "IS_LIST"))
                     result = [rt_result_uuid, rt_feature_action_id, rt_result_type_cv, rt_variable_id, rt_units_id, rt_processing_level_id, rt_result_datetime,
                               rt_result_datetime_utc_offset, rt_status_cv, rt_sampled_medium_cv, rt_value_count]
                     conn.execute(odm_tables["Results"], result)
