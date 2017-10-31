@@ -65,8 +65,8 @@ loadResource = function (){
         "createdRow": function (row, data, index){
             var table = $tableResourceData.DataTable();
             table.$('td').tooltip({
-                selector: '[data-toggle="tooltip"]',
-                container: 'body',
+                "selector": '[data-toggle="tooltip"]',
+                "container": 'body',
                 "delay": 0,
                 "track": true,
                 "fade": 100
@@ -423,12 +423,11 @@ ajaxLoadResource = function (data, src, data_url){
                         if(src === 'hydroshare')    {}
                         else {
                             console.log("Formatting abstract");
-                            if (site_list.length > 1) {
-                                var u_site_list = []
-                                $.each(site_list, function(i, el) {
-                                    if($.inArray(el, u_site_list) === -1) u_site_list.push(el);
-                                });
-
+                            var u_site_list = []
+                            $.each(site_list, function(i, el) {
+                                if($.inArray(el, u_site_list) === -1) u_site_list.push(el);
+                            });
+                            if (u_site_list.length > 1) {
                                 var last = u_site_list[u_site_list.length - 1];
                                 u_site_list.pop();
                                 u_site_list.push('and ' + last);
@@ -436,12 +435,11 @@ ajaxLoadResource = function (data, src, data_url){
                             } else {
                                 u_site_list = site_list.toString()
                             }
-                            if (var_list.length > 1) {
-                                var u_var_list = []
-                                $.each(var_list, function(i, el) {
-                                    if($.inArray(el, u_var_list) === -1) u_var_list.push(el);
-                                });
-                                console.log(var_list)
+                            var u_var_list = []
+                            $.each(var_list, function(i, el) {
+                                if($.inArray(el, u_var_list) === -1) u_var_list.push(el);
+                            });
+                            if (u_var_list.length > 1) {
                                 var last = u_var_list[u_var_list.length - 1];
                                 u_var_list.pop();
                                 u_var_list.push('and ' + last);

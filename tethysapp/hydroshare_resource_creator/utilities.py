@@ -287,9 +287,8 @@ def create_ts_resource(res_data):
                 except:
                     data_root = values_result["soap:Envelope"]["soap:Body"]["GetValuesObjectResponse"]["timeSeriesResponse"]
                 print "SUCCESS"
-            except: # Exception, err:
+            except:
                 print "FAILED"
-                # print traceback.print_exc()
                 print "Attempting WaterOneFlow: ",
                 try:
                     if "nasa" in url:
@@ -408,6 +407,9 @@ def create_ts_resource(res_data):
                         ds_dataset_abstract = res_data["res_abstract"]                 
                     dataset = [ds_dataset_uuid, ds_dataset_type_cv, ds_dataset_code, ds_dataset_title, ds_dataset_abstract]  
                     conn.execute(odm_tables["Datasets"], dataset)
+                    ds_id = conn.lastrowid
+                else:
+                    ds_id = row[0]
             except:
                 parse_status.append({
                     "res_name": variable_name + " at " + site_name + " from " + start_date + " to " + end_date,
@@ -548,29 +550,28 @@ def create_ts_resource(res_data):
 
                 for i, md in enumerate(md_list):
                     if return_type == "WaterML 1.0":
-                        md_method_name = get_data(data_root, [["timeSeries", "values", "method", i, "MethodDescription"],
-                                                              ["timeSeries", "values", "method", "MethodDescription"]], "Unknown")
+                        md_method_code = get_data(data_root, [["timeSeries", "values", "method", i, "MethodCode"],
+                                                              ["timeSeries", "values", "method", "MethodCode"]], "Unknown")
                     elif return_type == "WaterML 1.1":
-                        md_method_name = get_data(data_root, [["timeSeries", "values", "method", i, "methodDescription"],
-                                                              ["timeSeries", "values", "method", "methodDescription"]], "Unknown")
-                    print "METHOD NAME:"
-                    print md_method_name
-                    conn.execute('SELECT * FROM Methods WHERE MethodName = ?', (md_method_name, ))
+                        md_method_code = get_data(data_root, [["timeSeries", "values", "method", i, "methodCode"],
+                                                              ["timeSeries", "values", "method", "methodCode"]], "Unknown")
+
+                    conn.execute('SELECT * FROM Methods WHERE MethodCode = ?', (md_method_code, ))
                     row = conn.fetchone()
                     if row is None:
                         if return_type == "WaterML 1.0":
                             md_method_type_cv = "Observation"
-                            md_method_code = get_data(data_root, [["timeSeries", "values", "method", i, "methodCode"],
-                                                                  ["timeSeries", "values", "method", "methodCode"]], str(series_count + 1))
-                            md_method_name = md_method_name
+                            md_method_code = md_method_code
+                            md_method_name = get_data(data_root, [["timeSeries", "values", "method", i, "MethodCode"],
+                                                                  ["timeSeries", "values", "method", "MethodCode"]], "Unknown")
                             md_method_description = md_method_name
-                            md_method_link = get_data(data_root, [["timeSeries", "values", "method", i, "methodLink"],
-                                                                  ["timeSeries", "values", "method", "methodLink"]], "Unknown")
+                            md_method_link = get_data(data_root, [["timeSeries", "values", "method", i, "MethodLink"],
+                                                                  ["timeSeries", "values", "method", "MethodLink"]], "Unknown")
                         elif return_type == "WaterML 1.1":
                             md_method_type_cv = "Observation"
-                            md_method_code = get_data(data_root, [["timeSeries", "values", "method", i, "methodCode"],
-                                                                  ["timeSeries", "values", "method", "methodCode"]], str(series_count + 1))
-                            md_method_name = md_method_name
+                            md_method_code = md_method_code
+                            md_method_name = get_data(data_root, [["timeSeries", "values", "method", i, "methodCode"],
+                                                                  ["timeSeries", "values", "method", "methodCode"]], "Unknown")
                             md_method_description = md_method_name
                             md_method_link = get_data(data_root, [["timeSeries", "method", i, "methodLink"],
                                                                   ["timeSeries", "method", "methodLink"]], "Unknown")
@@ -580,7 +581,8 @@ def create_ts_resource(res_data):
                         md_id_list.append(md_method_id)
                         md_code_list.append(md_method_code)
                     else:
-                        md_method_id = row[0]
+                        md_code_list.append(row[2])
+                        md_id_list.append(row[0])
             except:
                 parse_status.append({
                     "res_name": variable_name + " at " + site_name + " from " + start_date + " to " + end_date,
@@ -828,22 +830,27 @@ def create_ts_resource(res_data):
                     if return_type == "WaterML 1.0":
                         ac_action_type_cv = "Observation"
                         ac_method_id = md_id_list[i]
-
-                        ac_begin_datetime = get_data(data_root, [["timeSeries", "values", "value", 0, "@dateTime"]], "Unknown")
-                        ac_begin_datetime_offset = get_data(data_root, [["timeSeries", "values", "value", 0, "@timeOffset"]], "Unknown")
-                        ac_end_datetime = get_data(data_root, [["timeSeries", "values", "value", -1, "@dateTime"]], "Unknown")
-                        ac_end_datetime_offset = get_data(data_root, [["timeSeries", "values", "value", -1, "@timeOffset"]], "Unknown")
+                        for j, _ in enumerate(get_data(data_root, [["timeSeries", "values", "value"]], "IS_LIST")):
+                            if get_data(data_root, [["timeSeries", "values", "value", j, "@MethodCode"]], "Unknown") == md_code:
+                                ac_begin_datetime = get_data(data_root, [["timeSeries", "values", "value", j, "@dateTime"]], "Unknown")
+                                ac_begin_datetime_offset = get_data(data_root, [["timeSeries", "values", "value", j, "@timeOffset"]], "Unknown")
+                                break
+                        for j, _ in reversed(list(enumerate(get_data(data_root, [["timeSeries", "values", "value"]], "IS_LIST")))):
+                            if get_data(data_root, [["timeSeries", "values", "value", j, "@MethodCode"]], "Unknown") == md_code:
+                                ac_end_datetime = get_data(data_root, [["timeSeries", "values", "value", j, "@dateTime"]], "Unknown")                    
+                                ac_end_datetime_offset = get_data(data_root, [["timeSeries", "values", "value", j, "@timeOffset"]], "Unknown")
+                                break
                         ac_action_description = "An observation action that generated a time series result."
                     elif return_type == "WaterML 1.1":
                         ac_action_type_cv = "Observation"
                         ac_method_id = md_id_list[i]
-                        for j, _ in enumerate(data_root["timeSeries"]["values"]["value"]):
-                            if data_root["timeSeries"]["values"]["value"][j]["@methodCode"] == md_code:
+                        for j, _ in enumerate(get_data(data_root, [["timeSeries", "values", "value"]], "IS_LIST")):
+                            if get_data(data_root, [["timeSeries", "values", "value", j, "@methodCode"]], "Unknown") == md_code:
                                 ac_begin_datetime = get_data(data_root, [["timeSeries", "values", "value", j, "@dateTime"]], "Unknown")
                                 ac_begin_datetime_offset = get_data(data_root, [["timeSeries", "values", "value", j, "@timeOffset"]], "Unknown")
                                 break
-                        for j, _ in reversed(list(enumerate(data_root["timeSeries"]["values"]["value"]))):
-                            if data_root["timeSeries"]["values"]["value"][j]["@methodCode"] == md_code:
+                        for j, _ in reversed(list(enumerate(get_data(data_root, [["timeSeries", "values", "value"]], "IS_LIST")))):
+                            if get_data(data_root, [["timeSeries", "values", "value", j, "@methodCode"]], "Unknown") == md_code:
                                 ac_end_datetime = get_data(data_root, [["timeSeries", "values", "value", j, "@dateTime"]], "Unknown")
                                 ac_end_datetime_offset = get_data(data_root, [["timeSeries", "values", "value", j, "@timeOffset"]], "Unknown")
                                 break
@@ -1103,10 +1110,10 @@ def create_ts_resource(res_data):
             try:
                 for rt_id in rt_id_list:
                     if return_type == "WaterML 1.0":
-                        dr_dataset_id = 1
+                        dr_dataset_id = ds_id
                         dr_result_id = rt_id
                     elif return_type == "WaterML 1.1":
-                        dr_dataset_id = 1
+                        dr_dataset_id = ds_id
                         dr_result_id = rt_id      
                     dataset_result = [dr_dataset_id, dr_result_id]
                     conn.execute(odm_tables["DataSetsResults"], dataset_result)
