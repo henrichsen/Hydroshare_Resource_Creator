@@ -353,8 +353,9 @@ def create_ts_resource(res_data):
                     "res_status": "No data found"
                     })
                 print "FAILED"
-                continue                
-
+                continue   
+                             
+            '''
             try:
                 if return_type == "WaterML 1.0":
                     if len(data_root["timeSeries"]["values"]["value"]) < 100:
@@ -379,6 +380,8 @@ def create_ts_resource(res_data):
                     })
                 print "FAILED"
                 continue
+            '''
+
             print "SUCCESS"
 
             # ------------------------------------ #

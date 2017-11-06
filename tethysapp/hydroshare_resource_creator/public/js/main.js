@@ -369,6 +369,8 @@ ajaxLoadResource = function (data, src, data_url){
                 var date_now = new Date();
                 var site_list = [];
                 var var_list = [];
+                var date_list = [];
+                var keywords_list = [];
                 var referencedTimeSeries = results.referencedTimeSeries;
                 var total_number = referencedTimeSeries.length;
                 for (var val in referencedTimeSeries) {
@@ -415,47 +417,65 @@ ajaxLoadResource = function (data, src, data_url){
                         };
                         var table = $tableResourceData.DataTable();
                         table.row.add(dataset).draw();
-                        var_list.push(variableName);
-                        site_list.push(siteName);
+                        var_list.push(variableName.replace(/,/g, ''));
+                        site_list.push(siteName.replace(/,/g, ''));
+                        keywords_list.push(variableName.replace(/,/g, ''))
+                        keywords_list.push(networkName.replace(/,/g, ''))
+                        date_list.push(beginDate);
+                        date_list.push(endDate);
                         number = number + 1
                     }
                     if (number === total_number) {
                         if(src === 'hydroshare')    {}
                         else {
-                            console.log("Formatting abstract");
                             var u_site_list = []
-                            $.each(site_list, function(i, el) {
+                            var site_multiplicty = 's'
+                            $.each(site_list, function(i, el){
                                 if($.inArray(el, u_site_list) === -1) u_site_list.push(el);
                             });
-                            if (u_site_list.length > 1) {
-                                var last = u_site_list[u_site_list.length - 1];
-                                u_site_list.pop();
-                                u_site_list.push('and ' + last);
-                                u_site_list = u_site_list.join(', ')
-                            } else {
-                                u_site_list = site_list.toString()
+                            if(u_site_list.length === 2) {
+                                s_site_list = u_site_list.join(" and ")
+                            }
+                            if(u_site_list.length === 1) {
+                                s_site_list = u_site_list.toString()
+                                site_multiplicty = ''
+                            }
+                            if(u_site_list.length > 2) {
+                                u_site_list_last = u_site_list.pop()
+                                u_site_list.push("and " + u_site_list_last)
+                                s_site_list = (u_site_list.join(", "))
                             }
                             var u_var_list = []
-                            $.each(var_list, function(i, el) {
+                            $.each(var_list, function(i, el){
                                 if($.inArray(el, u_var_list) === -1) u_var_list.push(el);
                             });
-                            if (u_var_list.length > 1) {
-                                var last = u_var_list[u_var_list.length - 1];
-                                u_var_list.pop();
-                                u_var_list.push('and ' + last);
-                                u_var_list = u_var_list.join(', ')
-                            } else {
-                                u_var_list = var_list.toString()
+                            if(u_var_list.length === 2) {
+                                s_var_list = ((u_var_list.join(" and ")).toLowerCase()).charAt(0).toUpperCase() + ((u_var_list.join(" and ")).toLowerCase()).slice(1);
                             }
+                            if(u_var_list.length === 1) {
+                                s_var_list = ((u_var_list.toString()).toLowerCase()).charAt(0).toUpperCase() + ((u_var_list.toString()).toLowerCase()).slice(1);
+                            }
+                            if(u_var_list.length > 2) {
+                                u_var_list_last = u_var_list.pop()
+                                u_var_list.push("and " + u_var_list_last)
+                                s_var_list = ((u_var_list.join(", ")).toLowerCase()).charAt(0).toUpperCase() + ((u_var_list.join(", ")).toLowerCase()).slice(1);
+                            }
+                            var u_keywords_list = []
+                            $.each(keywords_list, function(i, el){
+                                if($.inArray(el, u_keywords_list) === -1) u_keywords_list.push(el);
+                            });  
+                            orderedDates = date_list.sort(function(a,b){
+                                return Date.parse(a) > Date.parse(b);
+                            })                                                     
                             title = "Time series layer resource created on " + date_now;
-                            abstract = u_var_list + " data collected from " + date_small.toISOString().substring(0, 10) +
-                                " to " + date_large.toISOString().substring(0, 10) + " created on " + date_now +
-                                " from the following site(s): " + u_site_list + ". Data created by CUAHSI HydroClient: " +
+                            abstract = s_var_list + " data collected from " + orderedDates[0] +
+                                " to " + orderedDates.slice(-1)[0] + " created on " + date_now +
+                                " from the following site" + site_multiplicty + ": " + s_site_list + ". Data created by CUAHSI HydroClient: " +
                                 "http://data.cuahsi.org/#."
                         }
                         $resTitle.val(title);
                         $resAbstract.text(abstract);
-                        $resKeywords.val(keywords);
+                        $resKeywords.val(u_keywords_list);
                         finishLoading();
                     }
                 }
