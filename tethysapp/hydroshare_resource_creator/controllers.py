@@ -5,7 +5,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from tethys_apps.base import TethysWorkspace
 import json
 import uuid
-from .utilities import get_user_workspace
+from .utilities import get_app_workspace
 
 
 @csrf_exempt
@@ -16,7 +16,7 @@ def home(request):
     Arguments:      [request]
     Returns:        [render_obj]
     Referenced By:  [app.HydroshareResourceCreator]
-    References:     [utilities.get_user_workspace]
+    References:     [utilities.get_app_workspace]
     Libraries:      [json]
     """
 
@@ -25,10 +25,10 @@ def home(request):
     else:
         user_login = "False"
 
-    TethysWorkspace(get_user_workspace(request)).clear()
+    #TethysWorkspace(get_app_workspace(request)).clear()
 
     # FORM DATA FOR LOCAL TESTING
-    # test_file_name = 'combo_refts.json'  # Comment out before uploading to GitHub
+    #test_file_name = 'boulder_refts.json'  # Comment out before uploading to GitHub
 
     try:  # LOCAL TESTING USE ONLY
         local_path = "/home/klippold/tethysdev/HS_TimeseriesCreator/tethysapp/hydroshare_resource_creator/static_data/refts_test_files/"
@@ -43,7 +43,8 @@ def home(request):
             form_body = "No data"
 
     refts_filename = "/timeseriesLayerResource-" + str(uuid.uuid4()) + ".json"
-    base_path = get_user_workspace(request) + refts_filename
+    usr_workspace = get_app_workspace()
+    base_path = usr_workspace + refts_filename
 
 
     with open(base_path, "w") as outfile:
@@ -59,7 +60,8 @@ def home(request):
                "source_id": source_id,
                "service_url": service_url,
                "user_login": user_login,
-               "reftsfilename": refts_filename
+               "reftsfilename": refts_filename,
+               "usr_workspace": usr_workspace
                }
 
     render_obj = render(request, "hydroshare_resource_creator/home.html", context)

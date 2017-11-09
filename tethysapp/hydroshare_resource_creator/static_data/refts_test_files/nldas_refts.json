@@ -1,1 +1,46 @@
-{"timeSeriesReferenceFile": {"fileVersion": "1.0.0", "title": "Time series layer resource created on Fri Oct 27 2017 11:37:52 GMT-0600 (MDT)", "symbol": "http://qa-hiswebclient.azurewebsites.net/content/images/Cuahsi-HydroClient-v3.gif", "abstract": "Surface runoff (non-infiltarating) data collected from 2017-10-27 to 1600-01-01 created on Fri Oct 27 2017 11:37:52 GMT-0600 (MDT) from the following site(s): X105-Y124 of North American Land Data Assimilation System (NLDAS) NASA. Data created by CUAHSI HydroClient: http://data.cuahsi.org/#.", "keyWords": ["Time Series", "CUAHSI"], "referencedTimeSeries": [{"variable": {"variableCode": "NLDAS:NLDAS_NOAH0125_H.002:SSRUNsfc", "variableName": "Surface runoff (non-infiltarating)"}, "wofParams":{"MethodId": "1", "QCLID": "1", "SourceId": "1", "WofUri":"cuahsi-wdc-2017-10-27-63376408"}, "valueCount": 61223, "endDate": "2017-10-20T01:35:48+00:00", "sampleMedium": "SurfaceWater", "requestInfo": {"refType": "WOF", "returnType": "WaterML 1.0", "serviceType": "SOAP", "networkName": "NLDAS_NOAH", "url": "https://hydro1.gesdisc.eosdis.nasa.gov/daac-bin/his/1.0/NLDAS_NOAH_002.cgi?WSDL"}, "beginDate": "2010-10-27T00:00:00", "site": {"siteName": "X105-Y124 of North American Land Data Assimilation System (NLDAS) NASA", "latitude": 40.5625, "longitude": -111.8125, "siteCode": "NLDAS_NOAH:X105-Y124"}, "method": {"methodLink": "http://mirador.gsfc.nasa.gov/collections/NLDAS_NOAH0125_H__002.shtml", "methodDescription": "NLDAS NOAH model 0.125 degree hourly data"}}]}}
+{  
+   "timeSeriesReferenceFile":{  
+      "fileVersion":"1.0.0",
+      "title":"Time series",
+      "symbol":"http://qa-hiswebclient.azurewebsites.net/content/images/Cuahsi-HydroClient-v3.gif",
+      "abstract":"abstract",
+      "keyWords":[  
+         "keyword"
+      ],
+      "referencedTimeSeries":[  
+         {  
+            "variable":{  
+               "variableCode":"NLDAS:NLDAS_NOAH0125_H.002:SOILM0-100cm",
+               "variableName":"0-100 cm layer 1 Soil moisture content"
+            },
+            "valueCount":340390,
+            "endDate":"2017-10-31T01:05:29+00:00",
+            "sampleMedium":"Soil",
+            "requestInfo":{  
+               "refType":"WOF",
+               "returnType":"WaterML 1.0",
+               "serviceType":"SOAP",
+               "networkName":"NLDAS_NOAH",
+               "url":"https://hydro1.gesdisc.eosdis.nasa.gov/daac-bin/his/1.0/NLDAS_NOAH_002.cgi?WSDL"
+            },
+            "beginDate":"1979-01-02T01:00:00+00:00",
+            "site":{  
+               "siteName":"X106-Y125 of North American Land Data Assimilation System (NLDAS) NASA",
+               "latitude":40.6875,
+               "longitude":-111.6875,
+               "siteCode":"NLDAS_NOAH:X106-Y125"
+            },
+            "method":{  
+               "methodLink":"http://mirador.gsfc.nasa.gov/collections/NLDAS_NOAH0125_H__002.shtml",
+               "methodDescription":"NLDAS NOAH model 0.125 degree hourly data"
+            },
+            "wofParams":{
+            	"MethodId": "1",
+            	"QCLID": "2",
+            	"SourceId": "1",
+            	"WofUri": "cuahsi-wdc-2017-11-07-65251240"
+            }
+         }
+      ]
+   }
+}

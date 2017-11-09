@@ -7,7 +7,7 @@ import json
 import shutil
 import os
 import time
-from .utilities import get_user_workspace, create_ts_resource, create_refts_resource, get_o_auth_hs, trim, \
+from .utilities import get_app_workspace, create_ts_resource, create_refts_resource, get_o_auth_hs, trim, \
      process_file_data
 
 
@@ -19,7 +19,7 @@ def chart_data(request, res_id):
     Arguments:      [request, res_id]
     Returns:        [JsonResponse(return_obj)]
     Referenced By:  [main.js]
-    References:     [utilities.process_file_data, utilities.get_user_workspace, utilities.get_o_auth_hs, get_oauth_hs]
+    References:     [utilities.process_file_data, utilities.get_app_workspace, utilities.get_o_auth_hs, get_oauth_hs]
     Libraries:      [time, shutil, os, JsonResponse, json]
     """
 
@@ -29,7 +29,7 @@ def chart_data(request, res_id):
         'results': {}
     }
 
-    temp_dir = get_user_workspace(request)
+    temp_dir = (request.POST)["usr_workspace"]
 
     ref_file = temp_dir + (request.POST)["refts_filename"]
     if request.is_ajax() and request.method == 'POST':
@@ -58,7 +58,6 @@ def chart_data(request, res_id):
                     return_obj['results'] = {}
 
         else:
-            temp_dir = get_user_workspace(request)
             root_dir = temp_dir + '/id/' + res_id
             try:
                 # Ensures that resource is downloaded each time
@@ -124,7 +123,7 @@ def login_test(request):
     Ajax controller for login_test. Tests user login.
 
     Arguments:      [request]
-    Returns:        [JsonResponse({'Login': login_status})]
+    Returns:        [JsonRespoTethysWorkspacense({'Login': login_status})]
     Referenced By:  []
     References:     []
     Libraries:      []
@@ -189,7 +188,7 @@ def ajax_create_resource(request):
     # ----------------------------- #
 
     try:
-        user_dir = get_user_workspace(request)
+        user_dir = str(request.POST.get("usr_workspace"))
         action_request = str(request.POST.get("action_request"))
         res_title = str(request.POST.get("resTitle"))
         res_abstract = str(request.POST.get("resAbstract"))
@@ -280,6 +279,7 @@ def ajax_create_resource(request):
             raise Exception
 
     except Exception, error_message:
+        print traceback.format_exc()
         print error_message
         return_obj['success'] = False
         return_obj['message'] = "We were unable to create your resource."
@@ -316,6 +316,7 @@ def ajax_create_resource(request):
     return_obj['message'] = 'Resource created successfully'
     return_obj['results'] = {'resource_id': resource_id, 'hs_version': hs_version}
 
-    TethysWorkspace(user_dir).clear()
+    #TethysWorkspace(user_dir).clear()
+    shutil.rmtree(user_dir)
 
     return JsonResponse(return_obj)

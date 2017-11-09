@@ -16,9 +16,11 @@ from xml.sax._exceptions import SAXParseException
 from django.conf import settings
 from .app import HydroshareResourceCreator
 import json
+import pathlib
 import logging
 import zipfile, io
 import traceback
+import sys
 
 logger = logging.getLogger(__name__)
 use_hs_client_helper = True
@@ -29,7 +31,7 @@ except Exception as ex:
     logger.error("tethys_services.backends.hs_restclient_helper import get_oauth_hs: " + ex.message)
 
 
-def get_user_workspace(request):
+def get_app_workspace():
     """
     Gets app workspace path.
     
@@ -40,7 +42,10 @@ def get_user_workspace(request):
     Libraries:      []
     """
 
-    workspace = HydroshareResourceCreator.get_user_workspace(request).path
+    app_workspace = HydroshareResourceCreator.get_app_workspace().path
+    session = "/session-" + str(uuid.uuid4())
+    os.mkdir(app_workspace + session)
+    workspace = app_workspace + session
 
     return workspace
 
@@ -153,7 +158,7 @@ def create_ts_resource(res_data):
     Arguments:      [file_path, title, abstract]
     Returns:        [counter]
     Referenced By:  [controllers_ajax.create_layer, create_ts_resource]
-    References:     [get_user_workspace, load_into_odm2]
+    References:     [get_app_workspace, load_into_odm2]
     Libraries:      [json, shutil, sqlite3]
     """
 
@@ -271,8 +276,9 @@ def create_ts_resource(res_data):
             # --------------------- #
             #   DOWNLOAD THE DATA   #
             # --------------------- #
+            print "Attempting CUAHSI link: ",
+            sys.stdout.flush()
             try:
-                print "Attempting CUAHSI link: ",
                 wof_uri = sub["wofParams"]["WofUri"]
                 data_url = "http://qa-hiswebclient.azurewebsites.net/CUAHSI/HydroClient/WaterOneFlowArchive/" + wof_uri + "/zip"
                 cuahsi_zip_file = requests.get(data_url)
@@ -290,6 +296,7 @@ def create_ts_resource(res_data):
             except:
                 print "FAILED"
                 print "Attempting WaterOneFlow: ",
+                sys.stdout.flush()
                 try:
                     if "nasa" in url:
                         headers = {'content-type': 'text/xml'}
@@ -314,6 +321,9 @@ def create_ts_resource(res_data):
                     else:
                         client = connect_wsdl_url(url)
                         values_result = client.service.GetValues(site_code, variable_code, start_date, end_date, autho_token)
+                        #with open("/home/klippold/tethysdev/HS_TimeseriesCreator/tethysapp/hydroshare_resource_creator/static_data/refts_test_files/gulf_resource.wml", "w") as myfile:
+                        #    myfile.write(values_result)
+                        #myfile.close()
                         values_result = xmltodict.parse(values_result)
                         data_root = values_result["timeSeriesResponse"]
                         print "SUCCESS"
@@ -354,7 +364,7 @@ def create_ts_resource(res_data):
                     })
                 print "FAILED"
                 continue   
-                             
+
             '''
             try:
                 if return_type == "WaterML 1.0":
@@ -1041,6 +1051,7 @@ def create_ts_resource(res_data):
                     elif return_type == "WaterML 1.1":
                         result_values = []
                         num_values = len(data_root["timeSeries"]["values"]["value"])
+                        timestamps = []
                         for z in range(0, num_values - 1):
                             rv_result_id = rt_result_id
                             rv_data_value = data_root["timeSeries"]["values"]["value"][z]["#text"]
@@ -1053,7 +1064,13 @@ def create_ts_resource(res_data):
                             rv_time_aggregation_interval_units_id = get_data(data_root, [["timeSeries", "variable", "timeSupport", "unit", "unitCode"]], "Unknown")
                             result_values.append((rv_result_id, rv_data_value, rv_value_date_time, rv_value_date_time_utc_offset, rv_censor_code_cv, 
                                                   rv_quality_code_cv, rv_time_aggregation_interval, rv_time_aggregation_interval_units_id))      
+                            timestamps.append(rv_value_date_time)
+
                     conn.execute("BEGIN TRANSACTION;")
+                    if len(timestamps) > len(set(timestamps)):
+                        print "Timestamp error"
+                    else:
+                        print "No error"
                     conn.executemany(odm_tables["TimeSeriesResultValues"], result_values)
                 else:
                     conn.execute("BEGIN TRANSACTION;")
@@ -1097,7 +1114,8 @@ def create_ts_resource(res_data):
                                 result_values.append((rv_result_id, rv_data_value, rv_value_date_time, rv_value_date_time_utc_offset, rv_censor_code_cv, 
                                                       rv_quality_code_cv, rv_time_aggregation_interval, rv_time_aggregation_interval_units_id))      
                         conn.executemany(odm_tables["TimeSeriesResultValues"], result_values)                    
-            except:
+            except Exception as e:
+                print traceback.format_exc()
                 parse_status.append({
                     "res_name": variable_name + " at " + site_name + " from " + start_date + " to " + end_date,
                     "res_status": "Failed to extract timeseries result values data"

@@ -193,6 +193,7 @@ loadFormData = function (action_request){
     var resAbstract = $resAbstract.val();
     var resKeywords = $resKeywords.val();
     var refts_filename = $('#reftsfilename').text()
+    var usr_workspace = $('#usr_workspace').text()
     var checked_ids = $('input[data1-resid]:checkbox:checked').map(function() {
         return this.getAttribute("data1-resid");
     }).get();
@@ -219,7 +220,8 @@ loadFormData = function (action_request){
         'res_id': res_id,
         'data_url': data_url,
         'refts_filename': refts_filename,
-        'action_request': action_request
+        'action_request': action_request,
+        'usr_workspace': usr_workspace
     };
 
     return data
@@ -350,7 +352,7 @@ ajaxLoadResource = function (data, src, data_url){
         type:"POST",
         dataType: 'json',
         public: false,
-        data: {"refts_filename": $('#reftsfilename').text()},
+        data: {"refts_filename": $('#reftsfilename').text(), "usr_workspace": $('#usr_workspace').text()},
         url: data_url,
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             console.log(errorThrown)
@@ -364,8 +366,6 @@ ajaxLoadResource = function (data, src, data_url){
                 var title = results.title;
                 var abstract = results.abstract;
                 var keywords = results.keyWords;
-                var date_small = new Date();
-                var date_large = new Date('1600-01-01');
                 var date_now = new Date();
                 var site_list = [];
                 var var_list = [];
