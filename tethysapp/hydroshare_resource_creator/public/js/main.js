@@ -56,134 +56,153 @@ loadResource = function (){
 
     // Creates the data table to which the resource data will be displayed. //
 
-    var formBody = JSON.parse($('#form_body').text())
-    var dataSeriesList = formBody['timeSeriesReferenceFile']['referencedTimeSeries']
-    var dataSet = []
-    var varList = []
-    var siteList = []
-    var keywordsList = []
-    var dateList = []
-    var dateNow = new Date();
-    for (var dataSeriesCount = 0; dataSeriesCount < dataSeriesList.length; dataSeriesCount++) {
-        var legend = "<div style='text-align:center' '>" +
-                        "<input class = 'checkbox' id =" + dataSeriesCount + 
-                        " data1-resid =" + dataSeriesCount + 
-                        " type='checkbox' checked = 'checked'>" + 
-                     "</div>"
-        var siteName = dataSeriesList[dataSeriesCount]['site']['siteName']
-        var refType = dataSeriesList[dataSeriesCount]['requestInfo']['refType']
-        var serviceType = dataSeriesList[dataSeriesCount]['requestInfo']['serviceType']
-        var url = dataSeriesList[dataSeriesCount]['requestInfo']['url']
-        var returnType = dataSeriesList[dataSeriesCount]['requestInfo']['returnType']
-        var latitude = dataSeriesList[dataSeriesCount]['site']['latitude']
-        var longitude = dataSeriesList[dataSeriesCount]['site']['longitude']
-        var beginDate = dataSeriesList[dataSeriesCount]['beginDate']
-        var endDate = dataSeriesList[dataSeriesCount]['endDate']
-        var variableName = dataSeriesList[dataSeriesCount]['variable']['variableName']
-        var variableCode = dataSeriesList[dataSeriesCount]['variable']['variableCode']
-        var siteCode = dataSeriesList[dataSeriesCount]['site']['siteCode']
-        var networkName = dataSeriesList[dataSeriesCount]['requestInfo']['networkName']
-        var methodDescription = dataSeriesList[dataSeriesCount]['method']['methodDescription']
-        var methodLink = dataSeriesList[dataSeriesCount]['method']['methodLink']
-        var valueCount = dataSeriesList[dataSeriesCount]['valueCount']
-        var sampleMedium = dataSeriesList[dataSeriesCount]['sampleMedium']
-        dataSet.push([legend, siteName, refType, serviceType, url, returnType, latitude, longitude,
-                      beginDate, endDate, variableName, variableCode, siteCode, networkName, 
-                      methodDescription, methodLink, valueCount, sampleMedium])
-        varList.push(variableName.replace(/,/g, ''));
-        siteList.push(siteName.replace(/,/g, ''));
-        keywordsList.push(variableName.replace(/,/g, ''))
-        keywordsList.push(networkName.replace(/,/g, ''))
-        dateList.push(beginDate);
-        dateList.push(endDate);
-    };
-    var tableResourceData = $('#table-resource-data').DataTable({
-        scrollX: true,
-        data: dataSet, 
-        columns: [
-            {title: ""},
-            {title: "Site Name"},
-            {title: "Reference Type"},
-            {title: "Service Type"},
-            {title: "URL"},
-            {title: "Return Type"},
-            {title: "Latitude"},
-            {title: "Longitude"},
-            {title: "Begin Date"},
-            {title: "End Date"},
-            {title: "Variable Name"},
-            {title: "Variable Code"},
-            {title: "Site Code"},
-            {title: "Network Name"},
-            {title: "Method Description"},
-            {title: "Method Link"},
-            {title: "Value Count"},
-            {title: "Sample Medium"},
-        ],
-        order: [[1, 'asc']]
-    });
+    formData = $('#form_body').text()
+    console.log(formData)
 
-    var uSiteList = []
-    var siteMultiplicty = 's'
-    $.each(siteList, function(i, el){
-        if($.inArray(el, uSiteList) === -1) uSiteList.push(el);
-    });
-    if(uSiteList.length === 2) {
-        var sSiteList = uSiteList.join(" and ")
+    if (formData === '"No data"'){
+        $modalErrorMessage.text("No data in file.");
+        console.log("No data in file.")
+        $modalErrorDialog.modal('show');
+        $modalErrorDialog.on('hidden.bs.modal', $loadingAnimation.hide())
+
+    } 
+    else if ($('#form_body').text() === "File processing error"){
+        $modalErrorMessage.text("File processing error.");
+        console.log("File processing error.")
+        $modalErrorDialog.modal('show');
+        $modalErrorDialog.on('hidden.bs.modal', $loadingAnimation.hide())
+
     }
-    if(uSiteList.length === 1) {
-        var sSiteList = uSiteList.toString()
-        var siteMultiplicty = ''
-    }
-    if(uSiteList.length > 2) {
-        var uSiteListLast = uSiteList.pop()
-        uSiteList.push("and " + uSiteListLast)
-        var sSiteList = (uSiteList.join(", "))
-    }
-    var uVarList = []
-    $.each(varList, function(i, el){
-        if($.inArray(el, uVarList) === -1) uVarList.push(el);
-    });
-    if(uVarList.length === 2) {
-        sVarList = ((uVarList.join(" and ")).toLowerCase()).charAt(0).toUpperCase() + ((uVarList.join(" and ")).toLowerCase()).slice(1);
-    }
-    if(uVarList.length === 1) {
-        sVarList = ((uVarList.toString()).toLowerCase()).charAt(0).toUpperCase() + ((uVarList.toString()).toLowerCase()).slice(1);
-    }
-    if(uVarList.length > 2) {
-        uVarListLast = uVarList.pop()
-        uVarList.push("and " + uVarListLast)
-        sVarList = ((uVarList.join(", ")).toLowerCase()).charAt(0).toUpperCase() + ((uVarList.join(", ")).toLowerCase()).slice(1);
-    }
-    var uKeywordsList = []
-    $.each(keywordsList, function(i, el){
-        if($.inArray(el, uKeywordsList) === -1) uKeywordsList.push(el);
-    });  
-    orderedDates = dateList.sort(function(a,b){
-        return Date.parse(a) > Date.parse(b);
-    })                                                     
-    title = "Time series layer resource created on " + dateNow;
-    abstract = sVarList + " data collected from " + orderedDates[0] +
-        " to " + orderedDates.slice(-1)[0] + " created on " + dateNow +
-        " from the following site" + siteMultiplicty + ": " + sSiteList + ". Data created by CUAHSI HydroClient: " +
-        "http://data.cuahsi.org/#."
-    $resTitle.val(title);
-    $resAbstract.text(abstract);
-    $resKeywords.val(uKeywordsList);
+    else{
+        var formBody = JSON.parse($('#form_body').text())
+        var dataSeriesList = formBody['timeSeriesReferenceFile']['referencedTimeSeries']
+        var dataSet = []
+        var varList = []
+        var siteList = []
+        var keywordsList = []
+        var dateList = []
+        var dateNow = new Date();
+        for (var dataSeriesCount = 0; dataSeriesCount < dataSeriesList.length; dataSeriesCount++) {
+            var legend = "<div style='text-align:center' '>" +
+                            "<input class = 'checkbox' id =" + dataSeriesCount + 
+                            " data1-resid =" + dataSeriesCount + 
+                            " type='checkbox' checked = 'checked'>" + 
+                         "</div>"
+            var siteName = dataSeriesList[dataSeriesCount]['site']['siteName']
+            var refType = dataSeriesList[dataSeriesCount]['requestInfo']['refType']
+            var serviceType = dataSeriesList[dataSeriesCount]['requestInfo']['serviceType']
+            var url = dataSeriesList[dataSeriesCount]['requestInfo']['url']
+            var returnType = dataSeriesList[dataSeriesCount]['requestInfo']['returnType']
+            var latitude = dataSeriesList[dataSeriesCount]['site']['latitude']
+            var longitude = dataSeriesList[dataSeriesCount]['site']['longitude']
+            var beginDate = dataSeriesList[dataSeriesCount]['beginDate']
+            var endDate = dataSeriesList[dataSeriesCount]['endDate']
+            var variableName = dataSeriesList[dataSeriesCount]['variable']['variableName']
+            var variableCode = dataSeriesList[dataSeriesCount]['variable']['variableCode']
+            var siteCode = dataSeriesList[dataSeriesCount]['site']['siteCode']
+            var networkName = dataSeriesList[dataSeriesCount]['requestInfo']['networkName']
+            var methodDescription = dataSeriesList[dataSeriesCount]['method']['methodDescription']
+            var methodLink = dataSeriesList[dataSeriesCount]['method']['methodLink']
+            var valueCount = dataSeriesList[dataSeriesCount]['valueCount']
+            var sampleMedium = dataSeriesList[dataSeriesCount]['sampleMedium']
+            dataSet.push([legend, siteName, refType, serviceType, url, returnType, latitude, longitude,
+                          beginDate, endDate, variableName, variableCode, siteCode, networkName, 
+                          methodDescription, methodLink, valueCount, sampleMedium])
+            varList.push(variableName.replace(/,/g, ''));
+            siteList.push(siteName.replace(/,/g, ''));
+            keywordsList.push(variableName.replace(/,/g, ''))
+            keywordsList.push(networkName.replace(/,/g, ''))
+            dateList.push(beginDate);
+            dateList.push(endDate);
+        };
+        var tableResourceData = $('#table-resource-data').DataTable({
+            scrollX: true,
+            data: dataSet, 
+            columns: [
+                {title: ""},
+                {title: "Site Name"},
+                {title: "Reference Type"},
+                {title: "Service Type"},
+                {title: "URL"},
+                {title: "Return Type"},
+                {title: "Latitude"},
+                {title: "Longitude"},
+                {title: "Begin Date"},
+                {title: "End Date"},
+                {title: "Variable Name"},
+                {title: "Variable Code"},
+                {title: "Site Code"},
+                {title: "Network Name"},
+                {title: "Method Description"},
+                {title: "Method Link"},
+                {title: "Value Count"},
+                {title: "Sample Medium"},
+            ],
+            order: [[1, 'asc']]
+        });
+
+        var uSiteList = []
+        var siteMultiplicty = 's'
+        $.each(siteList, function(i, el){
+            if($.inArray(el, uSiteList) === -1) uSiteList.push(el);
+        });
+        if(uSiteList.length === 2) {
+            var sSiteList = uSiteList.join(" and ")
+        }
+        if(uSiteList.length === 1) {
+            var sSiteList = uSiteList.toString()
+            var siteMultiplicty = ''
+        }
+        if(uSiteList.length > 2) {
+            var uSiteListLast = uSiteList.pop()
+            uSiteList.push("and " + uSiteListLast)
+            var sSiteList = (uSiteList.join(", "))
+        }
+        var uVarList = []
+        $.each(varList, function(i, el){
+            if($.inArray(el, uVarList) === -1) uVarList.push(el);
+        });
+        if(uVarList.length === 2) {
+            sVarList = ((uVarList.join(" and ")).toLowerCase()).charAt(0).toUpperCase() + ((uVarList.join(" and ")).toLowerCase()).slice(1);
+        }
+        if(uVarList.length === 1) {
+            sVarList = ((uVarList.toString()).toLowerCase()).charAt(0).toUpperCase() + ((uVarList.toString()).toLowerCase()).slice(1);
+        }
+        if(uVarList.length > 2) {
+            uVarListLast = uVarList.pop()
+            uVarList.push("and " + uVarListLast)
+            sVarList = ((uVarList.join(", ")).toLowerCase()).charAt(0).toUpperCase() + ((uVarList.join(", ")).toLowerCase()).slice(1);
+        }
+        var uKeywordsList = []
+        $.each(keywordsList, function(i, el){
+            if($.inArray(el, uKeywordsList) === -1) uKeywordsList.push(el);
+        });  
+        orderedDates = dateList.sort(function(a,b){
+            return Date.parse(a) > Date.parse(b);
+        })                                                     
+        title = "Time series layer resource created on " + dateNow;
+        abstract = sVarList + " data collected from " + orderedDates[0] +
+            " to " + orderedDates.slice(-1)[0] + " created on " + dateNow +
+            " from the following site" + siteMultiplicty + ": " + sSiteList + ". Data created by CUAHSI HydroClient: " +
+            "http://data.cuahsi.org/#."
+        $resTitle.val(title);
+        $resAbstract.text(abstract);
+        $resKeywords.val(uKeywordsList);
 
 
-    tableResourceData.$('tr').tooltip( {
-        "delay": 0,
-        "track": true,
-        "fade": 250
-    } );
+        tableResourceData.$('tr').tooltip( {
+            "delay": 0,
+            "track": true,
+            "fade": 250
+        } );
 
 
-    $("#table-resource-data").on("mouseenter", "td", function() {
-        $(this).attr('title', this.innerText);
-    });
+        $("#table-resource-data").on("mouseenter", "td", function() {
+            $(this).attr('title', this.innerText);
+        });
 
-    finishLoading();
+        finishLoading();
+    }
 };
 
 

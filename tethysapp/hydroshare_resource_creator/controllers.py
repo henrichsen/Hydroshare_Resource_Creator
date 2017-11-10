@@ -21,7 +21,7 @@ def home(request):
     """
 
     # FORM DATA FOR LOCAL TESTING
-    #test_file_name = 'gulf_refts.json'  # Comment out before uploading to GitHub
+    test_file_name = 'gulf_refts.json'  # Comment out before uploading to GitHub
 
     try:  # LOCAL TESTING USE ONLY
         local_path = "/home/klippold/tethysdev/HS_TimeseriesCreator/tethysapp/hydroshare_resource_creator/static_data/refts_test_files/"
@@ -32,17 +32,32 @@ def home(request):
     except:  # PRODUCTION USE ONLY
         try:
             form_body = request.POST
+            if bool(form_body) is False:
+                form_body = "No data"
         except:
             form_body = "No data"
 
-    form_body = process_form_data(form_body)
-
     body = request.body
+    print form_body
+    if form_body == "No data":
+        context = {"source": body,
+                   "form_body": "No data",
+                   "method": request
+                   }
 
-    context = {"source": body,
-               "form_body": json.dumps(form_body),
-               "method": request
-               }
+    else:
+        form_body = process_form_data(form_body)
+
+    if form_body == "Data Processing Error":
+        context = {"source": body,
+                   "form_body": "File processing error",
+                   "method": request
+                   }
+    else:
+        context = {"source": body,
+                   "form_body": json.dumps(form_body),
+                   "method": request
+                   }
 
     render_obj = render(request, "hydroshare_resource_creator/home.html", context)
 
