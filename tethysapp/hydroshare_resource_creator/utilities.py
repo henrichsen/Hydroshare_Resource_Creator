@@ -16,7 +16,6 @@ from xml.sax._exceptions import SAXParseException
 from django.conf import settings
 from .app import HydroshareResourceCreator
 import json
-import pathlib
 import logging
 import zipfile, io
 import traceback
