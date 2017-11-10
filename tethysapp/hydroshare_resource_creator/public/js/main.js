@@ -56,7 +56,7 @@ loadResource = function (){
 
     // Creates the data table to which the resource data will be displayed. //
 
-    originalData = $('#form_body').text()
+    originalData = $('#source').text()
     console.log("Original Data")
     console.log(originalData)
     formData = $('#form_body').text()
