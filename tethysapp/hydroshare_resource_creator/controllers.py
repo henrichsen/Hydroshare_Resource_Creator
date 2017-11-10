@@ -46,12 +46,13 @@ def home(request):
                    }
 
     else:
+        original_data = form_body
         form_body = process_form_data(form_body)
 
     if form_body == "Data Processing Error":
-        context = {"source": body,
+        context = {"source": original_data,
                    "form_body": "File processing error",
-                   "method": request
+                   "method": request,
                    }
     else:
         context = {"source": body,
