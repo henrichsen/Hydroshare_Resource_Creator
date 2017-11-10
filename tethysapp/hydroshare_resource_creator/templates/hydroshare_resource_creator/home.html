@@ -48,37 +48,14 @@
 
     <div id="div-create-hydroshare-resource">
         <h4>Create Hydroshare Resource</h4>
-        <table id="table-resource-data" class="display" cellspacing="0" width="100%" style="">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Site Name</th>
-                    <th>Reference Type</th>
-                    <th>Service Type</th>
-                    <th>URL</th>
-                    <th>Return Type</th>
-                    <th>Latitude</th>
-                    <th>Longitude</th>
-                    <th>Begin Date</th>
-                    <th>End Date</th>
-                    <th>Variable Name</th>
-                    <th>Variable Code</th>
-                    <th>Site Code</th>
-                    <th>Network Name</th>
-                    <th>Method Description</th>
-                    <th>Method Link</th>
-                    <th>Value Count</th>
-                    <th>Sample Medium</th>
-                </tr>
-            </thead>
-        </table>
+        <table id="table-resource-data" class="display" cellspacing="0" width="100%" style=""></table>
         <div class="form-group">
             <label for="res-title" class="control-label">Resource Title:</label>
             <input id="res-title" type="text" class="form-control" placeholder="Type the name of your resource here.">
         </div>
         <div class="form-group">
             <label for="res-abstract" class="control-label">Resource Abstract:</label>
-            <textarea id="res-abstract" rows="6" cols="50" class="form-control" placeholder="Type your abstract here."></textarea>
+            <textarea id="res-abstract" rows="6" cols="50" spellcheck="false" class="form-control" placeholder="Type your abstract here."></textarea>
         </div>
         <div class="form-group">
             <label for="res-keywords" class="control-label">Resource Keywords:</label>
@@ -108,15 +85,9 @@
     </div>
 
     <div id ="cuahsi_data"  style="display:none">
-        <button type="button" class="btn btn-default" id="btn_submit_cuahsi" onClick="launchByuHydroshareApp()" >submit</button>
         <div id="source">{{source}}</div>
-        <div id="quality">{{quality}}</div>
+        <div id="form_body">{{form_body}}</div>
         <div id="method">{{method}}</div>
-        <div id="sourceid">{{sourceid}}</div>
-        <div id="serviceurl">{{serviceurl}}</div>
-        <div id="login1">{{login1}}</div>
-        <div id="reftsfilename">{{reftsfilename}}</div>
-        <div id="usr_workspace">{{usr_workspace}}</div>
     </div>
 
 

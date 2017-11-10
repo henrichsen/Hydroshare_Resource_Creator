@@ -31,7 +31,7 @@ except Exception as ex:
     logger.error("tethys_services.backends.hs_restclient_helper import get_oauth_hs: " + ex.message)
 
 
-def get_app_workspace():
+def get_user_workspace(request):
     """
     Gets app workspace path.
     
@@ -42,10 +42,7 @@ def get_app_workspace():
     Libraries:      []
     """
 
-    app_workspace = HydroshareResourceCreator.get_app_workspace().path
-    session = "/session-" + str(uuid.uuid4())
-    os.mkdir(app_workspace + session)
-    workspace = app_workspace + session
+    workspace = HydroshareResourceCreator.get_user_workspace(request).path
 
     return workspace
 
@@ -77,53 +74,61 @@ def get_o_auth_hs(request):
     return hs
 
 
-def process_file_data(json_file):
+def connect_wsdl_url(wsdl_url):
     """
-    Processes json_file data.
-    
-    Arguments:      [json_file]
-    Returns:        [processed_file_data]
-    Referenced By:  [controllers_ajax.chart_data]
+    Handles client url errors. 
+
+    Arguments:      [wsdl_url]
+    Returns:        [client]
+    Referenced By:  [load_into_odm2, ]
     References:     []
-    Libraries:      [json]
+    Libraries:      [suds.client.Client]
     """
 
-    with open(json_file) as f:
-        data = json.load(f)
-        if type(data['timeSeriesReferenceFile']) != dict:
-            data = json.loads(data["timeSeriesReferenceFile"])
-            data = {"timeSeriesReferenceFile": data}
+    try:
+        client = Client(wsdl_url)
+    except TransportError:
+        raise Exception('Url not found')
+    except ValueError:
+        raise Exception('Invalid url')  # ought to be a 400, but no page implemented for that
+    except SAXParseException:
+        raise Exception("The correct url format ends in '.asmx?WSDL'.")
+    except:
+        raise Exception("Unexpected error")
 
-        for i in range(len(data['timeSeriesReferenceFile']['referencedTimeSeries'])):
-            if data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['site']['siteName'] == '':
-                data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['site']['siteName'] = 'N/A'
-            if data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['site']['siteCode'] == '':
-                data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['site']['siteCode'] = 'N/A'
-            if data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['variable']['variableName'] == '':
-                data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['variable']['variableName'] = 'N/A'
-            if data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['variable']['variableCode'] == '':
-                data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['variable']['variableCode'] = 'N/A'
-            if data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['requestInfo']['networkName'] == '':
-                data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['requestInfo']['networkName'] = 'N/A'
-            if data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['requestInfo']['refType'] == '':
-                data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['requestInfo']['refType'] = 'N/A'
-            if data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['requestInfo']['serviceType'] == '':
-                data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['requestInfo']['serviceType'] = 'N/A'
-            if data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['requestInfo']['url'] == '':
-                data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['requestInfo']['url'] = 'N/A'
-            if data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['requestInfo']['returnType'] == '':
-                data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['requestInfo']['returnType'] = 'N/A'
-            if data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['site']['latitude'] == '':
-                data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['site']['latitude'] = 'N/A'
-            if data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['site']['longitude'] == '':
-                data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['site']['longitude'] = 'N/A'
-            if data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['method']['methodDescription'] == '':
-                data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['method']['methodDescription'] = 'N/A'
-            if data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['method']['methodLink'] == '':
-                data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['method']['methodLink'] = 'N/A'
-        processed_file_data = data['timeSeriesReferenceFile']
+    return client
 
-        return processed_file_data
+
+def process_form_data(form_data):
+    for i in range(len(form_data['timeSeriesReferenceFile']['referencedTimeSeries'])):
+        if form_data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['site']['siteName'] == '':
+            form_data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['site']['siteName'] = 'N/A'
+        if form_data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['site']['siteCode'] == '':
+            form_data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['site']['siteCode'] = 'N/A'
+        if form_data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['variable']['variableName'] == '':
+            form_data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['variable']['variableName'] = 'N/A'
+        if form_data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['variable']['variableCode'] == '':
+            form_data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['variable']['variableCode'] = 'N/A'
+        if form_data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['requestInfo']['networkName'] == '':
+            form_data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['requestInfo']['networkName'] = 'N/A'
+        if form_data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['requestInfo']['refType'] == '':
+            form_data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['requestInfo']['refType'] = 'N/A'
+        if form_data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['requestInfo']['serviceType'] == '':
+            form_data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['requestInfo']['serviceType'] = 'N/A'
+        if form_data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['requestInfo']['url'] == '':
+            form_data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['requestInfo']['url'] = 'N/A'
+        if form_data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['requestInfo']['returnType'] == '':
+            form_data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['requestInfo']['returnType'] = 'N/A'
+        if form_data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['site']['latitude'] == '':
+            form_data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['site']['latitude'] = 'N/A'
+        if form_data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['site']['longitude'] == '':
+            form_data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['site']['longitude'] = 'N/A'
+        if form_data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['method']['methodDescription'] == '':
+            form_data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['method']['methodDescription'] = 'N/A'
+        if form_data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['method']['methodLink'] == '':
+            form_data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['method']['methodLink'] = 'N/A'
+
+    return form_data
 
 
 def get_data(root_data, keylist, defaultvalue="None"):
@@ -162,14 +167,7 @@ def create_ts_resource(res_data):
     Libraries:      [json, shutil, sqlite3]
     """
 
-    refts_path = res_data["user_dir"] + res_data["res_data_pathname"]
-
-    with open(refts_path, "r") as refts_file:
-        refts_data = ((refts_file.read()).encode(encoding="UTF-8"))
-
-    json_data = json.loads(refts_data)
-
-    json_data = json_data["timeSeriesReferenceFile"]
+    json_data = json.loads(res_data['form_body'])["timeSeriesReferenceFile"]
     layer = []
 
     try:
@@ -180,9 +178,10 @@ def create_ts_resource(res_data):
         for selected_id in res_data["selected_resources"]:
             layer.append(json_data['referencedTimeSeries'][selected_id])
 
+    user_workspace = get_user_workspace(res_data["request"])
     current_path = os.path.dirname(os.path.realpath(__file__))
     odm_master = os.path.join(current_path, "static_data/ODM2_master.sqlite")
-    res_filepath = res_data['user_dir'] + '/' + res_data['res_filename'] + '.odm2.sqlite'
+    res_filepath = user_workspace + '/' + res_data['res_filename'] + '.odm2.sqlite'
     shutil.copy(odm_master, res_filepath)
     sql_connect = sqlite3.connect(res_filepath, isolation_level=None)
     conn = sql_connect.cursor()
@@ -263,15 +262,6 @@ def create_ts_resource(res_data):
             return_type = sub['requestInfo']['returnType']
             autho_token = ''
             sf_exists = False
-            print "Return Type: " + return_type
-            """
-            if str(return_type) == "WaterML 1.1" or str(return_type) == "WaterML 1.0":
-                parse_status.append({
-                    "res_name": variable_name + " at " + site_name + " from " + start_date + " to " + end_date,
-                    "res_status": "Unsupported return type"
-                    })
-                continue
-            """
 
             # --------------------- #
             #   DOWNLOAD THE DATA   #
@@ -283,8 +273,8 @@ def create_ts_resource(res_data):
                 data_url = "http://qa-hiswebclient.azurewebsites.net/CUAHSI/HydroClient/WaterOneFlowArchive/" + wof_uri + "/zip"
                 cuahsi_zip_file = requests.get(data_url)
                 extracted_data = zipfile.ZipFile(io.BytesIO(cuahsi_zip_file.content), "r")
-                extracted_data.extractall(res_data["user_dir"])
-                with open(res_data["user_dir"] + '/' + extracted_data.namelist()[0], "r") as unzipped_file:
+                extracted_data.extractall(user_workspace)
+                with open(user_workspace + '/' + extracted_data.namelist()[0], "r") as unzipped_file:
                     values_result = unzipped_file.read()
                     values_result = xmltodict.parse(values_result)
                 unzipped_file.close()
@@ -321,9 +311,6 @@ def create_ts_resource(res_data):
                     else:
                         client = connect_wsdl_url(url)
                         values_result = client.service.GetValues(site_code, variable_code, start_date, end_date, autho_token)
-                        #with open("/home/klippold/tethysdev/HS_TimeseriesCreator/tethysapp/hydroshare_resource_creator/static_data/refts_test_files/gulf_resource.wml", "w") as myfile:
-                        #    myfile.write(values_result)
-                        #myfile.close()
                         values_result = xmltodict.parse(values_result)
                         data_root = values_result["timeSeriesResponse"]
                         print "SUCCESS"
@@ -363,34 +350,7 @@ def create_ts_resource(res_data):
                     "res_status": "No data found"
                     })
                 print "FAILED"
-                continue   
-
-            '''
-            try:
-                if return_type == "WaterML 1.0":
-                    if len(data_root["timeSeries"]["values"]["value"]) < 100:
-                        parse_status.append({
-                            "res_name": variable_name + " at " + site_name + " from " + start_date + " to " + end_date,
-                            "res_status": "No sensor data found"
-                            })
-                        print "FAILED"
-                        continue
-                elif return_type == "WaterML 1.1":
-                    if len(data_root["timeSeries"]["values"]["value"]) < 100:
-                        parse_status.append({
-                            "res_name": variable_name + " at " + site_name + " from " + start_date + " to " + end_date,
-                            "res_status": "No sensor data found"
-                            })
-                        print "FAILED"
-                        continue
-            except:
-                parse_status.append({
-                    "res_name": variable_name + " at " + site_name + " from " + start_date + " to " + end_date,
-                    "res_status": "No data found"
-                    })
-                print "FAILED"
                 continue
-            '''
 
             print "SUCCESS"
 
@@ -1040,7 +1000,8 @@ def create_ts_resource(res_data):
                             rv_result_id = rt_result_id
                             rv_data_value = data_root["timeSeries"]["values"]["value"][z]["#text"]
                             rv_value_date_time = data_root["timeSeries"]["values"]["value"][z]["@dateTime"]
-                            rv_value_date_time_utc_offset = 0
+                            rv_value_date_time_utc_offset = get_data(data_root, [["timeSeries", "values", "value", z, "@timeOffset"],
+                                                                                 ["timeSeries", "values", "value", z, "timeOffset"]], 0)
                             rv_censor_code_cv = get_data(data_root, [["timeSeries", "values", "value", z, "@censorCode"],
                                                                      ["timeSeries", "values", "censorCode", "censorCode"]], "Unknown")
                             rv_quality_code_cv = "Unknown"
@@ -1056,7 +1017,8 @@ def create_ts_resource(res_data):
                             rv_result_id = rt_result_id
                             rv_data_value = data_root["timeSeries"]["values"]["value"][z]["#text"]
                             rv_value_date_time = data_root["timeSeries"]["values"]["value"][z]["@dateTime"]
-                            rv_value_date_time_utc_offset = 0
+                            rv_value_date_time_utc_offset = get_data(data_root, [["timeSeries", "values", "value", z, "@timeOffset"],
+                                                                                 ["timeSeries", "values", "value", z, "timeOffset"]], 0)
                             rv_censor_code_cv = get_data(data_root, [["timeSeries", "values", "value", z, "@censorCode"],
                                                                      ["timeSeries", "values", "censorCode", "censorCode"]], "Unknown")
                             rv_quality_code_cv = "Unknown"
@@ -1067,10 +1029,6 @@ def create_ts_resource(res_data):
                             timestamps.append(rv_value_date_time)
 
                     conn.execute("BEGIN TRANSACTION;")
-                    if len(timestamps) > len(set(timestamps)):
-                        print "Timestamp error"
-                    else:
-                        print "No error"
                     conn.executemany(odm_tables["TimeSeriesResultValues"], result_values)
                 else:
                     conn.execute("BEGIN TRANSACTION;")
@@ -1086,7 +1044,8 @@ def create_ts_resource(res_data):
                                 rv_result_id = rt_id
                                 rv_data_value = data_root["timeSeries"]["values"]["value"][z]["#text"]
                                 rv_value_date_time = data_root["timeSeries"]["values"]["value"][z]["@dateTime"]
-                                rv_value_date_time_utc_offset = 0
+                                rv_value_date_time_utc_offset = get_data(data_root, [["timeSeries", "values", "value", z, "@timeOffset"],
+                                                                                     ["timeSeries", "values", "value", z, "timeOffset"]], 0)
                                 rv_censor_code_cv = get_data(data_root, [["timeSeries", "values", "value", z, "@censorCode"],
                                                                          ["timeSeries", "values", "censorCode", "censorCode"]], "Unknown")
                                 rv_quality_code_cv = "Unknown"
@@ -1105,7 +1064,8 @@ def create_ts_resource(res_data):
                                 rv_result_id = rt_id
                                 rv_data_value = data_root["timeSeries"]["values"]["value"][z]["#text"]
                                 rv_value_date_time = data_root["timeSeries"]["values"]["value"][z]["@dateTime"]
-                                rv_value_date_time_utc_offset = 0
+                                rv_value_date_time_utc_offset = get_data(data_root, [["timeSeries", "values", "value", z, "@timeOffset"],
+                                                                                     ["timeSeries", "values", "value", z, "timeOffset"]], 0)
                                 rv_censor_code_cv = get_data(data_root, [["timeSeries", "values", "value", z, "@censorCode"],
                                                                          ["timeSeries", "values", "censorCode", "censorCode"]], "Unknown")
                                 rv_quality_code_cv = "Unknown"
@@ -1195,17 +1155,12 @@ def create_ts_resource(res_data):
 
 def create_refts_resource(res_data):
 
-    refts_path = res_data["user_dir"] + res_data["res_data_pathname"]
-
-    with open(refts_path, "r") as refts_file:
-        refts_data = ((refts_file.read()).encode(encoding="UTF-8"))
-
-    json_data = json.loads(refts_data)
-    json_data = json_data["timeSeriesReferenceFile"]
+    user_workspace = get_user_workspace(res_data["request"])
+    json_data = json.loads(res_data['form_body'])["timeSeriesReferenceFile"]
     series_count = 0
     layer = []
     parse_status = []
-    res_filepath = res_data['user_dir'] + '/' + res_data['res_filename'] + '.refts.json'
+    res_filepath = user_workspace + '/' + res_data['res_filename'] + '.refts.json'
 
     try:
         for selected_id in res_data["selected_resources"]:
@@ -1270,48 +1225,3 @@ def create_refts_resource(res_data):
                   }
 
     return return_obj
-
-
-def connect_wsdl_url(wsdl_url):
-    """
-    Handles client url errors. 
-
-    Arguments:      [wsdl_url]
-    Returns:        [client]
-    Referenced By:  [load_into_odm2, ]
-    References:     []
-    Libraries:      [suds.client.Client]
-    """
-
-    try:
-        client = Client(wsdl_url)
-    except TransportError:
-        raise Exception('Url not found')
-    except ValueError:
-        raise Exception('Invalid url')  # ought to be a 400, but no page implemented for that
-    except SAXParseException:
-        raise Exception("The correct url format ends in '.asmx?WSDL'.")
-    except:
-        raise Exception("Unexpected error")
-
-    return client
-
-
-def trim(string_dic):
-    """
-    Removes brackets, quotation marks, and commas from a python list.
-
-    Arguments:      [string_dic]
-    Returns:        [string_dic]
-    Referenced By:  [controllers_ajax.create_layer]
-    References:     []
-    Libraries:      []
-    """
-
-    string_dic = string_dic.strip('[')
-    string_dic = string_dic.strip(']')
-    string_dic = string_dic.strip('"')
-    string_dic = string_dic.replace('"', '')
-    string_dic = string_dic.split(',')
-
-    return string_dic

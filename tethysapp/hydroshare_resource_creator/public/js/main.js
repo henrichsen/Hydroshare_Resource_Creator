@@ -26,17 +26,13 @@ var $resKeywords = $('#res-keywords');
 **********************************************/
 
 var loadResource;
-var loadFormData;
 var createTimeseriesResource;
 var updateResource;
 var createReftsResource;
-var findQueryParameter;
 var finishLoading;
 var viewResource;
 var getCookie;
-var trimInput;
 var errorReport;
-var ajaxLoadResource;
 var ajaxLoginTest;
 var ajaxCreateResource;
 
@@ -59,66 +55,135 @@ loadResource = function (){
     $btnUpdateCurrentResource.hide();
 
     // Creates the data table to which the resource data will be displayed. //
-    var data = [];
-    $tableResourceData.DataTable({
-        "scrollX": true,
-        "createdRow": function (row, data, index){
-            var table = $tableResourceData.DataTable();
-            table.$('td').tooltip({
-                "selector": '[data-toggle="tooltip"]',
-                "container": 'body',
-                "delay": 0,
-                "track": true,
-                "fade": 100
-            });
-        },
-        data: data,
-        "columns": [
-            {
-                "className": "legend",
-                "data": "legend"
-            },
-            {"data": "siteName",
-            "color":"red"
-            },
-            {"data": "refType"},
-            {"data": "serviceType"},
-            {"data": "url"},
-            {"data": "returnType"},
-            {"data": "latitude"},
-            {"data": "longitude"},
-            {"data": "beginDate"},
-            {"data": "endDate"},
-            {"data": "variableName"},
-            {"data": "variableCode"},
-            {"data": "siteCode"},
-            {"data": "networkName"},
-            {"data": "methodDescription"},
-            {"data": "methodLink"},
-            {"data": "valueCount"},
-            {"data": "sampleMedium"}
+
+    var formBody = JSON.parse($('#form_body').text())
+    var dataSeriesList = formBody['timeSeriesReferenceFile']['referencedTimeSeries']
+    var dataSet = []
+    var varList = []
+    var siteList = []
+    var keywordsList = []
+    var dateList = []
+    var dateNow = new Date();
+    for (var dataSeriesCount = 0; dataSeriesCount < dataSeriesList.length; dataSeriesCount++) {
+        var legend = "<div style='text-align:center' '>" +
+                        "<input class = 'checkbox' id =" + dataSeriesCount + 
+                        " data1-resid =" + dataSeriesCount + 
+                        " type='checkbox' checked = 'checked'>" + 
+                     "</div>"
+        var siteName = dataSeriesList[dataSeriesCount]['site']['siteName']
+        var refType = dataSeriesList[dataSeriesCount]['requestInfo']['refType']
+        var serviceType = dataSeriesList[dataSeriesCount]['requestInfo']['serviceType']
+        var url = dataSeriesList[dataSeriesCount]['requestInfo']['url']
+        var returnType = dataSeriesList[dataSeriesCount]['requestInfo']['returnType']
+        var latitude = dataSeriesList[dataSeriesCount]['site']['latitude']
+        var longitude = dataSeriesList[dataSeriesCount]['site']['longitude']
+        var beginDate = dataSeriesList[dataSeriesCount]['beginDate']
+        var endDate = dataSeriesList[dataSeriesCount]['endDate']
+        var variableName = dataSeriesList[dataSeriesCount]['variable']['variableName']
+        var variableCode = dataSeriesList[dataSeriesCount]['variable']['variableCode']
+        var siteCode = dataSeriesList[dataSeriesCount]['site']['siteCode']
+        var networkName = dataSeriesList[dataSeriesCount]['requestInfo']['networkName']
+        var methodDescription = dataSeriesList[dataSeriesCount]['method']['methodDescription']
+        var methodLink = dataSeriesList[dataSeriesCount]['method']['methodLink']
+        var valueCount = dataSeriesList[dataSeriesCount]['valueCount']
+        var sampleMedium = dataSeriesList[dataSeriesCount]['sampleMedium']
+        dataSet.push([legend, siteName, refType, serviceType, url, returnType, latitude, longitude,
+                      beginDate, endDate, variableName, variableCode, siteCode, networkName, 
+                      methodDescription, methodLink, valueCount, sampleMedium])
+        varList.push(variableName.replace(/,/g, ''));
+        siteList.push(siteName.replace(/,/g, ''));
+        keywordsList.push(variableName.replace(/,/g, ''))
+        keywordsList.push(networkName.replace(/,/g, ''))
+        dateList.push(beginDate);
+        dateList.push(endDate);
+    };
+    var tableResourceData = $('#table-resource-data').DataTable({
+        scrollX: true,
+        data: dataSet, 
+        columns: [
+            {title: ""},
+            {title: "Site Name"},
+            {title: "Reference Type"},
+            {title: "Service Type"},
+            {title: "URL"},
+            {title: "Return Type"},
+            {title: "Latitude"},
+            {title: "Longitude"},
+            {title: "Begin Date"},
+            {title: "End Date"},
+            {title: "Variable Name"},
+            {title: "Variable Code"},
+            {title: "Site Code"},
+            {title: "Network Name"},
+            {title: "Method Description"},
+            {title: "Method Link"},
+            {title: "Value Count"},
+            {title: "Sample Medium"},
         ],
-        "order": [[1, 'asc']],
+        order: [[1, 'asc']]
     });
 
-    // Gets the URL at which the data is located. //
-    var serviceurl = trimInput($('#serviceurl').text());
-    document.title = 'Create HydroShare Resource';
-    var current_url = location.href;
-    var index = current_url.indexOf("hydroshare-resource-creator");
-    var base_url = current_url.substring(0, index);
-    var src = findQueryParameter("src");
-    if (src === 'hydroshare'){
-        var res_id = findQueryParameter("res_id");
-        $('#')
+    var uSiteList = []
+    var siteMultiplicty = 's'
+    $.each(siteList, function(i, el){
+        if($.inArray(el, uSiteList) === -1) uSiteList.push(el);
+    });
+    if(uSiteList.length === 2) {
+        var sSiteList = uSiteList.join(" and ")
     }
-    else{
-        res_id ='None'
+    if(uSiteList.length === 1) {
+        var sSiteList = uSiteList.toString()
+        var siteMultiplicty = ''
     }
-    var data_url = base_url + 'hydroshare-resource-creator/chart-data/' + res_id + '/';
+    if(uSiteList.length > 2) {
+        var uSiteListLast = uSiteList.pop()
+        uSiteList.push("and " + uSiteListLast)
+        var sSiteList = (uSiteList.join(", "))
+    }
+    var uVarList = []
+    $.each(varList, function(i, el){
+        if($.inArray(el, uVarList) === -1) uVarList.push(el);
+    });
+    if(uVarList.length === 2) {
+        sVarList = ((uVarList.join(" and ")).toLowerCase()).charAt(0).toUpperCase() + ((uVarList.join(" and ")).toLowerCase()).slice(1);
+    }
+    if(uVarList.length === 1) {
+        sVarList = ((uVarList.toString()).toLowerCase()).charAt(0).toUpperCase() + ((uVarList.toString()).toLowerCase()).slice(1);
+    }
+    if(uVarList.length > 2) {
+        uVarListLast = uVarList.pop()
+        uVarList.push("and " + uVarListLast)
+        sVarList = ((uVarList.join(", ")).toLowerCase()).charAt(0).toUpperCase() + ((uVarList.join(", ")).toLowerCase()).slice(1);
+    }
+    var uKeywordsList = []
+    $.each(keywordsList, function(i, el){
+        if($.inArray(el, uKeywordsList) === -1) uKeywordsList.push(el);
+    });  
+    orderedDates = dateList.sort(function(a,b){
+        return Date.parse(a) > Date.parse(b);
+    })                                                     
+    title = "Time series layer resource created on " + dateNow;
+    abstract = sVarList + " data collected from " + orderedDates[0] +
+        " to " + orderedDates.slice(-1)[0] + " created on " + dateNow +
+        " from the following site" + siteMultiplicty + ": " + sSiteList + ". Data created by CUAHSI HydroClient: " +
+        "http://data.cuahsi.org/#."
+    $resTitle.val(title);
+    $resAbstract.text(abstract);
+    $resKeywords.val(uKeywordsList);
 
-    // Passes the data to the AJAX function for loading the resource. //
-    ajaxLoadResource(data, src, data_url)
+
+    tableResourceData.$('tr').tooltip( {
+        "delay": 0,
+        "track": true,
+        "fade": 250
+    } );
+
+
+    $("#table-resource-data").on("mouseenter", "td", function() {
+        $(this).attr('title', this.innerText);
+    });
+
+    finishLoading();
 };
 
 
@@ -134,8 +199,53 @@ createTimeseriesResource = function (){
     $loadingAnimation.show();
 
     // Gets data from the page's data table and runs the ajaxLoginTest function. //
-    var data = loadFormData('ts');
-    ajaxLoginTest(data)
+    var currentUrl = location.href;
+    var index = currentUrl.indexOf("hydroshare-resource-creator");
+    var baseUrl = currentUrl.substring(0, index);
+    var dataUrl = baseUrl + 'hydroshare-resource-creator/login-test';
+    var resTitle = $resTitle.val();
+    var resAbstract = $resAbstract.val();
+    var resKeywords = $resKeywords.val();
+    var checkedIds = $('input[data1-resid]:checkbox:checked').map(function() {
+        return this.getAttribute("data1-resid");
+    }).get();
+    if($("#chk_public").is(':checked'))
+        var resAccess = 'public';
+    else
+        resAccess = 'private';
+    formBody = $('#form_body').text()
+    var errorList = [];
+    var data = {
+        'baseUrl': baseUrl,
+        'dataUrl': dataUrl,
+        'resTitle': resTitle,
+        'resAbstract': resAbstract,
+        'resKeywords': resKeywords,
+        'checkedIds': checkedIds.toString(),
+        'resAccess': resAccess,
+        'formBody': formBody,
+        'actionRequest': 'ts'
+    }
+    if (checkedIds.length === 2){
+        errorList.push('Please select at least one resource to create.')
+    }
+    if (resTitle === '') {
+        errorList.push('Please enter a title for your resource.');
+    }
+    if (resAbstract === '') {
+        errorList.push('Please enter an abstract for your resource.');
+    }
+    if (resKeywords === '') {
+        errorList.push('Please enter at least one keyword for your resource.');
+    }
+    if (errorList.length === 0) {
+        ajaxLoginTest(data);
+    }
+    else {
+        errorList = (errorList.toString()).split(",").join("\n");
+        $loadingAnimation.hide();
+        alert(errorList)
+    }
 };
 
 
@@ -168,80 +278,53 @@ createReftsResource = function (){
     $loadingAnimation.show();
 
     // Gets data from the page's data table and runs the ajaxLoginTest function. //
-    var data = loadFormData('refts');
-    ajaxLoginTest(data)
-};
-
-
-loadFormData = function (action_request){
-    /**
-     * Gets resource data from the data table and prepares it for AJAX function.
-     *
-     * @requires findQueryParameter
-     * @returns data
-     */
-
-    // Declares data variables. //
-    var current_url = location.href;
-    var index = current_url.indexOf("hydroshare-resource-creator");
-    var base_url = current_url.substring(0, index);
-    var data_url = base_url + 'hydroshare-resource-creator/login-test';
-    var fun_type = $btnCreateReferenceTimeseries.attr('name');
-    var res_type = $btnCreateReferenceTimeseries.attr('value');
-    var res_id = findQueryParameter('res_id');
+    var currentUrl = location.href;
+    var index = currentUrl.indexOf("hydroshare-resource-creator");
+    var baseUrl = currentUrl.substring(0, index);
+    var dataUrl = baseUrl + 'hydroshare-resource-creator/login-test';
     var resTitle = $resTitle.val();
     var resAbstract = $resAbstract.val();
     var resKeywords = $resKeywords.val();
-    var refts_filename = $('#reftsfilename').text()
-    var usr_workspace = $('#usr_workspace').text()
-    var checked_ids = $('input[data1-resid]:checkbox:checked').map(function() {
+    var checkedIds = $('input[data1-resid]:checkbox:checked').map(function() {
         return this.getAttribute("data1-resid");
     }).get();
-    var series_type = $('input[name]:checkbox:checked').map(function() {
-        return this.getAttribute("name");
-    }).get();
     if($("#chk_public").is(':checked'))
-        var res_access = 'public';
+        var resAccess = 'public';
     else
-        res_access = 'private';
-    var data;
-
-    // Prepares data for AJAX. //
-    data = {
-        'checked_ids': JSON.stringify(checked_ids),
-        'resource_type': JSON.stringify(series_type),
+        resAccess = 'private';
+    formBody = $('#form_body').text()
+    var errorList = [];
+    var data = {
+        'baseUrl': baseUrl,
+        'dataUrl': dataUrl,
         'resTitle': resTitle,
         'resAbstract': resAbstract,
         'resKeywords': resKeywords,
-        'resAccess': res_access,
-        'base_url': base_url,
-        'fun_type': fun_type,
-        'res_type': res_type,
-        'res_id': res_id,
-        'data_url': data_url,
-        'refts_filename': refts_filename,
-        'action_request': action_request,
-        'usr_workspace': usr_workspace
-    };
-
-    return data
-};
-
-
-findQueryParameter = function (name) {
-    /**
-     * Gets URL of resource data.
-     *
-     * @parameter name
-     * @returns results
-     */
-
-    // Gets URL of data, or returns null if unsuccessful. //
-    var url = location.href;
-    var regexS = "[\\?&]"+name+"=([^&#]*)";
-    var regex = new RegExp( regexS );
-    var results = regex.exec( url );
-    return results === null ? null : results[1];
+        'checkedIds': checkedIds.toString(),
+        'resAccess': resAccess,
+        'formBody': formBody,
+        'actionRequest': 'refts'
+    }
+    if (checkedIds.length === 2){
+        errorList.push('Please select at least one resource to create.')
+    }
+    if (resTitle === '') {
+        errorList.push('Please enter a title for your resource.');
+    }
+    if (resAbstract === '') {
+        errorList.push('Please enter an abstract for your resource.');
+    }
+    if (resKeywords === '') {
+        errorList.push('Please enter at least one keyword for your resource.');
+    }
+    if (errorList.length === 0) {
+        ajaxLoginTest(data);
+    }
+    else {
+        errorList = (errorList.toString()).split(",").join("\n");
+        $loadingAnimation.hide();
+        alert(errorList)
+    }
 };
 
 
@@ -261,11 +344,6 @@ finishLoading = function() {
 
     // Reveals Update Current Resource button only if a HydroShare resource is loaded. //
     $('#multiple_units').show();
-    var src = findQueryParameter("src");
-    if(src === 'hydroshare')
-    {
-        $btnUpdateCurrentResource.show();
-    }
 };
 
 
@@ -307,26 +385,6 @@ getCookie = function(name) {
 };
 
 
-trimInput = function (string){
-    /**
-     * Trims a string (list) of extra extra characters.
-     *
-     * @parameter string
-     * @returns string
-     */
-
-    // Removes brackets, quotation marks, and spaces from a string, and then splits it
-    string = string.replace(']','');
-    string = string.replace('[','');
-    string = string.replace(/'/g,'');
-    string = string.replace(/"/g,'');
-    string = string.replace(/ /g,'');
-    string = string.split(',');
-
-    return string
-};
-
-
 errorReport = function(error){
     /**
      * Reports errors encountered during loading.
@@ -346,161 +404,17 @@ errorReport = function(error){
 **************** AJAX FUNCTIONS ***************
 **********************************************/
 
-ajaxLoadResource = function (data, src, data_url){
-    $.ajax({
-        headers: {'X-CSRFToken': getCookie('csrftoken')},
-        type:"POST",
-        dataType: 'json',
-        public: false,
-        data: {"refts_filename": $('#reftsfilename').text(), "usr_workspace": $('#usr_workspace').text()},
-        url: data_url,
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            console.log(errorThrown)
-            showLoadingCompleteStatus('error', textStatus);
-        },
-        success: function (response) {
-            if (response.success === true) {
-                var number = 0;
-                var results = response.results;
-                console.log(results)
-                var title = results.title;
-                var abstract = results.abstract;
-                var keywords = results.keyWords;
-                var date_now = new Date();
-                var site_list = [];
-                var var_list = [];
-                var date_list = [];
-                var keywords_list = [];
-                var referencedTimeSeries = results.referencedTimeSeries;
-                var total_number = referencedTimeSeries.length;
-                for (var val in referencedTimeSeries) {
-                    if (referencedTimeSeries.hasOwnProperty(val)) {
-                        var entry = referencedTimeSeries[val];
-                        var siteName = entry.site.siteName;
-                        var refType = entry.requestInfo.refType;
-                        var serviceType = entry.requestInfo.serviceType;
-                        var url = entry.requestInfo.url;
-                        var returnType = entry.requestInfo.returnType;
-                        var latitude = entry.site.latitude;
-                        var longitude = entry.site.longitude;
-                        var beginDate = entry.beginDate;
-                        var endDate = entry.endDate;
-                        var variableName = entry.variable.variableName;
-                        var variableCode = entry.variable.variableCode;
-                        var siteCode = entry.site.siteCode;
-                        var networkName = entry.requestInfo.networkName;
-                        var methodDescription = entry.method.methodDescription;
-                        var methodLink = entry.method.methodLink;
-                        var valueCount = entry.valueCount;
-                        var sampleMedium = entry.sampleMedium;
-                        var legend = "<div style='text-align:center' '><input class = 'checkbox' id =" + number + " data1-resid =" + number
-                            + " type='checkbox' checked = 'checked'>" + "</div>";
-                        var dataset = {
-                            legend: legend,
-                            refType: refType,
-                            serviceType: serviceType,
-                            url: url,
-                            returnType: returnType,
-                            latitude: latitude,
-                            longitude: longitude,
-                            siteName: siteName,
-                            beginDate: beginDate,
-                            endDate: endDate,
-                            variableName: variableName,
-                            variableCode: variableCode,
-                            siteCode: siteCode,
-                            networkName: networkName,
-                            methodDescription: methodDescription,
-                            methodLink: methodLink,
-                            valueCount: valueCount,
-                            sampleMedium: sampleMedium
-                        };
-                        var table = $tableResourceData.DataTable();
-                        table.row.add(dataset).draw();
-                        var_list.push(variableName.replace(/,/g, ''));
-                        site_list.push(siteName.replace(/,/g, ''));
-                        keywords_list.push(variableName.replace(/,/g, ''))
-                        keywords_list.push(networkName.replace(/,/g, ''))
-                        date_list.push(beginDate);
-                        date_list.push(endDate);
-                        number = number + 1
-                    }
-                    if (number === total_number) {
-                        if(src === 'hydroshare')    {}
-                        else {
-                            var u_site_list = []
-                            var site_multiplicty = 's'
-                            $.each(site_list, function(i, el){
-                                if($.inArray(el, u_site_list) === -1) u_site_list.push(el);
-                            });
-                            if(u_site_list.length === 2) {
-                                s_site_list = u_site_list.join(" and ")
-                            }
-                            if(u_site_list.length === 1) {
-                                s_site_list = u_site_list.toString()
-                                site_multiplicty = ''
-                            }
-                            if(u_site_list.length > 2) {
-                                u_site_list_last = u_site_list.pop()
-                                u_site_list.push("and " + u_site_list_last)
-                                s_site_list = (u_site_list.join(", "))
-                            }
-                            var u_var_list = []
-                            $.each(var_list, function(i, el){
-                                if($.inArray(el, u_var_list) === -1) u_var_list.push(el);
-                            });
-                            if(u_var_list.length === 2) {
-                                s_var_list = ((u_var_list.join(" and ")).toLowerCase()).charAt(0).toUpperCase() + ((u_var_list.join(" and ")).toLowerCase()).slice(1);
-                            }
-                            if(u_var_list.length === 1) {
-                                s_var_list = ((u_var_list.toString()).toLowerCase()).charAt(0).toUpperCase() + ((u_var_list.toString()).toLowerCase()).slice(1);
-                            }
-                            if(u_var_list.length > 2) {
-                                u_var_list_last = u_var_list.pop()
-                                u_var_list.push("and " + u_var_list_last)
-                                s_var_list = ((u_var_list.join(", ")).toLowerCase()).charAt(0).toUpperCase() + ((u_var_list.join(", ")).toLowerCase()).slice(1);
-                            }
-                            var u_keywords_list = []
-                            $.each(keywords_list, function(i, el){
-                                if($.inArray(el, u_keywords_list) === -1) u_keywords_list.push(el);
-                            });  
-                            orderedDates = date_list.sort(function(a,b){
-                                return Date.parse(a) > Date.parse(b);
-                            })                                                     
-                            title = "Time series layer resource created on " + date_now;
-                            abstract = s_var_list + " data collected from " + orderedDates[0] +
-                                " to " + orderedDates.slice(-1)[0] + " created on " + date_now +
-                                " from the following site" + site_multiplicty + ": " + s_site_list + ". Data created by CUAHSI HydroClient: " +
-                                "http://data.cuahsi.org/#."
-                        }
-                        $resTitle.val(title);
-                        $resAbstract.text(abstract);
-                        $resKeywords.val(u_keywords_list);
-                        finishLoading();
-                    }
-                }
-            } else {
-                $loadingAnimation.hide();
-                var message = response.message;
-                $modalErrorMessage.text(message);
-                $modalErrorDialog.modal('show');
-            }
-        }
-    })
-};
-
-
 ajaxCreateResource = function (data) {
     $divCreateHydroshareResource.hide();
     $modalErrorMessage.empty()
-    var data_url = data.base_url + 'hydroshare-resource-creator/create-resource/';
-    console.log(data_url)
+    var dataUrl = data.baseUrl + 'hydroshare-resource-creator/create-resource/';
+    console.log(dataUrl)
     $.ajax({
         type: 'POST',
         headers: {'X-CSRFToken': getCookie('csrftoken')},
         dataType: 'json',
         data: data,
-        url: data_url,
+        url: dataUrl,
         timeout: 300000,
         success: function (response) {
             if (response.success === true) {
@@ -556,42 +470,23 @@ ajaxLoginTest = function (data){
         dataType: "json",
         public: false,
         data: data,
-        url: data.data_url + '/',
+        url: data.dataUrl + '/',
         async: true,
         success: function (response) {
             if (response['success'] === "True"){
-                var errorList = [];
-                if (data.checked_ids.length === 2){
-                    errorList.push('Please select at least one resource to create.')
-                }
-                if (data.resTitle === '') {
-                    errorList.push('Please enter a title for your resource.');
-                }
-                if (data.resAbstract === '') {
-                    errorList.push('Please enter an abstract for your resource.');
-                }
-                if (data.resKeywords === '') {
-                    errorList.push('Please enter at least one keyword for your resource.');
-                }
-                if (errorList.length === 0) {
-                    ajaxCreateResource(data);
-                }
-                else {
-                    errorList = (errorList.toString()).split(",").join("\n");
-                    $loadingAnimation.hide();
-                    alert(errorList)
-                }
+                console.log(data)
+                ajaxCreateResource(data);
             }
             else {
                 $loadingAnimation.hide();
 
-                if (data.data_url.includes("appsdev.hydroshare.org")) {
+                if (data.dataUrl.includes("appsdev.hydroshare.org")) {
                     window.open("/oauth2/login/hydroshare_beta/?next=/apps/hydroshare-resource-creator/login-callback/", 'windowName', 'width=1000, height=700, left=24, top=24, scrollbars, resizable');
                 }
-                if (data.data_url.includes("apps.hydroshare.org")) {
+                if (data.dataUrl.includes("apps.hydroshare.org")) {
                     window.open("/oauth2/login/hydroshare/?next=/apps/hydroshare-resource-creator/login-callback/", 'windowName', 'width=1000, height=700, left=24, top=24, scrollbars, resizable');
                 }
-                if (data.data_url.includes("8000")) {
+                if (data.dataUrl.includes("8000")) {
                     window.open("/oauth2/login/hydroshare_beta/?next=/apps/hydroshare-resource-creator/login-callback/", 'windowName', 'width=1000, height=700, left=24, top=24, scrollbars, resizable');
                 }
             }
@@ -612,7 +507,3 @@ $document.ready(loadResource);
 $btnCreateReferenceTimeseries.on('click', createReftsResource);
 $btnUpdateCurrentResource.on('click', updateResource);
 $btnCreateTimeseriesResource.on('click', createTimeseriesResource);
-
-$("#table-resource-data").on("mouseenter", "td", function() {
-  $(this).attr('title', this.innerText);
-});
