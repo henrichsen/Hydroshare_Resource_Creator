@@ -100,7 +100,6 @@ def connect_wsdl_url(wsdl_url):
 
 def process_form_data(form_data):
     try:
-        print "TEST"
         for i in range(len(form_data['timeSeriesReferenceFile']['referencedTimeSeries'])):
             if form_data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['site']['siteName'] == '':
                 form_data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['site']['siteName'] = 'N/A'

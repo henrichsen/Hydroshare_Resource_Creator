@@ -21,7 +21,7 @@ def home(request):
     """
 
     # FORM DATA FOR LOCAL TESTING
-    #test_file_name = 'gulf_refts.json'  # Comment out before uploading to GitHub
+    test_file_name = 'gulf_refts.json'  # Comment out before uploading to GitHub
 
     try:  # LOCAL TESTING USE ONLY
         local_path = "/home/klippold/tethysdev/HS_TimeseriesCreator/tethysapp/hydroshare_resource_creator/static_data/refts_test_files/"
@@ -46,7 +46,7 @@ def home(request):
                    }
 
     else:
-        original_data = form_body
+        original_data = json.dumps(form_body)
         form_body = process_form_data(form_body)
 
     if form_body == "Data Processing Error":
