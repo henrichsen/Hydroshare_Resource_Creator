@@ -1,4 +1,4 @@
-{"timeSeriesReferenceFile":{
+{"timeSeriesReferenceFile":"{
       "fileVersion":"1.0.0",
       "title":"Time series layer resource created on Tue Sep 05 2017 10:44:27 GMT-0600 (MDT)",
       "symbol":"http://qa-hiswebclient.azurewebsites.net/content/images/Cuahsi-HydroClient-v3.gif",
@@ -42,5 +42,5 @@
          "CUAHSI"
       ],
       "abstract":" data collected from 2017-09-05 to 1600-01-01 created on Tue Sep 05 2017 10:44:27 GMT-0600 (MDT) from the following site(s): . Data created by CUAHSI HydroClient: http://data.cuahsi.org/#."
-   }
+   }"
 }

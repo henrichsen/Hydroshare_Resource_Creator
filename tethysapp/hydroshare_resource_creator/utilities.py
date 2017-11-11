@@ -100,7 +100,14 @@ def connect_wsdl_url(wsdl_url):
 
 def process_form_data(form_data):
     try:
-        for i in range(len(form_data['timeSeriesReferenceFile']['referencedTimeSeries'])):
+        try:
+            series_root = form_data['timeSeriesReferenceFile']['referencedTimeSeries']
+            series_count = len(form_data['timeSeriesReferenceFile']['referencedTimeSeries'])
+        except:
+            form_data = {'timeSeriesReferenceFile': json.loads(form_data['timeSeriesReferenceFile'])}
+            series_root = form_data['timeSeriesReferenceFile']['referencedTimeSeries']
+            series_count = len(form_data['timeSeriesReferenceFile']['referencedTimeSeries'])
+        for i in range(series_count):
             if form_data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['site']['siteName'] == '':
                 form_data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['site']['siteName'] = 'N/A'
             if form_data['timeSeriesReferenceFile']['referencedTimeSeries'][i]['site']['siteCode'] == '':
