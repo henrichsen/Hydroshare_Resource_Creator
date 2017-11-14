@@ -236,7 +236,6 @@ createTimeseriesResource = function (){
     else
         resAccess = 'private';
     formBody = $('#form_body').text()
-    var errorList = [];
     var data = {
         'baseUrl': baseUrl,
         'dataUrl': dataUrl,
@@ -248,26 +247,7 @@ createTimeseriesResource = function (){
         'formBody': formBody,
         'actionRequest': 'ts'
     }
-    if (checkedIds.length === 2){
-        errorList.push('Please select at least one resource to create.')
-    }
-    if (resTitle === '') {
-        errorList.push('Please enter a title for your resource.');
-    }
-    if (resAbstract === '') {
-        errorList.push('Please enter an abstract for your resource.');
-    }
-    if (resKeywords === '') {
-        errorList.push('Please enter at least one keyword for your resource.');
-    }
-    if (errorList.length === 0) {
-        ajaxLoginTest(data);
-    }
-    else {
-        errorList = (errorList.toString()).split(",").join("\n");
-        $loadingAnimation.hide();
-        alert(errorList)
-    }
+    ajaxLoginTest(data)
 };
 
 
@@ -315,7 +295,7 @@ createReftsResource = function (){
     else
         resAccess = 'private';
     formBody = $('#form_body').text()
-    var errorList = [];
+    
     var data = {
         'baseUrl': baseUrl,
         'dataUrl': dataUrl,
@@ -325,28 +305,9 @@ createReftsResource = function (){
         'checkedIds': checkedIds.toString(),
         'resAccess': resAccess,
         'formBody': formBody,
-        'actionRequest': 'refts'
+        'actionRequest': 'refts',
     }
-    if (checkedIds.length === 2){
-        errorList.push('Please select at least one resource to create.')
-    }
-    if (resTitle === '') {
-        errorList.push('Please enter a title for your resource.');
-    }
-    if (resAbstract === '') {
-        errorList.push('Please enter an abstract for your resource.');
-    }
-    if (resKeywords === '') {
-        errorList.push('Please enter at least one keyword for your resource.');
-    }
-    if (errorList.length === 0) {
-        ajaxLoginTest(data);
-    }
-    else {
-        errorList = (errorList.toString()).split(",").join("\n");
-        $loadingAnimation.hide();
-        alert(errorList)
-    }
+    ajaxLoginTest(data)
 };
 
 
@@ -496,8 +457,29 @@ ajaxLoginTest = function (data){
         async: true,
         success: function (response) {
             if (response['success'] === "True"){
-                console.log(data)
-                ajaxCreateResource(data);
+                var errorList = [];
+                if (data['checkedIds'].length === 0){
+                    errorList.push('Please select at least one resource to create.')
+                }
+                if (data['resTitle'] === '') {
+                    errorList.push('Please enter a title for your resource.');
+                }
+                if (data['resAbstract'] === '') {
+                    errorList.push('Please enter an abstract for your resource.');
+                }
+                if (data['resKeywords'] === '') {
+                    errorList.push('Please enter at least one keyword for your resource.');
+                }
+                if (errorList.length === 0) {
+                    console.log(data)
+                    ajaxCreateResource(data);
+                }
+                else {
+                    errorList = (errorList.toString()).split(",").join("\n");
+                    $loadingAnimation.hide();
+                    alert(errorList)
+                }
+
             }
             else {
                 $loadingAnimation.hide();
