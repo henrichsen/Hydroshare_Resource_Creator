@@ -1221,7 +1221,7 @@ def create_refts_resource(res_data):
         parse_status.append("SUCCESS")
 
     with open(res_filepath, 'w') as res_file:
-        json.dump(json_dict, res_file)
+        json.dump(json_dict, res_file, sort_keys=True, indent=4, separators=(',', ': '))
 
     return_obj = {"res_type": "CompositeResource",
                   "res_filepath": res_filepath,
