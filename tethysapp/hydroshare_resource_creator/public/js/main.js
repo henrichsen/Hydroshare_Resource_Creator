@@ -461,6 +461,9 @@ ajaxLoginTest = function (data){
         success: function (response) {
             if (response['success'] === "True"){
                 var errorList = [];
+                if (response['message'] === "TooManyValues"){
+                    errorList.push('Your selected resources contain more than 1 million values. Please select fewer resources to continue.')
+                }
                 if (data['checkedIds'].length === 0){
                     errorList.push('Please select at least one resource to create.')
                 }
@@ -489,17 +492,17 @@ ajaxLoginTest = function (data){
 
                 if (data.dataUrl.includes("appsdev.hydroshare.org")) {
                     $modalLoginDialog.modal('show')
-                    $modalLoginDialog.attr("onClick", "window.open('/oauth2/login/hydroshare_beta/?next=/apps/hydroshare-resource-creator/login-callback/', 'windowName', 'width=1000, height=700, left=24, top=24, scrollbars, resizable')")
+                    $('#login-link').attr("onClick", "window.open('/oauth2/login/hydroshare_beta/?next=/apps/hydroshare-resource-creator/login-callback/', 'windowName', 'width=1000, height=700, left=24, top=24, scrollbars, resizable')")
                     //"window.open('/oauth2/login/hydroshare_beta/?next=/apps/hydroshare-resource-creator/login-callback/', 'windowName', 'width=1000, height=700, left=24, top=24, scrollbars, resizable')";
                 }
                 if (data.dataUrl.includes("apps.hydroshare.org")) {
                     $modalLoginDialog.modal('show')
-                    $modalLoginDialog.attr("onClick", "window.open('/oauth2/login/hydroshare/?next=/apps/hydroshare-resource-creator/login-callback/', 'windowName', 'width=1000, height=700, left=24, top=24, scrollbars, resizable')")
+                    $('#login-link').attr("onClick", "window.open('/oauth2/login/hydroshare/?next=/apps/hydroshare-resource-creator/login-callback/', 'windowName', 'width=1000, height=700, left=24, top=24, scrollbars, resizable')")
                     //window.open("/oauth2/login/hydroshare/?next=/apps/hydroshare-resource-creator/login-callback/", 'windowName', 'width=1000, height=700, left=24, top=24, scrollbars, resizable');
                 }
                 if (data.dataUrl.includes("8000")) {
                     $modalLoginDialog.modal('show')
-                    $modalLoginDialog.attr("onClick", "window.open('/oauth2/login/hydroshare_beta/?next=/apps/hydroshare-resource-creator/login-callback/', 'windowName', 'width=1000, height=700, left=24, top=24, scrollbars, resizable')")
+                    $('#login-link').attr("onClick", "window.open('/oauth2/login/hydroshare_beta/?next=/apps/hydroshare-resource-creator/login-callback/', 'windowName', 'width=1000, height=700, left=24, top=24, scrollbars, resizable')")
                     //window.open("/oauth2/login/hydroshare_beta/?next=/apps/hydroshare-resource-creator/login-callback/", 'windowName', 'width=1000, height=700, left=24, top=24, scrollbars, resizable');
                 }
             }
