@@ -481,9 +481,11 @@ ajaxLoginTest = function (data){
                     ajaxCreateResource(data);
                 }
                 else {
-                    errorList = (errorList.toString()).split(",").join("\n");
+                    errorList = (errorList.toString()).split(",").join("<br />");
                     $loadingAnimation.hide();
-                    alert(errorList)
+                    $modalErrorMessage.empty();
+                    $modalErrorMessage.append('<div>'+errorList+'</div>');
+                    $modalErrorDialog.modal('show');
                 }
 
             }

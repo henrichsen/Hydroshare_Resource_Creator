@@ -14,28 +14,25 @@ td {
 
 /*formats the logo*/
 #app-logo{
-    position: absolute;
-    top: 5px;
-    width: 200px;
-    height: 100px;
+    position: relative;
+    align-items: center;
 }
 
 #app-header .tethys-app-header .icon-wrapper img
 {
-    height:50px;
-    width:250px;
-    border-radius: 0;
+    left:1%;
+    border-radius: 0 !important;
 	background: rgba(211, 211, 211, 1) !important;
 }
 
 #app-header .tethys-app-header {
     background: rgba(211, 211, 211, 1) !important;
-    height: 60px !important;
+    height: 56px !important;
     border-bottom: 2px solid black !important;
 }
 
 #app-header .tethys-app-header .app-title-wrapper .app-title{
-    padding: 0 0 20px 400px !important;
+    padding: 20px 20px 20px 60% !important;
     width: auto;
 }
 
@@ -44,7 +41,7 @@ td {
 }
 
 #app-header .tethys-app-header .app-title-wrapper .app-title{
-    padding: 20px 0 20px 500px;
+    padding: 20px 0 20px 100px;
 }
 
 #app-content.show-app-content
@@ -103,18 +100,18 @@ td {
     text-align:center;
 }
 
-/*
+
 td.details-control {
     background:  url('open1.png') no-repeat center center;
     cursor: pointer;
 }
-*/
+
 
 /*
 tr.shown td.details-control {
 	background: url('close1.png') no-repeat center center;
 }
-*/
+
 
 #data_table_length{
 	visibility: hidden;
@@ -270,11 +267,11 @@ tr.shown td.details-control {
 	position: absolute;
 	left: 50%;
 
-	width: 195px;
-	height: 195px;
+	width: 80%;
+	height: 80%;
 
-	margin-top: -97px;
-	margin-left: -97px;
+	margin-top: 10%;
+	margin-left: -30%;
 
 	perspective: 97px;
 		-o-perspective: 97px;

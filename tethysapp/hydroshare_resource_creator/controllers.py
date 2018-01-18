@@ -21,15 +21,20 @@ def home(request):
     """
 
     # FORM DATA FOR LOCAL TESTING
-    #test_file_name = 'nldas_refts.json'  # Comment out before uploading to GitHub
+    test_file_name = 'nldas_refts.json'  # Comment out before uploading to GitHub
+    print test_file_name
 
-    try:  # LOCAL TESTING USE ONLY
-        local_path = "/home/klippold/tethysdev/HS_TimeseriesCreator/tethysapp/hydroshare_resource_creator/static_data/refts_test_files/"
+    if True:  # LOCAL TESTING USE ONLY
+        local_path = "/Users/kennethlippold/tethysdev/HS_TimeseriesCreator/tethysapp/hydroshare_resource_creator/static_data/refts_test_files/"
+        print local_path
         local_file = local_path + test_file_name
-        with open(local_file, "r") as test_file:
-            form_body = json.load(test_file)
 
-    except:  # PRODUCTION USE ONLY
+        with open(local_file, "r") as test_file:
+            print test_file
+            form_body = json.load(test_file)
+            print "TWO"
+
+    else:  # PRODUCTION USE ONLY
         try:
             form_body = request.POST
             if bool(form_body) is False:
