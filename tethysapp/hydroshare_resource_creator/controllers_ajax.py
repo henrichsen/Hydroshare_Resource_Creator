@@ -9,7 +9,6 @@ import os
 import time
 from .utilities import get_user_workspace, create_ts_resource, create_refts_resource, get_o_auth_hs
 
-
 @csrf_exempt
 def login_test(request):
     """
@@ -155,7 +154,7 @@ def ajax_create_resource(request):
         if action_request == "ts":
             for status in res_status:
                 if status["res_status"] != "Success":
-                    return_status.append(status["res_status"] + " for " + status["res_name"])
+                    return_status.append(status["res_name"].capitalize())
             if return_status:
                 open(res_filepath, "w").close()
                 return_obj["success"] = False

@@ -416,21 +416,24 @@ ajaxCreateResource = function (data) {
                 $modalResourceDialog.on('hidden.bs.modal', finishLoading)
             }
             else {
+
                 $loadingAnimation.hide();
                 if (response.message === "PARSE_ERROR") {
+                    $modalErrorMessage.append("<div>We encountered a problem while processing the following timeseries:</div><ul style='list-style-type:circle; margin-left: 2em; padding:0'>")
                     for (var i = 0; i < (response.results).length; i++) {
-                        $modalErrorMessage.append("<div>" + response.results[i] + "</div><br/>")
+                        $modalErrorMessage.append("<li>" + response.results[i] + "</li>")
 
-                    }
+                    };
+                    $modalErrorMessage.append("</ul><br><div>Please deselect these timeseries and try again.</div>")
                     $modalErrorDialog.modal('show');
-                    $modalErrorDialog.on('hidden.bs.modal', finishLoading)
+                    $modalErrorDialog.on('hidden.bs.modal', finishLoading);
                 } else {
                     $modalErrorMessage.text(response.message);
                     console.log(response.results);
                     $modalErrorDialog.modal('show');
-                    $modalErrorDialog.on('hidden.bs.modal', finishLoading)
-                }
-            }
+                    $modalErrorDialog.on('hidden.bs.modal', finishLoading);
+                };
+            };
 
             finishLoading()
         },

@@ -1,0 +1,72 @@
+{
+    "timeSeriesReferenceFile": {
+        "abstract": "Precipitation, discharge cubic feet per second, and water depth data collected from 1930-01-01T00:00:00+00:00 to 2013-11-19T19:10:00+00:00 created on Thu Feb 08 2018 09:45:27 GMT-0700 (MST) from the following sites: ELLENTON, INDIAN GRAVE BRANCH AT SAVANNAH RIVER SITE SC, K-011 AT SAVANNAH RIVER SITE SC, 38Y-b8, and 37Y-f9. Data created by CUAHSI HydroClient: http://data.cuahsi.org/#.",
+        "fileVersion": "1.0.0",
+        "keyWords": [
+            "Precipitation",
+            "GHCN",
+            "Discharge cubic feet per second",
+            "NWISDV",
+            "Water Depth",
+            "NGWMN-Background"
+        ],
+        "referencedTimeSeries": [
+            {
+                "beginDate": "2001-11-07T19:00:00+00:00",
+                "endDate": "2010-11-02T20:00:00+00:00",
+                "method": {
+                    "methodDescription": "Unknown",
+                    "methodLink": "unknown"
+                },
+                "requestInfo": {
+                    "networkName": "NGWMN-Background",
+                    "refType": "WOF",
+                    "returnType": "WaterML 1.1",
+                    "serviceType": "SOAP",
+                    "url": "http://dev-hydroportal.cuahsi.org/NGWMN-Background/cuahsi_1_1.asmx?WSDL"
+                },
+                "sampleMedium": "groundwater",
+                "site": {
+                    "latitude": 33.22944259643555,
+                    "longitude": -81.57527923583984,
+                    "siteCode": "NGWMN-Background:VW_GWDP_GEOSERVER.SCDNR.BRN-0418",
+                    "siteName": "37Y-f9"
+                },
+                "valueCount": 2,
+                "variable": {
+                    "variableCode": "NGWMN-Background:Groundwater_level",
+                    "variableName": "Water Depth"
+                }
+            },
+            {
+                "beginDate": "2010-11-02T20:00:00+00:00",
+                "endDate": "2013-11-19T19:10:00+00:00",
+                "method": {
+                    "methodDescription": "Unknown",
+                    "methodLink": "unknown"
+                },
+                "requestInfo": {
+                    "networkName": "NGWMN-Background",
+                    "refType": "WOF",
+                    "returnType": "WaterML 1.1",
+                    "serviceType": "SOAP",
+                    "url": "http://dev-hydroportal.cuahsi.org/NGWMN-Background/cuahsi_1_1.asmx?WSDL"
+                },
+                "sampleMedium": "groundwater",
+                "site": {
+                    "latitude": 33.24583435058594,
+                    "longitude": -81.6161117553711,
+                    "siteCode": "NGWMN-Background:VW_GWDP_GEOSERVER.SCDNR.BRN-0396",
+                    "siteName": "38Y-b8"
+                },
+                "valueCount": 2,
+                "variable": {
+                    "variableCode": "NGWMN-Background:Groundwater_level",
+                    "variableName": "Water Depth"
+                }
+            }
+        ],
+        "symbol": "http://qa-hiswebclient.azurewebsites.net/content/images/Cuahsi-HydroClient-v3.gif",
+        "title": "Time series layer resource created on Thu Feb 08 2018 09:45:27 GMT-0700 (MST)"
+    }
+}

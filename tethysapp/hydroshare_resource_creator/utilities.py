@@ -317,11 +317,15 @@ def create_ts_resource(res_data):
                     else:
                         client = connect_wsdl_url(url)
                         values_result = client.service.GetValues(site_code, variable_code, start_date, end_date, autho_token)
+                        qa_file = open("/home/klippold/tethysdev/HS_TimeseriesCreator/tethysapp/hydroshare_resource_creator/static_data/refts_test_files/qa_resource.wml","w+")
+                        qa_file.write(values_result)
+                        qa_file.close()
                         values_result = xmltodict.parse(values_result)
                         data_root = values_result["timeSeriesResponse"]
                         print "SUCCESS"
                 except:
                     print "FAILED"
+                    logger.error("Unable to download data: SITE CODE = " + site_code + "; VAR CODE = " + variable_code + "; START DATE = " + start_date + "; END DATE = " + end_date + ";")
                     parse_status.append({
                         "res_name": variable_name + " at " + site_name + " from " + start_date + " to " + end_date,
                         "res_status": "Failed to retrieve data"
@@ -340,6 +344,7 @@ def create_ts_resource(res_data):
                             "res_name": variable_name + " at " + site_name + " from " + start_date + " to " + end_date,
                             "res_status": "No data found"
                             })
+                        logger.error("No data found: SITE CODE = " + site_code + "; VAR CODE = " + variable_code + "; START DATE = " + start_date + "; END DATE = " + end_date + ";")
                         print "FAILED"
                         continue
                 elif return_type == "WaterML 1.1":
@@ -348,6 +353,7 @@ def create_ts_resource(res_data):
                             "res_name": variable_name + " at " + site_name + " from " + start_date + " to " + end_date,
                             "res_status": "No data found"
                             })
+                        logger.error("No data found: SITE CODE = " + site_code + "; VAR CODE = " + variable_code + "; START DATE = " + start_date + "; END DATE = " + end_date + ";")
                         print "FAILED"
                         continue
             except:
@@ -355,6 +361,7 @@ def create_ts_resource(res_data):
                     "res_name": variable_name + " at " + site_name + " from " + start_date + " to " + end_date,
                     "res_status": "No data found"
                     })
+                logger.error("No data found: SITE CODE = " + site_code + "; VAR CODE = " + variable_code + "; START DATE = " + start_date + "; END DATE = " + end_date + ";")
                 print "FAILED"
                 continue
 
@@ -394,6 +401,7 @@ def create_ts_resource(res_data):
                     "res_name": variable_name + " at " + site_name + " from " + start_date + " to " + end_date,
                     "res_status": "Datasets parsing failed"
                     })
+                logger.error("Datasets Row Failed: SITE CODE = " + site_code + "; VAR CODE = " + variable_code + "; START DATE = " + start_date + "; END DATE = " + end_date + ";")
                 print "FAILED"
                 continue
             print "SUCCESS"
@@ -452,6 +460,7 @@ def create_ts_resource(res_data):
                     "res_name": variable_name + " at " + site_name + " from " + start_date + " to " + end_date,
                     "res_status": "Failed to extract sampling features data"
                     })
+                logger.error("Sampling Features Row Failed: SITE CODE = " + site_code + "; VAR CODE = " + variable_code + "; START DATE = " + start_date + "; END DATE = " + end_date + ";")
                 print "FAILED"
                 continue
             print "SUCCESS"
@@ -479,7 +488,8 @@ def create_ts_resource(res_data):
                 parse_status.append({
                     "res_name": variable_name + " at " + site_name + " from " + start_date + " to " + end_date,
                     "res_status": "Failed to extract spatial references data"
-                    })   
+                    })
+                logger.error("Spatial References Row Failed: SITE CODE = " + site_code + "; VAR CODE = " + variable_code + "; START DATE = " + start_date + "; END DATE = " + end_date + ";")   
                 print "FAILED"                 
                 continue
             print "SUCCESS"
@@ -509,6 +519,7 @@ def create_ts_resource(res_data):
                     "res_name": variable_name + " at " + site_name + " from " + start_date + " to " + end_date,
                     "res_status": "Failed to extract sites data"
                     })
+                logger.error("Sites Row Failed: SITE CODE = " + site_code + "; VAR CODE = " + variable_code + "; START DATE = " + start_date + "; END DATE = " + end_date + ";")
                 print "FAILED"                    
                 continue
             print "SUCCESS"
@@ -567,6 +578,7 @@ def create_ts_resource(res_data):
                     "res_name": variable_name + " at " + site_name + " from " + start_date + " to " + end_date,
                     "res_status": "Failed to extract methods data"
                     })
+                logger.error("Methods Row Failed: SITE CODE = " + site_code + "; VAR CODE = " + variable_code + "; START DATE = " + start_date + "; END DATE = " + end_date + ";")
                 print "FAILED"                    
                 continue
             print "SUCCESS"
@@ -609,6 +621,7 @@ def create_ts_resource(res_data):
                     "res_name": variable_name + " at " + site_name + " from " + start_date + " to " + end_date,
                     "res_status": "Failed to extract variables data"
                     })
+                logger.error("Variable Row Failed: SITE CODE = " + site_code + "; VAR CODE = " + variable_code + "; START DATE = " + start_date + "; END DATE = " + end_date + ";")
                 print "FAILED"                    
                 continue
             print "SUCCESS"
@@ -621,7 +634,9 @@ def create_ts_resource(res_data):
                 if return_type == "WaterML 1.0":
                     ut_units_name = get_data(data_root, [["timeSeries", "variable", "timeSupport", "unit", "UnitName"]], "RAISE_EXCEPTION")
                 elif return_type == "WaterML 1.1":
-                    ut_units_name = get_data(data_root, [["timeSeries", "variable", "timeScale", "unit", "unitName"]], "RAISE_EXCEPTION")
+                    ut_units_name = get_data(data_root, [["timeSeries", "variable", "timeScale", "unit", "unitName"],
+                                                         ["timeSeries", "variable", "timeSupport", "unit", "unitsAbbreviation"],
+                                                         ["timeSeries", "variable", "units", "unitsAbbreviation"]], "RAISE_EXCEPTION")
                 conn.execute('SELECT * FROM Units WHERE UnitsName = ?', (ut_units_name,))
                 row = conn.fetchone()
                 if row is None:
@@ -647,6 +662,7 @@ def create_ts_resource(res_data):
                     "res_name": variable_name + " at " + site_name + " from " + start_date + " to " + end_date,
                     "res_status": "Failed to extract units data"
                     }) 
+                logger.error("Units Row Failed: SITE CODE = " + site_code + "; VAR CODE = " + variable_code + "; START DATE = " + start_date + "; END DATE = " + end_date + ";")
                 print "FAILED"                   
                 continue
             print "SUCCESS"
@@ -686,6 +702,7 @@ def create_ts_resource(res_data):
                     "res_name": variable_name + " at " + site_name + " from " + start_date + " to " + end_date,
                     "res_status": "Failed to extract processing levels data"
                     })
+                logger.error("Processing Levels Row Failed: SITE CODE = " + site_code + "; VAR CODE = " + variable_code + "; START DATE = " + start_date + "; END DATE = " + end_date + ";")
                 print "FAILED"                    
                 continue
             print "SUCCESS"
@@ -721,6 +738,7 @@ def create_ts_resource(res_data):
                     "res_name": variable_name + " at " + site_name + " from " + start_date + " to " + end_date,
                     "res_status": "Failed to extract people data"
                     })
+                logger.error("People Row Failed: SITE CODE = " + site_code + "; VAR CODE = " + variable_code + "; START DATE = " + start_date + "; END DATE = " + end_date + ";")
                 print "FAILED"                    
                 continue
             print "SUCCESS"
@@ -759,6 +777,7 @@ def create_ts_resource(res_data):
                     "res_name": variable_name + " at " + site_name + " from " + start_date + " to " + end_date,
                     "res_status": "Failed to extract organizations data"
                     })
+                logger.error("Organizations Row Failed: SITE CODE = " + site_code + "; VAR CODE = " + variable_code + "; START DATE = " + start_date + "; END DATE = " + end_date + ";")
                 print "FAILED"
                 continue
             print "SUCCESS"
@@ -795,6 +814,7 @@ def create_ts_resource(res_data):
                     "res_name": variable_name + " at " + site_name + " from " + start_date + " to " + end_date,
                     "res_status": "Failed to extract affiliations data"
                     })
+                logger.error("Affiliations Row Failed: SITE CODE = " + site_code + "; VAR CODE = " + variable_code + "; START DATE = " + start_date + "; END DATE = " + end_date + ";")
                 print "FAILED"                    
                 continue
             print "SUCCESS"
@@ -844,6 +864,7 @@ def create_ts_resource(res_data):
                     "res_name": variable_name + " at " + site_name + " from " + start_date + " to " + end_date,
                     "res_status": "Failed to extract actions data"
                     })
+                logger.error("Actions Row Failed: SITE CODE = " + site_code + "; VAR CODE = " + variable_code + "; START DATE = " + start_date + "; END DATE = " + end_date + ";")
                 print "FAILED"                    
                 continue
             print "SUCCESS"
@@ -871,6 +892,7 @@ def create_ts_resource(res_data):
                     "res_name": variable_name + " at " + site_name + " from " + start_date + " to " + end_date,
                     "res_status": "Failed to extract action by data"
                     })
+                logger.error("ActionBy Table Failed: SITE CODE = " + site_code + "; VAR CODE = " + variable_code + "; START DATE = " + start_date + "; END DATE = " + end_date + ";")
                 print "FAILED"                    
                 continue
             print "SUCCESS"
@@ -897,6 +919,7 @@ def create_ts_resource(res_data):
                     "res_name": variable_name + " at " + site_name + " from " + start_date + " to " + end_date,
                     "res_status": "Failed to extract feature actions data"
                     })
+                logger.error("Feature Actions Row Failed: SITE CODE = " + site_code + "; VAR CODE = " + variable_code + "; START DATE = " + start_date + "; END DATE = " + end_date + ";")
                 print "FAILED"                    
                 continue
             print "SUCCESS"
@@ -942,6 +965,7 @@ def create_ts_resource(res_data):
                     "res_name": variable_name + " at " + site_name + " from " + start_date + " to " + end_date,
                     "res_status": "Failed to extract results data"
                     })
+                logger.error("Results Row Failed: SITE CODE = " + site_code + "; VAR CODE = " + variable_code + "; START DATE = " + start_date + "; END DATE = " + end_date + ";")
                 print "FAILED"                    
                 continue
             print "SUCCESS"
@@ -989,6 +1013,7 @@ def create_ts_resource(res_data):
                     "res_name": variable_name + " at " + site_name + " from " + start_date + " to " + end_date,
                     "res_status": "Failed to extract timeseries results data"
                     })
+                logger.error("Timeseries Results Row Failed: SITE CODE = " + site_code + "; VAR CODE = " + variable_code + "; START DATE = " + start_date + "; END DATE = " + end_date + ";")
                 print "FAILED"                    
                 continue
             print "SUCCESS"
@@ -1086,6 +1111,7 @@ def create_ts_resource(res_data):
                     "res_name": variable_name + " at " + site_name + " from " + start_date + " to " + end_date,
                     "res_status": "Failed to extract timeseries result values data"
                     })
+                logger.error("Timeseries Results Values Row Failed: SITE CODE = " + site_code + "; VAR CODE = " + variable_code + "; START DATE = " + start_date + "; END DATE = " + end_date + ";")
                 print "FAILED"                    
                 continue
             print "SUCCESS"
@@ -1109,6 +1135,7 @@ def create_ts_resource(res_data):
                     "res_name": variable_name + " at " + site_name + " from " + start_date + " to " + end_date,
                     "res_status": "Failed to extract dataset results data"
                     })
+                logger.error("Dataset Results Row Failed: SITE CODE = " + site_code + "; VAR CODE = " + variable_code + "; START DATE = " + start_date + "; END DATE = " + end_date + ";")
                 print "FAILED"                    
                 continue
             print "SUCCESS"
@@ -1131,6 +1158,7 @@ def create_ts_resource(res_data):
                     "res_name": variable_name + " at " + site_name + " from " + start_date + " to " + end_date,
                     "res_status": "Failed to create sql file"
                     })
+                logger.error("Failed to create ODM2 file: SITE CODE = " + site_code + "; VAR CODE = " + variable_code + "; START DATE = " + start_date + "; END DATE = " + end_date + ";")
                 print "FAILED"                    
                 continue
             print "SUCCESS"
