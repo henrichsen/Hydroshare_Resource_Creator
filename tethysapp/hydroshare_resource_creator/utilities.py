@@ -258,6 +258,10 @@ def create_ts_resource(res_data):
         try:
             series_count += 1
             print "Parsing Series " + str(series_count)
+            site_code = ""
+            variable_code = ""
+            start_date = ""
+            end_date = ""
             site_name = sub["site"]["siteName"]
             variable_name = str(sub["variable"]["variableName"]).lower()
             url = sub['requestInfo']['url']
@@ -317,15 +321,15 @@ def create_ts_resource(res_data):
                     else:
                         client = connect_wsdl_url(url)
                         values_result = client.service.GetValues(site_code, variable_code, start_date, end_date, autho_token)
-                        qa_file = open("/home/klippold/tethysdev/HS_TimeseriesCreator/tethysapp/hydroshare_resource_creator/static_data/refts_test_files/qa_resource.wml","w+")
-                        qa_file.write(values_result)
-                        qa_file.close()
                         values_result = xmltodict.parse(values_result)
                         data_root = values_result["timeSeriesResponse"]
                         print "SUCCESS"
                 except:
                     print "FAILED"
-                    logger.error("Unable to download data: SITE CODE = " + site_code + "; VAR CODE = " + variable_code + "; START DATE = " + start_date + "; END DATE = " + end_date + ";")
+                    try:
+                        logger.error("Unable to download data: SITE CODE = " + site_code + "; VAR CODE = " + variable_code + "; START DATE = " + start_date + "; END DATE = " + end_date + ";")
+                    except:
+                        print "Logger Failed"
                     parse_status.append({
                         "res_name": variable_name + " at " + site_name + " from " + start_date + " to " + end_date,
                         "res_status": "Failed to retrieve data"
