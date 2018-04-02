@@ -7,7 +7,10 @@ import json
 import shutil
 import os
 import time
+from logging import getLogger
 from .utilities import get_user_workspace, create_ts_resource, create_refts_resource, get_o_auth_hs
+
+logger = getLogger('django')
 
 @csrf_exempt
 def login_test(request):
@@ -175,12 +178,14 @@ def ajax_create_resource(request):
                 hs_api.deleteResource(resource_id)
                 raise Exception
         except:
+            logger.error("Unable to upload resource to HydroShare")
             hs_api.deleteResource(resource_id)
             raise Exception
 
     except Exception, error_message:
         print traceback.format_exc()
         print error_message
+        logger.error(error_message)
         return_obj['success'] = False
         return_obj['message'] = "We were unable to create your resource."
         return_obj['results'] = "Server Error: " + str(traceback.format_exc)

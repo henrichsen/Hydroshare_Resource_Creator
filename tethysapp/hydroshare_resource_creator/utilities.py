@@ -16,12 +16,12 @@ from xml.sax._exceptions import SAXParseException
 from django.conf import settings
 from .app import HydroshareResourceCreator
 import json
-import logging
+from logging import getLogger
 import zipfile, io
 import traceback
 import sys
 
-logger = logging.getLogger(__name__)
+logger = getLogger('django')
 use_hs_client_helper = True
 try:
     from tethys_services.backends.hs_restclient_helper import get_oauth_hs
@@ -1170,6 +1170,7 @@ def create_ts_resource(res_data):
                 "res_name": variable_name + " at " + site_name + " from " + start_date + " to " + end_date,
                 "res_status": "Encountered an unknown issue"
                 })
+            logger.error("Encountered an unknown issue: SITE CODE = " + site_code + "; VAR CODE = " + variable_code + "; START DATE = " + start_date + "; END DATE = " + end_date + ";")
             print "Series " + str(series_count) + " encountered unknown issue"
             continue
 
