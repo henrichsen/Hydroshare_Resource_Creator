@@ -142,7 +142,10 @@ loadResource = function (){
                 {title: "Value Count"},
                 {title: "Sample Medium"},
             ],
-            order: [[1, 'asc']]
+            order: [[1, 'asc']],
+            columnDefs: [
+                { orderable: false, targets: 0 }
+            ]
         });
 
         var uSiteList = []
@@ -410,7 +413,10 @@ ajaxCreateResource = function (data) {
                 $modalResourceDialogWelcomeInfo.append('<a href=' + hs_href + ' target="_blank">Click here to view.</a>');
                 $btnCreateTimeseriesResource.hide();
                 $btnCreateReferenceTimeseries.hide();
-                $publicResource.hide();
+                $publicResource.hide()
+                $resTitle.prop("disabled", true);
+                $resAbstract.prop("disabled", true);
+                $resKeywords.prop("disabled", true);
                 $divViewResource.append('<button id ="btn_view_resource" type="button" class="btn btn-success" name ="' + hs_href + '" onclick="viewResource(this.name)">View Resource</button>');
                 $modalResourceDialog.modal('show');
                 $modalResourceDialog.on('hidden.bs.modal', finishLoading)

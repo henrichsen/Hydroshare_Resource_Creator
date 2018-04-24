@@ -263,7 +263,7 @@ def create_ts_resource(res_data):
             start_date = ""
             end_date = ""
             site_name = sub["site"]["siteName"]
-            variable_name = str(sub["variable"]["variableName"]).lower()
+            variable_name = (sub["variable"]["variableName"]).decode('utf-8').lower()
             url = sub['requestInfo']['url']
             site_code = sub['site']['siteCode']
             variable_code = sub['variable']['variableCode']

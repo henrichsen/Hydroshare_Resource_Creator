@@ -13,17 +13,16 @@ td {
 }
 
 /*formats the logo*/
+
 #app-logo{
-    position: absolute;
+    position: relative;
     top: 5px;
-    width: 200px;
-    height: 100px;
+    width: auto;
+    height: auto;
 }
 
 #app-header .tethys-app-header .icon-wrapper img
 {
-    height:50px;
-    width:250px;
     border-radius: 0;
 	background: rgba(211, 211, 211, 1) !important;
 }
@@ -73,10 +72,12 @@ td {
 
 #app-header .tethys-app-header .icon-wrapper {
     padding: 0 !important;
+    color: #000000;
 }
 
-#title {
-    color: #ff2283;
+#app-header .tethys-app-header .app-title-wrapper .app-title {
+    color: #000000;
+    display: none;
 }
 
 #byu-logo-container {
@@ -140,6 +141,8 @@ tr.shown td.details-control {
     left: 0;
     z-index:101;
 }
+
+.dataTables_filter, .dataTables_info, .dataTables_length, .dataTables_paginate {display: none;}
 
 /*
     -webkit-transform: translateX(0);

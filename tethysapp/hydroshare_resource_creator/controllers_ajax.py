@@ -32,6 +32,7 @@ def login_test(request):
 
     if request.user.is_authenticated():
         data_url = request.POST.get('dataUrl')
+        action_request = request.POST.get('actionRequest')
         hs = get_o_auth_hs(request)
         hs_version = hs.hostname
         value_count = 0
@@ -46,7 +47,7 @@ def login_test(request):
                 form_body = json.loads(form_body)
                 for chk_id in checked_ids:
                     value_count += int(form_body['timeSeriesReferenceFile']['referencedTimeSeries'][int(chk_id)]['valueCount'])
-            if value_count > 500000:
+            if value_count > 500000 and action_request == "ts":
                 return_obj['message'] = "TooManyValues"
         if "appsdev.hydroshare.org" in str(data_url) and "beta" in str(hs_version):
             return_obj['success'] = "True"
@@ -96,12 +97,12 @@ def ajax_create_resource(request):
     # ----------------------------- #
 
     try:
-        action_request = str(request.POST.get("actionRequest"))
-        form_body = str(request.POST.get("formBody"))
-        res_title = str(request.POST.get("resTitle"))
-        res_abstract = str(request.POST.get("resAbstract"))
-        res_keywords = str(request.POST.get("resKeywords")).split(",")
-        res_access = str(request.POST.get("resAccess"))
+        action_request = (request.POST.get("actionRequest")).encode('utf-8')
+        form_body = (request.POST.get("formBody")).encode('utf-8')
+        res_title = (request.POST.get("resTitle")).encode('utf-8')
+        res_abstract = (request.POST.get("resAbstract")).encode('utf-8')
+        res_keywords = (request.POST.get("resKeywords")).encode('utf-8').split(",")
+        res_access = (request.POST.get("resAccess")).encode('utf-8')
         res_filename = res_title.replace(" ", "")[:10]
         selected_resources = map(int, (request.POST.get("checkedIds")).split(','))
         res_data = {"request": request,
@@ -118,7 +119,7 @@ def ajax_create_resource(request):
         print traceback.format_exc()
         return_obj["success"] = False
         return_obj["message"] = "We encountered a problem while loading your resource data."
-        return_obj["results"] = str(error_message)
+        return_obj["results"] = (error_message).encode('utf-8')
 
         return JsonResponse(return_obj)
 
@@ -133,7 +134,7 @@ def ajax_create_resource(request):
     except Exception, error_message:
         return_obj["success"] = False
         return_obj["message"] = "We were unable to authenticate your HydroShare sign-in."
-        return_obj["results"] = str(error_message)
+        return_obj["results"] = (error_message).encode('utf-8')
 
         return JsonResponse(return_obj)
 
