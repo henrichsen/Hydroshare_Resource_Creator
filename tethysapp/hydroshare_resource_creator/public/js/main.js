@@ -142,7 +142,10 @@ loadResource = function (){
                 {title: "Value Count"},
                 {title: "Sample Medium"},
             ],
-            order: [[1, 'asc']]
+            order: [[1, 'asc']],
+            columnDefs: [
+                { orderable: false, targets: 0 }
+            ]
         });
 
         var uSiteList = []
@@ -410,27 +413,33 @@ ajaxCreateResource = function (data) {
                 $modalResourceDialogWelcomeInfo.append('<a href=' + hs_href + ' target="_blank">Click here to view.</a>');
                 $btnCreateTimeseriesResource.hide();
                 $btnCreateReferenceTimeseries.hide();
-                $publicResource.hide();
+                $publicResource.hide()
+                $resTitle.prop("disabled", true);
+                $resAbstract.prop("disabled", true);
+                $resKeywords.prop("disabled", true);
                 $divViewResource.append('<button id ="btn_view_resource" type="button" class="btn btn-success" name ="' + hs_href + '" onclick="viewResource(this.name)">View Resource</button>');
                 $modalResourceDialog.modal('show');
                 $modalResourceDialog.on('hidden.bs.modal', finishLoading)
             }
             else {
+
                 $loadingAnimation.hide();
                 if (response.message === "PARSE_ERROR") {
+                    $modalErrorMessage.append("<div>We encountered a problem while processing the following timeseries:</div><ul style='list-style-type:circle; margin-left: 2em; padding:0'>")
                     for (var i = 0; i < (response.results).length; i++) {
-                        $modalErrorMessage.append("<div>" + response.results[i] + "</div><br/>")
+                        $modalErrorMessage.append("<li>" + response.results[i] + "</li>")
 
-                    }
+                    };
+                    $modalErrorMessage.append("</ul><br><div>Please deselect these timeseries and try again.</div>")
                     $modalErrorDialog.modal('show');
-                    $modalErrorDialog.on('hidden.bs.modal', finishLoading)
+                    $modalErrorDialog.on('hidden.bs.modal', finishLoading);
                 } else {
                     $modalErrorMessage.text(response.message);
                     console.log(response.results);
                     $modalErrorDialog.modal('show');
-                    $modalErrorDialog.on('hidden.bs.modal', finishLoading)
-                }
-            }
+                    $modalErrorDialog.on('hidden.bs.modal', finishLoading);
+                };
+            };
 
             finishLoading()
         },
@@ -481,11 +490,9 @@ ajaxLoginTest = function (data){
                     ajaxCreateResource(data);
                 }
                 else {
-                    errorList = (errorList.toString()).split(",").join("<br />");
+                    errorList = (errorList.toString()).split(",").join("\n");
                     $loadingAnimation.hide();
-                    $modalErrorMessage.empty();
-                    $modalErrorMessage.append('<div>'+errorList+'</div>');
-                    $modalErrorDialog.modal('show');
+                    alert(errorList)
                 }
 
             }

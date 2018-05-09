@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+mc<?xml version="1.0" encoding="UTF-8"?>
 <timeSeriesResponse xmlns="http://www.cuahsi.org/waterML/1.1/" xmlns:gml="http://www.opengis.net/gml" xmlns:wtr="http://www.cuahsi.org/waterML/" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
    <queryInfo>
       <creationTime>2017-09-25T15:42:50.449207+00:00</creationTime>

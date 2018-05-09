@@ -25,7 +25,7 @@ def home(request):
     print test_file_name
 
     if True:  # LOCAL TESTING USE ONLY
-        local_path = "/Users/kennethlippold/tethysdev/HS_TimeseriesCreator/tethysapp/hydroshare_resource_creator/static_data/refts_test_files/"
+        local_path = "/Users/kennethlippold/Documents/Tethys/tethysdev/HS_TimeseriesCreator/tethysapp/hydroshare_resource_creator/static_data/refts_test_files/"
         print local_path
         local_file = local_path + test_file_name
 
