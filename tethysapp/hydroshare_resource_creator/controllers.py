@@ -21,7 +21,7 @@ def home(request):
     """
 
     # FORM DATA FOR LOCAL TESTING
-    test_file_name = 'nldas_refts.json'  # Comment out before uploading to GitHub
+    #test_file_name = 'nldas_refts.json'  # Comment out before uploading to GitHub
     print test_file_name
 
     if True:  # LOCAL TESTING USE ONLY
