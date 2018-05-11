@@ -6,6 +6,7 @@ var $modalResourceDialog = $('#modal-resource-dialog');
 var $modalResourceDialogTitle = $('#modal-resource-dialog-title');
 var $modalResourceDialogWelcomeInfo = $('#modal-resource-dialog-welcome-info');
 var $modalErrorDialog = $('#modal-error-dialog');
+var $modalRedirectDialog = $('#modal-redirect-dialog');
 var $modalErrorMessage = $('#modal-error-message');
 var $modalLoginDialog = $('#modal-login-dialog');
 var $btnCreateReferenceTimeseries = $('#btn-create-reference-timeseries');
@@ -64,9 +65,8 @@ loadResource = function (){
     console.log(formData)
 
     if (formData === '"No data"'){
-        $modalErrorMessage.text("No data in file.");
-        console.log("No data in file.")
-        $modalErrorDialog.modal('show');
+
+        $modalRedirectDialog.modal('show');
         $modalErrorDialog.on('hidden.bs.modal', $loadingAnimation.hide())
 
     } 
