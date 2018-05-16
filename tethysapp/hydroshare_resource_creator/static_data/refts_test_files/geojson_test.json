@@ -46,6 +46,7 @@
 }
 
 
+
 {  
    "type":"FeatureCollection",
    "title":"Time series layer resource created on Tue Sep 05 2017 10:44:27 GMT-0600 (MDT)",
@@ -86,7 +87,7 @@
    "crs":{
       "type": "name",
       "properties": {
-         "name": "EPSG:4326"
+         "name": "EPSG:3857"
       }
    }
 }
