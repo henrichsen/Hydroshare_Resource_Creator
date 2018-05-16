@@ -1,0 +1,92 @@
+{"timeSeriesReferenceFile":{
+      "fileVersion":"1.0.0",
+      "title":"Time series layer resource created on Tue Sep 05 2017 10:44:27 GMT-0600 (MDT)",
+      "symbol":"http://qa-hiswebclient.azurewebsites.net/content/images/Cuahsi-HydroClient-v3.gif",
+      "referencedTimeSeries":[
+         {
+            "endDate":"2006-12-19T13:55:00+00:00",
+            "sampleMedium":"Surface Water",
+            "requestInfo":{
+               "refType":"WOF",
+               "returnType":"WaterML 1.1",
+               "serviceType":"SOAP",
+               "networkName":"czo_boulder",
+               "url":"http://hydroportal.cuahsi.org/czo_boulder/cuahsi_1_1.asmx?WSDL"
+            },
+            "beginDate":"1982-03-11T00:00:00+00:00",
+            "site":{
+               "siteName":"GREEN LAKE 4",
+               "latitude":40.05479,
+               "longitude":-105.61655,
+               "siteCode":"czo_boulder:GREEN_LAKE_4"
+            },
+            "valueCount":593,
+            "variable":{
+               "variableCode":"czo_boulder:acid_neutralizing_capacity",
+               "variableName":"acid neutralizing capacity"
+            },
+            "method":{
+               "methodLink":"unknown",
+               "methodDescription":"No method specified"
+            },
+            "wofParams": {
+               "WofUri": "cuahsi-wdc-2017-09-26-65003742",
+               "QCLID": "0",
+               "MethodId": "0",
+               "SourceId": "0"
+            }
+         }
+      ],
+      "keyWords":[
+         "Time Series",
+         "CUAHSI"
+      ],
+      "abstract":" data collected from 2017-09-05 to 1600-01-01 created on Tue Sep 05 2017 10:44:27 GMT-0600 (MDT) from the following site(s): . Data created by CUAHSI HydroClient: http://data.cuahsi.org/#."
+   }
+}
+
+
+{  
+   "type":"FeatureCollection",
+   "title":"Time series layer resource created on Tue Sep 05 2017 10:44:27 GMT-0600 (MDT)",
+   "abstract":" data collected from 2017-09-05 to 1600-01-01 created on Tue Sep 05 2017 10:44:27 GMT-0600 (MDT) from the following site(s): . Data created by CUAHSI HydroClient: http://data.cuahsi.org/#.",
+   "keywords":[
+      "Time Series",
+      "CUAHSI"
+   ],
+   "features":[  
+      {  
+         "type":"Feature",
+         "geometry":{  
+            "type":"Point",
+            "coordinates":[  
+               4873907.41,
+               -11757180.57
+            ]
+         },
+         "properties":{  
+            "siteName":"GREEN LAKE 4",
+            "siteCode":"czo_boulder:GREEN_LAKE_4",
+            "variableName":"acid neutralizing capacity",
+            "variableCode":"czo_boulder:acid_neutralizing_capacity",
+            "sampleMedium":"Surface Water",
+            "beginDate":"1982-03-11T00:00:00+00:00",
+            "endDate":"2006-12-19T13:55:00+00:00",
+            "valueCount":593,
+            "refType":"WOF",
+            "returnType":"WaterML 1.1",
+            "serviceType":"SOAP",
+            "networkName":"czo_boulder",
+            "url":"http://hydroportal.cuahsi.org/czo_boulder/cuahsi_1_1.asmx?WSDL",
+            "methodLink":"unknown",
+            "methodDescription":"No method specified"
+         }
+      }
+   ],
+   "crs":{
+      "type": "name",
+      "properties": {
+         "name": "EPSG:4326"
+      }
+   }
+}
