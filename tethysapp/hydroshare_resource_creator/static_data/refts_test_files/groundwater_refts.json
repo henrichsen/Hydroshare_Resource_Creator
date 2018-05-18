@@ -1,0 +1,41 @@
+{
+    "timeSeriesReferenceFile": {
+        "abstract": "Water depth data collected from 1962-01-31T19:00:00+00:00 to 2017-07-06T09:00:00+00:00 created on Thu May 17 2018 15:41:37 GMT-0600 (MDT) from the following sites: 41S/13W-09DCB, 32S/15W-31CAD, and 02S/09W-5BCB. Data created by CUAHSI HydroClient: http://data.cuahsi.org/#.",
+        "fileVersion": "1.0.0",
+        "keyWords": [
+            "Water Depth",
+            "NGWMN-Background"
+        ],
+        "referencedTimeSeries": [
+            {
+                "beginDate": "1962-01-31T19:00:00+00:00",
+                "endDate": "2017-05-03T06:27:00+00:00",
+                "method": {
+                    "methodDescription": "Unknown",
+                    "methodLink": "unknown"
+                },
+                "requestInfo": {
+                    "networkName": "NGWMN-Background",
+                    "refType": "WOF",
+                    "returnType": "WaterML 1.1",
+                    "serviceType": "SOAP",
+                    "url": "http://dev-hydroportal.cuahsi.org/NGWMN-Background/cuahsi_1_1.asmx?WSDL"
+                },
+                "sampleMedium": "groundwater",
+                "site": {
+                    "latitude": 45.430259704589844,
+                    "longitude": -123.82392883300781,
+                    "siteCode": "NGWMN-Background:VW_GWDP_GEOSERVER.OWRD.TILL0000654",
+                    "siteName": "02S/09W-5BCB"
+                },
+                "valueCount": 183,
+                "variable": {
+                    "variableCode": "NGWMN-Background:Groundwater_level",
+                    "variableName": "Water Depth"
+                }
+            }
+        ],
+        "symbol": "http://qa-hiswebclient.azurewebsites.net/content/images/Cuahsi-HydroClient-v3.gif",
+        "title": "Time series layer resource created on Thu May 17 2018 15:41:37 GMT-0600 (MDT)"
+    }
+}

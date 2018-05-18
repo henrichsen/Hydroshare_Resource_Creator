@@ -95,10 +95,10 @@ def ajax_create_resource(request):
 
     try:
         action_request = str(request.POST.get("actionRequest"))
-        form_body = str(request.POST.get("formBody"))
-        res_title = str(request.POST.get("resTitle"))
-        res_abstract = str(request.POST.get("resAbstract"))
-        res_keywords = str(request.POST.get("resKeywords")).split(",")
+        form_body = request.POST.get("formBody").encode('utf-8')
+        res_title = request.POST.get("resTitle").encode('utf-8')
+        res_abstract = request.POST.get("resAbstract").encode('utf-8')
+        res_keywords = request.POST.get("resKeywords").encode('utf-8').split(",")
         res_access = str(request.POST.get("resAccess"))
         res_filename = res_title.replace(" ", "")[:10]
         selected_resources = map(int, (request.POST.get("checkedIds")).split(','))
@@ -150,6 +150,7 @@ def ajax_create_resource(request):
         res_filepath = processed_data["res_filepath"]
         res_filename = res_filename + processed_data["file_extension"]
         res_status = processed_data["parse_status"]
+        series_count = processed_data["series_count"]
 
         return_status = []
         if action_request == "ts":
@@ -163,6 +164,14 @@ def ajax_create_resource(request):
                 return_obj["results"] = return_status
 
                 return JsonResponse(return_obj)
+
+            if series_count < 1:
+                return_obj['success'] = False
+                return_obj['message'] = "We were unable to create your resource."
+                return_obj['results'] = ""
+
+                return JsonResponse(return_obj)
+
 
         print "Attempting to create HydroShare Resource"
         resource_id = hs_api.createResource(res_type, res_title, abstract=res_abstract, keywords=res_keywords)
@@ -179,9 +188,7 @@ def ajax_create_resource(request):
             hs_api.deleteResource(resource_id)
             raise Exception
 
-    except Exception, error_message:
-        print traceback.format_exc()
-        print error_message
+    except:
         return_obj['success'] = False
         return_obj['message'] = "We were unable to create your resource."
         return_obj['results'] = "Server Error: " + str(traceback.format_exc)

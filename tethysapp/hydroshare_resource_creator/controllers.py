@@ -21,7 +21,7 @@ def home(request):
     """
 
     # FORM DATA FOR LOCAL TESTING
-    #test_file_name = 'boulder_refts.json'  # Comment out before uploading to GitHub
+    #test_file_name = 'groundwater_refts.json'  # Comment out before uploading to GitHub
 
     try:  # LOCAL TESTING USE ONLY
         local_path = "/Users/kennethlippold/Documents/Tethys/tethysdev/HS_TimeseriesCreator/tethysapp/hydroshare_resource_creator/static_data/refts_test_files/"
