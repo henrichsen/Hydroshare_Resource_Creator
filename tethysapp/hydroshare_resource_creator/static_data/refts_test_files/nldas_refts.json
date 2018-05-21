@@ -13,7 +13,7 @@
                "variableCode":"NLDAS:NLDAS_NOAH0125_H.002:SOILM0-100cm",
                "variableName":"0-100 cm layer 1 Soil moisture content"
             },
-            "valueCount":340390,
+            "valueCount":740390,
             "endDate":"2017-10-31T01:05:29+00:00",
             "sampleMedium":"Soil",
             "requestInfo":{  

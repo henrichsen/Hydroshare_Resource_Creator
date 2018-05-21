@@ -490,9 +490,9 @@ ajaxLoginTest = function (data){
                     ajaxCreateResource(data);
                 }
                 else {
+                    $loadingAnimation.hide(); 
                     errorList = (errorList.toString()).split(",").join("\n");
-                    $loadingAnimation.hide();
-                    alert(errorList)
+                    setTimeout(function() { alert(errorList); }, 10);
                 }
 
             }
