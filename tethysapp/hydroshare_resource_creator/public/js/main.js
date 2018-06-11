@@ -471,7 +471,7 @@ ajaxLoginTest = function (data){
             if (response['success'] === "True"){
                 var errorList = [];
                 if (response['message'] === "TooManyValues"){
-                    errorList.push('Your selected resources contain more than five hundred thousand total values. Please select fewer resources to continue.')
+                    errorList.push('Your selected resources contain more than one hundred thousand total values. Please select fewer resources to continue.')
                 }
                 if (data['checkedIds'].length === 0){
                     errorList.push('Please select at least one resource to create.')

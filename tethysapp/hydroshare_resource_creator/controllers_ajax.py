@@ -44,7 +44,7 @@ def login_test(request):
                 form_body = json.loads(form_body)
                 for chk_id in checked_ids:
                     value_count += int(form_body['timeSeriesReferenceFile']['referencedTimeSeries'][int(chk_id)]['valueCount'])
-            if value_count > 500000 and request.POST.get('actionRequest') == 'ts':
+            if value_count > 100000 and request.POST.get('actionRequest') == 'ts':
                 return_obj['message'] = "TooManyValues"
         if "appsdev.hydroshare.org" in str(data_url) and "beta" in str(hs_version):
             return_obj['success'] = "True"
