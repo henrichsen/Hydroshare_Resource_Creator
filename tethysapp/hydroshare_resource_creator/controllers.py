@@ -21,7 +21,7 @@ def home(request):
     """
 
     # FORM DATA FOR LOCAL TESTING
-    #test_file_name = 'large_refts.json'  # Comment out before uploading to GitHub
+    #test_file_name = 'anselmo_refts.json'  # Comment out before uploading to GitHub
 
     try:  # LOCAL TESTING USE ONLY
         local_path = "/Users/kennethlippold/Documents/Tethys/tethysdev/HS_TimeseriesCreator/tethysapp/hydroshare_resource_creator/static_data/refts_test_files/"
@@ -31,7 +31,6 @@ def home(request):
         with open(local_file, "r") as test_file:
             print test_file
             form_body = json.load(test_file)
-            print "TWO"
 
     except:  # PRODUCTION USE ONLY
         try:
