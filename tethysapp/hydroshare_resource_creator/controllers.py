@@ -21,10 +21,10 @@ def home(request):
     """
 
     # FORM DATA FOR LOCAL TESTING
-    #test_file_name = 'anselmo_refts.json'  # Comment out before uploading to GitHub
+    #test_file_name = 'stroud_refts.json'  # Comment out before uploading to GitHub
 
     try:  # LOCAL TESTING USE ONLY
-        local_path = "/Users/kennethlippold/Documents/Tethys/tethysdev/HS_TimeseriesCreator/tethysapp/hydroshare_resource_creator/static_data/refts_test_files/"
+        local_path = "/Users/klippold/Documents/Tethys/tethysdev/HS_TimeseriesCreator/tethysapp/hydroshare_resource_creator/static_data/refts_test_files/"
         print local_path
         local_file = local_path + test_file_name
 

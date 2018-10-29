@@ -191,31 +191,6 @@ def process_form_data(form_data):
         return "Data Processing Error"
 
 
-def get_data(root_data, keylist, defaultvalue="None"):
-    for i in enumerate(keylist):
-        data = root_data
-        for _, key in enumerate(keylist[i[0]]):
-            if isinstance(data, list):
-                try:
-                    data = data[key]
-                except:
-                    break
-            elif isinstance(data, collections.OrderedDict):
-                data = data.get(key, defaultvalue)
-            else:
-                break
-            if data == defaultvalue:
-                break
-        if data != defaultvalue and not isinstance(data, (collections.OrderedDict, list)):
-            return data
-        elif defaultvalue == "IS_LIST" and isinstance(data, (collections.OrderedDict, list)):
-            return data
-    if data == "RAISE_EXCEPTION":
-        raise Exception
-    else:
-        return defaultvalue
-
-
 def search_wml(unique_code, ns, tag_names, default_value):
     for tag_name in tag_names:
         if unique_code != "UNKNOWN" and list(unique_code.iter(ns + tag_name)):
@@ -223,10 +198,12 @@ def search_wml(unique_code, ns, tag_names, default_value):
         else:
             tag_value = default_value
         if tag_value != default_value and tag_value is not None:
-            return tag_value
+            return tag_value   
     if tag_value is None:
         tag_value = "UNKNOWN"
-    return tag_value 
+        if default_value is None:
+            tag_value = None
+    return tag_value
 
 
 def create_ts_resource(res_data):
@@ -382,7 +359,7 @@ def create_ts_resource(res_data):
             #print("Valid WML: " + str(xmlschema.validate(etree.fromstring(values_result))))
             #error_log = str((xmlschema.error_log)).split("<string>")
             #for x in list(filter(lambda k: 'timeOffset' not in k, error_log))[1:]:
-            #    print(x)        
+            #    print(x)
             wml_ts = etree.fromstring(values_result)
             #if n + 1 == 11:
             #    print(values_result)
@@ -414,7 +391,7 @@ def create_ts_resource(res_data):
                 row = conn.fetchone()
                 if row is None:
                     ds_dataset_uuid = str(uuid.uuid4())
-                    ds_dataset_type_cv = ("singleTimeSeries" if len(ts_list) == 1 else "multiTimeSeries") if ds_dataset_code != "UNKNOWN" else "UNKNOWN"
+                    ds_dataset_type_cv = ("singleTimeSeries" if len(ts_list) == 1 else "multiTimeSeries") if ds_dataset_code != "UNKNOWN" else "other"
                     ds_dataset_code = ds_dataset_code if ds_dataset_code != "UNKNOWN" else "UNKNOWN"
                     ds_dataset_title = res_title if ds_dataset_code != "UNKNOWN" else "UNKNOWN"
                     ds_dataset_abstract = res_abstract if ds_dataset_code != "UNKNOWN" else "UNKNOWN"
@@ -448,17 +425,17 @@ def create_ts_resource(res_data):
                 if row is None:
                     sf_exists = False
                     sf_samplingfeature_uuid = str(uuid.uuid4()) if sf_site_code != "UNKNOWN" else "UNKNOWN"
-                    sf_samplingfeature_type_cv = "Site" if sf_site_code != "UNKNOWN" else "UNKNOWN"
+                    sf_samplingfeature_type_cv = "site" if sf_site_code != "UNKNOWN" else "unknown"
                     sf_samplingfeature_code = sf_site_code if sf_site_code != "UNKNOWN" else "UNKNOWN"
                     sf_samplingfeature_name = search_wml(sf_source_info[0], ns, ["siteName"], "UNKNOWN") if sf_site_code != "UNKNOWN" else "UNKNOWN"
                     sf_samplingfeature_description = "UNKNOWN"
-                    sf_samplingfeature_geotype_cv = "Point" if sf_site_code != "UNKNOWN" else "UNKNOWN"
+                    sf_samplingfeature_geotype_cv = "point" if sf_site_code != "UNKNOWN" else "notApplicable"
                     sf_feature_geometry = "UNKNOWN"
                     sf_latitude = search_wml(sf_source_info[0], ns, ["latitude"], "UNKNOWN")
                     sf_longitude = search_wml(sf_source_info[0], ns, ["longitude"], "UNKNOWN")
                     sf_feature_geometry_wkt = "POINT (" + str(sf_longitude) + " " + str(sf_latitude) + ")" if sf_site_code != "UNKNOWN" else "UNKNOWN"
-                    sf_elevation_m = search_wml(sf_source_info[0], ns, ["elevation_m"], "UNKNOWN") if sf_site_code != "UNKNOWN" else "UNKNOWN"
-                    sf_elevation_datum_cv = search_wml(sf_source_info[0], ns, ["verticalDatum"], "UNKNOWN") if sf_site_code != "UNKNOWN" else "UNKNOWN"
+                    sf_elevation_m = search_wml(sf_source_info[0], ns, ["elevation_m"], None) if sf_site_code != "UNKNOWN" else None
+                    sf_elevation_datum_cv = search_wml(sf_source_info[0], ns, ["verticalDatum"], "Unknown") if sf_site_code != "UNKNOWN" else "Unknown"
                     sampling_feature = [sf_samplingfeature_uuid, sf_samplingfeature_type_cv, sf_samplingfeature_code, sf_samplingfeature_name,
                                         sf_samplingfeature_description, sf_samplingfeature_geotype_cv, sf_feature_geometry,
                                         sf_feature_geometry_wkt, sf_elevation_m, sf_elevation_datum_cv]
@@ -504,17 +481,17 @@ def create_ts_resource(res_data):
         #   Extracts Data for Sites Table   #
         # --------------------------------- #
         for c in range(2):
-            try:
+            if True is True:
                 if sf_exists is False:
                     st_sampling_feature_id = sf_sampling_feature_id
-                    st_site_type_cv = search_wml(sf_source_info[0], ns, ["siteProperty"], "UNKNOWN") if (sf_site_code != "UNKNOWN" or c != 1) else "UNKNOWN"
+                    st_site_type_cv = search_wml(sf_source_info[0], ns, ["siteProperty"], "unknown") if (sf_site_code != "UNKNOWN" or c != 1) else "unknown"
                     st_latitude = search_wml(sf_source_info[0], ns, ["latitude"], "UNKNOWN") if (sf_site_code != "UNKNOWN" or c != 1) else "UNKNOWN"
                     st_longitude = search_wml(sf_source_info[0], ns, ["longitude"], "UNKNOWN") if (sf_site_code != "UNKNOWN" or c != 1) else "UNKNOWN"
                     st_spatial_reference_id = sr_spatial_reference_id
                     site = [st_sampling_feature_id, st_site_type_cv, st_latitude, st_longitude, st_spatial_reference_id]
                     conn.execute(odm_tables["Sites"], site)
                 break
-            except:
+            else:
                 if c == 1:
                     error_code = True
         if error_code is True:
@@ -536,12 +513,12 @@ def create_ts_resource(res_data):
                 conn.execute('SELECT * FROM Variables WHERE VariableCode = ?', (vr_variable_code, ))
                 row = conn.fetchone()
                 if row is None:
-                    vr_variable_type_cv = search_wml(vr_variable[0], ns, ["generalCategory", "GeneralCategory"], "UNKNOWN") if vr_variable_code != "UNKNOWN" else "UNKNOWN"
+                    vr_variable_type_cv = search_wml(vr_variable[0], ns, ["generalCategory", "GeneralCategory"], "Unknown") if vr_variable_code != "UNKNOWN" else "Unknown"
                     vr_variable_code = vr_variable_code if vr_variable_code != "UNKNOWN" else "UNKNOWN"
-                    vr_variable_name_cv = search_wml(vr_variable[0], ns, ["variableName", "VariableName"], "UNKNOWN") if vr_variable_code != "UNKNOWN" else "UNKNOWN"
+                    vr_variable_name_cv = search_wml(vr_variable[0], ns, ["variableName", "VariableName"], "Unknown") if vr_variable_code != "UNKNOWN" else "Unknown"
                     vr_variable_definition = search_wml(vr_variable[0], ns, ["variableDescription", "VariableDescription"], "UNKNOWN") if vr_variable_code != "UNKNOWN" else "UNKNOWN"
-                    vr_speciation_cv = search_wml(vr_variable[0], ns, ["speciation", "Speciation"], "UNKNOWN") if vr_variable_code != "UNKNOWN" else "UNKNOWN"
-                    vr_no_data_value = search_wml(vr_variable[0], ns, ["noDataValue", "NoDataValue"], -9999) if vr_variable_code != "UNKNOWN" else -9999
+                    vr_speciation_cv = search_wml(vr_variable[0], ns, ["speciation", "Speciation"], "unknown") if vr_variable_code != "UNKNOWN" else "unknown"
+                    vr_no_data_value = search_wml(vr_variable[0], ns, ["noDataValue", "NoDataValue"], None) if vr_variable_code != "UNKNOWN" else None
                     variable = [vr_variable_type_cv, vr_variable_code, vr_variable_name_cv, vr_variable_definition, vr_speciation_cv, vr_no_data_value]
                     conn.execute(odm_tables["Variables"], variable)
                     vr_variable_id = conn.lastrowid
@@ -572,7 +549,7 @@ def create_ts_resource(res_data):
                 row = conn.fetchone()
                 if row is None:
                     ut_units_id = ut_unit_code
-                    ut_units_type_cv = search_wml(ut_unit[0], ns, ["unitType", "unitsType", "UnitType", "UnitsType"], "UNKNOWN") if ut_unit_code != 9999 else "UNKNOWN"
+                    ut_units_type_cv = search_wml(ut_unit[0], ns, ["unitType", "unitsType", "UnitType", "UnitsType"], "other") if ut_unit_code != 9999 else "other"
                     ut_units_abbreviation = search_wml(ut_unit, ns, ["unitAbbreviation", "unitsAbbreviation", "UnitAbbreviation", "UnitsAbbreviation"], "UNKNOWN") if ut_unit_code != 9999 else "UNKNOWN"
                     ut_units_name = search_wml(ut_unit[0], ns, ["unitName", "unitsName", "UnitName", "UnitsName"], "UNKNOWN") if ut_unit_code != 9999 else "UNKNOWN"
                     ut_units_link = search_wml(ut_unit[0], ns, ["unitLink", "unitsLink", "UnitLink", "UnitsLink"], "UNKNOWN") if ut_unit_code != 9999 else "UNKNOWN"
@@ -605,7 +582,7 @@ def create_ts_resource(res_data):
                 row = conn.fetchone()
                 if row is None:
                     tu_units_id = tu_unit_code
-                    tu_units_type_cv = search_wml(tu_timeScale[0], ns, ["unitType", "unitsType", "UnitType", "UnitsType"], "UNKNOWN") if tu_unit_code != 9999 else "UNKNOWN"
+                    tu_units_type_cv = search_wml(tu_timeScale[0], ns, ["unitType", "unitsType", "UnitType", "UnitsType"], "other") if tu_unit_code != 9999 else "other"
                     tu_units_abbreviation = search_wml(tu_timeScale[0], ns, ["unitAbbreviation", "unitsAbbreviation", "UnitAbbreviation", "UnitsAbbreviation"], "UNKNOWN") if tu_unit_code != 9999 else "UNKNOWN"
                     tu_units_name = search_wml(tu_timeScale[0], ns, ["unitName", "unitsName", "UnitName", "UnitsName"], "UNKNOWN") if tu_unit_code != 9999 else "UNKNOWN"
                     tu_units_link = search_wml(tu_timeScale[0], ns, ["unitLink", "unitsLink", "UnitLink", "UnitsLink"], "UNKNOWN") if tu_unit_code != 9999 else "UNKNOWN"
@@ -640,7 +617,7 @@ def create_ts_resource(res_data):
                     conn.execute('SELECT * FROM Methods WHERE MethodCode = ?', (md_method_code, ))
                     row = conn.fetchone()
                     if row is None:
-                        md_method_type_cv = "Observation" if md_method_code != "UNKNOWN" else "UNKNOWN"
+                        md_method_type_cv = "Observation" if md_method_code != "unknown" else "unknown"
                         md_method_code = md_method_code if md_method_code != "UNKNOWN" else "UNKNOWN"
                         md_method_name = md_method_code if md_method_code != "UNKNOWN" else "UNKNOWN"
                         md_method_description = search_wml(md_method, ns, ["methodDescription", "MethodDescription"], "UNKNOWN") if md_method_code != "UNKNOWN" else "UNKNOWN"
@@ -748,7 +725,7 @@ def create_ts_resource(res_data):
                     conn.execute('SELECT * FROM Organizations WHERE OrganizationCode = ?', (og_organization_code, ))
                     row = conn.fetchone()
                     if row is None:
-                        og_organization_type_cv = "UNKNOWN"
+                        og_organization_type_cv = "unknown"
                         og_organization_code = og_organization_code
                         og_organization_name = search_wml(og_source, ns, ["organization"], "UNKNOWN") if og_source != "UNKNOWN" else "UNKNOWN"
                         og_organization_description = search_wml(og_source, ns, ["sourceDescription"], "UNKNOWN") if og_source != "UNKNOWN" else "UNKNOWN"
@@ -820,7 +797,7 @@ def create_ts_resource(res_data):
                 for rv_value in rv_values_list:
                     if rv_value.get("methodCode") == md_code_list[md_id_list.index(md_id)] or rv_value.get("methodCode") is None:
                         result_values.append(rv_value)
-                ac_action_type_cv = "Observation"
+                ac_action_type_cv = "observation"
                 ac_method_id = md_id
                 ac_begin_datetime = result_values[0].get("dateTime") if result_values[0].get("dateTime") and result_values else "UNKNOWN"
                 ac_begin_datetime_offset = result_values[0].get("timeOffset") if result_values[0].get("timeOffset") and result_values else "UNKNOWN"
@@ -887,13 +864,13 @@ def create_ts_resource(res_data):
                         result_values.append(rv_value)
                 rt_result_uuid = str(uuid.uuid4())
                 rt_feature_action_id = fa_id
-                rt_result_type_cv = "Time series coverage"
+                rt_result_type_cv = "timeSeriesCoverage"
                 rt_variable_id = vr_variable_id
                 rt_units_id = ut_units_id
                 rt_processing_level_id = pl_id_list[0] if pl_id_list else "UNKNOWN"
                 rt_result_datetime = result_values[0].get("dateTime") if result_values[0].get("dateTime") else "UNKNOWN"
                 rt_result_datetime_utc_offset = result_values[0].get("timeOffset") if result_values[0].get("dateTime") else "UNKNOWN"
-                rt_status_cv = "UNKNOWN"
+                rt_status_cv = "unknown"
                 rt_sampled_medium_cv = search_wml(vr_variable[0], ns, ["sampleMedium"], "UNKNOWN") if vr_variable_code != "UNKNOWN" else "UNKNOWN"
                 rt_value_count = len(rv_values_list)
                 result = [rt_result_uuid, rt_feature_action_id, rt_result_type_cv, rt_variable_id, rt_units_id, rt_processing_level_id, rt_result_datetime,
@@ -915,7 +892,7 @@ def create_ts_resource(res_data):
                 tr_result_id = rt_id
                 tr_intended_time_spacing = 30
                 tr_time_units_id = tu_units_id
-                tr_aggregation_statistic_cv = "UNKNOWN"
+                tr_aggregation_statistic_cv = "Unknown"
                 timeseries_result = [tr_result_id, tr_intended_time_spacing, tr_time_units_id, tr_aggregation_statistic_cv]
                 conn.execute(odm_tables["TimeSeriesResults"], timeseries_result)
         except:
@@ -937,8 +914,8 @@ def create_ts_resource(res_data):
                 rv_data_value = rv_value.text
                 rv_value_date_time = rv_value.get("dateTime")
                 rv_value_date_time_utc_offset = rv_value.get("timeOffset", "UNKNOWN")
-                rv_censor_code_cv = rv_value.get("censorCode", "UNKNOWN")
-                rv_quality_code_cv = rv_value.get("qualityControlLevelCode", "UNKNOWN")
+                rv_censor_code_cv = rv_value.get("censorCode", "unknown")
+                rv_quality_code_cv = rv_value.get("qualityControlLevelCode", "unknown")
                 rv_time_aggregation_interval = "UNKNOWN"
                 rv_time_aggregation_interval_units_id = "UNKNOWN"
                 result_values.append((rv_result_id, rv_data_value, rv_value_date_time, rv_value_date_time_utc_offset, rv_censor_code_cv, 
@@ -946,7 +923,7 @@ def create_ts_resource(res_data):
             conn.executemany(odm_tables["TimeSeriesResultValues"], result_values)   
                              
         except:
-            print("][TIMESERIESRESULTS FAILED]")
+            print("][TIMESERIESRESULTVALUES FAILED]")
             sql_connect.rollback()
             continue
         print("*", end="")
