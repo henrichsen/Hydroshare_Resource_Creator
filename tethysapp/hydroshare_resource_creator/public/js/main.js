@@ -187,7 +187,7 @@ loadResource = function (){
         orderedDates = dateList.sort(function(a,b){
             return Date.parse(a) > Date.parse(b);
         })                                                     
-        title = "Time series layer resource created on " + dateNow;
+        title = "Time series dataset created on " + dateNow + " by the CUAHSI HydroClient";
         abstract = sVarList + " data collected from " + orderedDates[0] +
             " to " + orderedDates.slice(-1)[0] + " created on " + dateNow +
             " from the following site" + siteMultiplicty + ": " + sSiteList + ". Data created by CUAHSI HydroClient: " +

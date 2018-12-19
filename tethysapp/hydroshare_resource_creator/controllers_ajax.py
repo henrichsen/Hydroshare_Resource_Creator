@@ -50,7 +50,7 @@ def login_test(request):
             return_obj['success'] = "True"
         elif "apps.hydroshare.org" in str(data_url) and "www" in str(hs_version):
             return_obj['success'] = "True"
-        elif "127.0.0.1:8000" in str(data_url) and "beta" in str(hs_version):
+        elif "127.0.0.1:8000" in str(data_url) and "www" in str(hs_version):
             return_obj['success'] = "True"
         else:
             return_obj['success'] = "False"
@@ -175,11 +175,12 @@ def ajax_create_resource(request):
 
         print "Attempting to create HydroShare Resource"
         resource_id = hs_api.createResource(res_type, res_title, abstract=res_abstract, keywords=res_keywords)
-
+        print "Adding file to resource"
         try:
             with open(res_filepath, "rb") as res_file:
                 hs_api.addResourceFile(resource_id, resource_file=res_file, resource_filename=res_filename)
             res_file.close()
+            print "Checking resource file"
             hs_api.getResourceFile(resource_id, res_filename)
             if hs_api.getSystemMetadata(resource_id)["resource_title"] == "Untitled resource":
                 hs_api.deleteResource(resource_id)
