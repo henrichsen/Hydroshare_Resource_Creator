@@ -17,14 +17,14 @@ from xml.sax._exceptions import SAXParseException
 from django.conf import settings
 from .app import HydroshareResourceCreator
 import json
-import logging
+from logging import getLogger
 import zipfile, io
 import traceback
 import sys
 import pandas
 from lxml import etree
 
-logger = logging.getLogger(__name__)
+logger = getLogger('django')
 use_hs_client_helper = True
 try:
     from tethys_services.backends.hs_restclient_helper import get_oauth_hs

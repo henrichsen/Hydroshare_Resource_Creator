@@ -7,8 +7,10 @@ import json
 import shutil
 import os
 import time
+from logging import getLogger
 from .utilities import get_user_workspace, create_ts_resource, create_refts_resource, get_o_auth_hs
 
+logger = getLogger('django')
 
 @csrf_exempt
 def login_test(request):
@@ -30,6 +32,7 @@ def login_test(request):
 
     if request.user.is_authenticated():
         data_url = request.POST.get('dataUrl')
+        action_request = request.POST.get('actionRequest')
         hs = get_o_auth_hs(request)
         hs_version = hs.hostname
         value_count = 0
@@ -116,7 +119,7 @@ def ajax_create_resource(request):
         print traceback.format_exc()
         return_obj["success"] = False
         return_obj["message"] = "We encountered a problem while loading your resource data."
-        return_obj["results"] = str(error_message)
+        return_obj["results"] = (error_message).encode('utf-8')
 
         return JsonResponse(return_obj)
 
@@ -131,7 +134,7 @@ def ajax_create_resource(request):
     except Exception, error_message:
         return_obj["success"] = False
         return_obj["message"] = "We were unable to authenticate your HydroShare sign-in."
-        return_obj["results"] = str(error_message)
+        return_obj["results"] = (error_message).encode('utf-8')
 
         return JsonResponse(return_obj)
 
@@ -156,7 +159,7 @@ def ajax_create_resource(request):
         if action_request == "ts":
             for status in res_status:
                 if status["res_status"] != "Success":
-                    return_status.append(status["res_status"] + " for " + status["res_name"])
+                    return_status.append(status["res_name"].capitalize())
             if return_status:
                 open(res_filepath, "w").close()
                 return_obj["success"] = False
@@ -186,6 +189,7 @@ def ajax_create_resource(request):
                 hs_api.deleteResource(resource_id)
                 raise Exception
         except:
+            logger.error("Unable to upload resource to HydroShare")
             hs_api.deleteResource(resource_id)
             raise Exception
 
