@@ -5,6 +5,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from tethys_apps.base import TethysWorkspace
 import json
 import uuid
+import requests
 from .utilities import get_user_workspace, process_form_data
 
 
@@ -21,21 +22,36 @@ def home(request):
     """
 
     # FORM DATA FOR LOCAL TESTING
-    # test_file_name = 'boulder_refts.json'  # Comment out before uploading to GitHub
+    #test_file_name = 'stroud_refts.json'  # Comment out before uploading to GitHub
 
     try:  # LOCAL TESTING USE ONLY
-        local_path = "/home/klippold/tethysdev/HS_TimeseriesCreator/tethysapp/hydroshare_resource_creator/static_data/refts_test_files/"
+        local_path = "/Users/klippold/Documents/Tethys/tethysdev/HS_TimeseriesCreator/tethysapp/hydroshare_resource_creator/static_data/refts_test_files/"
+        print local_path
         local_file = local_path + test_file_name
+
         with open(local_file, "r") as test_file:
+            print test_file
             form_body = json.load(test_file)
 
     except:  # PRODUCTION USE ONLY
-        try:
-            form_body = request.POST
-            if bool(form_body) is False:
+        if request.GET:
+            res_id = request.GET["res_id"]
+            rest_url = "https://beta.hydroshare.org/hsapi/resource/" + res_id + "/files/"
+            response = requests.get(rest_url)
+            for refts in json.loads(response.content)["results"]:
+                if ".refts.json" in refts["url"]:
+                    file_path = str(refts["url"]).replace("www", "beta")
+                    break
+            rest_url = file_path
+            response = requests.get(rest_url)
+            form_body = json.loads(response.content)
+        else:
+            try:
+                form_body = request.POST
+                if bool(form_body) is False:
+                    form_body = "No data"
+            except:
                 form_body = "No data"
-        except:
-            form_body = "No data"
 
     body = request.body
     if form_body == "No data":

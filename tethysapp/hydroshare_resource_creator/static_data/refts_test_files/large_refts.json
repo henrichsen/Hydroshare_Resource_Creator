@@ -1,0 +1,43 @@
+{
+    "timeSeriesReferenceFile": {
+        "abstract": "Surface runoff and precipitation data collected from 1997-12-31T00:00:00+00:00 to 2018-05-28T12:59:26+00:00 created on Mon Jun 11 2018 11:24:50 GMT-0600 (MDT) from the following sites: X236-Y427 of Global Land Data Assimilation System (GLDAS) NASA and X237-Y387 of TRMM Multi-Satellite Precipitation Analysis (TMPA-RT). Data created by CUAHSI HydroClient: http://data.cuahsi.org/#.",
+        "fileVersion": "1.0.0",
+        "keyWords": [
+            "Surface runoff",
+            "GLDAS_NOAH",
+            "precipitation",
+            "TRMM_3B42_7"
+        ],
+        "referencedTimeSeries": [
+            {
+                "beginDate": "1997-12-31T00:00:00+00:00",
+                "endDate": "2018-05-28T12:59:26+00:00",
+                "method": {
+                    "methodDescription": "TRMM Multi-Satellite Precipitation Analysis (TMPA-RT)",
+                    "methodLink": "unknown"
+                },
+                "requestInfo": {
+                    "networkName": "TRMM_3B42_7",
+                    "refType": "WOF",
+                    "returnType": "WaterML 1.0",
+                    "serviceType": "SOAP",
+                    "url": "https://hydro1.gesdisc.eosdis.nasa.gov/daac-bin/his/1.0/trmm_3b42.cgi?WSDL"
+                },
+                "sampleMedium": "Precipitation",
+                "site": {
+                    "latitude": 46.875,
+                    "longitude": -120.625,
+                    "siteCode": "TRMM_3B42_7:X237-Y387",
+                    "siteName": "X237-Y387 of TRMM Multi-Satellite Precipitation Analysis (TMPA-RT)"
+                },
+                "valueCount": 58441,
+                "variable": {
+                    "variableCode": "TRMM_3B42_7:TRMM_3B42.007:precipitation",
+                    "variableName": "precipitation"
+                }
+            }
+        ],
+        "symbol": "http://qa-hiswebclient.azurewebsites.net/content/images/Cuahsi-HydroClient-v3.gif",
+        "title": "Time series layer resource created on Mon Jun 11 2018 11:24:50 GMT-0600 (MDT)"
+    }
+}

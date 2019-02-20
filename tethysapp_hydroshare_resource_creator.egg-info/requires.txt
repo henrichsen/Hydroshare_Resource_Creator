@@ -1,2 +1,5 @@
 simplejson
 xmltodict
+suds
+pandas
+lxml

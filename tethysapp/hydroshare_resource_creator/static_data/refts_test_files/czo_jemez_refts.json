@@ -1,0 +1,41 @@
+{
+    "timeSeriesReferenceFile": {
+        "abstract": "Barometric pressure data collected from 2009-09-04T00:00:00 to 2010-09-04T23:59:59 created on Tue Sep 04 2018 12:29:32 GMT-0600 (MDT) from the following site: HOBO U30 met station at B2 desert site. Data created by CUAHSI HydroClient: http://data.cuahsi.org/#.",
+        "fileVersion": "1.0.0",
+        "keyWords": [
+            "Barometric pressure",
+            "czo_catalina"
+        ],
+        "referencedTimeSeries": [
+            {
+                "beginDate": "2009-09-04T00:00:00",
+                "endDate": "2010-09-04T23:59:59",
+                "method": {
+                    "methodDescription": "Barometric Pressure Sensor S-BPB",
+                    "methodLink": "http://www.czo.arizona.edu/methods.html"
+                },
+                "requestInfo": {
+                    "networkName": "czo_catalina",
+                    "refType": "WOF",
+                    "returnType": "WaterML 1.1",
+                    "serviceType": "SOAP",
+                    "url": "http://hydroportal.cuahsi.org/czo_catalina/cuahsi_1_1.asmx?WSDL"
+                },
+                "sampleMedium": "Air",
+                "site": {
+                    "latitude": 32.55995,
+                    "longitude": -110.839233,
+                    "siteCode": "czo_catalina:HOBO_B2",
+                    "siteName": "HOBO U30 met station at B2 desert site"
+                },
+                "valueCount": 52700,
+                "variable": {
+                    "variableCode": "czo_catalina:Barometricpressure2",
+                    "variableName": "Barometric pressure"
+                }
+            }
+        ],
+        "symbol": "http://qa-hiswebclient.azurewebsites.net/content/images/Cuahsi-HydroClient-v3.gif",
+        "title": "Time series layer resource created on Tue Sep 04 2018 12:29:32 GMT-0600 (MDT)"
+    }
+}

@@ -1,0 +1,37 @@
+{
+    "timeSeriesReferenceFile": {
+        "abstract": "Precipitation data collected from 2004-01-01T00:00:00+00:00 to 2017-07-31T00:00:00+00:00 created on Sun Sep 02 2018 07:28:47 GMT-0600 (MDT) from the following site: ANSELMO 11.8 WSW. Data created by CUAHSI HydroClient: http://data.cuahsi.org/#.",
+        "fileVersion": "1.0.0",
+        "keyWords": [
+            "Precipitation",
+            "CocoRaHs"
+        ],
+        "referencedTimeSeries": [
+            {
+                "beginDate": "2004-01-01T00:00:00+00:00",
+                "endDate": "2017-07-31T00:00:00+00:00",
+                "requestInfo": {
+                    "networkName": "CocoRaHs",
+                    "refType": "WOF",
+                    "returnType": "WaterML 1.1",
+                    "serviceType": "SOAP",
+                    "url": "http://dev-hydroportal.cuahsi.org/CoCORaHs/cuahsi_1_1.asmx"
+                },
+                "sampleMedium": "Precipitation",
+                "site": {
+                    "latitude": 41.5419,
+                    "longitude": -100.0685,
+                    "siteCode": "CocoRaHs:US10cust014",
+                    "siteName": "ANSELMO 11.8 WSW"
+                },
+                "valueCount": 4717,
+                "variable": {
+                    "variableCode": "COCORAHS:PRCP",
+                    "variableName": "Precipitation"
+                }
+            }
+        ],
+        "symbol": "http://qa-hiswebclient.azurewebsites.net/content/images/Cuahsi-HydroClient-v3.gif",
+        "title": "Export Error"
+    }
+}
