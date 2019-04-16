@@ -52,6 +52,10 @@ def login_test(request):
             return_obj['success'] = "True"
         elif "apps.hydroshare.org" in str(data_url) and "www" in str(hs_version):
             return_obj['success'] = "True"
+        elif "hs-apps.hydroshare.org" in str(data_url) and "www" in str(hs_version):
+            return_obj['success'] = "True"
+        elif "hs-apps-dev.hydroshare.org" in str(data_url) and "beta" in str(hs_version):
+            return_obj['success'] = "True"
         elif "127.0.0.1:8000" in str(data_url) and "beta" in str(hs_version):
             return_obj['success'] = "True"
         else:
