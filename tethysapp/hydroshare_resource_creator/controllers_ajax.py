@@ -25,7 +25,7 @@ def login_test(request):
     """
 
     return_obj = {
-        'success': "False9",
+        'success': "False",
         'message': None,
         'results': {}
     }
@@ -49,20 +49,19 @@ def login_test(request):
             if value_count > 300000 and request.POST.get('actionRequest') == 'ts':
                 return_obj['message'] = "TooManyValues"
         if "appsdev.hydroshare.org" in str(data_url) and "beta" in str(hs_version):
-            return_obj['success'] = "True1"
+            return_obj['success'] = "True"
         elif "apps.hydroshare.org" in str(data_url) and "www" in str(hs_version):
-            return_obj['success'] = "True2"
+            return_obj['success'] = "True"
         elif "hs-apps.hydroshare.org" in str(data_url) and "www" in str(hs_version):
-            return_obj['success'] = "True3"
+            return_obj['success'] = "True"
         elif "hs-apps-dev.hydroshare.org" in str(data_url) and "beta" in str(hs_version):
-            return_obj['success'] = "True4"
+            return_obj['success'] = "True"
         elif "127.0.0.1:8000" in str(data_url) and "beta" in str(hs_version):
-            return_obj['success'] = "True5"
+            return_obj['success'] = "True"
         else:
-            return_obj['success'] = "False1"
-        return_obj['success'] = "True6"
+            return_obj['success'] = "False"
     else:
-        return_obj['success'] = "False2"
+        return_obj['success'] = "False"
 
     return JsonResponse(return_obj)
 
