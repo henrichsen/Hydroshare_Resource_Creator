@@ -351,7 +351,7 @@ def create_ts_resource(res_data):
                     None,
                     "point",
                     None,
-                    f'POINT ("{search_wml(sf_tree, ns, ["latitude"], default_value=None)}" "{search_wml(sf_tree, ns, ["longitude"], default_value=None)}")',
+                    'POINT ("' + search_wml(sf_tree, ns, ["latitude"], default_value=None) + '" "' + search_wml(sf_tree, ns, ["longitude"], default_value=None) + '")',
                     search_wml(sf_tree, ns, ["elevation_m"], default_value=None),
                     search_wml(sf_tree, ns, ["verticalDatum"], default_value=None),
                 )
