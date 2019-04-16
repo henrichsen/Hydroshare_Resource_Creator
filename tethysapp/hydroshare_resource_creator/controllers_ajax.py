@@ -59,7 +59,7 @@ def login_test(request):
         elif "127.0.0.1:8000" in str(data_url) and "beta" in str(hs_version):
             return_obj['success'] = "True"
         else:
-            return_obj['success'] = "True"
+            return_obj['success'] = "False"
     else:
         return_obj['success'] = "False"
 
