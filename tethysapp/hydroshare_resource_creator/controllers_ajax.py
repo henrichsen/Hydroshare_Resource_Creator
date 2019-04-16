@@ -48,6 +48,7 @@ def login_test(request):
                     value_count += int(form_body['timeSeriesReferenceFile']['referencedTimeSeries'][int(chk_id)]['valueCount'])
             if value_count > 300000 and request.POST.get('actionRequest') == 'ts':
                 return_obj['message'] = "TooManyValues"
+        '''
         if "appsdev.hydroshare.org" in str(data_url) and "beta" in str(hs_version):
             return_obj['success'] = "True"
         elif "apps.hydroshare.org" in str(data_url) and "www" in str(hs_version):
@@ -60,6 +61,8 @@ def login_test(request):
             return_obj['success'] = "True"
         else:
             return_obj['success'] = "False"
+        '''
+        return_obj['success'] = "True"
     else:
         return_obj['success'] = "False"
 
