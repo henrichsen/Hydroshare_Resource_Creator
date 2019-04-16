@@ -26,11 +26,9 @@ def home(request):
 
     try:  # LOCAL TESTING USE ONLY
         local_path = "/Users/klippold/Documents/Tethys/tethysdev/HS_TimeseriesCreator/tethysapp/hydroshare_resource_creator/static_data/refts_test_files/"
-        print local_path
         local_file = local_path + test_file_name
 
         with open(local_file, "r") as test_file:
-            print test_file
             form_body = json.load(test_file)
 
     except:  # PRODUCTION USE ONLY

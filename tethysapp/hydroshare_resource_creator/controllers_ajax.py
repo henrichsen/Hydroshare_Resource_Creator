@@ -38,7 +38,6 @@ def login_test(request):
         value_count = 0
         checked_ids = request.POST.get('checkedIds').split(',')
         form_body = json.loads(request.POST.get('formBody'))
-        print checked_ids
         if checked_ids != [u'']:
             try:
                 for chk_id in checked_ids:
@@ -47,13 +46,13 @@ def login_test(request):
                 form_body = json.loads(form_body)
                 for chk_id in checked_ids:
                     value_count += int(form_body['timeSeriesReferenceFile']['referencedTimeSeries'][int(chk_id)]['valueCount'])
-            if value_count > 100000 and request.POST.get('actionRequest') == 'ts':
+            if value_count > 300000 and request.POST.get('actionRequest') == 'ts':
                 return_obj['message'] = "TooManyValues"
         if "appsdev.hydroshare.org" in str(data_url) and "beta" in str(hs_version):
             return_obj['success'] = "True"
         elif "apps.hydroshare.org" in str(data_url) and "www" in str(hs_version):
             return_obj['success'] = "True"
-        elif "127.0.0.1:8000" in str(data_url) and "www" in str(hs_version):
+        elif "127.0.0.1:8000" in str(data_url) and "beta" in str(hs_version):
             return_obj['success'] = "True"
         else:
             return_obj['success'] = "False"
@@ -98,28 +97,28 @@ def ajax_create_resource(request):
 
     try:
         action_request = str(request.POST.get("actionRequest"))
-        form_body = request.POST.get("formBody").encode('utf-8')
-        res_title = request.POST.get("resTitle").encode('utf-8')
-        res_abstract = request.POST.get("resAbstract").encode('utf-8')
-        res_keywords = request.POST.get("resKeywords").encode('utf-8').split(",")
+        data_body = request.POST.get("formBody")
+        res_title = request.POST.get("resTitle")
+        res_abstract = request.POST.get("resAbstract")
+        res_keywords = request.POST.get("resKeywords").split(",")
         res_access = str(request.POST.get("resAccess"))
         res_filename = res_title.replace(" ", "")[:10]
         selected_resources = map(int, (request.POST.get("checkedIds")).split(','))
-        res_data = {"request": request,
-                    "form_body": form_body,
-                    "res_title": res_title,
-                    "res_abstract": res_abstract,
-                    "res_keywords": res_keywords,
-                    "res_access": res_access,
-                    "res_filename": res_filename,
-                    "selected_resources": selected_resources
-                    }
+        res_data = {
+            "request": request,
+            "form_body": data_body,
+            "res_title": res_title,
+            "res_abstract": res_abstract,
+            "res_keywords": res_keywords,
+            "res_access": res_access,
+            "res_filename": res_filename,
+            "selected_resources": selected_resources
+        }
 
-    except Exception, error_message:
-        print traceback.format_exc()
+    except:
         return_obj["success"] = False
         return_obj["message"] = "We encountered a problem while loading your resource data."
-        return_obj["results"] = (error_message).encode('utf-8')
+        return_obj["results"] = None
 
         return JsonResponse(return_obj)
 
@@ -131,10 +130,10 @@ def ajax_create_resource(request):
         hs_api = get_o_auth_hs(request)
         hs_version = hs_api.hostname
 
-    except Exception, error_message:
+    except:
         return_obj["success"] = False
         return_obj["message"] = "We were unable to authenticate your HydroShare sign-in."
-        return_obj["results"] = (error_message).encode('utf-8')
+        return_obj["results"] = None
 
         return JsonResponse(return_obj)
 
@@ -142,7 +141,7 @@ def ajax_create_resource(request):
     #   CREATES HYDROSHARE RESOURCE   #
     # ------------------------------- #
 
-    try:
+    if True:
         actions = {"ts": create_ts_resource,
                    "update": None,
                    "refts": create_refts_resource}
@@ -176,15 +175,9 @@ def ajax_create_resource(request):
                 return JsonResponse(return_obj)
 
 
-        print "Attempting to create HydroShare Resource"
         resource_id = hs_api.createResource(res_type, res_title, abstract=res_abstract, keywords=res_keywords)
-        print "Adding file to resource"
         try:
-            with open(res_filepath, "rb") as res_file:
-                hs_api.addResourceFile(resource_id, resource_file=res_file, resource_filename=res_filename)
-            res_file.close()
-            print "Checking resource file"
-            hs_api.getResourceFile(resource_id, res_filename)
+            hs_api.addResourceFile(resource_id, resource_file=res_filepath)
             if hs_api.getSystemMetadata(resource_id)["resource_title"] == "Untitled resource":
                 hs_api.deleteResource(resource_id)
                 raise Exception
@@ -193,7 +186,7 @@ def ajax_create_resource(request):
             hs_api.deleteResource(resource_id)
             raise Exception
 
-    except:
+    else:
         return_obj['success'] = False
         return_obj['message'] = "We were unable to create your resource."
         return_obj['results'] = "Server Error: " + str(traceback.format_exc)

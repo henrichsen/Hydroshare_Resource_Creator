@@ -3,7 +3,6 @@
 *.xml
 *.js~
 *.html~
-*.txt
 *.txt~
 .idea/*
 .build/*

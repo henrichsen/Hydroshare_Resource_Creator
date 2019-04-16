@@ -8,11 +8,10 @@ import traceback
 import random
 import time
 import xmltodict
+import itertools
 import os
 import collections
 from hs_restclient import HydroShare, HydroShareAuthOAuth2, HydroShareNotAuthorized, HydroShareNotFound
-from suds.transport import TransportError
-from suds.client import Client
 from xml.sax._exceptions import SAXParseException
 from django.conf import settings
 from .app import HydroshareResourceCreator
@@ -28,7 +27,7 @@ logger = getLogger('django')
 use_hs_client_helper = True
 try:
     from tethys_services.backends.hs_restclient_helper import get_oauth_hs
-except Exception as ex:
+except:
     use_hs_client_helper = False
     logger.error("tethys_services.backends.hs_restclient_helper import get_oauth_hs: " + ex.message)
 
@@ -88,9 +87,7 @@ def connect_wsdl_url(wsdl_url):
     """
 
     try:
-        client = Client(wsdl_url)
-    except TransportError:
-        raise Exception('Url not found')
+        client = ""
     except ValueError:
         raise Exception('Invalid url')  # ought to be a 400, but no page implemented for that
     except SAXParseException:
@@ -99,21 +96,6 @@ def connect_wsdl_url(wsdl_url):
         raise Exception("Unexpected error")
 
     return client
-
-
-def keys_exists(element, *keys):
-    if type(element) is not dict:
-        raise AttributeError('keys_exists() expects dict as first argument.')
-    if len(keys) == 0:
-        raise AttributeError('keys_exists() expects at least two arguments, one given.')
-
-    _element = element
-    for key in keys:
-        try:
-            _element = _element[key]
-        except KeyError:
-            return False
-    return True
 
 
 def process_form_data(form_data):
@@ -194,19 +176,43 @@ def process_form_data(form_data):
         return "Data Processing Error"
 
 
-def search_wml(unique_code, ns, tag_names, default_value):
-    for tag_name in tag_names:
-        if unique_code != "UNKNOWN" and list(unique_code.iter(ns + tag_name)):
-            tag_value = list(unique_code.iter(ns + tag_name))[0].text
-        else:
-            tag_value = default_value
-        if tag_value != default_value and tag_value is not None:
-            return tag_value   
-    if tag_value is None:
-        tag_value = "UNKNOWN"
-        if default_value is None:
-            tag_value = None
-    return tag_value
+def search_wml(unique_code, ns, tag_names, default_value=None, attr=None, get_tree=False, mult=False):
+    if unique_code is None:
+        return default_value
+    if get_tree:
+        for tag_name in tag_names:
+            if list(unique_code.iter(ns + tag_name)) and mult:
+                tree = list(unique_code.iter(ns + tag_name))
+            elif list(unique_code.iter(ns + tag_name)) and not mult:
+                tree = list(unique_code.iter(ns + tag_name))[0]
+            elif not list(unique_code.iter(ns + tag_name)) and mult:
+                tree = []
+            elif not list(unique_code.iter(ns + tag_name)) and not mult:
+                tree = None
+            else:
+                tree = None
+            if tree != None and tree != []:
+                return tree
+        return tree
+    else:
+        for tag_name in tag_names:
+            if list(unique_code.iter(ns + tag_name)) and not mult and attr == None:
+                tag_value = list(unique_code.iter(ns + tag_name))[0].text
+            elif list(unique_code.iter(ns + tag_name)) and not mult and attr != None:
+                tag_value = list(unique_code.iter(ns + tag_name))[0].get(attr)
+            elif list(unique_code.iter(ns + tag_name)) and mult and attr == None:
+                tag_value = [i.text for i in list(unique_code.iter(ns + tag_name))]
+            elif list(unique_code.iter(ns + tag_name)) and mult and attr != None:
+                tag_value = [i.get(attr) for i in list(unique_code.iter(ns + tag_name))]
+            elif not list(unique_code.iter(ns + tag_name)) and not mult:
+                tag_value = None
+            elif not list(unique_code.iter(ns + tag_name)) and mult:
+                tag_value = []
+            else:
+                tag_value = None
+            if tag_value != None and tag_value != []:
+                return tag_value
+        return default_value
 
 
 def create_ts_resource(res_data):
@@ -222,7 +228,7 @@ def create_ts_resource(res_data):
     res_filepath = user_workspace + '/' + res_data['res_filename'] + '.odm2.sqlite'
     shutil.copy(odm_master, res_filepath)
     sql_connect = sqlite3.connect(res_filepath, isolation_level=None)
-    conn = sql_connect.cursor()
+    curs = sql_connect.cursor()
     series_count = 0
     parse_status = []
 
@@ -231,71 +237,6 @@ def create_ts_resource(res_data):
         ts_list = refts_data["timeSeriesReferenceFile"]["referencedTimeSeries"]
         res_title = refts_data["timeSeriesReferenceFile"]["title"]
         res_abstract = refts_data["timeSeriesReferenceFile"]["abstract"]
-    """
-    odm_master = "ODM2_master.sqlite"
-    shutil.copy(odm_master, out_path)
-    sql_connect = sqlite3.connect(out_path, isolation_level=None)
-    conn = sql_connect.cursor()
-    """
-    odm_tables = {
-        "Datasets":                     """INSERT INTO Datasets (DataSetID, DataSetUUID, DataSetTypeCV, DataSetCode,
-                                        DataSetTitle, DataSetAbstract)
-                                        VALUES (NULL, ?, ?, ?, ?, ?)""",
-        "SamplingFeatures":             """INSERT INTO SamplingFeatures (SamplingFeatureID, SamplingFeatureUUID,
-                                        SamplingFeatureTypeCV, SamplingFeatureCode, SamplingFeatureName,
-                                        SamplingFeatureDescription, SamplingFeatureGeotypeCV, FeatureGeometry,
-                                        FeatureGeometryWKT, Elevation_m, ElevationDatumCV)
-                                        VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
-        "SpatialReferences":            """INSERT INTO SpatialReferences(SpatialReferenceID, SRSCode, SRSName,
-                                        SRSDescription, SRSLink)
-                                        VALUES (NULL, ?, ?, ?, ?)""",
-        "Sites":                        """INSERT INTO Sites(SamplingFeatureID, SiteTypeCV, Latitude, Longitude,
-                                        SpatialReferenceID)
-                                        VALUES (?, ?, ?, ?, ?)""",
-        "Methods":                      """INSERT INTO Methods(MethodID, MethodTypeCV, MethodCode, MethodName,
-                                        MethodDescription, MethodLink) 
-                                        VALUES (NULL, ?, ?, ?, ?, ?)""",
-        "Variables":                    """INSERT INTO Variables (VariableID, VariableTypeCV, VariableCode,
-                                        VariableNameCV, VariableDefinition, SpeciationCV, NoDataValue)
-                                        VALUES (NULL, ?, ?, ?, ?, ?, ?)""",
-        "Units":                        """INSERT INTO Units(UnitsID, UnitsTypeCV, UnitsAbbreviation, UnitsName,
-                                        UnitsLink)
-                                        VALUES (?, ?, ?, ?, ?)""",
-        "ProcessingLevels":             """INSERT INTO ProcessingLevels(ProcessingLevelID, ProcessingLevelCode,
-                                        Definition, Explanation)
-                                        VALUES (NULL, ?, ?, ?)""",
-        "People":                       """INSERT INTO People(PersonID, PersonFirstName, PersonLastName)
-                                        VALUES (NULL, ?, ?)""",
-        "Organizations":                """INSERT INTO Organizations (OrganizationID, OrganizationTypeCV,
-                                        OrganizationCode, OrganizationName, OrganizationDescription, 
-                                        OrganizationLink) 
-                                        VALUES (NULL, ?, ?, ?, ?, ?)""",
-        "Affiliations":                 """INSERT INTO Affiliations(AffiliationID, PersonID, OrganizationID,
-                                        IsPrimaryOrganizationContact, AffiliationStartDate, PrimaryPhone, 
-                                        PrimaryEmail) 
-                                        VALUES (NULL, ?, ?, ?, ?, ?, ?)""",
-        "Actions":                      """INSERT INTO Actions(ActionID, ActionTypeCV, MethodID, BeginDateTime,
-                                        BeginDateTimeUTCOffset, EndDateTime, EndDateTimeUTCOffset, ActionDescription) 
-                                        VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)""",
-        "ActionBy":                     """INSERT INTO ActionBy(BridgeID, ActionID, AffiliationID, IsActionLead,
-                                        RoleDescription) 
-                                        VALUES (NULL, ?, ?, ?, ?)""",
-        "FeatureActions":               """INSERT INTO FeatureActions(FeatureActionID, SamplingFeatureID, ActionID)
-                                        VALUES (NULL, ?, ?)""",
-        "Results":                      """INSERT INTO Results(ResultID, ResultUUID, FeatureActionID, ResultTypeCV,
-                                        VariableID, UnitsID, ProcessingLevelID, ResultDateTime, ResultDateTimeUTCOffset, 
-                                        StatusCV, SampledMediumCV, ValueCount) 
-                                        VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
-        "TimeSeriesResults":            """INSERT INTO TimeSeriesResults(ResultID, IntendedTimeSpacing,
-                                        IntendedTimeSpacingUnitsID, AggregationStatisticCV) 
-                                        VALUES (?, ?, ?, ?)""",
-        "TimeSeriesResultValues":       """INSERT INTO TimeSeriesResultValues(ValueID, ResultID, DataValue, ValueDateTime,
-                                        ValueDateTimeUTCOffset, CensorCodeCV, QualityCodeCV, TimeAggregationInterval,
-                                        TimeAggregationIntervalUnitsID) 
-                                        VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?)""",
-        "DataSetsResults":              """INSERT INTO DataSetsResults(BridgeID, DataSetID, ResultID)
-                                        Values (NULL, ?, ?)"""
-    }
     
     for n, ts in enumerate(ts_list):
         error_code = False
@@ -313,30 +254,37 @@ def create_ts_resource(res_data):
         # -------------------------- #
 
         try:
+
             if return_type == "WaterML 1.1":
-                client = Client(url)
-                values_result = client.service.GetValues(site_code, variable_code, start_date, end_date, autho_token)
+                wml_version = "1.1"
                 ns = "{http://www.cuahsi.org/waterML/1.1/}"
             elif return_type == "WaterML 1.0":
-                headers = {'content-type': 'text/xml'}
-                body = """<?xml version="1.0" encoding="utf-8"?>
-                    <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
-                      <soap:Body>
-                        <GetValuesObject xmlns="http://www.cuahsi.org/his/""" + "1.0" + """/ws/">
-                          <location>""" + site_code + """</location>
-                          <variable>""" + variable_code + """</variable>
-                          <startDate>""" + start_date + """</startDate>
-                          <endDate>""" + end_date + """</endDate>
-                          <authToken>""" + autho_token +"""</authToken>
-                        </GetValuesObject>
-                      </soap:Body>
-                    </soap:Envelope>"""
-                body = body.encode('utf-8')
-                response = requests.post(url, data=body, headers=headers)
-                values_result = response.content
+                wml_version = "1.0"
                 ns = "{http://www.cuahsi.org/waterML/1.0/}"
+
+            response = requests.post(
+                url=url,
+                headers={
+                    "SOAPAction": "http://www.cuahsi.org/his/" + wml_version + "/ws/GetValuesObject",
+                    "Content-Type": "text/xml; charset=utf-8"
+                },
+                data = '<soap-env:Envelope xmlns:soap-env="http://schemas.xmlsoap.org/soap/envelope/">' + \
+                      '<soap-env:Body>' + \
+                        '<ns0:GetValuesObject xmlns:ns0="http://www.cuahsi.org/his/' + wml_version + '/ws/">' + \
+                          '<ns0:location>' + site_code + '</ns0:location>' + \
+                          '<ns0:variable>' + variable_code + '</ns0:variable>' + \
+                          '<ns0:startDate>' + start_date + '</ns0:startDate>' + \
+                          '<ns0:endDate>' + end_date + '</ns0:endDate>' + \
+                          '<ns0:authToken>' + autho_token + '</ns0:authToken>' + \
+                        '</ns0:GetValuesObject>' + \
+                      '</soap-env:Body>' + \
+                    '</soap-env:Envelope>'
+            )
+
+            values_result = response.content
+
         except:
-            print("[FAILED TO DOWNLOAD WML]")
+            print("FAILED TO DOWNLOAD WML")
             sql_connect.rollback()
             continue
             
@@ -346,617 +294,487 @@ def create_ts_resource(res_data):
         # --------------------------- #
         
         try:
-            """
-            schema_file = "wml_1_1_schema.xsd"
-            with open(schema_file, "rb") as schema:
-                xmlschema_doc = etree.parse(schema)
-            xmlschema = etree.XMLSchema(xmlschema_doc)
-            
-            if str(xmlschema.validate(etree.fromstring(values_result))) is True:
-                #print("[ VALID ][", end="")
-                print("[", end="")
-            else:
-                #print("[INVALID][", end="")
-                print("[", end="")
-            """
-            #print("Valid WML: " + str(xmlschema.validate(etree.fromstring(values_result))))
-            #error_log = str((xmlschema.error_log)).split("<string>")
-            #for x in list(filter(lambda k: 'timeOffset' not in k, error_log))[1:]:
-            #    print(x)
-            wml_ts = etree.fromstring(values_result)
-            #if n + 1 == 11:
-            #    print(values_result)
-            if not list(wml_ts.iter(ns + "values")):
-                print("No timeseries data found]")
+            wml_tree = etree.fromstring(values_result)
+            if not list(wml_tree.iter(ns + "values")):
+                print("No timeseries data found")
                 continue
-            if len(list(list(wml_ts.iter(ns + "values"))[0].iter(ns + "value"))) == 0:
-                print("No timeseries data found]")
+            if len(list(list(wml_tree.iter(ns + "values"))[0].iter(ns + "value"))) == 0:
+                print("No timeseries data found")
                 continue
-            '''
-            with open('validation_results.txt', 'a') as the_file:
-                for x in list(filter(lambda k: 'timeOffset' not in k, error_log))[1:]:
-                    the_file.write(str(x) + '\n')
-            '''
         except:
-            print("Unable to validate WML]")
+            print("Unable to validate WML")
             continue
         
         # ------------------------------------ #
         #   Extracts Data for Datasets Table   #
         # ------------------------------------ #
-        for c in range(2):
-            try:
-                if c == 0:
-                    ds_dataset_code = 1
-                else:
-                    ds_dataset_code = "UNKNOWN"
-                conn.execute('SELECT * FROM Datasets WHERE DataSetCode = ?', (ds_dataset_code, ))
-                row = conn.fetchone()
-                if row is None:
-                    ds_dataset_uuid = str(uuid.uuid4())
-                    ds_dataset_type_cv = ("singleTimeSeries" if len(ts_list) == 1 else "multiTimeSeries") if ds_dataset_code != "UNKNOWN" else "other"
-                    ds_dataset_code = ds_dataset_code if ds_dataset_code != "UNKNOWN" else "UNKNOWN"
-                    ds_dataset_title = res_title if ds_dataset_code != "UNKNOWN" else "UNKNOWN"
-                    ds_dataset_abstract = res_abstract if ds_dataset_code != "UNKNOWN" else "UNKNOWN"
-                    dataset = [ds_dataset_uuid, ds_dataset_type_cv, ds_dataset_code, ds_dataset_title, ds_dataset_abstract]  
-                    conn.execute(odm_tables["Datasets"], dataset)
-                    ds_id = conn.lastrowid
-                else:
-                    ds_id = row[0]
-                break
-            except:
-                if c == 1:
-                    error_code = True
-        if error_code is True:
-            print("][DATASETS FAILED]")
-            sql_connect.rollback()
-            continue
-        print("*", end="")
-        
+
+        dataset_code = 1
+        curs.execute("SELECT * FROM Datasets WHERE DataSetCode = ?", (dataset_code,))
+        row = curs.fetchone()
+        if not row:
+            dataset = (
+                str(uuid.uuid4()),
+                ("singleTimeSeries" if len(ts_list) == 1 else "multiTimeSeries"),
+                1,
+                res_title,
+                res_abstract,
+            )
+
+            curs.execute("""INSERT INTO Datasets (
+                                DataSetID, 
+                                DataSetUUID, 
+                                DataSetTypeCV, 
+                                DataSetCode,
+                                DataSetTitle, 
+                                DataSetAbstract
+                            ) VALUES (NULL, ?, ?, ?, ?, ?)""", dataset)
+            dataset_id = curs.lastrowid
+        else:
+            dataset_id = row[0]
+
         # -------------------------------------------- #
         #   Extracts Data for SamplingFeatures Table   #
         # -------------------------------------------- #
-        for c in range(2):
-            try:
-                if c == 0:
-                    sf_source_info = list(wml_ts.iter(ns + "sourceInfo"))
-                    sf_site_code = search_wml(sf_source_info[0], ns, ["siteCode"], "UNKNOWN")
-                else:
-                    sf_site_code = "UNKNOWN"
-                conn.execute('SELECT * FROM SamplingFeatures WHERE SamplingFeatureCode = ?', (sf_site_code, ))
-                row = conn.fetchone()
-                if row is None:
-                    sf_exists = False
-                    sf_samplingfeature_uuid = str(uuid.uuid4()) if sf_site_code != "UNKNOWN" else "UNKNOWN"
-                    sf_samplingfeature_type_cv = "site" if sf_site_code != "UNKNOWN" else "unknown"
-                    sf_samplingfeature_code = sf_site_code if sf_site_code != "UNKNOWN" else "UNKNOWN"
-                    sf_samplingfeature_name = search_wml(sf_source_info[0], ns, ["siteName"], "UNKNOWN") if sf_site_code != "UNKNOWN" else "UNKNOWN"
-                    sf_samplingfeature_description = "UNKNOWN"
-                    sf_samplingfeature_geotype_cv = "point" if sf_site_code != "UNKNOWN" else "notApplicable"
-                    sf_feature_geometry = "UNKNOWN"
-                    sf_latitude = search_wml(sf_source_info[0], ns, ["latitude"], "UNKNOWN")
-                    sf_longitude = search_wml(sf_source_info[0], ns, ["longitude"], "UNKNOWN")
-                    sf_feature_geometry_wkt = "POINT (" + str(sf_longitude) + " " + str(sf_latitude) + ")" if sf_site_code != "UNKNOWN" else "UNKNOWN"
-                    sf_elevation_m = search_wml(sf_source_info[0], ns, ["elevation_m"], None) if sf_site_code != "UNKNOWN" else None
-                    sf_elevation_datum_cv = search_wml(sf_source_info[0], ns, ["verticalDatum"], "Unknown") if sf_site_code != "UNKNOWN" else "Unknown"
-                    sampling_feature = [sf_samplingfeature_uuid, sf_samplingfeature_type_cv, sf_samplingfeature_code, sf_samplingfeature_name,
-                                        sf_samplingfeature_description, sf_samplingfeature_geotype_cv, sf_feature_geometry,
-                                        sf_feature_geometry_wkt, sf_elevation_m, sf_elevation_datum_cv]
-                    conn.execute(odm_tables["SamplingFeatures"], sampling_feature)
-                    sf_sampling_feature_id = conn.lastrowid
-                else:
-                    sf_exists = True
-                    sf_sampling_feature_id = row[0]
-                break
-            except:
-                if c == 1:
-                    error_code = True
-        if error_code is True:        
-            print("][SAMPLINGFEATURES FAILED]")
+
+        sf_tree = search_wml(wml_tree, ns, ["sourceInfo"], get_tree=True)
+        sampling_feature_code = search_wml(sf_tree, ns, ["siteCode"], default_value=None)
+        if sampling_feature_code:
+            curs.execute("SELECT * FROM SamplingFeatures WHERE SamplingFeatureCode = ?", (sampling_feature_code,))
+            row = curs.fetchone()
+            if not row:
+                sampling_feature = (
+                    str(uuid.uuid4()),
+                    "site",
+                    sampling_feature_code,
+                    search_wml(sf_tree, ns, ["siteName"], default_value=None),
+                    None,
+                    "point",
+                    None,
+                    f'POINT ("{search_wml(sf_tree, ns, ["latitude"], default_value=None)}" "{search_wml(sf_tree, ns, ["longitude"], default_value=None)}")',
+                    search_wml(sf_tree, ns, ["elevation_m"], default_value=None),
+                    search_wml(sf_tree, ns, ["verticalDatum"], default_value=None),
+                )
+                curs.execute("""INSERT INTO SamplingFeatures (
+                                    SamplingFeatureID, 
+                                    SamplingFeatureUUID,
+                                    SamplingFeatureTypeCV, 
+                                    SamplingFeatureCode, 
+                                    SamplingFeatureName,
+                                    SamplingFeatureDescription, 
+                                    SamplingFeatureGeotypeCV, 
+                                    FeatureGeometry,
+                                    FeatureGeometryWKT, 
+                                    Elevation_m, 
+                                    ElevationDatumCV
+                                ) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""", sampling_feature)
+                sampling_feature_id = curs.lastrowid
+            else:
+                sampling_feature_id = row[0]
+        else:
+            print("SF Failed")
             sql_connect.rollback()
             continue
-        print("*", end="")
-        
+
         # --------------------------------------------- #
         #   Extracts Data for SpatialReferences Table   #
         # --------------------------------------------- #
-        for c in range(2):
-            try:
-                if sf_exists is False:
-                    sr_srs_code = "UNKNOWN" if (sf_site_code != "UNKNOWN" or c != 1) else "UNKNOWN"
-                    sr_srs_name = "UNKNOWN" if (sf_site_code != "UNKNOWN" or c != 1) else "UNKNOWN"
-                    sr_srs_description = "The spatial reference is unknown" if (sf_site_code != "UNKNOWN" or c != 1) else "UNKNOWN"
-                    sr_srs_link = "UNKNOWN" if (sf_site_code != "UNKNOWN" or c != 1) else "UNKNOWN"
-                    spatialreference = [sr_srs_code, sr_srs_name, sr_srs_description, sr_srs_link]
-                    conn.execute(odm_tables["SpatialReferences"], spatialreference)
-                    sr_spatial_reference_id = conn.lastrowid
-                break
-            except:
-                if c == 1:
-                    error_code = True
-        if error_code is True:       
-            print("][SPATIALREFERENCES FAILED]")
-            sql_connect.rollback()
-            continue
-        print("*", end="")
-        
+
+        srs_code = search_wml(sf_tree, ns, ["geogLocation"], default_value="EPSG:4269", attr="srs")
+        curs.execute("SELECT * FROM SpatialReferences WHERE SRSCode = ?", (srs_code,))
+        row = curs.fetchone()
+        if not row:
+            spatial_reference = (
+                srs_code, 
+                srs_code, 
+                None,
+                None,
+            )
+            curs.execute("""INSERT INTO SpatialReferences(
+                            SpatialReferenceID, 
+                            SRSCode, 
+                            SRSName,
+                            SRSDescription, 
+                            SRSLink
+                        ) VALUES (NULL, ?, ?, ?, ?)""", spatial_reference)
+            spatial_reference_id = curs.lastrowid
+        else:
+            spatial_reference_id = row[0]
+
         # --------------------------------- #
         #   Extracts Data for Sites Table   #
         # --------------------------------- #
-        for c in range(2):
-            if True is True:
-                if sf_exists is False:
-                    st_sampling_feature_id = sf_sampling_feature_id
-                    st_site_type_cv = search_wml(sf_source_info[0], ns, ["siteProperty"], "unknown") if (sf_site_code != "UNKNOWN" or c != 1) else "unknown"
-                    st_latitude = search_wml(sf_source_info[0], ns, ["latitude"], "UNKNOWN") if (sf_site_code != "UNKNOWN" or c != 1) else "UNKNOWN"
-                    st_longitude = search_wml(sf_source_info[0], ns, ["longitude"], "UNKNOWN") if (sf_site_code != "UNKNOWN" or c != 1) else "UNKNOWN"
-                    st_spatial_reference_id = sr_spatial_reference_id
-                    site = [st_sampling_feature_id, st_site_type_cv, st_latitude, st_longitude, st_spatial_reference_id]
-                    conn.execute(odm_tables["Sites"], site)
-                break
-            else:
-                if c == 1:
-                    error_code = True
-        if error_code is True:
-            print("][SITES FAILED]")
-            sql_connect.rollback()
-            continue
-        print("*", end="")
-        
+
+        curs.execute("SELECT * FROM Sites WHERE SamplingFeatureID = ?", (sampling_feature_id,))
+        row = curs.fetchone()
+        if not row:
+            site = (
+                sampling_feature_id,
+                "unknown",
+                search_wml(sf_tree, ns, ["latitude"], default_value=None),
+                search_wml(sf_tree, ns, ["longitude"], default_value=None),
+                spatial_reference_id,
+            )
+            curs.execute("""INSERT INTO Sites(
+                            SamplingFeatureID, 
+                            SiteTypeCV, 
+                            Latitude, 
+                            Longitude,
+                            SpatialReferenceID
+                        ) VALUES (?, ?, ?, ?, ?)""", site)
+            site_id = curs.lastrowid
+        else:
+            site_id = row[0]
+
         # ------------------------------------- #
         #   Extracts Data for Variables Table   #
         # ------------------------------------- #
-        for c in range(2):
-            try:
-                if c == 0:
-                    vr_variable = list(wml_ts.iter(ns + "variable"))
-                    vr_variable_code = search_wml(vr_variable[0], ns, ["variableCode", "VariableCode"], "UNKNOWN") if len(vr_variable) != 0 else "UNKNOWN"
-                else:
-                    vr_variable_code = "UNKNOWN"
-                conn.execute('SELECT * FROM Variables WHERE VariableCode = ?', (vr_variable_code, ))
-                row = conn.fetchone()
-                if row is None:
-                    vr_variable_type_cv = search_wml(vr_variable[0], ns, ["generalCategory", "GeneralCategory"], "Unknown") if vr_variable_code != "UNKNOWN" else "Unknown"
-                    vr_variable_code = vr_variable_code if vr_variable_code != "UNKNOWN" else "UNKNOWN"
-                    vr_variable_name_cv = search_wml(vr_variable[0], ns, ["variableName", "VariableName"], "Unknown") if vr_variable_code != "UNKNOWN" else "Unknown"
-                    vr_variable_definition = search_wml(vr_variable[0], ns, ["variableDescription", "VariableDescription"], "UNKNOWN") if vr_variable_code != "UNKNOWN" else "UNKNOWN"
-                    vr_speciation_cv = search_wml(vr_variable[0], ns, ["speciation", "Speciation"], "unknown") if vr_variable_code != "UNKNOWN" else "unknown"
-                    vr_no_data_value = search_wml(vr_variable[0], ns, ["noDataValue", "NoDataValue"], None) if vr_variable_code != "UNKNOWN" else None
-                    variable = [vr_variable_type_cv, vr_variable_code, vr_variable_name_cv, vr_variable_definition, vr_speciation_cv, vr_no_data_value]
-                    conn.execute(odm_tables["Variables"], variable)
-                    vr_variable_id = conn.lastrowid
-                else:
-                    vr_variable_id = row[0]
-                break
-            except:
-                if c == 1:
-                    error_code = True
-        if error_code is True:
-            print("][VARIABLES FAILED]")
+
+        vr_tree = search_wml(wml_tree, ns, ["variable"], get_tree=True)
+        variable_code = search_wml(vr_tree, ns, ["variableCode", "VariableCode"], default_value=None)
+        if variable_code:
+            curs.execute("SELECT * FROM Variables WHERE VariableCode = ?", (variable_code,))
+            row = curs.fetchone()
+            if not row:
+                variable = (
+                    "Unknown", 
+                    variable_code, 
+                    search_wml(vr_tree, ns, ["variableName", "VariableName"], default_value="Unknown"),
+                    search_wml(vr_tree, ns, ["variableDescription", "VariableDescription"], default_value=None),
+                    search_wml(vr_tree, ns, ["speciation", "Speciation"], default_value=None),
+                    search_wml(vr_tree, ns, ["noDataValue", "NoDataValue"], default_value=-9999),
+                )
+                curs.execute("""INSERT INTO Variables (
+                                VariableID, 
+                                VariableTypeCV, 
+                                VariableCode, 
+                                VariableNameCV, 
+                                VariableDefinition, 
+                                SpeciationCV, 
+                                NoDataValue 
+                            ) VALUES (NULL, ?, ?, ?, ?, ?, ?)""", variable)
+                variable_id = curs.lastrowid
+            else:
+                variable_id = row[0]
+        else:
+            print("VR Failed")
             sql_connect.rollback()
             continue
-        print("*", end="")
-        
+
         # --------------------------------- #
         #   Extracts Data for Units Table   #
         # --------------------------------- #
-        for c in range(2):
-            try:
-                if c == 0:
-                    ut_variable = list(wml_ts.iter(ns + "variable"))
-                    ut_unit = ut_variable[0].find(ns + "unit") if len(ut_variable) != 0 else None
-                    ut_unit_code = search_wml(ut_unit, ns, ["unitCode", "UnitCode", "unitsCode", "UnitsCode"], 9999) if ut_unit is not None else 9999
-                else:
-                    ut_unit_code = 9999
-                conn.execute('SELECT * FROM Units WHERE UnitsID = ?', (ut_unit_code,))
-                row = conn.fetchone()
-                if row is None:
-                    ut_units_id = ut_unit_code
-                    ut_units_type_cv = search_wml(ut_unit[0], ns, ["unitType", "unitsType", "UnitType", "UnitsType"], "other") if ut_unit_code != 9999 else "other"
-                    ut_units_abbreviation = search_wml(ut_unit, ns, ["unitAbbreviation", "unitsAbbreviation", "UnitAbbreviation", "UnitsAbbreviation"], "UNKNOWN") if ut_unit_code != 9999 else "UNKNOWN"
-                    ut_units_name = search_wml(ut_unit[0], ns, ["unitName", "unitsName", "UnitName", "UnitsName"], "UNKNOWN") if ut_unit_code != 9999 else "UNKNOWN"
-                    ut_units_link = search_wml(ut_unit[0], ns, ["unitLink", "unitsLink", "UnitLink", "UnitsLink"], "UNKNOWN") if ut_unit_code != 9999 else "UNKNOWN"
-                    units = [ut_units_id, ut_units_type_cv, ut_units_abbreviation, ut_units_name, ut_units_link]
-                    conn.execute(odm_tables["Units"], units)
-                    ut_units_id = conn.lastrowid
-                else:
-                    ut_units_id = row[0]
-                break
-            except:
-                if c == 1:
-                    error_code = True
-        if error_code is True:
-            print("][UNITS FAILED]")
-            sql_connect.rollback()
-            continue
-        print("*", end="")
 
-        # ------------------------------------ #
-        #    Extracts Data for Time Spacing    #
-        # ------------------------------------ #
-        for c in range(2):
-            try:
-                if c == 0:
-                    tu_timeScale = list(wml_ts.iter(ns + "timeScale"))
-                    tu_unit_code = search_wml(tu_timeScale[0], ns, ["unitCode", "UnitCode", "unitsCode", "UnitsCode"], 9999) if len(tu_timeScale) != 0 else 9999
-                else:
-                    tu_unit_code = 9999
-                conn.execute('SELECT * FROM Units WHERE UnitsID = ?', (tu_unit_code,))
-                row = conn.fetchone()
-                if row is None:
-                    tu_units_id = tu_unit_code
-                    tu_units_type_cv = search_wml(tu_timeScale[0], ns, ["unitType", "unitsType", "UnitType", "UnitsType"], "other") if tu_unit_code != 9999 else "other"
-                    tu_units_abbreviation = search_wml(tu_timeScale[0], ns, ["unitAbbreviation", "unitsAbbreviation", "UnitAbbreviation", "UnitsAbbreviation"], "UNKNOWN") if tu_unit_code != 9999 else "UNKNOWN"
-                    tu_units_name = search_wml(tu_timeScale[0], ns, ["unitName", "unitsName", "UnitName", "UnitsName"], "UNKNOWN") if tu_unit_code != 9999 else "UNKNOWN"
-                    tu_units_link = search_wml(tu_timeScale[0], ns, ["unitLink", "unitsLink", "UnitLink", "UnitsLink"], "UNKNOWN") if tu_unit_code != 9999 else "UNKNOWN"
-                    time_units = [tu_units_id, tu_units_type_cv, tu_units_abbreviation, tu_units_name, tu_units_link]
-                    conn.execute(odm_tables["Units"], time_units)
-                    tu_units_id = conn.lastrowid
-                else:
-                    tu_units_id = row[0]  
-                break
-            except:
-                if c == 1:
-                    error_code = True
-        if error_code is True:
-            print("][TIME SPACING FAILED]")
-            sql_connect.rollback()
-            continue
-        print("*", end="")
-        
-        # ----------------------------------- #
-        #   Extracts Data for Methods Table   #
-        # ----------------------------------- #
-        for c in range(2):
-            try:
-                if c == 0 and list(wml_ts.iter(ns + "method")):
-                    md_methods = list(wml_ts.iter(ns + "method"))
-                else:
-                    md_methods = ["UNKNOWN"]
-                md_code_list = []
-                md_id_list = []
-                for md_method in md_methods:
-                    md_method_code = search_wml(md_method, ns, ["methodCode", "MethodCode"], "UNKNOWN") if md_method != "UNKNOWN" else "UNKNOWN"
-                    conn.execute('SELECT * FROM Methods WHERE MethodCode = ?', (md_method_code, ))
-                    row = conn.fetchone()
-                    if row is None:
-                        md_method_type_cv = "Observation" if md_method_code != "unknown" else "unknown"
-                        md_method_code = md_method_code if md_method_code != "UNKNOWN" else "UNKNOWN"
-                        md_method_name = md_method_code if md_method_code != "UNKNOWN" else "UNKNOWN"
-                        md_method_description = search_wml(md_method, ns, ["methodDescription", "MethodDescription"], "UNKNOWN") if md_method_code != "UNKNOWN" else "UNKNOWN"
-                        md_method_link = search_wml(md_method, ns, ["methodLink", "MethodLink"], "UNKNOWN") if md_method_code != "UNKNOWN" else "UNKNOWN"
-                        method = [md_method_type_cv, md_method_code, md_method_name, md_method_description, md_method_link]
-                        conn.execute(odm_tables["Methods"], method)
-                        md_method_id = conn.lastrowid
-                        md_id_list.append(md_method_id)
-                        md_code_list.append(md_method_code)
-                    else:
-                        md_code_list.append(row[2])
-                        md_id_list.append(row[0])
-                break
-            except:
-                if c == 1:
-                    error_code = True
-        if error_code is True:
-            print("][METHODS FAILED]")
-            sql_connect.rollback()
-            continue
-        print("*", end="")
-        
+        ut_tree = search_wml(vr_tree, ns, ["unit"], get_tree=True)
+        unit_code = search_wml(ut_tree, ns, ["unitCode", "UnitCode", "unitsCode", "UnitsCode"], default_value=9999)
+        curs.execute("SELECT * FROM Units WHERE UnitsID = ?", (unit_code,))
+        row = curs.fetchone()
+        if not row:
+            unit = (
+                unit_code,
+                search_wml(ut_tree, ns, ["unitType", "unitsType", "UnitType", "UnitsType"], default_value="other") if unit_code != 9999 else "other",
+                search_wml(ut_tree, ns, ["unitAbbreviation", "unitsAbbreviation", "UnitAbbreviation", "UnitsAbbreviation"], default_value="unknown") if unit_code != 9999 else "unknown",
+                search_wml(ut_tree, ns, ["unitName", "unitsName", "UnitName", "UnitsName"], default_value="unknown") if unit_code != 9999 else "unknown",
+                search_wml(ut_tree, ns, ["unitLink", "unitsLink", "UnitLink", "UnitsLink"], default_value=None) if unit_code != 9999 else None,
+            )
+            curs.execute("""INSERT INTO Units (
+                            UnitsID, 
+                            UnitsTypeCV, 
+                            UnitsAbbreviation, 
+                            UnitsName,
+                            UnitsLink
+                        ) VALUES (?, ?, ?, ?, ?)""", unit)
+            unit_id = curs.lastrowid
+        else:
+            unit_id = row[0]
+
+        # ------------------------------------------ #
+        #    Extracts Data for Time Spacing Units    #
+        # ------------------------------------------ #
+
+        tu_tree = search_wml(vr_tree, ns, ["timeScale"], get_tree=True)
+        time_unit_code = search_wml(tu_tree, ns, ["unitCode", "UnitCode", "unitsCode", "UnitsCode"], default_value=9999)
+        curs.execute("SELECT * FROM Units WHERE UnitsID = ?", (time_unit_code,))
+        row = curs.fetchone()
+        if not row:
+            time_unit = (
+                time_unit_code,
+                search_wml(tu_tree, ns, ["unitType", "unitsType", "UnitType", "UnitsType"], default_value="other") if time_unit_code != 9999 else "other",
+                search_wml(tu_tree, ns, ["unitAbbreviation", "unitsAbbreviation", "UnitAbbreviation", "UnitsAbbreviation"], default_value="unknown") if time_unit_code != 9999 else "unknown",
+                search_wml(tu_tree, ns, ["unitName", "unitsName", "UnitName", "UnitsName"], default_value="unknown") if time_unit_code != 9999 else "unknown",
+                search_wml(tu_tree, ns, ["unitLink", "unitsLink", "UnitLink", "UnitsLink"], default_value=None) if time_unit_code != 9999 else None,
+            )
+            curs.execute("""INSERT INTO Units (
+                            UnitsID, 
+                            UnitsTypeCV, 
+                            UnitsAbbreviation, 
+                            UnitsName,
+                            UnitsLink
+                        ) VALUES (?, ?, ?, ?, ?)""", time_unit)
+            time_unit_id = curs.lastrowid
+        else:
+            time_unit_id = row[0]
+
+        # ------------------------------------------------------------------- #
+        #   Extracts Data for People, Organizations, and Affiliations Table   #
+        # ------------------------------------------------------------------- #
+
+        sr_tree = search_wml(wml_tree, ns, ["source"], get_tree=True)
+        person_name = search_wml(sr_tree, ns, ["contactName"], default_value="unknown")
+        curs.execute("SELECT * FROM People WHERE PersonFirstName = ?", (person_name,))
+        row = curs.fetchone()
+        if not row:
+            person = (
+                person_name,
+                " ",
+            )
+            curs.execute("""INSERT INTO People (
+                            PersonID, 
+                            PersonFirstName, 
+                            PersonLastName
+                        ) VALUES (NULL, ?, ?)""", person)
+            person_id = curs.lastrowid
+        else:
+            person_id = row[0]
+        organization_code = search_wml(sr_tree, ns, ["sourceCode"], default_value="unknown")
+        curs.execute("SELECT * FROM Organizations WHERE OrganizationCode = ?", (organization_code,))
+        row = curs.fetchone()
+        if not row:
+            organization = (
+                "unknown",
+                organization_code,
+                search_wml(sr_tree, ns, ["organization"], default_value="unknown") if organization_code != "unknown" else "unknown",
+                search_wml(sr_tree, ns, ["sourceDescription"], default_value=None) if organization_code != "unknown" else None,
+                search_wml(sr_tree, ns, ["sourceLink"], default_value=None) if organization_code != "unknown" else None,
+            )
+            curs.execute("""INSERT INTO Organizations (
+                            OrganizationID, 
+                            OrganizationTypeCV,
+                            OrganizationCode, 
+                            OrganizationName, 
+                            OrganizationDescription, 
+                            OrganizationLink
+                        ) VALUES (NULL, ?, ?, ?, ?, ?)""", organization)
+            organization_id = curs.lastrowid
+        else:
+            organization_id = row[0]
+        curs.execute("SELECT * FROM Affiliations WHERE PersonID = ? AND OrganizationID = ?", (person_id, organization_id,))
+        row = curs.fetchone()
+        if not row:
+            affiliation = (
+                person_id,
+                organization_id,
+                "unknown",
+                search_wml(sr_tree, ns, ["phone"], default_value=None),
+                search_wml(sr_tree, ns, ["email"], default_value="unknown"),
+                search_wml(sr_tree, ns, ["address"], default_value=None),
+            )
+            curs.execute("""INSERT INTO Affiliations (
+                            AffiliationID, 
+                            PersonID, 
+                            OrganizationID,
+                            AffiliationStartDate, 
+                            PrimaryPhone, 
+                            PrimaryEmail,
+                            PrimaryAddress
+                        ) VALUES (NULL, ?, ?, ?, ?, ?, ?)""", affiliation)
+            affiliation_id = curs.lastrowid
+        else:
+            affiliation_id = row[0]
+
         # -------------------------------------------- #
         #   Extracts Data for ProcessingLevels Table   #
         # -------------------------------------------- #
-        for c in range(2):
-            try:
-                if c == 0 and list(wml_ts.iter(ns + "qualityControlLevel")):
-                    pl_processing_levels = list(wml_ts.iter(ns + "qualityControlLevel"))
-                else:
-                    pl_processing_levels = ["UNKNOWN"]
-                pl_code_list = []
-                pl_id_list = []
-                for pl_processing_level in pl_processing_levels:
-                    pl_processing_level_code = search_wml(pl_processing_level, ns, ["qualityControlLevelCode"], "UNKNOWN") if pl_processing_level != "UNKNOWN" else "UNKNOWN"
-                    conn.execute('SELECT * FROM ProcessingLevels WHERE ProcessingLevelCode = ?', (pl_processing_level_code, ))
-                    row = conn.fetchone()
-                    if row is None:
-                        pl_processing_level_code = pl_processing_level_code
-                        pl_definition = search_wml(pl_processing_level, ns, ["definition"], "UNKNOWN") if pl_processing_level_code != "UNKNOWN" else "UNKNOWN"
-                        pl_explanation = search_wml(pl_processing_level, ns, ["explanation"], "UNKNOWN") if pl_processing_level_code != "UNKNOWN" else "UNKNOWN"
-                        processing_levels = [pl_processing_level_code, pl_definition, pl_explanation]
-                        conn.execute(odm_tables["ProcessingLevels"], processing_levels)
-                        pl_processing_level_id = conn.lastrowid
-                        pl_id_list.append(pl_processing_level_id)
-                        pl_code_list.append(pl_processing_level_code)
-                    else:
-                        pl_code_list.append(row[2])
-                        pl_id_list.append(row[0])
-                break
-            except:
-                if c == 1:
-                    error_code = True
-        if error_code is True:
-            print("][PROCESSING LEVELS FAILED]")
-            sql_connect.rollback()
-            continue
-        print("*", end="")
-        
-        # ---------------------------------- #
-        #   Extracts Data for People Table   #
-        # ---------------------------------- #
-        for c in range(2):
-            try:
-                if c == 0 and list(wml_ts.iter(ns + "source")):
-                    pp_sources = list(wml_ts.iter(ns + "source"))
-                else:
-                    pp_sources = ["UNKNOWN"]
-                pp_id_list = []
-                for pp_source in pp_sources:
-                    pp_person_name = search_wml(pp_source, ns, ["contactName"], "UNKNOWN") if pp_source != "UNKNOWN" else "UNKNOWN"
-                    conn.execute('SELECT * FROM People WHERE PersonFirstName = ?', (pp_person_name, ))
-                    row = conn.fetchone()
-                    if row is None:
-                        pp_person_first_name = pp_person_name
-                        pp_person_last_name = pp_person_name
-                        person = [pp_person_first_name, pp_person_last_name]
-                        conn.execute(odm_tables["People"], person)
-                        pp_id_list.append(conn.lastrowid)
-                    else:
-                        pp_id_list.append(row[0])
-                break
-            except:
-                if c == 1:
-                    error_code = True
-        if error_code is True:
-            print("][PEOPLE FAILED]")
-            sql_connect.rollback()
-            continue
-        print("*", end="")
 
-        # ----------------------------------------- #
-        #   Extracts Data for Organizations Table   #
-        # ----------------------------------------- #
-        for c in range(2):
-            try:
-                if c == 0 and list(wml_ts.iter(ns + "source")):
-                    og_sources = list(wml_ts.iter(ns + "source"))
-                else:
-                    og_sources = ["UNKNOWN"]
-                og_code_list = []
-                og_id_list = []
-                for og_source in og_sources:
-                    og_organization_code = search_wml(og_source, ns, ["sourceCode"], "UNKNOWN") if og_source != "UNKNOWN" else "UNKNOWN"
-                    conn.execute('SELECT * FROM Organizations WHERE OrganizationCode = ?', (og_organization_code, ))
-                    row = conn.fetchone()
-                    if row is None:
-                        og_organization_type_cv = "unknown"
-                        og_organization_code = og_organization_code
-                        og_organization_name = search_wml(og_source, ns, ["organization"], "UNKNOWN") if og_source != "UNKNOWN" else "UNKNOWN"
-                        og_organization_description = search_wml(og_source, ns, ["sourceDescription"], "UNKNOWN") if og_source != "UNKNOWN" else "UNKNOWN"
-                        og_organization_link = search_wml(og_source, ns, ["sourceLink"], "UNKNOWN") if og_source != "UNKNOWN" else "UNKNOWN"
-                        organization = [og_organization_type_cv, og_organization_code, og_organization_name, og_organization_description, og_organization_link]
-                        conn.execute(odm_tables["Organizations"], organization)
-                        og_organization_id = conn.lastrowid
-                        og_id_list.append(og_organization_id)
-                        og_code_list.append(og_organization_code)
-                    else:
-                        og_id_list.append(row[0])
-                        og_code_list.append(row[2])
-                break
-            except:
-                if c == 1:
-                    error_code = True
-        if error_code is True:
-            print("][ORGANIZATIONS FAILED]")
-            sql_connect.rollback()
-            continue
-        print("*", end="")
-        
-        # ---------------------------------------- #
-        #   Extracts Data for Affiliations Table   #
-        # ---------------------------------------- #
-        for c in range(2):
-            try:
-                if c == 0 and list(wml_ts.iter(ns + "source")):
-                    af_sources = list(wml_ts.iter(ns + "source"))
-                else:
-                    af_sources = ["UNKNOWN"]
-                af_id_list = []
-                for n, af_source in enumerate(af_sources):
-                    og_organization_code = search_wml(af_source, ns, ["sourceCode"], "UNKNOWN") if og_source != "UNKNOWN" else "UNKNOWN"
-                    conn.execute('SELECT * FROM Affiliations WHERE PersonID = ? AND OrganizationID = ?', (pp_id_list[n], og_id_list[n]))
-                    row = conn.fetchone()
-                    if row is None:
-                        af_person_id = pp_id_list[n]
-                        af_organization_id = og_id_list[n]
-                        af_is_primary_organization_contact = "UNKNOWN"
-                        af_affiliation_start_date = "UNKNOWN"
-                        af_primary_phone = search_wml(af_source, ns, ["phone"], "UNKNOWN") if af_source != "UNKNOWN" else "UNKNOWN"
-                        af_primary_email = search_wml(af_source, ns, ["email"], "UNKNOWN") if af_source != "UNKNOWN" else "UNKNOWN"
-                        affiliation = [af_person_id, af_organization_id, af_is_primary_organization_contact, af_affiliation_start_date, af_primary_phone, af_primary_email]
-                        conn.execute(odm_tables["Affiliations"], affiliation)
-                        af_affiliation_id = conn.lastrowid
-                        af_id_list.append(af_affiliation_id)
-                    else:
-                        af_id_list.append(row[0])
-                break
-            except:
-                if c == 1:
-                    error_code = True
-        if error_code is True:
-            print("][AFFILIATIONS FAILED]")
-            sql_connect.rollback()
-            continue
-        print("*", end="")
-        
-        # ----------------------------------- #
-        #   Extracts Data for Actions Table   #
-        # ----------------------------------- #
-        try:
-            ac_list = []
-            for md_id in md_id_list:
-                result_values = []
-                rv_values = list(wml_ts.iter(ns + "values"))[0]
-                rv_values_list = list(rv_values.iter(ns + "value"))
-                for rv_value in rv_values_list:
-                    if rv_value.get("methodCode") == md_code_list[md_id_list.index(md_id)] or rv_value.get("methodCode") is None:
-                        result_values.append(rv_value)
-                ac_action_type_cv = "observation"
-                ac_method_id = md_id
-                ac_begin_datetime = result_values[0].get("dateTime") if result_values[0].get("dateTime") and result_values else "UNKNOWN"
-                ac_begin_datetime_offset = result_values[0].get("timeOffset") if result_values[0].get("timeOffset") and result_values else "UNKNOWN"
-                ac_end_datetime = result_values[-1].get("dateTime") if result_values[-1].get("dateTime") and result_values else "UNKNOWN"
-                ac_end_datetime_offset = result_values[-1].get("dateTime") if result_values[-1].get("timeOffset") and result_values else "UNKNOWN"
-                ac_action_description = "An observation action that generated a time series result."
-                action = [ac_action_type_cv, ac_method_id, ac_begin_datetime, ac_begin_datetime_offset, ac_end_datetime, ac_end_datetime_offset, ac_action_description]
-                conn.execute(odm_tables["Actions"], action)
-                ac_action_id = conn.lastrowid
-                ac_list.append(ac_action_id)
-        except:
-            print("][ACTIONS FAILED]")
-            sql_connect.rollback()
-            continue
-        print("*", end="")
-        
-        # ------------------------------------ #
-        #   Extracts Data for ActionBy Table   #
-        # ------------------------------------ #
-        
-        try:
-            for ac_id in ac_list:
-                ab_action_id = ac_id
-                ab_affiliation_id = af_id_list[0]
-                ab_is_action_lead = 1
-                ab_role_description = "Responsible party"
-                actionby = [ab_action_id, ab_affiliation_id, ab_is_action_lead, ab_role_description]
-                conn.execute(odm_tables["ActionBy"], actionby)
-        except:
-            print("][ACTIONBY FAILED]")
-            sql_connect.rollback()
-            continue
-        print("*", end="")
-        
-        # ------------------------------------------ #
-        #   Extracts Data for FeatureActions Table   #
-        # ------------------------------------------ #
-        try:
-            fa_list = []
-            for ac_id in ac_list:
-                fa_sampling_feature_id = sf_sampling_feature_id
-                fa_action_id = ac_id       
-                featureaction = [fa_sampling_feature_id, fa_action_id]
-                conn.execute(odm_tables["FeatureActions"], featureaction)
-                fa_feature_action_id = conn.lastrowid
-                fa_list.append(fa_feature_action_id)
-        except:
-            print("][FEATUREACTIONS FAILED]")
-            sql_connect.rollback()
-            continue
-        print("*", end="")
-        
-        # ------------------------------------- #
-        #    Extracts Data for Results Table    #
-        # ------------------------------------- #
-        try:
-            rt_id_list = []
-            for i, fa_id in enumerate(fa_list):
-                result_values = []
-                rv_values = list(wml_ts.iter(ns + "values"))[0]
-                rv_values_list = list(rv_values.iter(ns + "value"))
-                for rv_value in rv_values_list:
-                    if rv_value.get("methodCode") == md_code_list[md_id_list.index(md_id)] or rv_value.get("methodCode") is None:
-                        result_values.append(rv_value)
-                rt_result_uuid = str(uuid.uuid4())
-                rt_feature_action_id = fa_id
-                rt_result_type_cv = "timeSeriesCoverage"
-                rt_variable_id = vr_variable_id
-                rt_units_id = ut_units_id
-                rt_processing_level_id = pl_id_list[0] if pl_id_list else "UNKNOWN"
-                rt_result_datetime = result_values[0].get("dateTime") if result_values[0].get("dateTime") else "UNKNOWN"
-                rt_result_datetime_utc_offset = result_values[0].get("timeOffset") if result_values[0].get("dateTime") else "UNKNOWN"
-                rt_status_cv = "unknown"
-                rt_sampled_medium_cv = search_wml(vr_variable[0], ns, ["sampleMedium"], "UNKNOWN") if vr_variable_code != "UNKNOWN" else "UNKNOWN"
-                rt_value_count = len(rv_values_list)
-                result = [rt_result_uuid, rt_feature_action_id, rt_result_type_cv, rt_variable_id, rt_units_id, rt_processing_level_id, rt_result_datetime,
-                          rt_result_datetime_utc_offset, rt_status_cv, rt_sampled_medium_cv, rt_value_count]
-                conn.execute(odm_tables["Results"], result)
-                rt_result_id = conn.lastrowid
-                rt_id_list.append(rt_result_id)
-        except:
-            print("][RESULTS FAILED]")
-            sql_connect.rollback()
-            continue
-        print("*", end="")
-        
-        # ----------------------------------------------- #
-        #    Extracts Data for TimeSeriesResults Table    #
-        # ----------------------------------------------- #
-        try:
-            for rt_id in rt_id_list:
-                tr_result_id = rt_id
-                tr_intended_time_spacing = 30
-                tr_time_units_id = tu_units_id
-                tr_aggregation_statistic_cv = "Unknown"
-                timeseries_result = [tr_result_id, tr_intended_time_spacing, tr_time_units_id, tr_aggregation_statistic_cv]
-                conn.execute(odm_tables["TimeSeriesResults"], timeseries_result)
-        except:
-            print("][TIMESERIESRESULTS FAILED]")
-            sql_connect.rollback()
-            continue
-        print("*", end="")
-        
-        # ---------------------------------------------------- #
-        #    Extracts Data for TimeSeriesResultValues Table    #
-        # ---------------------------------------------------- #
-        try:
-            conn.execute("BEGIN TRANSACTION;")
-            result_values = []
-            rv_values = list(wml_ts.iter(ns + "values"))[0]
-            rv_values_list = list(rv_values.iter(ns + "value"))
-            for rv_value in rv_values_list:
-                rv_result_id = rt_id_list[md_code_list.index(rv_value.get("methodCode")) if rv_value.get("methodCode") in md_code_list else 0]
-                rv_data_value = rv_value.text
-                rv_value_date_time = rv_value.get("dateTime")
-                rv_value_date_time_utc_offset = rv_value.get("timeOffset", "UNKNOWN")
-                rv_censor_code_cv = rv_value.get("censorCode", "unknown")
-                rv_quality_code_cv = rv_value.get("qualityControlLevelCode", "unknown")
-                rv_time_aggregation_interval = "UNKNOWN"
-                rv_time_aggregation_interval_units_id = "UNKNOWN"
-                result_values.append((rv_result_id, rv_data_value, rv_value_date_time, rv_value_date_time_utc_offset, rv_censor_code_cv, 
-                                      rv_quality_code_cv, rv_time_aggregation_interval, rv_time_aggregation_interval_units_id))     
-            conn.executemany(odm_tables["TimeSeriesResultValues"], result_values)   
-                             
-        except:
-            print("][TIMESERIESRESULTVALUES FAILED]")
-            sql_connect.rollback()
-            continue
-        print("*", end="")
-        
-        # -------------------------------------------- #
-        #    Extracts Data for DataSetResults Table    #
-        # -------------------------------------------- #
-        try:
-            for rt_id in rt_id_list:
-                dr_dataset_id = ds_id
-                dr_result_id = rt_id     
-                dataset_result = [dr_dataset_id, dr_result_id]
-                conn.execute(odm_tables["DataSetsResults"], dataset_result)
-        except:
-            print("][DATASETRESULTS FAILED]")
-            sql_connect.rollback()
-            continue
-        print("*", end="")
-        
+        pl_trees = search_wml(wml_tree, ns, ["qualityControlLevel"], get_tree=True, mult=True)
+        processing_level_data_list = [{"processing_level_code": search_wml(pl_tree, ns, ["qualityControlLevelCode"], default_value=9999), "processing_level_tree": pl_tree, "processing_level_id": None} for pl_tree in pl_trees] if pl_trees else [{"processing_level_code": 9999, "processing_level_tree": None, "processing_level_id": None}]
+        for processing_level_data in processing_level_data_list:
+            curs.execute("SELECT * FROM ProcessingLevels WHERE ProcessingLevelCode = ?", (processing_level_data["processing_level_code"],))
+            row = curs.fetchone()
+            if not row:
+                processing_level = (
+                    processing_level_data["processing_level_code"],
+                    search_wml(processing_level_data["processing_level_tree"], ns, ["definition"], None) if processing_level_data["processing_level_code"] != 9999 else None,
+                    search_wml(processing_level_data["processing_level_tree"], ns, ["explanation"], None) if processing_level_data["processing_level_code"] != 9999 else None,
+                )
+                curs.execute("""INSERT INTO ProcessingLevels (
+                                ProcessingLevelID, 
+                                ProcessingLevelCode,
+                                Definition, 
+                                Explanation
+                            ) VALUES (NULL, ?, ?, ?)""", processing_level)
+                processing_level_data["processing_level_id"] = curs.lastrowid
+            else:
+                processing_level_data["processing_level_id"] = row[0]
+
+        # -------------------------------------------------------------------------- #
+        #   Extracts Data for Methods, Actions, ActionBy, and FeatureActions Table   #
+        # -------------------------------------------------------------------------- #
+
+        md_trees = search_wml(wml_tree, ns, ["method"], get_tree=True, mult=True)
+        method_data_list = [{"method_code": search_wml(md_tree, ns, ["methodCode", "MethodCode"], default_value=9999), "method_tree": md_tree, "method_id": None, "feature_action_id": None, "start_date": None, "start_date_offset": None, "value_count": None} for md_tree in md_trees] if md_trees else [{"method_code": 9999, "method_tree": None, "method_id": None}]
+        for method_data in method_data_list:
+            curs.execute("SELECT * FROM Methods WHERE MethodCode = ?", (method_data["method_code"],))
+            row = curs.fetchone()
+            if not row:
+                method = (
+                    "observation" if method_data["method_code"] != 9999 else "unknown",
+                    method_data["method_code"],
+                    method_data["method_code"] if method_data["method_code"] != 9999 else "unknown",
+                    search_wml(method_data["method_tree"], ns, ["methodDescription", "MethodDescription"], None) if method_data["method_code"] != 9999 else None,
+                    search_wml(method_data["method_tree"], ns, ["methodLink", "MethodLink"], None) if method_data["method_code"] != 9999 else None,
+                )
+                curs.execute("""INSERT INTO Methods (
+                                MethodID, 
+                                MethodTypeCV, 
+                                MethodCode, 
+                                MethodName,
+                                MethodDescription, 
+                                MethodLink
+                            ) VALUES (NULL, ?, ?, ?, ?, ?)""", method)
+                method_data["method_id"] = curs.lastrowid
+            else:
+                method_data["method_id"] = row[0]
+            method_code_list = search_wml(wml_tree, ns, ["value"], attr="methodCode", mult=True)
+            datetime_list = [i for j, i in enumerate(search_wml(wml_tree, ns, ["value"], attr="dateTime", mult=True)) if method_code_list[j] == method_data["method_code"] or not method_code_list[j]]
+            time_offset_list = search_wml(wml_tree, ns, ["value"], attr="timeOffset", mult=True)
+            start_date = datetime_list[0]
+            value_count = len(datetime_list)
+            end_date = datetime_list[-1]
+            method_data["start_date"] = start_date[0]
+            method_data["start_date_offset"] = time_offset_list[0] if time_offset_list[0] else "+00:00"
+            method_data["value_count"] = value_count
+            action = (
+                "observation",
+                method_data["method_id"],
+                start_date,
+                time_offset_list[0] if time_offset_list[0] else "+00:00",
+                end_date,
+                time_offset_list[-1] if time_offset_list[-1] else "+00:00",
+                "An observation action that generated a time series result.",
+            )
+            curs.execute("""INSERT INTO Actions (
+                            ActionID, 
+                            ActionTypeCV, 
+                            MethodID, 
+                            BeginDateTime,
+                            BeginDateTimeUTCOffset, 
+                            EndDateTime, 
+                            EndDateTimeUTCOffset, 
+                            ActionDescription
+                        ) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)""", action)
+            action_id = curs.lastrowid
+            action_by = (
+                action_id,
+                affiliation_id,
+                1,
+            )
+            curs.execute("""INSERT INTO ActionBy (
+                            BridgeID, 
+                            ActionID, 
+                            AffiliationID, 
+                            IsActionLead
+                        ) VALUES (NULL, ?, ?, ?)""", action_by)
+            action_by_id = curs.lastrowid
+            feature_action = (
+                sampling_feature_id,
+                action_id,
+            )
+            curs.execute("""INSERT INTO FeatureActions (
+                            FeatureActionID, 
+                            SamplingFeatureID, 
+                            ActionID
+                        ) VALUES (NULL, ?, ?)""", feature_action)
+            method_data["feature_action_id"] = curs.lastrowid
+
+        # ----------------------------------------------------------------------------------------------------- #
+        #    Extracts Data for Results, TimeSeriesResults, TimeSeriesResultValues, and DataSetResults Tables    #
+        # ----------------------------------------------------------------------------------------------------- #
+
+        result_data_list = list(itertools.product(method_data_list, processing_level_data_list))
+        for result_data in result_data_list:
+            result = (
+                str(uuid.uuid4()),
+                result_data[0]["feature_action_id"],
+                "timeSeriesCoverage",
+                variable_id,
+                unit_id,
+                result_data[1]["processing_level_id"],
+                result_data[0]["start_date"],
+                result_data[0]["start_date_offset"],
+                None,
+                search_wml(vr_tree, ns, ["sampleMedium"], default_value="unknown"),
+                result_data[0]["value_count"],
+            )
+            curs.execute("""INSERT INTO Results (
+                            ResultID, 
+                            ResultUUID, 
+                            FeatureActionID, 
+                            ResultTypeCV,
+                            VariableID, 
+                            UnitsID, 
+                            ProcessingLevelID, 
+                            ResultDateTime, 
+                            ResultDateTimeUTCOffset, 
+                            StatusCV, 
+                            SampledMediumCV, 
+                            ValueCount
+                        ) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""", result)
+            result_id = curs.lastrowid
+            timeseries_result = (
+                result_id,
+                "Unknown",
+            )
+            curs.execute("""INSERT INTO TimeSeriesResults (
+                            ResultID, 
+                            AggregationStatisticCV
+                        ) VALUES (?, ?)""", timeseries_result)
+            timeseries_result_values = tuple([(
+                result_id,
+                i[0],
+                i[1],
+                i[2] if i[2] else "+00:00",
+                i[3] if i[3] else "nc",
+                "unknown",
+                "unknown",
+                "unknown",
+            ) for i in list(map(list, zip(*[
+                search_wml(wml_tree, ns, ["value"], mult=True),
+                search_wml(wml_tree, ns, ["value"], attr="dateTime", mult=True),
+                search_wml(wml_tree, ns, ["value"], default_value="+00:00", attr="timeOffset", mult=True),
+                search_wml(wml_tree, ns, ["value"], default_value="nc", attr="censorCode", mult=True)
+            ])))])
+            curs.execute("BEGIN TRANSACTION;")
+            curs.executemany("""INSERT INTO TimeSeriesResultValues ( 
+                                ValueID, 
+                                ResultID, 
+                                DataValue, 
+                                ValueDateTime,
+                                ValueDateTimeUTCOffset, 
+                                CensorCodeCV, 
+                                QualityCodeCV, 
+                                TimeAggregationInterval,
+                                TimeAggregationIntervalUnitsID
+                            ) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?)""", timeseries_result_values)
+            dataset_result = (
+                1,
+                result_id,
+            )
+            curs.execute("""INSERT INTO DataSetsResults ( 
+                            BridgeID, 
+                            DataSetID, 
+                            ResultID
+                        ) Values (NULL, ?, ?)""", dataset_result)
+
         # -------------------- #
         #    Commits Changes   #
         # -------------------- #
+
         try:
-            #conn.execute("COMMIT;")
             sql_connect.commit()
         except:
-            print("][COMMIT FAILED]")
             sql_connect.rollback()
             continue
-        print("*][SUCCESS]")
         series_count += 1
 
     print("Database Created Successfully")
