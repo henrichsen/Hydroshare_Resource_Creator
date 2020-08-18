@@ -2,20 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0159a467-9ea1-416a-a2e1-1190ff65c86f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/utilities.py" afterPath="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/utilities.py" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
-    <ignored path="tethysapp-hydroshare_resource_creator.iws" />
-    <ignored path=".idea/workspace.xml" />
-    <ignored path=".idea/dataSources.local.xml" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
-    <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/tethysapp-hydroshare_resource_creator$create_ODM2_sqlite.coverage" NAME="create_ODM2_sqlite Coverage Results" MODIFIED="1490883999363" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Downloads" />
+    <SUITE FILE_PATH="coverage/tethysapp-hydroshare_resource_creator$create_ODM2_sqlite.coverage" NAME="create_ODM2_sqlite Coverage Results" MODIFIED="1490883999363" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../Downloads" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -29,149 +24,8 @@
     <option name="SHOW_EMPTY_GROUPS" value="false" />
     <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
     <favorites_list name="tethysapp-hydroshare_resource_creator" />
-  </component>
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="600">
-      <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/public/js/main.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="20">
-              <caret line="495" column="13" lean-forward="false" selection-start-line="495" selection-start-column="13" selection-end-line="495" selection-end-column="13" />
-              <folding>
-                <element signature="e#4291#4704#0" expanded="false" />
-                <element signature="e#4736#5142#0" expanded="false" />
-                <element signature="e#5179#5605#0" expanded="false" />
-                <element signature="e#7315#7741#0" expanded="false" />
-                <element signature="e#7772#8336#0" expanded="false" />
-                <element signature="e#8372#8563#0" expanded="false" />
-                <element signature="e#8594#9258#0" expanded="false" />
-                <element signature="e#9291#9748#0" expanded="false" />
-                <element signature="e#9781#10042#0" expanded="false" />
-                <element signature="e#10240#15977#0" expanded="false" />
-                <marker date="1504925339688" expanded="true" signature="13091:13108" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="controllers_ajax.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/controllers_ajax.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="258">
-              <caret line="230" column="34" lean-forward="true" selection-start-line="230" selection-start-column="34" selection-end-line="230" selection-end-column="34" />
-              <folding>
-                <element signature="e#0#36#0" expanded="true" />
-                <element signature="e#4811#5814#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="app.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/app.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="660">
-              <caret line="33" column="108" lean-forward="false" selection-start-line="33" selection-start-column="108" selection-end-line="33" selection-end-column="108" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="utilities.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/utilities.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-13622">
-              <caret line="262" column="115" lean-forward="false" selection-start-line="262" selection-start-column="115" selection-end-line="262" selection-end-column="115" />
-              <folding>
-                <element signature="e#0#29#0" expanded="true" />
-                <element signature="e#8263#8267#0" expanded="false" />
-                <element signature="e#49589#81645#1" expanded="false" />
-                <element signature="e#81704#82317#0" expanded="false" />
-                <element signature="e#82346#82817#0" expanded="false" />
-                <marker date="1505150428128" expanded="true" signature="7530:7703" ph="INSERT INTO Datasets... " />
-                <marker date="1505150428128" expanded="true" signature="12920:12980" ph="SELECT * FRO... SamplingFeatures" />
-                <marker date="1505150428128" expanded="true" signature="15784:16153" ph="INSERT INTO SamplingFeatures... " />
-                <marker date="1505150428128" expanded="true" signature="16815:16964" ph="INSERT INTO SpatialReferences... " />
-                <marker date="1505150428128" expanded="true" signature="18108:18245" ph="INSERT INTO Sites... " />
-                <marker date="1505150428128" expanded="true" signature="19815:19857" ph="SELECT * FRO... Methods" />
-                <marker date="1505150428128" expanded="true" signature="20947:21098" ph="INSERT INTO Methods... " />
-                <marker date="1505150428128" expanded="true" signature="21771:21817" ph="SELECT * FRO... Variables" />
-                <marker date="1505150428128" expanded="true" signature="24004:24238" ph="INSERT INTO Variables... " />
-                <marker date="1505150428128" expanded="true" signature="24891:24930" ph="SELECT * FRO... Units" />
-                <marker date="1505150428128" expanded="true" signature="26885:27016" ph="INSERT INTO Units... " />
-                <marker date="1505150428128" expanded="true" signature="27690:27748" ph="SELECT * FRO... ProcessingLevels" />
-                <marker date="1505150428128" expanded="true" signature="29551:29644" ph="INSERT INTO ProcessingLevels... " />
-                <marker date="1505150428128" expanded="true" signature="29551:29689" ph="INSERT INTO ProcessingLevels... " />
-                <marker date="1505150428128" expanded="true" signature="30522:30589" ph="SELECT * FRO... People" />
-                <marker date="1505150428128" expanded="true" signature="31124:31230" ph="INSERT INTO People... " />
-                <marker date="1505150428128" expanded="true" signature="31791:31845" ph="SELECT * FRO... Organizations" />
-                <marker date="1505150428128" expanded="true" signature="33947:34189" ph="INSERT INTO Organizations... " />
-                <marker date="1505150428128" expanded="true" signature="34570:34638" ph="SELECT * FRO... Affiliations" />
-                <marker date="1505150428128" expanded="true" signature="36508:36734" ph="INSERT INTO Affiliations... " />
-                <marker date="1505150428128" expanded="true" signature="38931:39097" ph="INSERT INTO Actions... " />
-                <marker date="1505150428128" expanded="true" signature="38931:39153" ph="INSERT INTO Actions... " />
-                <marker date="1505150428128" expanded="true" signature="39921:40007" ph="INSERT INTO ActionBy... " />
-                <marker date="1505150428128" expanded="true" signature="39921:40054" ph="INSERT INTO ActionBy... " />
-                <marker date="1505150428128" expanded="true" signature="40583:40655" ph="INSERT INTO FeatureActions... " />
-                <marker date="1505150428128" expanded="true" signature="40583:40696" ph="INSERT INTO FeatureActions... " />
-                <marker date="1505150428128" expanded="true" signature="42882:43094" ph="INSERT INTO Results... " />
-                <marker date="1505150428128" expanded="true" signature="42882:43162" ph="INSERT INTO Results... " />
-                <marker date="1505150428128" expanded="true" signature="43668:43785" ph="INSERT INTO Units... " />
-                <marker date="1505150428128" expanded="true" signature="45447:45620" ph="INSERT INTO TimeSeriesResults... " />
-                <marker date="1505150428128" expanded="true" signature="48684:48701" ph="BEGIN TRANSA... " />
-                <marker date="1505150428128" expanded="true" signature="48728:49028" ph="INSERT INTO TimeSeriesResultValues... " />
-                <marker date="1505150428128" expanded="true" signature="49183:49261" ph="INSERT INTO DataSetsResults... " />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="controllers.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/controllers.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="400">
-              <caret line="26" column="6" lean-forward="false" selection-start-line="26" selection-start-column="6" selection-end-line="26" selection-end-column="6" />
-              <folding>
-                <element signature="e#0#35#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="nldas_refts.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/static_data/refts_test_files/nldas_refts.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="1246" lean-forward="false" selection-start-line="0" selection-start-column="1246" selection-end-line="0" selection-end-column="1246" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="gldas_refts.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/static_data/refts_test_files/gldas_refts.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="1210" lean-forward="false" selection-start-line="0" selection-start-column="1210" selection-end-line="0" selection-end-column="1210" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="uw_resource.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/static_data/refts_test_files/uw_resource.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="400">
-              <caret line="20" column="30" lean-forward="false" selection-start-line="20" selection-start-column="30" selection-end-line="20" selection-end-column="30" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -200,43 +54,13 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/public/css/main.css" />
-        <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/templates/hydroshare_resource_creator/login_callback.html" />
-        <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/templates/hydroshare_resource_creator/base.html" />
-        <option value="$PROJECT_DIR$/setup.py" />
-        <option value="$PROJECT_DIR$/timeseriesLayerResource.json.refts" />
-        <option value="$PROJECT_DIR$/nldasResource.json" />
-        <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/templates/hydroshare_resource_creator/home.html" />
-        <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/static_data/refts_test_files/uw_refts.json" />
-        <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/static_data/refts_test_files/stroud_refts.json" />
-        <option value="$PROJECT_DIR$/timeseriesLayerResource.json" />
-        <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/workspaces/user_workspaces/klippold3632164eb0664aca/id/Timeseries.json.refts" />
-        <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/public/js/main.js" />
-        <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/app.py" />
-        <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/static_data/refts_test_files/boulder_refts.json" />
-        <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/static_data/refts_test_files/nldas_refts.json" />
-        <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/static_data/refts_test_files/gldas_refts.json" />
-        <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/controllers_ajax.py" />
-        <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/controllers.py" />
-        <option value="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/utilities.py" />
-      </list>
-    </option>
-  </component>
-  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsGulpfileManager">
-    <detection-done>true</detection-done>
-    <sorting>DEFINITION_ORDER</sorting>
-  </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="65" />
     <option name="y" value="-4" />
     <option name="width" value="1615" />
     <option name="height" value="1054" />
   </component>
+  <component name="ProjectId" id="1gHFD6CHVZRjC4nyYfYmd1ggGoY" />
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
       <profile-state>
@@ -257,78 +81,23 @@
     </entry>
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
-  <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
-      <flattenPackages />
-      <showMembers />
-      <showModules />
-      <showLibraryContents />
-      <hideEmptyPackages />
-      <abbreviatePackageNames />
-      <autoscrollToSource />
-      <autoscrollFromSource />
-      <sortByType />
-      <manualOrder />
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tethysapp-hydroshare_resource_creator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tethysapp-hydroshare_resource_creator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tethysapp-hydroshare_resource_creator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tethysapp-hydroshare_resource_creator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tethysapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tethysapp-hydroshare_resource_creator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tethysapp-hydroshare_resource_creator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tethysapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hydroshare_resource_creator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
-    </panes>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/HS_TimeseriesCreator-dev" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="DefaultHtmlFileTemplate" value="Html5" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="com.intellij.database.dataSource.DataSourceTemplate" value="Sqlite (Xerial)" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="recentsLimit" value="5" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
-    <property name="com.intellij.database.dataSource.DataSourceTemplate" value="Sqlite (Xerial)" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -337,229 +106,7 @@
       <recent name="$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/workspaces" />
     </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
-  <component name="RunManager" selected="Python.create_ODM2_sqlite">
-    <configuration default="false" name="create_ODM2_sqlite" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$USER_HOME$/Downloads" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="tethysapp-hydroshare_resource_creator" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$USER_HOME$/Downloads/create_ODM2_sqlite.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <method />
-    </configuration>
-    <configuration default="true" type="DjangoTestsConfigurationType" factoryName="Django tests">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="tethysapp-hydroshare_resource_creator" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="TARGET" value="" />
-      <option name="SETTINGS_FILE" value="" />
-      <option name="CUSTOM_SETTINGS" value="false" />
-      <option name="USE_OPTIONS" value="false" />
-      <option name="OPTIONS" value="" />
-      <method />
-    </configuration>
-    <configuration default="true" type="JavaScriptTestRunnerJest" factoryName="Jest">
-      <node-interpreter value="project" />
-      <working-dir value="" />
-      <envs />
-      <scope-kind value="ALL" />
-      <method />
-    </configuration>
-    <configuration default="true" type="JavaScriptTestRunnerProtractor" factoryName="Protractor">
-      <config-file value="" />
-      <node-interpreter value="project" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
-      <method />
-    </configuration>
-    <configuration default="true" type="PyBehaveRunConfigurationType" factoryName="Behave">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="tethysapp-hydroshare_resource_creator" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="ADDITIONAL_ARGS" value="" />
-      <method />
-    </configuration>
-    <configuration default="true" type="PyLettuceRunConfigurationType" factoryName="Lettuce">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="tethysapp-hydroshare_resource_creator" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="ADDITIONAL_ARGS" value="" />
-      <method />
-    </configuration>
-    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="tethysapp-hydroshare_resource_creator" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <method />
-    </configuration>
-    <configuration default="true" type="Tox" factoryName="Tox">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <module name="tethysapp-hydroshare_resource_creator" />
-      <method />
-    </configuration>
-    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <gulpfile />
-      <tasks />
-      <arguments />
-      <pass-parent-envs>true</pass-parent-envs>
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
-      <command value="run" />
-      <scripts />
-      <node-interpreter value="project" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="tests" factoryName="Doctests">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="tethysapp-hydroshare_resource_creator" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <method />
-    </configuration>
-    <configuration default="true" type="tests" factoryName="Nosetests">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="tethysapp-hydroshare_resource_creator" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="_new_regexPattern" value="&quot;&quot;" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;.&quot;" />
-      <option name="_new_targetType" value="&quot;PATH&quot;" />
-      <method />
-    </configuration>
-    <configuration default="true" type="tests" factoryName="Unittests">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="tethysapp-hydroshare_resource_creator" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;.&quot;" />
-      <option name="_new_targetType" value="&quot;PATH&quot;" />
-      <method />
-    </configuration>
-    <configuration default="true" type="tests" factoryName="py.test">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="tethysapp-hydroshare_resource_creator" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="_new_keywords" value="&quot;&quot;" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;.&quot;" />
-      <option name="_new_targetType" value="&quot;PATH&quot;" />
-      <method />
-    </configuration>
-    <list size="1">
-      <item index="0" class="java.lang.String" itemvalue="Python.create_ODM2_sqlite" />
-    </list>
-    <recent_temporary>
-      <list size="1">
-        <item index="0" class="java.lang.String" itemvalue="Python.create_ODM2_sqlite" />
-      </list>
-    </recent_temporary>
+  <component name="RunManager">
     <configuration default="true" type="tests" factoryName="Attests">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -580,9 +127,103 @@
       <option name="USE_PATTERN" value="false" />
       <method />
     </configuration>
-  </component>
-  <component name="ShelveChangesManager" show_recycled="false">
-    <option name="remove_strategy" value="false" />
+    <configuration default="true" type="PyBehaveRunConfigurationType" factoryName="Behave">
+      <module name="tethysapp-hydroshare_resource_creator" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="ADDITIONAL_ARGS" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="create_ODM2_sqlite" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="tethysapp-hydroshare_resource_creator" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../Downloads" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../Downloads/create_ODM2_sqlite.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <pass-parent-envs>true</pass-parent-envs>
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Nosetests">
+      <module name="tethysapp-hydroshare_resource_creator" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_regexPattern" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;.&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Unittests">
+      <module name="tethysapp-hydroshare_resource_creator" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;.&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="py.test">
+      <module name="tethysapp-hydroshare_resource_creator" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_parameters" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;.&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.create_ODM2_sqlite" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -594,6 +235,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1462216892009</updated>
+      <workItem from="1597763488791" duration="206000" />
     </task>
     <servers />
   </component>
@@ -606,55 +248,8 @@
       <is-autoscroll-to-source value="true" />
     </todo-panel>
   </component>
-  <component name="ToolWindowManager">
-    <frame x="65" y="-4" width="1615" height="1054" extended-state="6" />
-    <editor active="true" />
-    <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2594009" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27187273" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32973805" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3293944" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32967034" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3286638" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-    </layout>
-    <layout-to-restore>
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32973805" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.006616257" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27187273" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32973805" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.001352265" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-    </layout-to-restore>
-  </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="processedProjectFiles" value="true" />
+    <option name="version" value="2" />
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -663,586 +258,5 @@
     <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
       <collection />
     </option>
-  </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <option name="time" value="26" />
-    </breakpoint-manager>
-    <watches-manager />
-  </component>
-  <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/controllers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/public/js/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="15" column="19" lean-forward="false" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="19" />
-          <folding>
-            <element signature="e#4291#4704#0" expanded="false" />
-            <element signature="e#4736#5142#0" expanded="false" />
-            <element signature="e#5179#5605#0" expanded="false" />
-            <element signature="e#7315#7741#0" expanded="false" />
-            <element signature="e#7772#8336#0" expanded="false" />
-            <element signature="e#8372#8563#0" expanded="false" />
-            <element signature="e#8594#9258#0" expanded="false" />
-            <element signature="e#9291#9748#0" expanded="false" />
-            <element signature="e#9781#10042#0" expanded="false" />
-            <element signature="e#10240#15977#0" expanded="false" />
-            <marker date="1504925339688" expanded="true" signature="13091:13108" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/templates/hydroshare_resource_creator/home.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="10" column="14" lean-forward="false" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/utilities.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="209" column="89" lean-forward="false" selection-start-line="209" selection-start-column="20" selection-end-line="209" selection-end-column="89" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-            <element signature="e#8263#8267#0" expanded="false" />
-            <element signature="e#49589#81645#1" expanded="false" />
-            <element signature="e#81704#82317#0" expanded="false" />
-            <element signature="e#82346#82817#0" expanded="false" />
-            <marker date="1505150428128" expanded="true" signature="7530:7703" ph="INSERT INTO Datasets... " />
-            <marker date="1505150428128" expanded="true" signature="12920:12980" ph="SELECT * FRO... SamplingFeatures" />
-            <marker date="1505150428128" expanded="true" signature="15784:16153" ph="INSERT INTO SamplingFeatures... " />
-            <marker date="1505150428128" expanded="true" signature="16815:16964" ph="INSERT INTO SpatialReferences... " />
-            <marker date="1505150428128" expanded="true" signature="18108:18245" ph="INSERT INTO Sites... " />
-            <marker date="1505150428128" expanded="true" signature="19815:19857" ph="SELECT * FRO... Methods" />
-            <marker date="1505150428128" expanded="true" signature="20947:21098" ph="INSERT INTO Methods... " />
-            <marker date="1505150428128" expanded="true" signature="21771:21817" ph="SELECT * FRO... Variables" />
-            <marker date="1505150428128" expanded="true" signature="24004:24238" ph="INSERT INTO Variables... " />
-            <marker date="1505150428128" expanded="true" signature="24891:24930" ph="SELECT * FRO... Units" />
-            <marker date="1505150428128" expanded="true" signature="26885:27016" ph="INSERT INTO Units... " />
-            <marker date="1505150428128" expanded="true" signature="27690:27748" ph="SELECT * FRO... ProcessingLevels" />
-            <marker date="1505150428128" expanded="true" signature="29551:29644" ph="INSERT INTO ProcessingLevels... " />
-            <marker date="1505150428128" expanded="true" signature="29551:29689" ph="INSERT INTO ProcessingLevels... " />
-            <marker date="1505150428128" expanded="true" signature="30522:30589" ph="SELECT * FRO... People" />
-            <marker date="1505150428128" expanded="true" signature="31124:31230" ph="INSERT INTO People... " />
-            <marker date="1505150428128" expanded="true" signature="31791:31845" ph="SELECT * FRO... Organizations" />
-            <marker date="1505150428128" expanded="true" signature="33947:34189" ph="INSERT INTO Organizations... " />
-            <marker date="1505150428128" expanded="true" signature="34570:34638" ph="SELECT * FRO... Affiliations" />
-            <marker date="1505150428128" expanded="true" signature="36508:36734" ph="INSERT INTO Affiliations... " />
-            <marker date="1505150428128" expanded="true" signature="38931:39097" ph="INSERT INTO Actions... " />
-            <marker date="1505150428128" expanded="true" signature="38931:39153" ph="INSERT INTO Actions... " />
-            <marker date="1505150428128" expanded="true" signature="39921:40007" ph="INSERT INTO ActionBy... " />
-            <marker date="1505150428128" expanded="true" signature="39921:40054" ph="INSERT INTO ActionBy... " />
-            <marker date="1505150428128" expanded="true" signature="40583:40655" ph="INSERT INTO FeatureActions... " />
-            <marker date="1505150428128" expanded="true" signature="40583:40696" ph="INSERT INTO FeatureActions... " />
-            <marker date="1505150428128" expanded="true" signature="42882:43094" ph="INSERT INTO Results... " />
-            <marker date="1505150428128" expanded="true" signature="42882:43162" ph="INSERT INTO Results... " />
-            <marker date="1505150428128" expanded="true" signature="43668:43785" ph="INSERT INTO Units... " />
-            <marker date="1505150428128" expanded="true" signature="45447:45620" ph="INSERT INTO TimeSeriesResults... " />
-            <marker date="1505150428128" expanded="true" signature="48684:48701" ph="BEGIN TRANSA... " />
-            <marker date="1505150428128" expanded="true" signature="48728:49028" ph="INSERT INTO TimeSeriesResultValues... " />
-            <marker date="1505150428128" expanded="true" signature="49183:49261" ph="INSERT INTO DataSetsResults... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="30" column="66" lean-forward="false" selection-start-line="30" selection-start-column="66" selection-end-line="30" selection-end-column="66" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/controllers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="44" column="31" lean-forward="false" selection-start-line="44" selection-start-column="31" selection-end-line="44" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/public/js/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding>
-            <element signature="e#4291#4704#0" expanded="false" />
-            <element signature="e#4736#5142#0" expanded="false" />
-            <element signature="e#5179#5605#0" expanded="false" />
-            <element signature="e#7315#7741#0" expanded="false" />
-            <element signature="e#7772#8336#0" expanded="false" />
-            <element signature="e#8372#8563#0" expanded="false" />
-            <element signature="e#8594#9258#0" expanded="false" />
-            <element signature="e#9291#9748#0" expanded="false" />
-            <element signature="e#9781#10042#0" expanded="false" />
-            <element signature="e#10240#15977#0" expanded="false" />
-            <marker date="1504925339688" expanded="true" signature="13091:13108" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/templates/hydroshare_resource_creator/home.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="10" column="14" lean-forward="false" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/utilities.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-            <element signature="e#8263#8267#0" expanded="false" />
-            <element signature="e#49589#81645#1" expanded="false" />
-            <element signature="e#81704#82317#0" expanded="false" />
-            <element signature="e#82346#82817#0" expanded="false" />
-            <marker date="1505150428128" expanded="true" signature="7530:7703" ph="INSERT INTO Datasets... " />
-            <marker date="1505150428128" expanded="true" signature="12920:12980" ph="SELECT * FRO... SamplingFeatures" />
-            <marker date="1505150428128" expanded="true" signature="15784:16153" ph="INSERT INTO SamplingFeatures... " />
-            <marker date="1505150428128" expanded="true" signature="16815:16964" ph="INSERT INTO SpatialReferences... " />
-            <marker date="1505150428128" expanded="true" signature="18108:18245" ph="INSERT INTO Sites... " />
-            <marker date="1505150428128" expanded="true" signature="19815:19857" ph="SELECT * FRO... Methods" />
-            <marker date="1505150428128" expanded="true" signature="20947:21098" ph="INSERT INTO Methods... " />
-            <marker date="1505150428128" expanded="true" signature="21771:21817" ph="SELECT * FRO... Variables" />
-            <marker date="1505150428128" expanded="true" signature="24004:24238" ph="INSERT INTO Variables... " />
-            <marker date="1505150428128" expanded="true" signature="24891:24930" ph="SELECT * FRO... Units" />
-            <marker date="1505150428128" expanded="true" signature="26885:27016" ph="INSERT INTO Units... " />
-            <marker date="1505150428128" expanded="true" signature="27690:27748" ph="SELECT * FRO... ProcessingLevels" />
-            <marker date="1505150428128" expanded="true" signature="29551:29644" ph="INSERT INTO ProcessingLevels... " />
-            <marker date="1505150428128" expanded="true" signature="29551:29689" ph="INSERT INTO ProcessingLevels... " />
-            <marker date="1505150428128" expanded="true" signature="30522:30589" ph="SELECT * FRO... People" />
-            <marker date="1505150428128" expanded="true" signature="31124:31230" ph="INSERT INTO People... " />
-            <marker date="1505150428128" expanded="true" signature="31791:31845" ph="SELECT * FRO... Organizations" />
-            <marker date="1505150428128" expanded="true" signature="33947:34189" ph="INSERT INTO Organizations... " />
-            <marker date="1505150428128" expanded="true" signature="34570:34638" ph="SELECT * FRO... Affiliations" />
-            <marker date="1505150428128" expanded="true" signature="36508:36734" ph="INSERT INTO Affiliations... " />
-            <marker date="1505150428128" expanded="true" signature="38931:39097" ph="INSERT INTO Actions... " />
-            <marker date="1505150428128" expanded="true" signature="38931:39153" ph="INSERT INTO Actions... " />
-            <marker date="1505150428128" expanded="true" signature="39921:40007" ph="INSERT INTO ActionBy... " />
-            <marker date="1505150428128" expanded="true" signature="39921:40054" ph="INSERT INTO ActionBy... " />
-            <marker date="1505150428128" expanded="true" signature="40583:40655" ph="INSERT INTO FeatureActions... " />
-            <marker date="1505150428128" expanded="true" signature="40583:40696" ph="INSERT INTO FeatureActions... " />
-            <marker date="1505150428128" expanded="true" signature="42882:43094" ph="INSERT INTO Results... " />
-            <marker date="1505150428128" expanded="true" signature="42882:43162" ph="INSERT INTO Results... " />
-            <marker date="1505150428128" expanded="true" signature="43668:43785" ph="INSERT INTO Units... " />
-            <marker date="1505150428128" expanded="true" signature="45447:45620" ph="INSERT INTO TimeSeriesResults... " />
-            <marker date="1505150428128" expanded="true" signature="48684:48701" ph="BEGIN TRANSA... " />
-            <marker date="1505150428128" expanded="true" signature="48728:49028" ph="INSERT INTO TimeSeriesResultValues... " />
-            <marker date="1505150428128" expanded="true" signature="49183:49261" ph="INSERT INTO DataSetsResults... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="30" column="82" lean-forward="false" selection-start-line="30" selection-start-column="82" selection-end-line="30" selection-end-column="82" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/controllers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="16" column="37" lean-forward="false" selection-start-line="16" selection-start-column="37" selection-end-line="16" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/public/js/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#4291#4704#0" expanded="false" />
-            <element signature="e#4736#5142#0" expanded="false" />
-            <element signature="e#5179#5605#0" expanded="false" />
-            <element signature="e#7315#7741#0" expanded="false" />
-            <element signature="e#7772#8336#0" expanded="false" />
-            <element signature="e#8372#8563#0" expanded="false" />
-            <element signature="e#8594#9258#0" expanded="false" />
-            <element signature="e#9291#9748#0" expanded="false" />
-            <element signature="e#9781#10042#0" expanded="false" />
-            <element signature="e#10240#15977#0" expanded="false" />
-            <marker date="1504925339688" expanded="true" signature="13091:13108" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/templates/hydroshare_resource_creator/home.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="10" column="14" lean-forward="false" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/utilities.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="394" column="0" lean-forward="false" selection-start-line="394" selection-start-column="0" selection-end-line="394" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-            <element signature="e#8263#8267#0" expanded="false" />
-            <element signature="e#49589#81645#1" expanded="false" />
-            <element signature="e#81704#82317#0" expanded="false" />
-            <element signature="e#82346#82817#0" expanded="false" />
-            <marker date="1505150428128" expanded="true" signature="7530:7703" ph="INSERT INTO Datasets... " />
-            <marker date="1505150428128" expanded="true" signature="12920:12980" ph="SELECT * FRO... SamplingFeatures" />
-            <marker date="1505150428128" expanded="true" signature="15784:16153" ph="INSERT INTO SamplingFeatures... " />
-            <marker date="1505150428128" expanded="true" signature="16815:16964" ph="INSERT INTO SpatialReferences... " />
-            <marker date="1505150428128" expanded="true" signature="18108:18245" ph="INSERT INTO Sites... " />
-            <marker date="1505150428128" expanded="true" signature="19815:19857" ph="SELECT * FRO... Methods" />
-            <marker date="1505150428128" expanded="true" signature="20947:21098" ph="INSERT INTO Methods... " />
-            <marker date="1505150428128" expanded="true" signature="21771:21817" ph="SELECT * FRO... Variables" />
-            <marker date="1505150428128" expanded="true" signature="24004:24238" ph="INSERT INTO Variables... " />
-            <marker date="1505150428128" expanded="true" signature="24891:24930" ph="SELECT * FRO... Units" />
-            <marker date="1505150428128" expanded="true" signature="26885:27016" ph="INSERT INTO Units... " />
-            <marker date="1505150428128" expanded="true" signature="27690:27748" ph="SELECT * FRO... ProcessingLevels" />
-            <marker date="1505150428128" expanded="true" signature="29551:29644" ph="INSERT INTO ProcessingLevels... " />
-            <marker date="1505150428128" expanded="true" signature="29551:29689" ph="INSERT INTO ProcessingLevels... " />
-            <marker date="1505150428128" expanded="true" signature="30522:30589" ph="SELECT * FRO... People" />
-            <marker date="1505150428128" expanded="true" signature="31124:31230" ph="INSERT INTO People... " />
-            <marker date="1505150428128" expanded="true" signature="31791:31845" ph="SELECT * FRO... Organizations" />
-            <marker date="1505150428128" expanded="true" signature="33947:34189" ph="INSERT INTO Organizations... " />
-            <marker date="1505150428128" expanded="true" signature="34570:34638" ph="SELECT * FRO... Affiliations" />
-            <marker date="1505150428128" expanded="true" signature="36508:36734" ph="INSERT INTO Affiliations... " />
-            <marker date="1505150428128" expanded="true" signature="38931:39097" ph="INSERT INTO Actions... " />
-            <marker date="1505150428128" expanded="true" signature="38931:39153" ph="INSERT INTO Actions... " />
-            <marker date="1505150428128" expanded="true" signature="39921:40007" ph="INSERT INTO ActionBy... " />
-            <marker date="1505150428128" expanded="true" signature="39921:40054" ph="INSERT INTO ActionBy... " />
-            <marker date="1505150428128" expanded="true" signature="40583:40655" ph="INSERT INTO FeatureActions... " />
-            <marker date="1505150428128" expanded="true" signature="40583:40696" ph="INSERT INTO FeatureActions... " />
-            <marker date="1505150428128" expanded="true" signature="42882:43094" ph="INSERT INTO Results... " />
-            <marker date="1505150428128" expanded="true" signature="42882:43162" ph="INSERT INTO Results... " />
-            <marker date="1505150428128" expanded="true" signature="43668:43785" ph="INSERT INTO Units... " />
-            <marker date="1505150428128" expanded="true" signature="45447:45620" ph="INSERT INTO TimeSeriesResults... " />
-            <marker date="1505150428128" expanded="true" signature="48684:48701" ph="BEGIN TRANSA... " />
-            <marker date="1505150428128" expanded="true" signature="48728:49028" ph="INSERT INTO TimeSeriesResultValues... " />
-            <marker date="1505150428128" expanded="true" signature="49183:49261" ph="INSERT INTO DataSetsResults... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="30" column="82" lean-forward="false" selection-start-line="30" selection-start-column="82" selection-end-line="30" selection-end-column="82" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/controllers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/public/js/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="5" column="87" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="5" selection-end-column="87" />
-          <folding>
-            <element signature="e#4291#4704#0" expanded="false" />
-            <element signature="e#4736#5142#0" expanded="false" />
-            <element signature="e#5179#5605#0" expanded="false" />
-            <element signature="e#7315#7741#0" expanded="false" />
-            <element signature="e#7772#8336#0" expanded="false" />
-            <element signature="e#8372#8563#0" expanded="false" />
-            <element signature="e#8594#9258#0" expanded="false" />
-            <element signature="e#9291#9748#0" expanded="false" />
-            <element signature="e#9781#10042#0" expanded="false" />
-            <element signature="e#10240#15977#0" expanded="false" />
-            <marker date="1504925339688" expanded="true" signature="13091:13108" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/templates/hydroshare_resource_creator/home.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="10" column="14" lean-forward="false" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/utilities.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="394" column="0" lean-forward="false" selection-start-line="394" selection-start-column="0" selection-end-line="394" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-            <element signature="e#8263#8267#0" expanded="false" />
-            <element signature="e#49589#81645#1" expanded="false" />
-            <element signature="e#81704#82317#0" expanded="false" />
-            <element signature="e#82346#82817#0" expanded="false" />
-            <marker date="1505150428128" expanded="true" signature="7530:7703" ph="INSERT INTO Datasets... " />
-            <marker date="1505150428128" expanded="true" signature="12920:12980" ph="SELECT * FRO... SamplingFeatures" />
-            <marker date="1505150428128" expanded="true" signature="15784:16153" ph="INSERT INTO SamplingFeatures... " />
-            <marker date="1505150428128" expanded="true" signature="16815:16964" ph="INSERT INTO SpatialReferences... " />
-            <marker date="1505150428128" expanded="true" signature="18108:18245" ph="INSERT INTO Sites... " />
-            <marker date="1505150428128" expanded="true" signature="19815:19857" ph="SELECT * FRO... Methods" />
-            <marker date="1505150428128" expanded="true" signature="20947:21098" ph="INSERT INTO Methods... " />
-            <marker date="1505150428128" expanded="true" signature="21771:21817" ph="SELECT * FRO... Variables" />
-            <marker date="1505150428128" expanded="true" signature="24004:24238" ph="INSERT INTO Variables... " />
-            <marker date="1505150428128" expanded="true" signature="24891:24930" ph="SELECT * FRO... Units" />
-            <marker date="1505150428128" expanded="true" signature="26885:27016" ph="INSERT INTO Units... " />
-            <marker date="1505150428128" expanded="true" signature="27690:27748" ph="SELECT * FRO... ProcessingLevels" />
-            <marker date="1505150428128" expanded="true" signature="29551:29644" ph="INSERT INTO ProcessingLevels... " />
-            <marker date="1505150428128" expanded="true" signature="29551:29689" ph="INSERT INTO ProcessingLevels... " />
-            <marker date="1505150428128" expanded="true" signature="30522:30589" ph="SELECT * FRO... People" />
-            <marker date="1505150428128" expanded="true" signature="31124:31230" ph="INSERT INTO People... " />
-            <marker date="1505150428128" expanded="true" signature="31791:31845" ph="SELECT * FRO... Organizations" />
-            <marker date="1505150428128" expanded="true" signature="33947:34189" ph="INSERT INTO Organizations... " />
-            <marker date="1505150428128" expanded="true" signature="34570:34638" ph="SELECT * FRO... Affiliations" />
-            <marker date="1505150428128" expanded="true" signature="36508:36734" ph="INSERT INTO Affiliations... " />
-            <marker date="1505150428128" expanded="true" signature="38931:39097" ph="INSERT INTO Actions... " />
-            <marker date="1505150428128" expanded="true" signature="38931:39153" ph="INSERT INTO Actions... " />
-            <marker date="1505150428128" expanded="true" signature="39921:40007" ph="INSERT INTO ActionBy... " />
-            <marker date="1505150428128" expanded="true" signature="39921:40054" ph="INSERT INTO ActionBy... " />
-            <marker date="1505150428128" expanded="true" signature="40583:40655" ph="INSERT INTO FeatureActions... " />
-            <marker date="1505150428128" expanded="true" signature="40583:40696" ph="INSERT INTO FeatureActions... " />
-            <marker date="1505150428128" expanded="true" signature="42882:43094" ph="INSERT INTO Results... " />
-            <marker date="1505150428128" expanded="true" signature="42882:43162" ph="INSERT INTO Results... " />
-            <marker date="1505150428128" expanded="true" signature="43668:43785" ph="INSERT INTO Units... " />
-            <marker date="1505150428128" expanded="true" signature="45447:45620" ph="INSERT INTO TimeSeriesResults... " />
-            <marker date="1505150428128" expanded="true" signature="48684:48701" ph="BEGIN TRANSA... " />
-            <marker date="1505150428128" expanded="true" signature="48728:49028" ph="INSERT INTO TimeSeriesResultValues... " />
-            <marker date="1505150428128" expanded="true" signature="49183:49261" ph="INSERT INTO DataSetsResults... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="30" column="82" lean-forward="false" selection-start-line="30" selection-start-column="82" selection-end-line="30" selection-end-column="82" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/handoff.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/templates/hydroshare_resource_creator/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="8" column="58" lean-forward="false" selection-start-line="8" selection-start-column="58" selection-end-line="8" selection-end-column="79" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/public/css/main.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="106" column="12" lean-forward="false" selection-start-line="106" selection-start-column="12" selection-end-line="106" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Downloads/create_ODM2_sqlite.py" />
-    <entry file="file://$USER_HOME$/ODM2/create_ODM2_sqlite.py" />
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/5bedbeaf-b3d9-466f-bbf2-4aa54c6a473f/console.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/f7e2c0f6-130f-431b-b201-f91c34cb87f0/console.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/workspaces/app_workspace/id/snow.xml" />
-    <entry file="file://$PROJECT_DIR$/temp_workspace.json" />
-    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/templates/hydroshare_resource_creator/login_callback.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/templates/hydroshare_resource_creator/home.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1020">
-          <caret line="30" column="20" lean-forward="false" selection-start-line="30" selection-start-column="20" selection-end-line="30" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nldasResource.json" />
-    <entry file="file://$PROJECT_DIR$/setup.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="12" column="41" lean-forward="false" selection-start-line="12" selection-start-column="41" selection-end-line="12" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/static_data/refts_test_files/stroud_resource.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-235">
-          <caret line="77" column="36" lean-forward="false" selection-start-line="77" selection-start-column="36" selection-end-line="77" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/static_data/refts_test_files/stroud_refts.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="11" column="25" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="39" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/workspaces/app_workspace/id/timeseriesLayerResource.json" />
-    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/workspaces/user_workspaces/klippold3632164eb0664aca/id/Timeseries.json.refts" />
-    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/workspaces/user_workspaces/klippold3632164eb0664acaTime series layer resource created on Fri Sep 08 2017 15:33:50 GMT-0600 (MDT).json" />
-    <entry file="file://$PROJECT_DIR$/timeseriesLayerResource.json" />
-    <entry file="file://$PROJECT_DIR$/data.JSON" />
-    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/templates/hydroshare_resource_creator/test.html" />
-    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/static_data/refts_test_files/uw_resource.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="20" column="30" lean-forward="false" selection-start-line="20" selection-start-column="30" selection-end-line="20" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/static_data/refts_test_files/gldas_refts.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="1210" lean-forward="false" selection-start-line="0" selection-start-column="1210" selection-end-line="0" selection-end-column="1210" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/static_data/refts_test_files/boulder_refts.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="31" column="10" lean-forward="false" selection-start-line="31" selection-start-column="10" selection-end-line="31" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/static_data/refts_test_files/uw_refts.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="39" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/public/js/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20">
-          <caret line="495" column="13" lean-forward="false" selection-start-line="495" selection-start-column="13" selection-end-line="495" selection-end-column="13" />
-          <folding>
-            <element signature="e#4291#4704#0" expanded="false" />
-            <element signature="e#4736#5142#0" expanded="false" />
-            <element signature="e#5179#5605#0" expanded="false" />
-            <element signature="e#7315#7741#0" expanded="false" />
-            <element signature="e#7772#8336#0" expanded="false" />
-            <element signature="e#8372#8563#0" expanded="false" />
-            <element signature="e#8594#9258#0" expanded="false" />
-            <element signature="e#9291#9748#0" expanded="false" />
-            <element signature="e#9781#10042#0" expanded="false" />
-            <element signature="e#10240#15977#0" expanded="false" />
-            <marker date="1504925339688" expanded="true" signature="13091:13108" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="660">
-          <caret line="33" column="108" lean-forward="false" selection-start-line="33" selection-start-column="108" selection-end-line="33" selection-end-column="108" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/static_data/refts_test_files/nldas_refts.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="1246" lean-forward="false" selection-start-line="0" selection-start-column="1246" selection-end-line="0" selection-end-column="1246" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/utilities.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-13622">
-          <caret line="262" column="115" lean-forward="false" selection-start-line="262" selection-start-column="115" selection-end-line="262" selection-end-column="115" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-            <element signature="e#8263#8267#0" expanded="false" />
-            <element signature="e#49589#81645#1" expanded="false" />
-            <element signature="e#81704#82317#0" expanded="false" />
-            <element signature="e#82346#82817#0" expanded="false" />
-            <marker date="1505150428128" expanded="true" signature="7530:7703" ph="INSERT INTO Datasets... " />
-            <marker date="1505150428128" expanded="true" signature="12920:12980" ph="SELECT * FRO... SamplingFeatures" />
-            <marker date="1505150428128" expanded="true" signature="15784:16153" ph="INSERT INTO SamplingFeatures... " />
-            <marker date="1505150428128" expanded="true" signature="16815:16964" ph="INSERT INTO SpatialReferences... " />
-            <marker date="1505150428128" expanded="true" signature="18108:18245" ph="INSERT INTO Sites... " />
-            <marker date="1505150428128" expanded="true" signature="19815:19857" ph="SELECT * FRO... Methods" />
-            <marker date="1505150428128" expanded="true" signature="20947:21098" ph="INSERT INTO Methods... " />
-            <marker date="1505150428128" expanded="true" signature="21771:21817" ph="SELECT * FRO... Variables" />
-            <marker date="1505150428128" expanded="true" signature="24004:24238" ph="INSERT INTO Variables... " />
-            <marker date="1505150428128" expanded="true" signature="24891:24930" ph="SELECT * FRO... Units" />
-            <marker date="1505150428128" expanded="true" signature="26885:27016" ph="INSERT INTO Units... " />
-            <marker date="1505150428128" expanded="true" signature="27690:27748" ph="SELECT * FRO... ProcessingLevels" />
-            <marker date="1505150428128" expanded="true" signature="29551:29644" ph="INSERT INTO ProcessingLevels... " />
-            <marker date="1505150428128" expanded="true" signature="29551:29689" ph="INSERT INTO ProcessingLevels... " />
-            <marker date="1505150428128" expanded="true" signature="30522:30589" ph="SELECT * FRO... People" />
-            <marker date="1505150428128" expanded="true" signature="31124:31230" ph="INSERT INTO People... " />
-            <marker date="1505150428128" expanded="true" signature="31791:31845" ph="SELECT * FRO... Organizations" />
-            <marker date="1505150428128" expanded="true" signature="33947:34189" ph="INSERT INTO Organizations... " />
-            <marker date="1505150428128" expanded="true" signature="34570:34638" ph="SELECT * FRO... Affiliations" />
-            <marker date="1505150428128" expanded="true" signature="36508:36734" ph="INSERT INTO Affiliations... " />
-            <marker date="1505150428128" expanded="true" signature="38931:39097" ph="INSERT INTO Actions... " />
-            <marker date="1505150428128" expanded="true" signature="38931:39153" ph="INSERT INTO Actions... " />
-            <marker date="1505150428128" expanded="true" signature="39921:40007" ph="INSERT INTO ActionBy... " />
-            <marker date="1505150428128" expanded="true" signature="39921:40054" ph="INSERT INTO ActionBy... " />
-            <marker date="1505150428128" expanded="true" signature="40583:40655" ph="INSERT INTO FeatureActions... " />
-            <marker date="1505150428128" expanded="true" signature="40583:40696" ph="INSERT INTO FeatureActions... " />
-            <marker date="1505150428128" expanded="true" signature="42882:43094" ph="INSERT INTO Results... " />
-            <marker date="1505150428128" expanded="true" signature="42882:43162" ph="INSERT INTO Results... " />
-            <marker date="1505150428128" expanded="true" signature="43668:43785" ph="INSERT INTO Units... " />
-            <marker date="1505150428128" expanded="true" signature="45447:45620" ph="INSERT INTO TimeSeriesResults... " />
-            <marker date="1505150428128" expanded="true" signature="48684:48701" ph="BEGIN TRANSA... " />
-            <marker date="1505150428128" expanded="true" signature="48728:49028" ph="INSERT INTO TimeSeriesResultValues... " />
-            <marker date="1505150428128" expanded="true" signature="49183:49261" ph="INSERT INTO DataSetsResults... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/controllers_ajax.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="258">
-          <caret line="230" column="34" lean-forward="true" selection-start-line="230" selection-start-column="34" selection-end-line="230" selection-end-column="34" />
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
-            <element signature="e#4811#5814#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tethysapp/hydroshare_resource_creator/controllers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="26" column="6" lean-forward="false" selection-start-line="26" selection-start-column="6" selection-end-line="26" selection-end-column="6" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
   </component>
 </project>

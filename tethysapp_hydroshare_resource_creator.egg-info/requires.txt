@@ -1,4 +1,0 @@
-simplejson
-xmltodict
-pandas
-lxml
