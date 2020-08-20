@@ -29,8 +29,7 @@ def login_test(request):
         'message': None,
         'results': {}
     }
-
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         data_url = request.POST.get('dataUrl')
         action_request = request.POST.get('actionRequest')
         hs = get_o_auth_hs(request)
@@ -38,7 +37,7 @@ def login_test(request):
         value_count = 0
         checked_ids = request.POST.get('checkedIds').split(',')
         form_body = json.loads(request.POST.get('formBody'))
-        if checked_ids != [u'']:
+        if checked_ids != ['']:
             try:
                 for chk_id in checked_ids:
                     value_count += int(form_body['timeSeriesReferenceFile']['referencedTimeSeries'][int(chk_id)]['valueCount'])
@@ -56,7 +55,7 @@ def login_test(request):
             return_obj['success'] = "True"
         elif "hs-apps-dev.hydroshare.org" in str(data_url) and "beta" in str(hs_version):
             return_obj['success'] = "True"
-        elif "127.0.0.1:8000" in str(data_url) and "beta" in str(hs_version):
+        elif ("127.0.0.1:8000" in str(data_url) or "localhost:8000" in str(data_url)) and "www" in str(hs_version): #switch "www" to "beta"
             return_obj['success'] = "True"
         else:
             return_obj['success'] = "False"
@@ -107,7 +106,7 @@ def ajax_create_resource(request):
         res_keywords = request.POST.get("resKeywords").split(",")
         res_access = str(request.POST.get("resAccess"))
         res_filename = res_title.replace(" ", "")[:10]
-        selected_resources = map(int, (request.POST.get("checkedIds")).split(','))
+        selected_resources = list(map(int, (request.POST.get("checkedIds")).split(',')))
         res_data = {
             "request": request,
             "form_body": data_body,
@@ -150,11 +149,11 @@ def ajax_create_resource(request):
                    "update": None,
                    "refts": create_refts_resource}
 
-        processed_data = actions[action_request](res_data)
+        processed_data = actions[action_request](res_data) #error?
 
         res_type = processed_data["res_type"]
         res_filepath = processed_data["res_filepath"]
-        res_filename = res_filename + processed_data["file_extension"]
+        res_filename = res_filename + processed_data["file_extension"] #error?
         res_status = processed_data["parse_status"]
         series_count = processed_data["series_count"]
 

@@ -1,4 +1,4 @@
-from __future__ import print_function
+
 from datetime import datetime
 import shutil
 import requests
@@ -738,13 +738,14 @@ def create_ts_resource(res_data):
                 "unknown",
                 "unknown",
                 "unknown",
-            ) for i in list(map(list, zip(*[
+            ) for i in list(map(list, list(zip(*[
                 search_wml(wml_tree, ns, ["value"], mult=True),
                 search_wml(wml_tree, ns, ["value"], attr="dateTime", mult=True),
                 search_wml(wml_tree, ns, ["value"], default_value="+00:00", attr="timeOffset", mult=True),
                 search_wml(wml_tree, ns, ["value"], default_value="nc", attr="censorCode", mult=True)
-            ])))])
+            ]))))])
             curs.execute("BEGIN TRANSACTION;")
+            print(timeseries_result_values)
             curs.executemany("""INSERT INTO TimeSeriesResultValues ( 
                                 ValueID, 
                                 ResultID, 
@@ -755,7 +756,7 @@ def create_ts_resource(res_data):
                                 QualityCodeCV, 
                                 TimeAggregationInterval,
                                 TimeAggregationIntervalUnitsID
-                            ) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?)""", timeseries_result_values)
+                            ) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?)""", timeseries_result_values) #error?
             dataset_result = (
                 1,
                 result_id,
