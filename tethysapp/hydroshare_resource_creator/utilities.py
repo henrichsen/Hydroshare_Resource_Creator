@@ -738,12 +738,12 @@ def create_ts_resource(res_data):
                 "unknown",
                 "unknown",
                 "unknown",
-            ) for i in list(map(list, list(zip(*[
+            ) for i in list(map(list, zip(*[
                 search_wml(wml_tree, ns, ["value"], mult=True),
                 search_wml(wml_tree, ns, ["value"], attr="dateTime", mult=True),
                 search_wml(wml_tree, ns, ["value"], default_value="+00:00", attr="timeOffset", mult=True),
                 search_wml(wml_tree, ns, ["value"], default_value="nc", attr="censorCode", mult=True)
-            ]))))])
+            ])))])
             curs.execute("BEGIN TRANSACTION;")
             print(timeseries_result_values)
             curs.executemany("""INSERT INTO TimeSeriesResultValues ( 
